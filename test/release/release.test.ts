@@ -78,7 +78,7 @@ describe("lockstep releases", () => {
   });
 
   it("publishes every package at one version with provenance, resolvable through the bundle", async () => {
-    const root = sourceRepository("good", "0.1.0-rc.0");
+    const root = sourceRepository("good", "99.0.0-test.0");
     const commit = git(root, "rev-parse", "HEAD");
     const result = release(root);
     expect(result.status, `${result.stdout}\n${result.stderr}`).toBe(0);
@@ -92,20 +92,20 @@ describe("lockstep releases", () => {
     fs.mkdirSync(consumer);
     fs.copyFileSync(path.join(ROOT, ".npmrc"), path.join(consumer, ".npmrc"));
     fs.writeFileSync(path.join(consumer, "package.json"), JSON.stringify({ name: "consumer", version: "0.0.0", private: true }));
-    const installed = spawnSync("npm", ["install", "--save-exact", "@repo-facts/bundle@0.1.0-rc.0"], { cwd: consumer, encoding: "utf8", env: { ...process.env, REPO_FACTS_NPM_REGISTRY: registry.url } });
+    const installed = spawnSync("npm", ["install", "--save-exact", "@repo-facts/bundle@99.0.0-test.0"], { cwd: consumer, encoding: "utf8", env: { ...process.env, REPO_FACTS_NPM_REGISTRY: registry.url } });
     expect(installed.status, installed.stderr).toBe(0);
 
     for (const name of PACKAGES) {
       const directory = path.join(consumer, "node_modules", "@repo-facts", name);
       const manifest = JSON.parse(fs.readFileSync(path.join(directory, "package.json"), "utf8"));
-      expect(manifest.version, name).toBe("0.1.0-rc.0");
-      expect(manifest.repoFacts, name).toEqual({ commit, release: "0.1.0-rc.0" });
-      expect(JSON.parse(fs.readFileSync(path.join(directory, "provenance.json"), "utf8")), name).toEqual({ package: `@repo-facts/${name}`, version: "0.1.0-rc.0", commit });
+      expect(manifest.version, name).toBe("99.0.0-test.0");
+      expect(manifest.repoFacts, name).toEqual({ commit, release: "99.0.0-test.0" });
+      expect(JSON.parse(fs.readFileSync(path.join(directory, "provenance.json"), "utf8")), name).toEqual({ package: `@repo-facts/${name}`, version: "99.0.0-test.0", commit });
       expect(fs.existsSync(path.join(directory, "dist", "index.js")), name).toBe(true);
       const shipped = fs.readdirSync(directory, { recursive: true, encoding: "utf8" });
       expect(shipped.filter((file) => file.endsWith(".tsbuildinfo") || file.startsWith("src")), name).toEqual([]);
       for (const [dependency, range] of Object.entries((manifest.dependencies ?? {}) as Record<string, string>)) {
-        if (dependency.startsWith("@repo-facts/")) expect(range, `${name} -> ${dependency}`).toBe("0.1.0-rc.0");
+        if (dependency.startsWith("@repo-facts/")) expect(range, `${name} -> ${dependency}`).toBe("99.0.0-test.0");
       }
     }
     expect(fs.readdirSync(path.join(consumer, "node_modules", "@repo-facts")).sort()).toEqual([...PACKAGES].sort());
@@ -120,22 +120,22 @@ describe("lockstep releases", () => {
     const result = spawnSync("npm", ["run", "release:dry-run"], { cwd: root, encoding: "utf8", env: environment });
     expect(result.status, `${result.stdout}\n${result.stderr}`).toBe(0);
     expect(result.stdout).toContain("Dry run of the uncommitted working tree.");
-    expect([...result.stdout.matchAll(/Would publish (@repo-facts\/[a-z]+)@0\.0\.0/g)].map((match) => match[1])).toHaveLength(PACKAGES.length);
+    expect([...result.stdout.matchAll(/Would publish (@repo-facts\/[a-z]+)@\S+ from/g)].map((match) => match[1])).toHaveLength(PACKAGES.length);
     expect(result.stdout).not.toContain("Publishing");
     expect(Date.now() - started).toBeLessThan(120_000);
   });
 
   it("refuses to release a dirty tree", async () => {
-    const root = sourceRepository("dirty", "0.2.0-rc.0");
+    const root = sourceRepository("dirty", "99.0.1-test.0");
     fs.appendFileSync(path.join(root, "README.md"), "\nuncommitted\n");
     const result = release(root);
     expect(result.status).not.toBe(0);
     expect(result.stderr).toContain("Refusing to release a dirty tree");
-    expect(await published("contract")).not.toContain("0.2.0-rc.0");
+    expect(await published("contract")).not.toContain("99.0.1-test.0");
   });
 
   it("refuses to release when a gate fails, before publishing anything", async () => {
-    const root = sourceRepository("failing", "0.3.0-rc.0", (tree) => {
+    const root = sourceRepository("failing", "99.0.2-test.0", (tree) => {
       fs.mkdirSync(path.join(tree, "packages", "contract", "test"), { recursive: true });
       fs.writeFileSync(path.join(tree, "packages", "contract", "test", "gate.test.ts"), 'import { expect, it } from "vitest";\n\nit("fails the release gate", () => {\n  expect(1).toBe(2);\n});\n');
     });
@@ -143,19 +143,19 @@ describe("lockstep releases", () => {
     expect(result.status).not.toBe(0);
     expect(result.stdout).toContain("fails the release gate");
     expect(result.stdout).not.toContain("Publishing");
-    for (const name of PACKAGES) expect(await published(name), name).not.toContain("0.3.0-rc.0");
+    for (const name of PACKAGES) expect(await published(name), name).not.toContain("99.0.2-test.0");
   });
 
   it("refuses mixed versions", async () => {
-    const root = sourceRepository("mixed", "0.4.0-rc.0", (tree) => {
+    const root = sourceRepository("mixed", "99.0.3-test.0", (tree) => {
       const file = path.join(tree, "packages", "core", "package.json");
       const manifest = JSON.parse(fs.readFileSync(file, "utf8"));
-      manifest.version = "0.4.0-rc.1";
+      manifest.version = "99.0.3-test.1";
       fs.writeFileSync(file, `${JSON.stringify(manifest, null, 2)}\n`);
     });
     const result = release(root);
     expect(result.status).not.toBe(0);
-    expect(result.stderr).toContain("@repo-facts/core is at 0.4.0-rc.1, not 0.4.0-rc.0");
-    expect(await published("core")).not.toContain("0.4.0-rc.1");
+    expect(result.stderr).toContain("@repo-facts/core is at 99.0.3-test.1, not 99.0.3-test.0");
+    expect(await published("core")).not.toContain("99.0.3-test.1");
   });
 });
