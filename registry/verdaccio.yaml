@@ -1,0 +1,21 @@
+# Local development and CI registry for @repo-facts packages.
+# Storage and accounts live under tmp/, which is never committed.
+storage: ../tmp/registry/storage
+auth:
+  htpasswd:
+    file: ../tmp/registry/htpasswd
+    max_users: 10
+# No uplinks: this registry serves only packages published to it, so it can
+# never proxy a public package in place of an internal one.
+uplinks: {}
+packages:
+  "@repo-facts/*":
+    access: $all
+    publish: $authenticated
+    unpublish: $authenticated
+  "**":
+    access: $all
+log:
+  type: stdout
+  format: pretty
+  level: warn

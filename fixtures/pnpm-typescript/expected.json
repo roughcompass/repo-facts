@@ -1,0 +1,1238 @@
+{
+  "categories": {
+    "access_signals": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "api_contracts": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "build_tools": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_1aa5a64514ef68e14cf875f5",
+            "ev_50ee008299f7443f20674fcc"
+          ],
+          "key": "typescript",
+          "rule": "manifest.tool-dependency",
+          "state": "observed",
+          "value": {
+            "id": "typescript",
+            "label": "TypeScript compiler"
+          }
+        },
+        {
+          "evidence": [
+            "ev_63f60e1749d49dc5c6154001",
+            "ev_a4334abcacbd21f30dc2035e"
+          ],
+          "key": "vite",
+          "rule": "manifest.tool-dependency",
+          "state": "observed",
+          "value": {
+            "id": "vite",
+            "label": "Vite"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "config.tool-file",
+          "manifest.tool-dependency"
+        ],
+        "skipped": [],
+        "surface": [
+          "apps/web/package.json",
+          "libs/deprecated/package.json",
+          "libs/ui/core/package.json",
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "ci_systems": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "composition": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "dependencies": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_a6f12d8b002b082042d777fe"
+          ],
+          "key": "apps/web/package.json#dependencies/vue",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "dependencies",
+            "manifest": "apps/web/package.json",
+            "name": "vue",
+            "specifier": "^3.4.0"
+          }
+        },
+        {
+          "evidence": [
+            "ev_59c3d3485cb79e278f4cf0d9"
+          ],
+          "key": "package.json#devDependencies/typescript",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "devDependencies",
+            "manifest": "package.json",
+            "name": "typescript",
+            "specifier": "5.9.3"
+          }
+        },
+        {
+          "evidence": [
+            "ev_f722629dfcb8d27eb848abe3"
+          ],
+          "key": "package.json#devDependencies/vite",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "devDependencies",
+            "manifest": "package.json",
+            "name": "vite",
+            "specifier": "7.1.0"
+          }
+        },
+        {
+          "evidence": [
+            "ev_90bd13b086108727f6e2090b"
+          ],
+          "key": "package.json#devDependencies/vitest",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "devDependencies",
+            "manifest": "package.json",
+            "name": "vitest",
+            "specifier": "3.2.4"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.dependencies"
+        ],
+        "skipped": [],
+        "surface": [
+          "apps/web/package.json",
+          "libs/deprecated/package.json",
+          "libs/ui/core/package.json",
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "egress_routes": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "frameworks": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_cc4fc55fd1bebea29a7770ba"
+          ],
+          "key": "apps/web/package.json#vue",
+          "rule": "manifest.framework",
+          "state": "observed",
+          "value": {
+            "id": "vue",
+            "label": "Vue",
+            "manifest": "apps/web/package.json",
+            "package": "vue",
+            "specifiers": {
+              "dependencies": "^3.4.0"
+            }
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.framework"
+        ],
+        "skipped": [],
+        "surface": [
+          "apps/web/package.json",
+          "libs/deprecated/package.json",
+          "libs/ui/core/package.json",
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "languages": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_438f9417da8643f47f4437c0",
+            "ev_90e090e5f60950c3632c03e7",
+            "ev_b4d2f447dc860e76859a10f8"
+          ],
+          "key": "JSON",
+          "rule": "inventory.language-by-extension",
+          "state": "observed",
+          "value": {
+            "bytes": 462,
+            "files": 5
+          }
+        },
+        {
+          "evidence": [
+            "ev_3daf3f63f579acdb44637605",
+            "ev_6938292061e28cbd9e48483a",
+            "ev_e55de5b77f39e1e8d5645c33"
+          ],
+          "key": "TypeScript",
+          "rule": "inventory.language-by-extension",
+          "state": "observed",
+          "value": {
+            "bytes": 49,
+            "files": 3
+          }
+        },
+        {
+          "evidence": [
+            "ev_94b4c0203711e261fbd2c503",
+            "ev_d0174fb8253203e4173c084f"
+          ],
+          "key": "YAML",
+          "rule": "inventory.language-by-extension",
+          "state": "observed",
+          "value": {
+            "bytes": 448,
+            "files": 2
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.language-by-extension"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "observed"
+    },
+    "package_identity": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_3888c88a1b1557fec28c45bd"
+          ],
+          "key": "apps/web/package.json",
+          "rule": "manifest.identity",
+          "state": "observed",
+          "value": {
+            "manifest": "apps/web/package.json",
+            "name": "@catalog/web",
+            "private": false,
+            "version": null
+          }
+        },
+        {
+          "evidence": [
+            "ev_9d8f542e1bbf592b13482524"
+          ],
+          "key": "libs/deprecated/package.json",
+          "rule": "manifest.identity",
+          "state": "observed",
+          "value": {
+            "manifest": "libs/deprecated/package.json",
+            "name": "@catalog/deprecated",
+            "private": false,
+            "version": null
+          }
+        },
+        {
+          "evidence": [
+            "ev_29f01e0e11039f992a8adab2"
+          ],
+          "key": "libs/ui/core/package.json",
+          "rule": "manifest.identity",
+          "state": "observed",
+          "value": {
+            "manifest": "libs/ui/core/package.json",
+            "name": "@catalog/ui-core",
+            "private": false,
+            "version": null
+          }
+        },
+        {
+          "evidence": [
+            "ev_a8d0dcbe389c5961ff89393d"
+          ],
+          "key": "package.json",
+          "rule": "manifest.identity",
+          "state": "observed",
+          "value": {
+            "manifest": "package.json",
+            "name": "catalog",
+            "private": false,
+            "version": null
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.identity"
+        ],
+        "skipped": [],
+        "surface": [
+          "apps/web/package.json",
+          "libs/deprecated/package.json",
+          "libs/ui/core/package.json",
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "package_managers": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_9350b5f4622a5d000b8cd0a9",
+            "ev_e5e22f011960a67f7680272e"
+          ],
+          "key": ".",
+          "rule": "manifest.package-manager",
+          "state": "observed",
+          "value": "pnpm"
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "lockfile.package-manager",
+          "manifest.package-manager"
+        ],
+        "skipped": [],
+        "surface": [
+          "apps/web/package.json",
+          "libs/deprecated/package.json",
+          "libs/ui/core/package.json",
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "packages_consumed": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "packages_produced": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "resolved_dependencies": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_43f603720742aed2354edc8d"
+          ],
+          "key": "apps/web/package.json#vue",
+          "rule": "pnpm-lock.resolved-version",
+          "state": "observed",
+          "value": {
+            "manifest": "apps/web/package.json",
+            "name": "vue",
+            "version": "3.5.13"
+          }
+        },
+        {
+          "evidence": [
+            "ev_77820b641aecb3d3c0a60f5e"
+          ],
+          "key": "package.json#typescript",
+          "rule": "pnpm-lock.resolved-version",
+          "state": "observed",
+          "value": {
+            "manifest": "package.json",
+            "name": "typescript",
+            "version": "5.9.3"
+          }
+        },
+        {
+          "evidence": [
+            "ev_4700694e25547688fe0913fd"
+          ],
+          "key": "package.json#vite",
+          "rule": "pnpm-lock.resolved-version",
+          "state": "observed",
+          "value": {
+            "manifest": "package.json",
+            "name": "vite",
+            "version": "7.1.0"
+          }
+        },
+        {
+          "evidence": [
+            "ev_1bb118d72814c8aa6b1601a7"
+          ],
+          "key": "package.json#vitest",
+          "rule": "pnpm-lock.resolved-version",
+          "state": "observed",
+          "value": {
+            "manifest": "package.json",
+            "name": "vitest",
+            "version": "3.2.4"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "npm-lock.resolved-version",
+          "pnpm-lock.resolved-version",
+          "yarn-lock.resolved-version"
+        ],
+        "skipped": [],
+        "surface": [
+          "pnpm-lock.yaml"
+        ]
+      },
+      "state": "observed"
+    },
+    "runtime_integrations": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "runtime_requirements": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_fdf10922b56fbd86c39a3299"
+          ],
+          "key": "node",
+          "rule": "manifest.engines",
+          "state": "observed",
+          "value": {
+            "declared": [
+              ">=20"
+            ],
+            "range": ">=20.0.0"
+          }
+        },
+        {
+          "evidence": [
+            "ev_0c7669dca30620651af5bcb2",
+            "ev_721ff72833c06016751a85a2"
+          ],
+          "key": "pnpm",
+          "rule": "manifest.engines",
+          "state": "observed",
+          "value": {
+            "declared": [
+              "9.1.0",
+              ">=9"
+            ],
+            "range": "9.1.0"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "runtime.declarations"
+        ],
+        "skipped": [],
+        "surface": [
+          "apps/web/package.json",
+          "libs/deprecated/package.json",
+          "libs/ui/core/package.json",
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "scripts": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_f2fcbf9015bbad4c438e2296"
+          ],
+          "key": "package.json#test",
+          "rule": "manifest.scripts",
+          "state": "observed",
+          "value": {
+            "command": "vitest run",
+            "manifest": "package.json",
+            "name": "test"
+          }
+        },
+        {
+          "evidence": [
+            "ev_150cdab0237225814751f586"
+          ],
+          "key": "package.json#typecheck",
+          "rule": "manifest.scripts",
+          "state": "observed",
+          "value": {
+            "command": "tsc --noEmit",
+            "manifest": "package.json",
+            "name": "typecheck"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.scripts"
+        ],
+        "skipped": [],
+        "surface": [
+          "apps/web/package.json",
+          "libs/deprecated/package.json",
+          "libs/ui/core/package.json",
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "served_origins": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "submodules": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.gitlink"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    },
+    "test_frameworks": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_993f9a3f4ab2ddc2d6f929f3",
+            "ev_e1202fde01c563b99a6da36b"
+          ],
+          "key": "vitest",
+          "rule": "manifest.tool-dependency",
+          "state": "observed",
+          "value": {
+            "id": "vitest",
+            "label": "Vitest"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "config.tool-file",
+          "manifest.tool-dependency"
+        ],
+        "skipped": [],
+        "surface": [
+          "apps/web/package.json",
+          "libs/deprecated/package.json",
+          "libs/ui/core/package.json",
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "test_substitutes": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "verification_commands": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "workspaces": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_9d68f9de7714dfd7e2557795",
+            "ev_c915e555ebee959acf03946c"
+          ],
+          "key": "apps/web",
+          "rule": "pnpm-workspace.packages",
+          "state": "observed",
+          "value": {
+            "directory": "apps/web",
+            "package": "@catalog/web"
+          }
+        },
+        {
+          "evidence": [
+            "ev_0a507c09d0d517cdd2d132da",
+            "ev_d74d57196e478e5abbe1f80f"
+          ],
+          "key": "libs/ui/core",
+          "rule": "pnpm-workspace.packages",
+          "state": "observed",
+          "value": {
+            "directory": "libs/ui/core",
+            "package": "@catalog/ui-core"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.workspaces",
+          "pnpm-workspace.packages"
+        ],
+        "skipped": [],
+        "surface": [
+          "pnpm-workspace.yaml"
+        ]
+      },
+      "state": "observed"
+    }
+  },
+  "commit": null,
+  "detector_release": "golden",
+  "diagnostics": [],
+  "evidence": {
+    "ev_0a507c09d0d517cdd2d132da": {
+      "commit": null,
+      "content_digest": "a630687f3831df8c0e515ff80831bd076e4b85e830095df63d3be67acb929a6e",
+      "detector": "package-metadata",
+      "excerpt_digest": "95a9fe1f73d55b5920d45972b66ee1d22c32e3c2820e40992c8f3cdb98b2f33e",
+      "id": "ev_0a507c09d0d517cdd2d132da",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/name"
+      },
+      "object_id": "910d41fca718a5688137bf6e873e6e32cb5c6469",
+      "path": "libs/ui/core/package.json",
+      "rule": "pnpm-workspace.packages"
+    },
+    "ev_0c7669dca30620651af5bcb2": {
+      "commit": null,
+      "content_digest": "1a624925def4d194fea4276f1d93d1f716220ab4fd24c1513adca86403f77f6e",
+      "detector": "runtime",
+      "excerpt_digest": "54ce9effc682159cb55a2c7a83ba745a247871c04445f656895794affc19347e",
+      "id": "ev_0c7669dca30620651af5bcb2",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/packageManager"
+      },
+      "object_id": "0a9f40baf6dd12d31aebfb9430a3ed0dfb409412",
+      "path": "package.json",
+      "rule": "manifest.package-manager-version"
+    },
+    "ev_150cdab0237225814751f586": {
+      "commit": null,
+      "content_digest": "1a624925def4d194fea4276f1d93d1f716220ab4fd24c1513adca86403f77f6e",
+      "detector": "package-metadata",
+      "excerpt_digest": "9a8999f9c52288059269c0f40ff8eafd14c9941076ccee86cd4bebb7c09d6b60",
+      "id": "ev_150cdab0237225814751f586",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/scripts/typecheck"
+      },
+      "object_id": "0a9f40baf6dd12d31aebfb9430a3ed0dfb409412",
+      "path": "package.json",
+      "rule": "manifest.scripts"
+    },
+    "ev_1aa5a64514ef68e14cf875f5": {
+      "commit": null,
+      "content_digest": "1a624925def4d194fea4276f1d93d1f716220ab4fd24c1513adca86403f77f6e",
+      "detector": "tooling",
+      "excerpt_digest": "fa4b3ccaab62849bf58af9a41e4d3df128e98909bbbbff64367fc28137e071a3",
+      "id": "ev_1aa5a64514ef68e14cf875f5",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/typescript"
+      },
+      "object_id": "0a9f40baf6dd12d31aebfb9430a3ed0dfb409412",
+      "path": "package.json",
+      "rule": "manifest.tool-dependency"
+    },
+    "ev_1bb118d72814c8aa6b1601a7": {
+      "commit": null,
+      "content_digest": "557ee32ecc1c84bf6079951ea248667f1e1b1a17dcc1370a45b4db2ff4c2a359",
+      "detector": "pnpm-lock",
+      "excerpt_digest": "20887c314c0dec7883f36449f1c0b78cf862c6f05b9815ea4bb52935293b8615",
+      "id": "ev_1bb118d72814c8aa6b1601a7",
+      "location": {
+        "format": "yaml",
+        "kind": "pointer",
+        "pointer": "/importers/./devDependencies/vitest/version"
+      },
+      "object_id": "ede682f929c5fab7468bc4ba5651955cd1e16c69",
+      "path": "pnpm-lock.yaml",
+      "rule": "pnpm-lock.resolved-version"
+    },
+    "ev_29f01e0e11039f992a8adab2": {
+      "commit": null,
+      "content_digest": "a630687f3831df8c0e515ff80831bd076e4b85e830095df63d3be67acb929a6e",
+      "detector": "package-metadata",
+      "excerpt_digest": "95a9fe1f73d55b5920d45972b66ee1d22c32e3c2820e40992c8f3cdb98b2f33e",
+      "id": "ev_29f01e0e11039f992a8adab2",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/name"
+      },
+      "object_id": "910d41fca718a5688137bf6e873e6e32cb5c6469",
+      "path": "libs/ui/core/package.json",
+      "rule": "manifest.identity"
+    },
+    "ev_3888c88a1b1557fec28c45bd": {
+      "commit": null,
+      "content_digest": "279a3aca4c57bfafd04be921b1ccbc8b5f083e818629a2f06e2003d2c9c7f7c6",
+      "detector": "package-metadata",
+      "excerpt_digest": "fa41e6d6bcedd186d7862bf8dc8d06f4ab8ff6b6d30fa23a38f7947121dd2cb1",
+      "id": "ev_3888c88a1b1557fec28c45bd",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/name"
+      },
+      "object_id": "bd15bac6b70f7162bf630734b639939815cb00bf",
+      "path": "apps/web/package.json",
+      "rule": "manifest.identity"
+    },
+    "ev_3daf3f63f579acdb44637605": {
+      "commit": null,
+      "content_digest": "5842d26bd9e24a4e93ce8617537849cb97d30518d93a8c2bed97aa73c84a874e",
+      "detector": "inventory",
+      "excerpt_digest": "5842d26bd9e24a4e93ce8617537849cb97d30518d93a8c2bed97aa73c84a874e",
+      "id": "ev_3daf3f63f579acdb44637605",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "ff8b4c56321a3362fc00224b01800f62466f9a1f",
+      "path": "vite.config.ts",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_438f9417da8643f47f4437c0": {
+      "commit": null,
+      "content_digest": "ee4defd0fb0996218cbf78e863244257c48f233f2bde9c8bed10dad3eb48f568",
+      "detector": "inventory",
+      "excerpt_digest": "ee4defd0fb0996218cbf78e863244257c48f233f2bde9c8bed10dad3eb48f568",
+      "id": "ev_438f9417da8643f47f4437c0",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "0ced80877a361e944af75055893f65ae66fdb425",
+      "path": "libs/deprecated/package.json",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_43f603720742aed2354edc8d": {
+      "commit": null,
+      "content_digest": "557ee32ecc1c84bf6079951ea248667f1e1b1a17dcc1370a45b4db2ff4c2a359",
+      "detector": "pnpm-lock",
+      "excerpt_digest": "f95acdee67fdf58e1151f7a47c9b2d1822369f0f02b08a9964c2eed584d0509a",
+      "id": "ev_43f603720742aed2354edc8d",
+      "location": {
+        "format": "yaml",
+        "kind": "pointer",
+        "pointer": "/importers/apps~1web/dependencies/vue/version"
+      },
+      "object_id": "ede682f929c5fab7468bc4ba5651955cd1e16c69",
+      "path": "pnpm-lock.yaml",
+      "rule": "pnpm-lock.resolved-version"
+    },
+    "ev_4700694e25547688fe0913fd": {
+      "commit": null,
+      "content_digest": "557ee32ecc1c84bf6079951ea248667f1e1b1a17dcc1370a45b4db2ff4c2a359",
+      "detector": "pnpm-lock",
+      "excerpt_digest": "fb43d145ae618c984e068cdc0198ed8b7216b8f4c474b0f69e5fb0df486c3bde",
+      "id": "ev_4700694e25547688fe0913fd",
+      "location": {
+        "format": "yaml",
+        "kind": "pointer",
+        "pointer": "/importers/./devDependencies/vite/version"
+      },
+      "object_id": "ede682f929c5fab7468bc4ba5651955cd1e16c69",
+      "path": "pnpm-lock.yaml",
+      "rule": "pnpm-lock.resolved-version"
+    },
+    "ev_50ee008299f7443f20674fcc": {
+      "commit": null,
+      "content_digest": "48e8c7b20eb98a8ffe61ffa10b4e15c7dc701950018b90e104695606e4c675a0",
+      "detector": "tooling",
+      "excerpt_digest": "48e8c7b20eb98a8ffe61ffa10b4e15c7dc701950018b90e104695606e4c675a0",
+      "id": "ev_50ee008299f7443f20674fcc",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "0967ef424bce6791893e9a57bb952f80fd536e93",
+      "path": "tsconfig.json",
+      "rule": "config.tool-file"
+    },
+    "ev_59c3d3485cb79e278f4cf0d9": {
+      "commit": null,
+      "content_digest": "1a624925def4d194fea4276f1d93d1f716220ab4fd24c1513adca86403f77f6e",
+      "detector": "package-metadata",
+      "excerpt_digest": "fa4b3ccaab62849bf58af9a41e4d3df128e98909bbbbff64367fc28137e071a3",
+      "id": "ev_59c3d3485cb79e278f4cf0d9",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/typescript"
+      },
+      "object_id": "0a9f40baf6dd12d31aebfb9430a3ed0dfb409412",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_63f60e1749d49dc5c6154001": {
+      "commit": null,
+      "content_digest": "1a624925def4d194fea4276f1d93d1f716220ab4fd24c1513adca86403f77f6e",
+      "detector": "tooling",
+      "excerpt_digest": "c964b9157beb5b46fa409f08bbddfc13de3c20b5651e7b49523359636a765e9b",
+      "id": "ev_63f60e1749d49dc5c6154001",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/vite"
+      },
+      "object_id": "0a9f40baf6dd12d31aebfb9430a3ed0dfb409412",
+      "path": "package.json",
+      "rule": "manifest.tool-dependency"
+    },
+    "ev_6938292061e28cbd9e48483a": {
+      "commit": null,
+      "content_digest": "c24a5d7d5996f9d61f2a24629b2725605d264d0bf22b347a1396161b8a790c73",
+      "detector": "inventory",
+      "excerpt_digest": "c24a5d7d5996f9d61f2a24629b2725605d264d0bf22b347a1396161b8a790c73",
+      "id": "ev_6938292061e28cbd9e48483a",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "ff8b4c56321a3362fc00224b01800f62466f9a1f",
+      "path": "vitest.config.ts",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_721ff72833c06016751a85a2": {
+      "commit": null,
+      "content_digest": "1a624925def4d194fea4276f1d93d1f716220ab4fd24c1513adca86403f77f6e",
+      "detector": "runtime",
+      "excerpt_digest": "ba6f2d11d8a62bb5693a4147e5876c75dee2d9b0f3cfb1177b0284ede43cf2cd",
+      "id": "ev_721ff72833c06016751a85a2",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/engines/pnpm"
+      },
+      "object_id": "0a9f40baf6dd12d31aebfb9430a3ed0dfb409412",
+      "path": "package.json",
+      "rule": "manifest.engines"
+    },
+    "ev_77820b641aecb3d3c0a60f5e": {
+      "commit": null,
+      "content_digest": "557ee32ecc1c84bf6079951ea248667f1e1b1a17dcc1370a45b4db2ff4c2a359",
+      "detector": "pnpm-lock",
+      "excerpt_digest": "fa4b3ccaab62849bf58af9a41e4d3df128e98909bbbbff64367fc28137e071a3",
+      "id": "ev_77820b641aecb3d3c0a60f5e",
+      "location": {
+        "format": "yaml",
+        "kind": "pointer",
+        "pointer": "/importers/./devDependencies/typescript/version"
+      },
+      "object_id": "ede682f929c5fab7468bc4ba5651955cd1e16c69",
+      "path": "pnpm-lock.yaml",
+      "rule": "pnpm-lock.resolved-version"
+    },
+    "ev_90bd13b086108727f6e2090b": {
+      "commit": null,
+      "content_digest": "1a624925def4d194fea4276f1d93d1f716220ab4fd24c1513adca86403f77f6e",
+      "detector": "package-metadata",
+      "excerpt_digest": "cb38356703f35d970058cb26ce297b4e48149b4e14cc9c93983e4ff1adaa6045",
+      "id": "ev_90bd13b086108727f6e2090b",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/vitest"
+      },
+      "object_id": "0a9f40baf6dd12d31aebfb9430a3ed0dfb409412",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_90e090e5f60950c3632c03e7": {
+      "commit": null,
+      "content_digest": "b15f57e03e4b2474a7bc64280284c6d8fb268083d7011d00cd543f27cb4b637d",
+      "detector": "inventory",
+      "excerpt_digest": "b15f57e03e4b2474a7bc64280284c6d8fb268083d7011d00cd543f27cb4b637d",
+      "id": "ev_90e090e5f60950c3632c03e7",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "910d41fca718a5688137bf6e873e6e32cb5c6469",
+      "path": "libs/ui/core/package.json",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_9350b5f4622a5d000b8cd0a9": {
+      "commit": null,
+      "content_digest": "941ccf17f6651caac262b2df14791f08de376f1690d11bf508f87acdb07b6440",
+      "detector": "tooling",
+      "excerpt_digest": "941ccf17f6651caac262b2df14791f08de376f1690d11bf508f87acdb07b6440",
+      "id": "ev_9350b5f4622a5d000b8cd0a9",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "ede682f929c5fab7468bc4ba5651955cd1e16c69",
+      "path": "pnpm-lock.yaml",
+      "rule": "lockfile.package-manager"
+    },
+    "ev_94b4c0203711e261fbd2c503": {
+      "commit": null,
+      "content_digest": "941ccf17f6651caac262b2df14791f08de376f1690d11bf508f87acdb07b6440",
+      "detector": "inventory",
+      "excerpt_digest": "941ccf17f6651caac262b2df14791f08de376f1690d11bf508f87acdb07b6440",
+      "id": "ev_94b4c0203711e261fbd2c503",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "ede682f929c5fab7468bc4ba5651955cd1e16c69",
+      "path": "pnpm-lock.yaml",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_993f9a3f4ab2ddc2d6f929f3": {
+      "commit": null,
+      "content_digest": "c24a5d7d5996f9d61f2a24629b2725605d264d0bf22b347a1396161b8a790c73",
+      "detector": "tooling",
+      "excerpt_digest": "c24a5d7d5996f9d61f2a24629b2725605d264d0bf22b347a1396161b8a790c73",
+      "id": "ev_993f9a3f4ab2ddc2d6f929f3",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "ff8b4c56321a3362fc00224b01800f62466f9a1f",
+      "path": "vitest.config.ts",
+      "rule": "config.tool-file"
+    },
+    "ev_9d68f9de7714dfd7e2557795": {
+      "commit": null,
+      "content_digest": "15865f33b96e012b94ed90379869530da7a91d95ef21abbe48165da1481504ee",
+      "detector": "package-metadata",
+      "excerpt_digest": "a0c39a7948d3d3cc2ccb31c84758ac7a4db277fd93134ecaf7230258455ad10a",
+      "id": "ev_9d68f9de7714dfd7e2557795",
+      "location": {
+        "format": "yaml",
+        "kind": "pointer",
+        "pointer": "/packages/0"
+      },
+      "object_id": "447dd86533119235816d7df63c9f56bfff524eb7",
+      "path": "pnpm-workspace.yaml",
+      "rule": "pnpm-workspace.packages"
+    },
+    "ev_9d8f542e1bbf592b13482524": {
+      "commit": null,
+      "content_digest": "49d3d52ab644eafcb76ff89e5cf9a779ca12bf2ab4f9a96918b912721319f357",
+      "detector": "package-metadata",
+      "excerpt_digest": "c4a1d2ff29bf8aa53eec8a08cf7f9e90f3b3654fc7c9cd7fed0ff1b8498872c2",
+      "id": "ev_9d8f542e1bbf592b13482524",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/name"
+      },
+      "object_id": "0ced80877a361e944af75055893f65ae66fdb425",
+      "path": "libs/deprecated/package.json",
+      "rule": "manifest.identity"
+    },
+    "ev_a4334abcacbd21f30dc2035e": {
+      "commit": null,
+      "content_digest": "5842d26bd9e24a4e93ce8617537849cb97d30518d93a8c2bed97aa73c84a874e",
+      "detector": "tooling",
+      "excerpt_digest": "5842d26bd9e24a4e93ce8617537849cb97d30518d93a8c2bed97aa73c84a874e",
+      "id": "ev_a4334abcacbd21f30dc2035e",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "ff8b4c56321a3362fc00224b01800f62466f9a1f",
+      "path": "vite.config.ts",
+      "rule": "config.tool-file"
+    },
+    "ev_a6f12d8b002b082042d777fe": {
+      "commit": null,
+      "content_digest": "279a3aca4c57bfafd04be921b1ccbc8b5f083e818629a2f06e2003d2c9c7f7c6",
+      "detector": "package-metadata",
+      "excerpt_digest": "5f374e367aaa66680f01492e1b3ec4149badf25869f984affb6b48b70996560e",
+      "id": "ev_a6f12d8b002b082042d777fe",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/vue"
+      },
+      "object_id": "bd15bac6b70f7162bf630734b639939815cb00bf",
+      "path": "apps/web/package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_a8d0dcbe389c5961ff89393d": {
+      "commit": null,
+      "content_digest": "1a624925def4d194fea4276f1d93d1f716220ab4fd24c1513adca86403f77f6e",
+      "detector": "package-metadata",
+      "excerpt_digest": "12ea5e22b2603f39d9541c790c8c28f30d35adf7df422773762948cfaae4b4a5",
+      "id": "ev_a8d0dcbe389c5961ff89393d",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/name"
+      },
+      "object_id": "0a9f40baf6dd12d31aebfb9430a3ed0dfb409412",
+      "path": "package.json",
+      "rule": "manifest.identity"
+    },
+    "ev_b4d2f447dc860e76859a10f8": {
+      "commit": null,
+      "content_digest": "9023e2ea9cbee281444f615640d464fdba2b5b58c5ca6436fd05c2a60ca89af4",
+      "detector": "inventory",
+      "excerpt_digest": "9023e2ea9cbee281444f615640d464fdba2b5b58c5ca6436fd05c2a60ca89af4",
+      "id": "ev_b4d2f447dc860e76859a10f8",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "bd15bac6b70f7162bf630734b639939815cb00bf",
+      "path": "apps/web/package.json",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_c915e555ebee959acf03946c": {
+      "commit": null,
+      "content_digest": "279a3aca4c57bfafd04be921b1ccbc8b5f083e818629a2f06e2003d2c9c7f7c6",
+      "detector": "package-metadata",
+      "excerpt_digest": "fa41e6d6bcedd186d7862bf8dc8d06f4ab8ff6b6d30fa23a38f7947121dd2cb1",
+      "id": "ev_c915e555ebee959acf03946c",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/name"
+      },
+      "object_id": "bd15bac6b70f7162bf630734b639939815cb00bf",
+      "path": "apps/web/package.json",
+      "rule": "pnpm-workspace.packages"
+    },
+    "ev_cc4fc55fd1bebea29a7770ba": {
+      "commit": null,
+      "content_digest": "279a3aca4c57bfafd04be921b1ccbc8b5f083e818629a2f06e2003d2c9c7f7c6",
+      "detector": "tooling",
+      "excerpt_digest": "5f374e367aaa66680f01492e1b3ec4149badf25869f984affb6b48b70996560e",
+      "id": "ev_cc4fc55fd1bebea29a7770ba",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/vue"
+      },
+      "object_id": "bd15bac6b70f7162bf630734b639939815cb00bf",
+      "path": "apps/web/package.json",
+      "rule": "manifest.framework"
+    },
+    "ev_d0174fb8253203e4173c084f": {
+      "commit": null,
+      "content_digest": "9946da8a55bd39710bb616ffcfc380d6a8eb46f9678fc069c044214ab21a5317",
+      "detector": "inventory",
+      "excerpt_digest": "9946da8a55bd39710bb616ffcfc380d6a8eb46f9678fc069c044214ab21a5317",
+      "id": "ev_d0174fb8253203e4173c084f",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "447dd86533119235816d7df63c9f56bfff524eb7",
+      "path": "pnpm-workspace.yaml",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_d74d57196e478e5abbe1f80f": {
+      "commit": null,
+      "content_digest": "15865f33b96e012b94ed90379869530da7a91d95ef21abbe48165da1481504ee",
+      "detector": "package-metadata",
+      "excerpt_digest": "932e09155552081c28bf6be4f8547270952030e3afde4540e9ad83bd784b171b",
+      "id": "ev_d74d57196e478e5abbe1f80f",
+      "location": {
+        "format": "yaml",
+        "kind": "pointer",
+        "pointer": "/packages/1"
+      },
+      "object_id": "447dd86533119235816d7df63c9f56bfff524eb7",
+      "path": "pnpm-workspace.yaml",
+      "rule": "pnpm-workspace.packages"
+    },
+    "ev_e1202fde01c563b99a6da36b": {
+      "commit": null,
+      "content_digest": "1a624925def4d194fea4276f1d93d1f716220ab4fd24c1513adca86403f77f6e",
+      "detector": "tooling",
+      "excerpt_digest": "cb38356703f35d970058cb26ce297b4e48149b4e14cc9c93983e4ff1adaa6045",
+      "id": "ev_e1202fde01c563b99a6da36b",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/vitest"
+      },
+      "object_id": "0a9f40baf6dd12d31aebfb9430a3ed0dfb409412",
+      "path": "package.json",
+      "rule": "manifest.tool-dependency"
+    },
+    "ev_e55de5b77f39e1e8d5645c33": {
+      "commit": null,
+      "content_digest": "f4097fbecc11c8bdcba167ab035743a5cdefa8931e40e05128fd3efd8d5afcc4",
+      "detector": "inventory",
+      "excerpt_digest": "f4097fbecc11c8bdcba167ab035743a5cdefa8931e40e05128fd3efd8d5afcc4",
+      "id": "ev_e55de5b77f39e1e8d5645c33",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "cb0ff5c3b541f646105198ee23ac0fc3d805023e",
+      "path": "apps/web/src/main.ts",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_e5e22f011960a67f7680272e": {
+      "commit": null,
+      "content_digest": "1a624925def4d194fea4276f1d93d1f716220ab4fd24c1513adca86403f77f6e",
+      "detector": "tooling",
+      "excerpt_digest": "54ce9effc682159cb55a2c7a83ba745a247871c04445f656895794affc19347e",
+      "id": "ev_e5e22f011960a67f7680272e",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/packageManager"
+      },
+      "object_id": "0a9f40baf6dd12d31aebfb9430a3ed0dfb409412",
+      "path": "package.json",
+      "rule": "manifest.package-manager"
+    },
+    "ev_f2fcbf9015bbad4c438e2296": {
+      "commit": null,
+      "content_digest": "1a624925def4d194fea4276f1d93d1f716220ab4fd24c1513adca86403f77f6e",
+      "detector": "package-metadata",
+      "excerpt_digest": "8f1036543a0bc25aeefae4f8576b947b19a79dd5135d30e692a51bb3d20f6345",
+      "id": "ev_f2fcbf9015bbad4c438e2296",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/scripts/test"
+      },
+      "object_id": "0a9f40baf6dd12d31aebfb9430a3ed0dfb409412",
+      "path": "package.json",
+      "rule": "manifest.scripts"
+    },
+    "ev_f722629dfcb8d27eb848abe3": {
+      "commit": null,
+      "content_digest": "1a624925def4d194fea4276f1d93d1f716220ab4fd24c1513adca86403f77f6e",
+      "detector": "package-metadata",
+      "excerpt_digest": "c964b9157beb5b46fa409f08bbddfc13de3c20b5651e7b49523359636a765e9b",
+      "id": "ev_f722629dfcb8d27eb848abe3",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/vite"
+      },
+      "object_id": "0a9f40baf6dd12d31aebfb9430a3ed0dfb409412",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_fdf10922b56fbd86c39a3299": {
+      "commit": null,
+      "content_digest": "1a624925def4d194fea4276f1d93d1f716220ab4fd24c1513adca86403f77f6e",
+      "detector": "runtime",
+      "excerpt_digest": "56655bbfc8c112d2a1f1e55c387487152308a1279aac594416e51ede3e88ac9d",
+      "id": "ev_fdf10922b56fbd86c39a3299",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/engines/node"
+      },
+      "object_id": "0a9f40baf6dd12d31aebfb9430a3ed0dfb409412",
+      "path": "package.json",
+      "rule": "manifest.engines"
+    }
+  },
+  "extensions": [],
+  "inventory": {
+    "bytes": 959,
+    "bytes_read": 948,
+    "entries": 17,
+    "executables": 0,
+    "files": 10,
+    "files_read": 9,
+    "gitlinks": 0,
+    "symlinks": 0
+  },
+  "relationship_references": [],
+  "schema": "repo_facts.fact_document",
+  "schema_version": 1,
+  "service_dependencies": []
+}

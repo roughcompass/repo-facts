@@ -1,0 +1,23 @@
+{
+  "files": [],
+  "references": [
+    {
+      "path": "packages/contract"
+    },
+    {
+      "path": "packages/syntax"
+    },
+    {
+      "path": "packages/core"
+    },
+    {
+      "path": "packages/architecture"
+    },
+    {
+      "path": "packages/services"
+    },
+    {
+      "path": "packages/bundle"
+    }
+  ]
+}

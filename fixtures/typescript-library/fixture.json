@@ -1,0 +1,3 @@
+{
+  "description": "A published TypeScript library built with tsup and tested with Vitest, pinned by .nvmrc-free engines"
+}

@@ -1,0 +1,3 @@
+{
+  "description": "A Yarn classic workspace with conflicting Node declarations and a credential in a dependency URL"
+}

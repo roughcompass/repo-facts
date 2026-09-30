@@ -1,0 +1,634 @@
+{
+  "categories": {
+    "access_signals": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "api_contracts": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "build_tools": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "config.tool-file",
+          "manifest.tool-dependency"
+        ],
+        "skipped": [],
+        "surface": [
+          "modules/billing/package.json",
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "ci_systems": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "composition": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "dependencies": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_56f6cec9246e01b425e46ffb"
+          ],
+          "key": "modules/billing/package.json#dependencies/private-sdk",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "dependencies",
+            "manifest": "modules/billing/package.json",
+            "name": "private-sdk",
+            "specifier": "git+https://[redacted]@git.example.test/acme/sdk.git#v1"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.dependencies"
+        ],
+        "skipped": [],
+        "surface": [
+          "modules/billing/package.json",
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "egress_routes": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "frameworks": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.framework"
+        ],
+        "skipped": [],
+        "surface": [
+          "modules/billing/package.json",
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "languages": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_09d9edbe72cb5b3d68ab936e",
+            "ev_6081c03575d56037b211da39"
+          ],
+          "key": "JSON",
+          "rule": "inventory.language-by-extension",
+          "state": "observed",
+          "value": {
+            "bytes": 380,
+            "files": 2
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.language-by-extension"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "observed"
+    },
+    "package_identity": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_2afe8da3dc3813819a1c6975"
+          ],
+          "key": "modules/billing/package.json",
+          "rule": "manifest.identity",
+          "state": "observed",
+          "value": {
+            "manifest": "modules/billing/package.json",
+            "name": "billing",
+            "private": false,
+            "version": null
+          }
+        },
+        {
+          "evidence": [
+            "ev_49d37ba42bc4ce7a91508708"
+          ],
+          "key": "package.json",
+          "rule": "manifest.identity",
+          "state": "observed",
+          "value": {
+            "manifest": "package.json",
+            "name": "legacy-portal",
+            "private": false,
+            "version": null
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.identity"
+        ],
+        "skipped": [],
+        "surface": [
+          "modules/billing/package.json",
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "package_managers": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_5d811b0177e2e5ec7608463c"
+          ],
+          "key": ".",
+          "reasoning": "yarn.lock is the lockfile yarn writes, so yarn manages this directory.",
+          "rule": "lockfile.package-manager",
+          "state": "inferred",
+          "value": "yarn"
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "lockfile.package-manager",
+          "manifest.package-manager"
+        ],
+        "skipped": [],
+        "surface": [
+          "modules/billing/package.json",
+          "package.json"
+        ]
+      },
+      "state": "inferred"
+    },
+    "packages_consumed": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "packages_produced": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "resolved_dependencies": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_cd04fbc82fe9189a4b71ab64"
+          ],
+          "key": "modules/billing/package.json#private-sdk",
+          "rule": "yarn-lock.resolved-version",
+          "state": "observed",
+          "value": {
+            "manifest": "modules/billing/package.json",
+            "name": "private-sdk",
+            "version": "1.0.0"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "npm-lock.resolved-version",
+          "pnpm-lock.resolved-version",
+          "yarn-lock.resolved-version"
+        ],
+        "skipped": [],
+        "surface": [
+          "yarn.lock"
+        ]
+      },
+      "state": "observed"
+    },
+    "runtime_integrations": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "runtime_requirements": {
+      "facts": [
+        {
+          "candidates": [
+            {
+              "evidence": [
+                "ev_641dcd33272c6b68044409b8"
+              ],
+              "rule": "manifest.volta",
+              "value": {
+                "declared": [
+                  "18.19.0"
+                ],
+                "range": "18.19.0"
+              }
+            },
+            {
+              "evidence": [
+                "ev_0d858dc049e616feb2e3b62a"
+              ],
+              "rule": "manifest.engines",
+              "value": {
+                "declared": [
+                  ">=20"
+                ],
+                "range": ">=20.0.0"
+              }
+            }
+          ],
+          "evidence": [
+            "ev_0d858dc049e616feb2e3b62a",
+            "ev_641dcd33272c6b68044409b8"
+          ],
+          "key": "node",
+          "rule": "manifest.engines",
+          "state": "conflicting",
+          "value": null
+        },
+        {
+          "evidence": [
+            "ev_36a566dc722cf851a8c738e6"
+          ],
+          "key": "yarn",
+          "rule": "manifest.volta",
+          "state": "observed",
+          "value": {
+            "declared": [
+              "1.22.22"
+            ],
+            "range": "1.22.22"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "runtime.declarations"
+        ],
+        "skipped": [],
+        "surface": [
+          "modules/billing/package.json",
+          "package.json"
+        ]
+      },
+      "state": "conflicting"
+    },
+    "scripts": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.scripts"
+        ],
+        "skipped": [],
+        "surface": [
+          "modules/billing/package.json",
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "served_origins": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "submodules": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.gitlink"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    },
+    "test_frameworks": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "config.tool-file",
+          "manifest.tool-dependency"
+        ],
+        "skipped": [],
+        "surface": [
+          "modules/billing/package.json",
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "test_substitutes": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "verification_commands": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "workspaces": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_1239dfc54adc85c979294dbe",
+            "ev_e4d32ff3ec53318667633f9e"
+          ],
+          "key": "modules/billing",
+          "rule": "manifest.workspaces",
+          "state": "observed",
+          "value": {
+            "directory": "modules/billing",
+            "package": "billing"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.workspaces",
+          "pnpm-workspace.packages"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    }
+  },
+  "commit": null,
+  "detector_release": "golden",
+  "diagnostics": [],
+  "evidence": {
+    "ev_09d9edbe72cb5b3d68ab936e": {
+      "commit": null,
+      "content_digest": "e437ec54aba749cf7e6bbe209d0a19512364a698e359d45c173b4a28b08d616f",
+      "detector": "inventory",
+      "excerpt_digest": "e437ec54aba749cf7e6bbe209d0a19512364a698e359d45c173b4a28b08d616f",
+      "id": "ev_09d9edbe72cb5b3d68ab936e",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "03b6e42832a38983275d4ccf040d7a0bded705ea",
+      "path": "package.json",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_0d858dc049e616feb2e3b62a": {
+      "commit": null,
+      "content_digest": "715d39ab8d8d113a6aeba2a87bb718b4546592077b4598c4d6664df91812eb84",
+      "detector": "runtime",
+      "excerpt_digest": "56655bbfc8c112d2a1f1e55c387487152308a1279aac594416e51ede3e88ac9d",
+      "id": "ev_0d858dc049e616feb2e3b62a",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/engines/node"
+      },
+      "object_id": "03b6e42832a38983275d4ccf040d7a0bded705ea",
+      "path": "package.json",
+      "rule": "manifest.engines"
+    },
+    "ev_1239dfc54adc85c979294dbe": {
+      "commit": null,
+      "content_digest": "715d39ab8d8d113a6aeba2a87bb718b4546592077b4598c4d6664df91812eb84",
+      "detector": "package-metadata",
+      "excerpt_digest": "f913464a18e2079e657205fb92c0a5e8720e8d7738b21b140247c0adbb13fd11",
+      "id": "ev_1239dfc54adc85c979294dbe",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/workspaces/packages/0"
+      },
+      "object_id": "03b6e42832a38983275d4ccf040d7a0bded705ea",
+      "path": "package.json",
+      "rule": "manifest.workspaces"
+    },
+    "ev_2afe8da3dc3813819a1c6975": {
+      "commit": null,
+      "content_digest": "bf812f3744928e943bd77ef1c914cfe0347ceab7b0c8bacc4f553b36698f16c1",
+      "detector": "package-metadata",
+      "excerpt_digest": "faf2805a9391346f02697317fb8aae674b451262273a389d59bec9def9734c4f",
+      "id": "ev_2afe8da3dc3813819a1c6975",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/name"
+      },
+      "object_id": "fe103fd4cd86adc0c3a10b2848e90b9b56e5afb6",
+      "path": "modules/billing/package.json",
+      "rule": "manifest.identity"
+    },
+    "ev_36a566dc722cf851a8c738e6": {
+      "commit": null,
+      "content_digest": "715d39ab8d8d113a6aeba2a87bb718b4546592077b4598c4d6664df91812eb84",
+      "detector": "runtime",
+      "excerpt_digest": "6513f7c7ed4eddb6e7f443f4cf7d6fde2cf88949dd350514a44b01cc88d68923",
+      "id": "ev_36a566dc722cf851a8c738e6",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/volta/yarn"
+      },
+      "object_id": "03b6e42832a38983275d4ccf040d7a0bded705ea",
+      "path": "package.json",
+      "rule": "manifest.volta"
+    },
+    "ev_49d37ba42bc4ce7a91508708": {
+      "commit": null,
+      "content_digest": "715d39ab8d8d113a6aeba2a87bb718b4546592077b4598c4d6664df91812eb84",
+      "detector": "package-metadata",
+      "excerpt_digest": "810d37eabd6b28bfa1f9e66a51bdefa1d1204b3ed0f2b76f43b3c6f70069d61c",
+      "id": "ev_49d37ba42bc4ce7a91508708",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/name"
+      },
+      "object_id": "03b6e42832a38983275d4ccf040d7a0bded705ea",
+      "path": "package.json",
+      "rule": "manifest.identity"
+    },
+    "ev_56f6cec9246e01b425e46ffb": {
+      "commit": null,
+      "content_digest": "bf812f3744928e943bd77ef1c914cfe0347ceab7b0c8bacc4f553b36698f16c1",
+      "detector": "package-metadata",
+      "excerpt_digest": "a746253481ddc8dc08592eb9c89923758fd085b22e109217da34d5ae82791ea4",
+      "id": "ev_56f6cec9246e01b425e46ffb",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/private-sdk"
+      },
+      "object_id": "fe103fd4cd86adc0c3a10b2848e90b9b56e5afb6",
+      "path": "modules/billing/package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_5d811b0177e2e5ec7608463c": {
+      "commit": null,
+      "content_digest": "461221dc09df07c77add3f44318a0765593e942d415dc29c0b8359530f2656ca",
+      "detector": "tooling",
+      "excerpt_digest": "461221dc09df07c77add3f44318a0765593e942d415dc29c0b8359530f2656ca",
+      "id": "ev_5d811b0177e2e5ec7608463c",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "fd9e1564db78e6d75180f056d83fdf60d58b8336",
+      "path": "yarn.lock",
+      "rule": "lockfile.package-manager"
+    },
+    "ev_6081c03575d56037b211da39": {
+      "commit": null,
+      "content_digest": "73acb94177a191a7e5775b73838e7688448fedb94cf60306ee79d2daac56caf2",
+      "detector": "inventory",
+      "excerpt_digest": "73acb94177a191a7e5775b73838e7688448fedb94cf60306ee79d2daac56caf2",
+      "id": "ev_6081c03575d56037b211da39",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "fe103fd4cd86adc0c3a10b2848e90b9b56e5afb6",
+      "path": "modules/billing/package.json",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_641dcd33272c6b68044409b8": {
+      "commit": null,
+      "content_digest": "715d39ab8d8d113a6aeba2a87bb718b4546592077b4598c4d6664df91812eb84",
+      "detector": "runtime",
+      "excerpt_digest": "a9f08da5e1ac18bfdcc433025400758088fc130318c710ce8bf6584f5eb7c225",
+      "id": "ev_641dcd33272c6b68044409b8",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/volta/node"
+      },
+      "object_id": "03b6e42832a38983275d4ccf040d7a0bded705ea",
+      "path": "package.json",
+      "rule": "manifest.volta"
+    },
+    "ev_cd04fbc82fe9189a4b71ab64": {
+      "commit": null,
+      "content_digest": "acafffa10f202f29fa613e20984bb86e01c361d2c7af48df6092a347b1f63e7b",
+      "detector": "yarn-lock",
+      "excerpt_digest": "7fc6b9b74eb6a33b8bb845862538984d958bc0a74351c102b5e287a664235c43",
+      "id": "ev_cd04fbc82fe9189a4b71ab64",
+      "location": {
+        "end": 6,
+        "kind": "lines",
+        "start": 5
+      },
+      "object_id": "fd9e1564db78e6d75180f056d83fdf60d58b8336",
+      "path": "yarn.lock",
+      "rule": "yarn-lock.resolved-version"
+    },
+    "ev_e4d32ff3ec53318667633f9e": {
+      "commit": null,
+      "content_digest": "bf812f3744928e943bd77ef1c914cfe0347ceab7b0c8bacc4f553b36698f16c1",
+      "detector": "package-metadata",
+      "excerpt_digest": "faf2805a9391346f02697317fb8aae674b451262273a389d59bec9def9734c4f",
+      "id": "ev_e4d32ff3ec53318667633f9e",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/name"
+      },
+      "object_id": "fe103fd4cd86adc0c3a10b2848e90b9b56e5afb6",
+      "path": "modules/billing/package.json",
+      "rule": "manifest.workspaces"
+    }
+  },
+  "extensions": [],
+  "inventory": {
+    "bytes": 626,
+    "bytes_read": 626,
+    "entries": 5,
+    "executables": 0,
+    "files": 3,
+    "files_read": 3,
+    "gitlinks": 0,
+    "symlinks": 0
+  },
+  "relationship_references": [],
+  "schema": "repo_facts.fact_document",
+  "schema_version": 1,
+  "service_dependencies": []
+}

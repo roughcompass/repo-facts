@@ -1,0 +1,980 @@
+{
+  "categories": {
+    "access_signals": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "api_contracts": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "build_tools": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_b540b641503e0c7b77b187ba",
+            "ev_d5398f2e36eda719381fa69d"
+          ],
+          "key": "tsup",
+          "rule": "manifest.tool-dependency",
+          "state": "observed",
+          "value": {
+            "id": "tsup",
+            "label": "tsup"
+          }
+        },
+        {
+          "evidence": [
+            "ev_50ee008299f7443f20674fcc",
+            "ev_ec2bf5f447eff06e43b5b22f"
+          ],
+          "key": "typescript",
+          "rule": "manifest.tool-dependency",
+          "state": "observed",
+          "value": {
+            "id": "typescript",
+            "label": "TypeScript compiler"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "config.tool-file",
+          "manifest.tool-dependency"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "ci_systems": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "composition": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "dependencies": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_0493fb996d20b4c14e7d24e3"
+          ],
+          "key": "package.json#devDependencies/tsup",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "devDependencies",
+            "manifest": "package.json",
+            "name": "tsup",
+            "specifier": "8.5.0"
+          }
+        },
+        {
+          "evidence": [
+            "ev_5c7467ad2b234becba35edc0"
+          ],
+          "key": "package.json#devDependencies/typescript",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "devDependencies",
+            "manifest": "package.json",
+            "name": "typescript",
+            "specifier": "5.9.3"
+          }
+        },
+        {
+          "evidence": [
+            "ev_7d00460634406f3884ffa3e0"
+          ],
+          "key": "package.json#devDependencies/vitest",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "devDependencies",
+            "manifest": "package.json",
+            "name": "vitest",
+            "specifier": "3.2.4"
+          }
+        },
+        {
+          "evidence": [
+            "ev_ed37e3c4e1a51eb6ade5b50d"
+          ],
+          "key": "package.json#peerDependencies/react",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "peerDependencies",
+            "manifest": "package.json",
+            "name": "react",
+            "specifier": ">=18"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.dependencies"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "egress_routes": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "frameworks": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_52a1aa69ac7a0e84d7ad8f1c"
+          ],
+          "key": "package.json#react",
+          "rule": "manifest.framework",
+          "state": "observed",
+          "value": {
+            "id": "react",
+            "label": "React",
+            "manifest": "package.json",
+            "package": "react",
+            "specifiers": {
+              "peerDependencies": ">=18"
+            }
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.framework"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "languages": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_053bafd70a4f283ce6b51eb7",
+            "ev_e24420afcdf8796d62a65e8a",
+            "ev_ee6922bac943a477c3b6ddba"
+          ],
+          "key": "JSON",
+          "rule": "inventory.language-by-extension",
+          "state": "observed",
+          "value": {
+            "bytes": 756,
+            "files": 3
+          }
+        },
+        {
+          "evidence": [
+            "ev_3feb6d95165ece0c81dbe6f7",
+            "ev_52a046b3d79d4aaed68760b8",
+            "ev_ef9b20dc24ecfec10a6b2a6f"
+          ],
+          "key": "TypeScript",
+          "rule": "inventory.language-by-extension",
+          "state": "observed",
+          "value": {
+            "bytes": 112,
+            "files": 3
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.language-by-extension"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "observed"
+    },
+    "package_identity": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_3cd439a1caf3d6ef2996b69e",
+            "ev_fe9f133fea5ddc48a2daf145"
+          ],
+          "key": "package.json",
+          "rule": "manifest.identity",
+          "state": "observed",
+          "value": {
+            "manifest": "package.json",
+            "name": "@acme/formatting",
+            "private": false,
+            "version": "3.2.0"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.identity"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "package_managers": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_195be2f417ec471cacd8b89c",
+            "ev_3b7ed03ad4f2811049b640ab"
+          ],
+          "key": ".",
+          "rule": "manifest.package-manager",
+          "state": "observed",
+          "value": "npm"
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "lockfile.package-manager",
+          "manifest.package-manager"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "packages_consumed": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "packages_produced": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "resolved_dependencies": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_301f90df6072c5909e3a89c5"
+          ],
+          "key": "package.json#tsup",
+          "rule": "npm-lock.resolved-version",
+          "state": "observed",
+          "value": {
+            "manifest": "package.json",
+            "name": "tsup",
+            "version": "8.5.0"
+          }
+        },
+        {
+          "evidence": [
+            "ev_9c0315493b9a6c73b6ee6f2f"
+          ],
+          "key": "package.json#typescript",
+          "rule": "npm-lock.resolved-version",
+          "state": "observed",
+          "value": {
+            "manifest": "package.json",
+            "name": "typescript",
+            "version": "5.9.3"
+          }
+        },
+        {
+          "evidence": [
+            "ev_6165e533a7fd9220e3d85180"
+          ],
+          "key": "package.json#vitest",
+          "rule": "npm-lock.resolved-version",
+          "state": "observed",
+          "value": {
+            "manifest": "package.json",
+            "name": "vitest",
+            "version": "3.2.4"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "npm-lock.resolved-version",
+          "pnpm-lock.resolved-version",
+          "yarn-lock.resolved-version"
+        ],
+        "skipped": [],
+        "surface": [
+          "package-lock.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "runtime_integrations": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "runtime_requirements": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_97568dcd370f58b5f7b40af5"
+          ],
+          "key": "node",
+          "rule": "manifest.engines",
+          "state": "observed",
+          "value": {
+            "declared": [
+              ">=20 <25"
+            ],
+            "range": ">=20.0.0 <25.0.0-0"
+          }
+        },
+        {
+          "evidence": [
+            "ev_e55f6bddf1c2b8c0e1cb5105",
+            "ev_e8585d97a9b3e5d07e0b4b3d"
+          ],
+          "key": "npm",
+          "rule": "manifest.engines",
+          "state": "observed",
+          "value": {
+            "declared": [
+              "11.9.0",
+              ">=10"
+            ],
+            "range": "11.9.0"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "runtime.declarations"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "scripts": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_b9f8a6fe421b3bb6cd2e4aef"
+          ],
+          "key": "package.json#build",
+          "rule": "manifest.scripts",
+          "state": "observed",
+          "value": {
+            "command": "tsup",
+            "manifest": "package.json",
+            "name": "build"
+          }
+        },
+        {
+          "evidence": [
+            "ev_1b0b9cd2011c7ad66b520fd1"
+          ],
+          "key": "package.json#test",
+          "rule": "manifest.scripts",
+          "state": "observed",
+          "value": {
+            "command": "vitest run",
+            "manifest": "package.json",
+            "name": "test"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.scripts"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "served_origins": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "submodules": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.gitlink"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    },
+    "test_frameworks": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_93c9d78dc77ea6605ccfc824"
+          ],
+          "key": "vitest",
+          "rule": "manifest.tool-dependency",
+          "state": "observed",
+          "value": {
+            "id": "vitest",
+            "label": "Vitest"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "config.tool-file",
+          "manifest.tool-dependency"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "test_substitutes": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "verification_commands": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "workspaces": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.workspaces",
+          "pnpm-workspace.packages"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    }
+  },
+  "commit": null,
+  "detector_release": "golden",
+  "diagnostics": [
+    {
+      "detail": "package.json declares 1 dependency this lockfile does not lock: react",
+      "detector": "npm-lock",
+      "path": "package-lock.json",
+      "reason": "unlocked_dependency"
+    }
+  ],
+  "evidence": {
+    "ev_0493fb996d20b4c14e7d24e3": {
+      "commit": null,
+      "content_digest": "bf52a898d831fb09f569953d58380bc683214387f3bde64d81bce1623487f09d",
+      "detector": "package-metadata",
+      "excerpt_digest": "c405d69b02617f0a90096c709318b72116b5b8347873233f020cc463daf67951",
+      "id": "ev_0493fb996d20b4c14e7d24e3",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/tsup"
+      },
+      "object_id": "6d69707290c76c75201a1b53a563ed4eb1ce47dd",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_053bafd70a4f283ce6b51eb7": {
+      "commit": null,
+      "content_digest": "31c9158508c329dea936b775cd91365a226fc304878442dbbed8ae1dda795421",
+      "detector": "inventory",
+      "excerpt_digest": "31c9158508c329dea936b775cd91365a226fc304878442dbbed8ae1dda795421",
+      "id": "ev_053bafd70a4f283ce6b51eb7",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "6d69707290c76c75201a1b53a563ed4eb1ce47dd",
+      "path": "package.json",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_195be2f417ec471cacd8b89c": {
+      "commit": null,
+      "content_digest": "bf52a898d831fb09f569953d58380bc683214387f3bde64d81bce1623487f09d",
+      "detector": "tooling",
+      "excerpt_digest": "d1d99a83214f12fa0e0b29dcbcd7ed2a0e4afbda113234bc27e580b5d21acc1e",
+      "id": "ev_195be2f417ec471cacd8b89c",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/packageManager"
+      },
+      "object_id": "6d69707290c76c75201a1b53a563ed4eb1ce47dd",
+      "path": "package.json",
+      "rule": "manifest.package-manager"
+    },
+    "ev_1b0b9cd2011c7ad66b520fd1": {
+      "commit": null,
+      "content_digest": "bf52a898d831fb09f569953d58380bc683214387f3bde64d81bce1623487f09d",
+      "detector": "package-metadata",
+      "excerpt_digest": "8f1036543a0bc25aeefae4f8576b947b19a79dd5135d30e692a51bb3d20f6345",
+      "id": "ev_1b0b9cd2011c7ad66b520fd1",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/scripts/test"
+      },
+      "object_id": "6d69707290c76c75201a1b53a563ed4eb1ce47dd",
+      "path": "package.json",
+      "rule": "manifest.scripts"
+    },
+    "ev_301f90df6072c5909e3a89c5": {
+      "commit": null,
+      "content_digest": "221c996f1009158f8e5fe95c92e81763c4af3dfbc8dad9899700d8e817af71f6",
+      "detector": "npm-lock",
+      "excerpt_digest": "c405d69b02617f0a90096c709318b72116b5b8347873233f020cc463daf67951",
+      "id": "ev_301f90df6072c5909e3a89c5",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/packages/node_modules~1tsup/version"
+      },
+      "object_id": "3bed87ac4354608e596140c72b7bc3d3e593385b",
+      "path": "package-lock.json",
+      "rule": "npm-lock.resolved-version"
+    },
+    "ev_3b7ed03ad4f2811049b640ab": {
+      "commit": null,
+      "content_digest": "a27c41306f02b6332fab039a1b6c12da0002386425387a3acb6db13baf4a3b71",
+      "detector": "tooling",
+      "excerpt_digest": "a27c41306f02b6332fab039a1b6c12da0002386425387a3acb6db13baf4a3b71",
+      "id": "ev_3b7ed03ad4f2811049b640ab",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "3bed87ac4354608e596140c72b7bc3d3e593385b",
+      "path": "package-lock.json",
+      "rule": "lockfile.package-manager"
+    },
+    "ev_3cd439a1caf3d6ef2996b69e": {
+      "commit": null,
+      "content_digest": "bf52a898d831fb09f569953d58380bc683214387f3bde64d81bce1623487f09d",
+      "detector": "package-metadata",
+      "excerpt_digest": "47bd9caf921e97cc7d2dfaec3039ce212df205c63f92b4453507f9a554204f9f",
+      "id": "ev_3cd439a1caf3d6ef2996b69e",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/version"
+      },
+      "object_id": "6d69707290c76c75201a1b53a563ed4eb1ce47dd",
+      "path": "package.json",
+      "rule": "manifest.identity"
+    },
+    "ev_3feb6d95165ece0c81dbe6f7": {
+      "commit": null,
+      "content_digest": "180c4021f94d8da1f38a22d37c51439164ab4a628f7a6835f00d2d26e6903f51",
+      "detector": "inventory",
+      "excerpt_digest": "180c4021f94d8da1f38a22d37c51439164ab4a628f7a6835f00d2d26e6903f51",
+      "id": "ev_3feb6d95165ece0c81dbe6f7",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "ff8b4c56321a3362fc00224b01800f62466f9a1f",
+      "path": "tsup.config.ts",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_50ee008299f7443f20674fcc": {
+      "commit": null,
+      "content_digest": "48e8c7b20eb98a8ffe61ffa10b4e15c7dc701950018b90e104695606e4c675a0",
+      "detector": "tooling",
+      "excerpt_digest": "48e8c7b20eb98a8ffe61ffa10b4e15c7dc701950018b90e104695606e4c675a0",
+      "id": "ev_50ee008299f7443f20674fcc",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "0967ef424bce6791893e9a57bb952f80fd536e93",
+      "path": "tsconfig.json",
+      "rule": "config.tool-file"
+    },
+    "ev_52a046b3d79d4aaed68760b8": {
+      "commit": null,
+      "content_digest": "28375402a1bedf66d37b3d7d7278b4a78837e862f4409c2f0763ef19756380a5",
+      "detector": "inventory",
+      "excerpt_digest": "28375402a1bedf66d37b3d7d7278b4a78837e862f4409c2f0763ef19756380a5",
+      "id": "ev_52a046b3d79d4aaed68760b8",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "47ecf342545e3f1b016647df7d60ca61c6aed7b8",
+      "path": "src/index.ts",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_52a1aa69ac7a0e84d7ad8f1c": {
+      "commit": null,
+      "content_digest": "bf52a898d831fb09f569953d58380bc683214387f3bde64d81bce1623487f09d",
+      "detector": "tooling",
+      "excerpt_digest": "33102baf503be2635e228bf733cfa5c789f1d5e66d5e11d2749a63ce4d2acb92",
+      "id": "ev_52a1aa69ac7a0e84d7ad8f1c",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/peerDependencies/react"
+      },
+      "object_id": "6d69707290c76c75201a1b53a563ed4eb1ce47dd",
+      "path": "package.json",
+      "rule": "manifest.framework"
+    },
+    "ev_5c7467ad2b234becba35edc0": {
+      "commit": null,
+      "content_digest": "bf52a898d831fb09f569953d58380bc683214387f3bde64d81bce1623487f09d",
+      "detector": "package-metadata",
+      "excerpt_digest": "fa4b3ccaab62849bf58af9a41e4d3df128e98909bbbbff64367fc28137e071a3",
+      "id": "ev_5c7467ad2b234becba35edc0",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/typescript"
+      },
+      "object_id": "6d69707290c76c75201a1b53a563ed4eb1ce47dd",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_6165e533a7fd9220e3d85180": {
+      "commit": null,
+      "content_digest": "221c996f1009158f8e5fe95c92e81763c4af3dfbc8dad9899700d8e817af71f6",
+      "detector": "npm-lock",
+      "excerpt_digest": "cb38356703f35d970058cb26ce297b4e48149b4e14cc9c93983e4ff1adaa6045",
+      "id": "ev_6165e533a7fd9220e3d85180",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/packages/node_modules~1vitest/version"
+      },
+      "object_id": "3bed87ac4354608e596140c72b7bc3d3e593385b",
+      "path": "package-lock.json",
+      "rule": "npm-lock.resolved-version"
+    },
+    "ev_7d00460634406f3884ffa3e0": {
+      "commit": null,
+      "content_digest": "bf52a898d831fb09f569953d58380bc683214387f3bde64d81bce1623487f09d",
+      "detector": "package-metadata",
+      "excerpt_digest": "cb38356703f35d970058cb26ce297b4e48149b4e14cc9c93983e4ff1adaa6045",
+      "id": "ev_7d00460634406f3884ffa3e0",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/vitest"
+      },
+      "object_id": "6d69707290c76c75201a1b53a563ed4eb1ce47dd",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_93c9d78dc77ea6605ccfc824": {
+      "commit": null,
+      "content_digest": "bf52a898d831fb09f569953d58380bc683214387f3bde64d81bce1623487f09d",
+      "detector": "tooling",
+      "excerpt_digest": "cb38356703f35d970058cb26ce297b4e48149b4e14cc9c93983e4ff1adaa6045",
+      "id": "ev_93c9d78dc77ea6605ccfc824",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/vitest"
+      },
+      "object_id": "6d69707290c76c75201a1b53a563ed4eb1ce47dd",
+      "path": "package.json",
+      "rule": "manifest.tool-dependency"
+    },
+    "ev_97568dcd370f58b5f7b40af5": {
+      "commit": null,
+      "content_digest": "bf52a898d831fb09f569953d58380bc683214387f3bde64d81bce1623487f09d",
+      "detector": "runtime",
+      "excerpt_digest": "035e982ffb8f9cf998043876511942fb3486322b424c90ddf1e34e1a8d9ca6e5",
+      "id": "ev_97568dcd370f58b5f7b40af5",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/engines/node"
+      },
+      "object_id": "6d69707290c76c75201a1b53a563ed4eb1ce47dd",
+      "path": "package.json",
+      "rule": "manifest.engines"
+    },
+    "ev_9c0315493b9a6c73b6ee6f2f": {
+      "commit": null,
+      "content_digest": "221c996f1009158f8e5fe95c92e81763c4af3dfbc8dad9899700d8e817af71f6",
+      "detector": "npm-lock",
+      "excerpt_digest": "fa4b3ccaab62849bf58af9a41e4d3df128e98909bbbbff64367fc28137e071a3",
+      "id": "ev_9c0315493b9a6c73b6ee6f2f",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/packages/node_modules~1typescript/version"
+      },
+      "object_id": "3bed87ac4354608e596140c72b7bc3d3e593385b",
+      "path": "package-lock.json",
+      "rule": "npm-lock.resolved-version"
+    },
+    "ev_b540b641503e0c7b77b187ba": {
+      "commit": null,
+      "content_digest": "180c4021f94d8da1f38a22d37c51439164ab4a628f7a6835f00d2d26e6903f51",
+      "detector": "tooling",
+      "excerpt_digest": "180c4021f94d8da1f38a22d37c51439164ab4a628f7a6835f00d2d26e6903f51",
+      "id": "ev_b540b641503e0c7b77b187ba",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "ff8b4c56321a3362fc00224b01800f62466f9a1f",
+      "path": "tsup.config.ts",
+      "rule": "config.tool-file"
+    },
+    "ev_b9f8a6fe421b3bb6cd2e4aef": {
+      "commit": null,
+      "content_digest": "bf52a898d831fb09f569953d58380bc683214387f3bde64d81bce1623487f09d",
+      "detector": "package-metadata",
+      "excerpt_digest": "fba95a97e07082884a87184ffe8f5807c7ee8f9a44ff21d6e58677989a4276ba",
+      "id": "ev_b9f8a6fe421b3bb6cd2e4aef",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/scripts/build"
+      },
+      "object_id": "6d69707290c76c75201a1b53a563ed4eb1ce47dd",
+      "path": "package.json",
+      "rule": "manifest.scripts"
+    },
+    "ev_d5398f2e36eda719381fa69d": {
+      "commit": null,
+      "content_digest": "bf52a898d831fb09f569953d58380bc683214387f3bde64d81bce1623487f09d",
+      "detector": "tooling",
+      "excerpt_digest": "c405d69b02617f0a90096c709318b72116b5b8347873233f020cc463daf67951",
+      "id": "ev_d5398f2e36eda719381fa69d",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/tsup"
+      },
+      "object_id": "6d69707290c76c75201a1b53a563ed4eb1ce47dd",
+      "path": "package.json",
+      "rule": "manifest.tool-dependency"
+    },
+    "ev_e24420afcdf8796d62a65e8a": {
+      "commit": null,
+      "content_digest": "a27c41306f02b6332fab039a1b6c12da0002386425387a3acb6db13baf4a3b71",
+      "detector": "inventory",
+      "excerpt_digest": "a27c41306f02b6332fab039a1b6c12da0002386425387a3acb6db13baf4a3b71",
+      "id": "ev_e24420afcdf8796d62a65e8a",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "3bed87ac4354608e596140c72b7bc3d3e593385b",
+      "path": "package-lock.json",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_e55f6bddf1c2b8c0e1cb5105": {
+      "commit": null,
+      "content_digest": "bf52a898d831fb09f569953d58380bc683214387f3bde64d81bce1623487f09d",
+      "detector": "runtime",
+      "excerpt_digest": "d1d99a83214f12fa0e0b29dcbcd7ed2a0e4afbda113234bc27e580b5d21acc1e",
+      "id": "ev_e55f6bddf1c2b8c0e1cb5105",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/packageManager"
+      },
+      "object_id": "6d69707290c76c75201a1b53a563ed4eb1ce47dd",
+      "path": "package.json",
+      "rule": "manifest.package-manager-version"
+    },
+    "ev_e8585d97a9b3e5d07e0b4b3d": {
+      "commit": null,
+      "content_digest": "bf52a898d831fb09f569953d58380bc683214387f3bde64d81bce1623487f09d",
+      "detector": "runtime",
+      "excerpt_digest": "ab5da54aeb19a9cfa5d589a1e7c26710c69649ea222d99ab028fff585b095a32",
+      "id": "ev_e8585d97a9b3e5d07e0b4b3d",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/engines/npm"
+      },
+      "object_id": "6d69707290c76c75201a1b53a563ed4eb1ce47dd",
+      "path": "package.json",
+      "rule": "manifest.engines"
+    },
+    "ev_ec2bf5f447eff06e43b5b22f": {
+      "commit": null,
+      "content_digest": "bf52a898d831fb09f569953d58380bc683214387f3bde64d81bce1623487f09d",
+      "detector": "tooling",
+      "excerpt_digest": "fa4b3ccaab62849bf58af9a41e4d3df128e98909bbbbff64367fc28137e071a3",
+      "id": "ev_ec2bf5f447eff06e43b5b22f",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/typescript"
+      },
+      "object_id": "6d69707290c76c75201a1b53a563ed4eb1ce47dd",
+      "path": "package.json",
+      "rule": "manifest.tool-dependency"
+    },
+    "ev_ed37e3c4e1a51eb6ade5b50d": {
+      "commit": null,
+      "content_digest": "bf52a898d831fb09f569953d58380bc683214387f3bde64d81bce1623487f09d",
+      "detector": "package-metadata",
+      "excerpt_digest": "33102baf503be2635e228bf733cfa5c789f1d5e66d5e11d2749a63ce4d2acb92",
+      "id": "ev_ed37e3c4e1a51eb6ade5b50d",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/peerDependencies/react"
+      },
+      "object_id": "6d69707290c76c75201a1b53a563ed4eb1ce47dd",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_ee6922bac943a477c3b6ddba": {
+      "commit": null,
+      "content_digest": "48e8c7b20eb98a8ffe61ffa10b4e15c7dc701950018b90e104695606e4c675a0",
+      "detector": "inventory",
+      "excerpt_digest": "48e8c7b20eb98a8ffe61ffa10b4e15c7dc701950018b90e104695606e4c675a0",
+      "id": "ev_ee6922bac943a477c3b6ddba",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "0967ef424bce6791893e9a57bb952f80fd536e93",
+      "path": "tsconfig.json",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_ef9b20dc24ecfec10a6b2a6f": {
+      "commit": null,
+      "content_digest": "6bf7b7799c5cdd0bbace2bc497e065e097ef90091b18bcb77242b586bd5a2340",
+      "detector": "inventory",
+      "excerpt_digest": "6bf7b7799c5cdd0bbace2bc497e065e097ef90091b18bcb77242b586bd5a2340",
+      "id": "ev_ef9b20dc24ecfec10a6b2a6f",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "4286b71f508dbb83998d6cd1edd95ddfb7d77911",
+      "path": "src/index.test.ts",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_fe9f133fea5ddc48a2daf145": {
+      "commit": null,
+      "content_digest": "bf52a898d831fb09f569953d58380bc683214387f3bde64d81bce1623487f09d",
+      "detector": "package-metadata",
+      "excerpt_digest": "90d9718ea77fc7da83b6563856e2625708bb1e37710d6fe5bf5684558209845c",
+      "id": "ev_fe9f133fea5ddc48a2daf145",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/name"
+      },
+      "object_id": "6d69707290c76c75201a1b53a563ed4eb1ce47dd",
+      "path": "package.json",
+      "rule": "manifest.identity"
+    }
+  },
+  "extensions": [],
+  "inventory": {
+    "bytes": 868,
+    "bytes_read": 775,
+    "entries": 7,
+    "executables": 0,
+    "files": 6,
+    "files_read": 4,
+    "gitlinks": 0,
+    "symlinks": 0
+  },
+  "relationship_references": [],
+  "schema": "repo_facts.fact_document",
+  "schema_version": 1,
+  "service_dependencies": []
+}

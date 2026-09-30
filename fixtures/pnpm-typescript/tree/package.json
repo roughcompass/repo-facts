@@ -1,0 +1,17 @@
+{
+  "name": "catalog",
+  "packageManager": "pnpm@9.1.0+sha512.0123456789abcdef",
+  "engines": {
+    "node": ">=20",
+    "pnpm": ">=9"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3",
+    "vitest": "3.2.4",
+    "vite": "7.1.0"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  }
+}

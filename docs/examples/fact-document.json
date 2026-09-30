@@ -1,0 +1,330 @@
+{
+  "categories": {
+    "access_signals": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "api_contracts": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "build_tools": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "ci_systems": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "composition": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "dependencies": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "egress_routes": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "frameworks": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "languages": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "package_identity": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "package_managers": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "packages_consumed": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "packages_produced": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "resolved_dependencies": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "runtime_integrations": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "runtime_requirements": {
+      "facts": [
+        {
+          "candidates": [
+            {
+              "evidence": [
+                "ev_9835032f95a8bb29c52cb501"
+              ],
+              "rule": "runtime.nvmrc",
+              "value": {
+                "declared": [
+                  "18"
+                ],
+                "range": "18.0.0 - 18"
+              }
+            },
+            {
+              "evidence": [
+                "ev_7ab4f5090c9726defbaa2161"
+              ],
+              "rule": "manifest.engines",
+              "value": {
+                "declared": [
+                  ">=20"
+                ],
+                "range": ">=20.0.0"
+              }
+            }
+          ],
+          "evidence": [
+            "ev_7ab4f5090c9726defbaa2161",
+            "ev_9835032f95a8bb29c52cb501"
+          ],
+          "key": "node",
+          "rule": "manifest.engines",
+          "state": "conflicting",
+          "value": null
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "runtime.declarations"
+        ],
+        "skipped": [],
+        "surface": [
+          ".nvmrc",
+          "package.json"
+        ]
+      },
+      "state": "conflicting"
+    },
+    "scripts": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "served_origins": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "submodules": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "test_frameworks": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.test-frameworks"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "test_substitutes": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "verification_commands": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "workspaces": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    }
+  },
+  "commit": null,
+  "detector_release": "0.1.0",
+  "diagnostics": [],
+  "evidence": {
+    "ev_7ab4f5090c9726defbaa2161": {
+      "commit": null,
+      "content_digest": "26b4e11cd657311c2032f7c957194cda31028267159918c321c01a2d97127a1e",
+      "detector": "example",
+      "excerpt_digest": "56655bbfc8c112d2a1f1e55c387487152308a1279aac594416e51ede3e88ac9d",
+      "id": "ev_7ab4f5090c9726defbaa2161",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/engines/node"
+      },
+      "object_id": "a3a90cab7d85d22e3a55aec2ab09f7f04e1a29a9",
+      "path": "package.json",
+      "rule": "manifest.engines"
+    },
+    "ev_9835032f95a8bb29c52cb501": {
+      "commit": null,
+      "content_digest": "7ee29791fc17e986b97128845622b077fb45e349fdb80523fac9dba879b4ad60",
+      "detector": "example",
+      "excerpt_digest": "4ec9599fc203d176a301536c2e091a19bc852759b255bd6818810a42c5fed14a",
+      "id": "ev_9835032f95a8bb29c52cb501",
+      "location": {
+        "end": 1,
+        "kind": "lines",
+        "start": 1
+      },
+      "object_id": "3c032078a4a21c5c51d3c93d91717c1dabbb8cd0",
+      "path": ".nvmrc",
+      "rule": "runtime.nvmrc"
+    }
+  },
+  "extensions": [],
+  "inventory": {
+    "bytes": 97,
+    "bytes_read": 62,
+    "entries": 4,
+    "executables": 0,
+    "files": 3,
+    "files_read": 2,
+    "gitlinks": 0,
+    "symlinks": 0
+  },
+  "relationship_references": [],
+  "schema": "repo_facts.fact_document",
+  "schema_version": 1,
+  "service_dependencies": []
+}

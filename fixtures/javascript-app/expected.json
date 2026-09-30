@@ -1,0 +1,663 @@
+{
+  "categories": {
+    "access_signals": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "api_contracts": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "build_tools": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "config.tool-file",
+          "manifest.tool-dependency"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "ci_systems": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "composition": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "dependencies": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_3a39a39037624d39aa2121dc"
+          ],
+          "key": "package.json#dependencies/next",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "dependencies",
+            "manifest": "package.json",
+            "name": "next",
+            "specifier": "15.5.0"
+          }
+        },
+        {
+          "evidence": [
+            "ev_509b6067528b1950f3a02553"
+          ],
+          "key": "package.json#dependencies/react",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "dependencies",
+            "manifest": "package.json",
+            "name": "react",
+            "specifier": "19.1.0"
+          }
+        },
+        {
+          "evidence": [
+            "ev_32f74167cfcffb18df96dd67"
+          ],
+          "key": "package.json#devDependencies/@playwright/test",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "devDependencies",
+            "manifest": "package.json",
+            "name": "@playwright/test",
+            "specifier": "1.55.0"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.dependencies"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "egress_routes": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "frameworks": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_c46c772329a4810f1b7b1b2d"
+          ],
+          "key": "package.json#next",
+          "rule": "manifest.framework",
+          "state": "observed",
+          "value": {
+            "id": "next",
+            "label": "Next.js",
+            "manifest": "package.json",
+            "package": "next",
+            "specifiers": {
+              "dependencies": "15.5.0"
+            }
+          }
+        },
+        {
+          "evidence": [
+            "ev_3ad09c1e08ece6fff0cdf30f"
+          ],
+          "key": "package.json#react",
+          "rule": "manifest.framework",
+          "state": "observed",
+          "value": {
+            "id": "react",
+            "label": "React",
+            "manifest": "package.json",
+            "package": "react",
+            "specifiers": {
+              "dependencies": "19.1.0"
+            }
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.framework"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "languages": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_f2c2451cd11889845bffa6bc"
+          ],
+          "key": "JSON",
+          "rule": "inventory.language-by-extension",
+          "state": "observed",
+          "value": {
+            "bytes": 246,
+            "files": 1
+          }
+        },
+        {
+          "evidence": [
+            "ev_30c30d30f75ca54f52ccefd8",
+            "ev_ef37252da7430de4ed54f556"
+          ],
+          "key": "JavaScript",
+          "rule": "inventory.language-by-extension",
+          "state": "observed",
+          "value": {
+            "bytes": 69,
+            "files": 2
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.language-by-extension"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "observed"
+    },
+    "package_identity": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_4c558bb6dcc7aa40d435a896",
+            "ev_cb42676eb3de48af61a0fecf"
+          ],
+          "key": "package.json",
+          "rule": "manifest.identity",
+          "state": "observed",
+          "value": {
+            "manifest": "package.json",
+            "name": "storefront",
+            "private": false,
+            "version": "0.1.0"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.identity"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "package_managers": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "lockfile.package-manager",
+          "manifest.package-manager"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "packages_consumed": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "packages_produced": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "resolved_dependencies": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "npm-lock.resolved-version",
+          "pnpm-lock.resolved-version",
+          "yarn-lock.resolved-version"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "runtime_integrations": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "runtime_requirements": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "runtime.declarations"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "scripts": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_ca21c34c1f194d46157f4efd"
+          ],
+          "key": "package.json#dev",
+          "rule": "manifest.scripts",
+          "state": "observed",
+          "value": {
+            "command": "next dev",
+            "manifest": "package.json",
+            "name": "dev"
+          }
+        },
+        {
+          "evidence": [
+            "ev_1c935de35fcab58b1f2cbe8a"
+          ],
+          "key": "package.json#lint",
+          "rule": "manifest.scripts",
+          "state": "observed",
+          "value": {
+            "command": "next lint",
+            "manifest": "package.json",
+            "name": "lint"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.scripts"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "served_origins": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "submodules": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.gitlink"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    },
+    "test_frameworks": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_1cc5c962523b14a62159b0c8",
+            "ev_45e1657d0a7555182caf6918"
+          ],
+          "key": "playwright",
+          "rule": "manifest.tool-dependency",
+          "state": "observed",
+          "value": {
+            "id": "playwright",
+            "label": "Playwright Test"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "config.tool-file",
+          "manifest.tool-dependency"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "test_substitutes": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "verification_commands": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "workspaces": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.workspaces",
+          "pnpm-workspace.packages"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    }
+  },
+  "commit": null,
+  "detector_release": "golden",
+  "diagnostics": [],
+  "evidence": {
+    "ev_1c935de35fcab58b1f2cbe8a": {
+      "commit": null,
+      "content_digest": "f7d4dbbc23bf8397eff7e30bc5f2bf1fd48aacc88fad603f85ef717a26733104",
+      "detector": "package-metadata",
+      "excerpt_digest": "042f71c1e56773875eafdc3f15ab600e104bcdf1fe51b92dc6560de3c51d2cee",
+      "id": "ev_1c935de35fcab58b1f2cbe8a",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/scripts/lint"
+      },
+      "object_id": "505a83de4d390e8afa7856f2f6cd8bae9e2d560c",
+      "path": "package.json",
+      "rule": "manifest.scripts"
+    },
+    "ev_1cc5c962523b14a62159b0c8": {
+      "commit": null,
+      "content_digest": "f7d4dbbc23bf8397eff7e30bc5f2bf1fd48aacc88fad603f85ef717a26733104",
+      "detector": "tooling",
+      "excerpt_digest": "4215f788ee07312000e95b363de0633776406c60a297f92e6b819df58e8a82ed",
+      "id": "ev_1cc5c962523b14a62159b0c8",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/@playwright~1test"
+      },
+      "object_id": "505a83de4d390e8afa7856f2f6cd8bae9e2d560c",
+      "path": "package.json",
+      "rule": "manifest.tool-dependency"
+    },
+    "ev_30c30d30f75ca54f52ccefd8": {
+      "commit": null,
+      "content_digest": "f226d25fc8984deaf75645f65d0f00e84f6ca105551f09b2a226f50a09b7ccd3",
+      "detector": "inventory",
+      "excerpt_digest": "f226d25fc8984deaf75645f65d0f00e84f6ca105551f09b2a226f50a09b7ccd3",
+      "id": "ev_30c30d30f75ca54f52ccefd8",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "f053ebf7976e3726d11f3c03fade2170903889a5",
+      "path": "playwright.config.js",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_32f74167cfcffb18df96dd67": {
+      "commit": null,
+      "content_digest": "f7d4dbbc23bf8397eff7e30bc5f2bf1fd48aacc88fad603f85ef717a26733104",
+      "detector": "package-metadata",
+      "excerpt_digest": "4215f788ee07312000e95b363de0633776406c60a297f92e6b819df58e8a82ed",
+      "id": "ev_32f74167cfcffb18df96dd67",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/@playwright~1test"
+      },
+      "object_id": "505a83de4d390e8afa7856f2f6cd8bae9e2d560c",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_3a39a39037624d39aa2121dc": {
+      "commit": null,
+      "content_digest": "f7d4dbbc23bf8397eff7e30bc5f2bf1fd48aacc88fad603f85ef717a26733104",
+      "detector": "package-metadata",
+      "excerpt_digest": "5b20389e29f28f31ea57fcd6cd92d65c017cf2f420ce30ffb154037302f1b724",
+      "id": "ev_3a39a39037624d39aa2121dc",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/next"
+      },
+      "object_id": "505a83de4d390e8afa7856f2f6cd8bae9e2d560c",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_3ad09c1e08ece6fff0cdf30f": {
+      "commit": null,
+      "content_digest": "f7d4dbbc23bf8397eff7e30bc5f2bf1fd48aacc88fad603f85ef717a26733104",
+      "detector": "tooling",
+      "excerpt_digest": "c3b5746f369a734a71d7340963dbba88e4ebdd8742c57d3f93abf713a79df2b5",
+      "id": "ev_3ad09c1e08ece6fff0cdf30f",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/react"
+      },
+      "object_id": "505a83de4d390e8afa7856f2f6cd8bae9e2d560c",
+      "path": "package.json",
+      "rule": "manifest.framework"
+    },
+    "ev_45e1657d0a7555182caf6918": {
+      "commit": null,
+      "content_digest": "f226d25fc8984deaf75645f65d0f00e84f6ca105551f09b2a226f50a09b7ccd3",
+      "detector": "tooling",
+      "excerpt_digest": "f226d25fc8984deaf75645f65d0f00e84f6ca105551f09b2a226f50a09b7ccd3",
+      "id": "ev_45e1657d0a7555182caf6918",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "f053ebf7976e3726d11f3c03fade2170903889a5",
+      "path": "playwright.config.js",
+      "rule": "config.tool-file"
+    },
+    "ev_4c558bb6dcc7aa40d435a896": {
+      "commit": null,
+      "content_digest": "f7d4dbbc23bf8397eff7e30bc5f2bf1fd48aacc88fad603f85ef717a26733104",
+      "detector": "package-metadata",
+      "excerpt_digest": "9bdca1b57e6a02637da8e1392e96cca76d4fa5194904b6d6f8bc08eaf4d9fd4e",
+      "id": "ev_4c558bb6dcc7aa40d435a896",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/name"
+      },
+      "object_id": "505a83de4d390e8afa7856f2f6cd8bae9e2d560c",
+      "path": "package.json",
+      "rule": "manifest.identity"
+    },
+    "ev_509b6067528b1950f3a02553": {
+      "commit": null,
+      "content_digest": "f7d4dbbc23bf8397eff7e30bc5f2bf1fd48aacc88fad603f85ef717a26733104",
+      "detector": "package-metadata",
+      "excerpt_digest": "c3b5746f369a734a71d7340963dbba88e4ebdd8742c57d3f93abf713a79df2b5",
+      "id": "ev_509b6067528b1950f3a02553",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/react"
+      },
+      "object_id": "505a83de4d390e8afa7856f2f6cd8bae9e2d560c",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_c46c772329a4810f1b7b1b2d": {
+      "commit": null,
+      "content_digest": "f7d4dbbc23bf8397eff7e30bc5f2bf1fd48aacc88fad603f85ef717a26733104",
+      "detector": "tooling",
+      "excerpt_digest": "5b20389e29f28f31ea57fcd6cd92d65c017cf2f420ce30ffb154037302f1b724",
+      "id": "ev_c46c772329a4810f1b7b1b2d",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/next"
+      },
+      "object_id": "505a83de4d390e8afa7856f2f6cd8bae9e2d560c",
+      "path": "package.json",
+      "rule": "manifest.framework"
+    },
+    "ev_ca21c34c1f194d46157f4efd": {
+      "commit": null,
+      "content_digest": "f7d4dbbc23bf8397eff7e30bc5f2bf1fd48aacc88fad603f85ef717a26733104",
+      "detector": "package-metadata",
+      "excerpt_digest": "349da1dedba850fc330991e0a85f3fe4db6022703870443b9b86f96ef529b2fe",
+      "id": "ev_ca21c34c1f194d46157f4efd",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/scripts/dev"
+      },
+      "object_id": "505a83de4d390e8afa7856f2f6cd8bae9e2d560c",
+      "path": "package.json",
+      "rule": "manifest.scripts"
+    },
+    "ev_cb42676eb3de48af61a0fecf": {
+      "commit": null,
+      "content_digest": "f7d4dbbc23bf8397eff7e30bc5f2bf1fd48aacc88fad603f85ef717a26733104",
+      "detector": "package-metadata",
+      "excerpt_digest": "8e633b4f41f99d4c388915bc852f2143cf4e9f5eaad70c76a81d4f4aa629eec1",
+      "id": "ev_cb42676eb3de48af61a0fecf",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/version"
+      },
+      "object_id": "505a83de4d390e8afa7856f2f6cd8bae9e2d560c",
+      "path": "package.json",
+      "rule": "manifest.identity"
+    },
+    "ev_ef37252da7430de4ed54f556": {
+      "commit": null,
+      "content_digest": "2839c523b057cf9de8d5c1e186e84db991d86ef231dd31bf6300847ed5e2f193",
+      "detector": "inventory",
+      "excerpt_digest": "2839c523b057cf9de8d5c1e186e84db991d86ef231dd31bf6300847ed5e2f193",
+      "id": "ev_ef37252da7430de4ed54f556",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "9812c15694bb5c0ada526aa75032033e40230bb9",
+      "path": "pages/index.js",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_f2c2451cd11889845bffa6bc": {
+      "commit": null,
+      "content_digest": "32fc3712ea57e9228776d77346aab6f404d4b76e5fc1b0eeae9a690c2969ddd1",
+      "detector": "inventory",
+      "excerpt_digest": "32fc3712ea57e9228776d77346aab6f404d4b76e5fc1b0eeae9a690c2969ddd1",
+      "id": "ev_f2c2451cd11889845bffa6bc",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "505a83de4d390e8afa7856f2f6cd8bae9e2d560c",
+      "path": "package.json",
+      "rule": "inventory.language-by-extension"
+    }
+  },
+  "extensions": [],
+  "inventory": {
+    "bytes": 315,
+    "bytes_read": 267,
+    "entries": 4,
+    "executables": 0,
+    "files": 3,
+    "files_read": 2,
+    "gitlinks": 0,
+    "symlinks": 0
+  },
+  "relationship_references": [],
+  "schema": "repo_facts.fact_document",
+  "schema_version": 1,
+  "service_dependencies": []
+}

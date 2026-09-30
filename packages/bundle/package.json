@@ -1,0 +1,27 @@
+{
+  "name": "@repo-facts/bundle",
+  "version": "0.0.0",
+  "description": "One tested set of repo-facts detectors: a detector release",
+  "license": "UNLICENSED",
+  "type": "module",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "dependencies": {
+    "@repo-facts/architecture": "0.0.0",
+    "@repo-facts/contract": "0.0.0",
+    "@repo-facts/core": "0.0.0",
+    "@repo-facts/services": "0.0.0",
+    "@repo-facts/syntax": "0.0.0"
+  }
+}

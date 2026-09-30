@@ -1,0 +1,50 @@
+{
+  "name": "repo-facts",
+  "private": true,
+  "description": "Evidence-backed facts about repositories, discovered statically",
+  "license": "UNLICENSED",
+  "type": "module",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "workspaces": [
+    "packages/contract",
+    "packages/syntax",
+    "packages/core",
+    "packages/architecture",
+    "packages/services",
+    "packages/bundle"
+  ],
+  "scripts": {
+    "build": "tsc -b",
+    "typecheck": "tsc -b && tsc -p tsconfig.test.json",
+    "lint": "eslint .",
+    "test": "vitest run --passWithNoTests --project unit",
+    "test:integration": "vitest run --project integration",
+    "check": "npm run typecheck && npm run lint && npm test",
+    "verify": "npm run check && npm run test:integration",
+    "registry": "node scripts/registry.mjs",
+    "release:version": "node scripts/release.mjs version",
+    "release:publish": "node scripts/release.mjs publish",
+    "test:release": "vitest run --project release",
+    "release:dry-run": "node scripts/release.mjs publish --dry-run",
+    "ci": "npm run verify && npm run test:release && npm run release:dry-run",
+    "fixtures:update": "REPO_FACTS_UPDATE_FIXTURES=1 vitest run --project unit test/golden"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.39.5",
+    "@types/node": "24.19.0",
+    "@types/semver": "7.8.0",
+    "eslint": "9.39.5",
+    "semver": "7.8.5",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.71.0",
+    "verdaccio": "6.10.4",
+    "vitest": "5.0.2"
+  },
+  "overrides": {
+    "@verdaccio/config": {
+      "js-yaml": "5.4.2"
+    }
+  }
+}
