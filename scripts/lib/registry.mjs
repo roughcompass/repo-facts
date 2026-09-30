@@ -58,11 +58,15 @@ export async function createToken(url, storage = path.join(ROOT, "tmp", "registr
     fs.writeFileSync(accountFile, JSON.stringify({ name: "repo-facts-dev", password: crypto.randomBytes(24).toString("base64url") }), { mode: 0o600 });
   }
   const { name, password } = JSON.parse(fs.readFileSync(accountFile, "utf8"));
-  const response = await fetch(new URL(`-/user/org.couchdb.user:${encodeURIComponent(name)}`, url), {
-    method: "PUT",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify({ name, password, type: "user" }),
-  });
+  const login = (authorization) =>
+    fetch(new URL(`-/user/org.couchdb.user:${encodeURIComponent(name)}`, url), {
+      method: "PUT",
+      headers: { "content-type": "application/json", ...(authorization && { authorization }) },
+      body: JSON.stringify({ name, password, type: "user" }),
+    });
+  // A new account registers; an existing one (409) logs in with its stored credentials.
+  let response = await login();
+  if (response.status === 409) response = await login(`Basic ${Buffer.from(`${name}:${password}`).toString("base64")}`);
   const body = await response.json();
   if (!body.token) throw new Error(`The registry refused to issue a token (${response.status})`);
   return body.token;

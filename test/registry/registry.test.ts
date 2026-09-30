@@ -118,6 +118,12 @@ describe("local registry and committed npm configuration", () => {
     expect(fs.existsSync(path.join(consumer, "node_modules", "@repo-facts"))).toBe(false);
   }, 60_000);
 
+  it("issues a token again for an existing local account", async () => {
+    const again = await createToken(registry.url, storage);
+    expect(typeof again).toBe("string");
+    expect(again.length).toBeGreaterThan(10);
+  });
+
   it("keeps credentials out of every file the repository would commit", () => {
     const account = JSON.parse(fs.readFileSync(path.join(storage, "account.json"), "utf8")) as { password: string };
     const files = execFileSync("git", ["ls-files", "--cached", "--others", "--exclude-standard", "-z"], { cwd: ROOT, encoding: "utf8" }).split("\0").filter(Boolean);
