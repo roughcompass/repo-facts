@@ -1,0 +1,3 @@
+[submodule "vendor/trap"]
+	path = vendor/trap
+	url = git@trap.invalid:trap/trap.git

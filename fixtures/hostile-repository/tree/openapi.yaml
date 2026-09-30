@@ -1,0 +1,11 @@
+openapi: 3.1.0
+info:
+  title: Trap
+  version: "1"
+servers:
+  - url: http://trap.invalid
+paths:
+  /collect:
+    $ref: "http://trap.invalid/paths.yaml#/collect"
+  __proto__:
+    get: {}
