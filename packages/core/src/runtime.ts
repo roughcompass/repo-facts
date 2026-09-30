@@ -18,11 +18,34 @@ export const RUNTIME_DECLARATIONS = "runtime-declarations";
 
 export interface RuntimeDeclaration {
   runtime: Runtime;
+  /** The declaration as written, such as `>=20` or `lts/iron`. */
   declared: string;
+  /** The semver range it denotes, when `declared` is not itself a range (such as an LTS codename). */
+  range?: string;
   path: string;
   evidence: Evidence;
   rule: string;
 }
+
+interface SharedRuntimeInputs {
+  declarations: RuntimeDeclaration[];
+  surface: string[];
+  skipped: string[];
+}
+
+/**
+ * Adds declarations found by an earlier stage (runtime files, CI setup, container
+ * images), with the paths searched and any that could not be analyzed.
+ */
+export function shareRuntimeInputs(context: DetectorContext, inputs: Partial<SharedRuntimeInputs>) {
+  const shared = (context.shared.get(RUNTIME_DECLARATIONS) as SharedRuntimeInputs | undefined) ?? { declarations: [], surface: [], skipped: [] };
+  shared.declarations.push(...(inputs.declarations ?? []));
+  shared.surface.push(...(inputs.surface ?? []));
+  shared.skipped.push(...(inputs.skipped ?? []));
+  context.shared.set(RUNTIME_DECLARATIONS, shared);
+}
+
+const rangeOf = (declaration: RuntimeDeclaration) => declaration.range ?? normalizeRange(declaration.declared);
 
 const RULES = {
   engines: "manifest.engines",
@@ -38,13 +61,14 @@ export const runtimeDetector: Detector = {
   categories: ["runtime_requirements"],
   async run(context) {
     const { manifests, unanalyzed } = manifestsOf(context);
-    const declarations = [...manifestDeclarations(context), ...((context.shared.get(RUNTIME_DECLARATIONS) as RuntimeDeclaration[] | undefined) ?? [])];
+    const shared = (context.shared.get(RUNTIME_DECLARATIONS) as SharedRuntimeInputs | undefined) ?? { declarations: [], surface: [], skipped: [] };
+    const declarations = [...manifestDeclarations(context), ...shared.declarations];
     const unsupported: string[] = [];
 
     for (const runtime of RUNTIMES) {
       const all = declarations.filter((item) => item.runtime === runtime);
       const valid = all.filter((item) => {
-        if (normalizeRange(item.declared) !== null) return true;
+        if (rangeOf(item) !== null) return true;
         context.diagnostic(item.path, "unsupported_runtime_declaration", `${JSON.stringify(item.declared.slice(0, 100))} is not a version range for ${runtime}`);
         unsupported.push(item.path);
         return false;
@@ -52,12 +76,12 @@ export const runtimeDetector: Detector = {
       if (valid.length === 0) continue;
 
       const declared = [...new Set(valid.map((item) => item.declared.trim()))].sort(compareCodeUnits);
-      const range = conjoinRanges(declared);
+      const range = conjoinRanges([...new Set(valid.map((item) => rangeOf(item)!))].sort(compareCodeUnits));
       for (const item of valid) {
         context.fact({
           category: "runtime_requirements",
           key: runtime,
-          value: range === null ? { range: normalizeRange(item.declared)!, declared: [item.declared.trim()] } : { range, declared },
+          value: range === null ? { range: normalizeRange(rangeOf(item)!)!, declared: [item.declared.trim()] } : { range, declared },
           basis: "observed",
           evidence: [item.evidence],
           rule: item.rule,
@@ -65,8 +89,8 @@ export const runtimeDetector: Detector = {
       }
     }
 
-    const sources = [...new Set([...manifests.map((manifest) => manifest.path), ...declarations.map((item) => item.path)])].sort(compareCodeUnits);
-    context.search({ category: "runtime_requirements", rule: "runtime.declarations", surface: sources, complete: true, skipped: [...new Set([...unanalyzed, ...unsupported])].sort(compareCodeUnits) });
+    const sources = [...new Set([...manifests.map((manifest) => manifest.path), ...shared.surface, ...declarations.map((item) => item.path)])].sort(compareCodeUnits);
+    context.search({ category: "runtime_requirements", rule: "runtime.declarations", surface: sources, complete: true, skipped: [...new Set([...unanalyzed, ...shared.skipped, ...unsupported])].sort(compareCodeUnits) });
   },
 };
 

@@ -39,12 +39,14 @@
     "ci_systems": {
       "facts": [],
       "search": {
-        "complete": false,
-        "rules": [],
+        "complete": true,
+        "rules": [
+          "ci.definition"
+        ],
         "skipped": [],
         "surface": []
       },
-      "state": "unknown"
+      "state": "absent"
     },
     "composition": {
       "facts": [],
@@ -400,12 +402,17 @@
     "verification_commands": {
       "facts": [],
       "search": {
-        "complete": false,
-        "rules": [],
+        "complete": true,
+        "rules": [
+          "ci.verification-commands"
+        ],
         "skipped": [],
-        "surface": []
+        "surface": [
+          "modules/billing/package.json",
+          "package.json"
+        ]
       },
-      "state": "unknown"
+      "state": "absent"
     },
     "workspaces": {
       "facts": [

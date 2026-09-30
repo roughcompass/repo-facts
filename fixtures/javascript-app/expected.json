@@ -38,12 +38,14 @@
     "ci_systems": {
       "facts": [],
       "search": {
-        "complete": false,
-        "rules": [],
+        "complete": true,
+        "rules": [
+          "ci.definition"
+        ],
         "skipped": [],
         "surface": []
       },
-      "state": "unknown"
+      "state": "absent"
     },
     "composition": {
       "facts": [],
@@ -415,14 +417,38 @@
       "state": "unknown"
     },
     "verification_commands": {
-      "facts": [],
+      "facts": [
+        {
+          "evidence": [
+            "ev_8fb87afd7eff44ef79ba8225"
+          ],
+          "key": "package.json#scripts/lint",
+          "rule": "manifest.verification-script",
+          "state": "observed",
+          "value": {
+            "command": "next lint",
+            "context": {
+              "script": "lint",
+              "via": []
+            },
+            "kinds": [
+              "lint"
+            ],
+            "source": "package.json"
+          }
+        }
+      ],
       "search": {
-        "complete": false,
-        "rules": [],
+        "complete": true,
+        "rules": [
+          "ci.verification-commands"
+        ],
         "skipped": [],
-        "surface": []
+        "surface": [
+          "package.json"
+        ]
       },
-      "state": "unknown"
+      "state": "observed"
     },
     "workspaces": {
       "facts": [],
@@ -572,6 +598,21 @@
       "object_id": "505a83de4d390e8afa7856f2f6cd8bae9e2d560c",
       "path": "package.json",
       "rule": "manifest.dependencies"
+    },
+    "ev_8fb87afd7eff44ef79ba8225": {
+      "commit": null,
+      "content_digest": "f7d4dbbc23bf8397eff7e30bc5f2bf1fd48aacc88fad603f85ef717a26733104",
+      "detector": "ci",
+      "excerpt_digest": "042f71c1e56773875eafdc3f15ab600e104bcdf1fe51b92dc6560de3c51d2cee",
+      "id": "ev_8fb87afd7eff44ef79ba8225",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/scripts/lint"
+      },
+      "object_id": "505a83de4d390e8afa7856f2f6cd8bae9e2d560c",
+      "path": "package.json",
+      "rule": "manifest.verification-script"
     },
     "ev_c46c772329a4810f1b7b1b2d": {
       "commit": null,

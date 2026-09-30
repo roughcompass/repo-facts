@@ -65,12 +65,14 @@
     "ci_systems": {
       "facts": [],
       "search": {
-        "complete": false,
-        "rules": [],
+        "complete": true,
+        "rules": [
+          "ci.definition"
+        ],
         "skipped": [],
         "surface": []
       },
-      "state": "unknown"
+      "state": "absent"
     },
     "composition": {
       "facts": [],
@@ -525,14 +527,57 @@
       "state": "unknown"
     },
     "verification_commands": {
-      "facts": [],
+      "facts": [
+        {
+          "evidence": [
+            "ev_42c9003367c21a8961923961"
+          ],
+          "key": "package.json#scripts/build",
+          "rule": "manifest.verification-script",
+          "state": "observed",
+          "value": {
+            "command": "tsup",
+            "context": {
+              "script": "build",
+              "via": []
+            },
+            "kinds": [
+              "build"
+            ],
+            "source": "package.json"
+          }
+        },
+        {
+          "evidence": [
+            "ev_7f59c6323681a64d0f83f33f"
+          ],
+          "key": "package.json#scripts/test",
+          "rule": "manifest.verification-script",
+          "state": "observed",
+          "value": {
+            "command": "vitest run",
+            "context": {
+              "script": "test",
+              "via": []
+            },
+            "kinds": [
+              "test"
+            ],
+            "source": "package.json"
+          }
+        }
+      ],
       "search": {
-        "complete": false,
-        "rules": [],
+        "complete": true,
+        "rules": [
+          "ci.verification-commands"
+        ],
         "skipped": [],
-        "surface": []
+        "surface": [
+          "package.json"
+        ]
       },
-      "state": "unknown"
+      "state": "observed"
     },
     "workspaces": {
       "facts": [],
@@ -673,6 +718,21 @@
       "path": "tsup.config.ts",
       "rule": "inventory.language-by-extension"
     },
+    "ev_42c9003367c21a8961923961": {
+      "commit": null,
+      "content_digest": "bf52a898d831fb09f569953d58380bc683214387f3bde64d81bce1623487f09d",
+      "detector": "ci",
+      "excerpt_digest": "fba95a97e07082884a87184ffe8f5807c7ee8f9a44ff21d6e58677989a4276ba",
+      "id": "ev_42c9003367c21a8961923961",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/scripts/build"
+      },
+      "object_id": "6d69707290c76c75201a1b53a563ed4eb1ce47dd",
+      "path": "package.json",
+      "rule": "manifest.verification-script"
+    },
     "ev_50ee008299f7443f20674fcc": {
       "commit": null,
       "content_digest": "48e8c7b20eb98a8ffe61ffa10b4e15c7dc701950018b90e104695606e4c675a0",
@@ -758,6 +818,21 @@
       "object_id": "6d69707290c76c75201a1b53a563ed4eb1ce47dd",
       "path": "package.json",
       "rule": "manifest.dependencies"
+    },
+    "ev_7f59c6323681a64d0f83f33f": {
+      "commit": null,
+      "content_digest": "bf52a898d831fb09f569953d58380bc683214387f3bde64d81bce1623487f09d",
+      "detector": "ci",
+      "excerpt_digest": "8f1036543a0bc25aeefae4f8576b947b19a79dd5135d30e692a51bb3d20f6345",
+      "id": "ev_7f59c6323681a64d0f83f33f",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/scripts/test"
+      },
+      "object_id": "6d69707290c76c75201a1b53a563ed4eb1ce47dd",
+      "path": "package.json",
+      "rule": "manifest.verification-script"
     },
     "ev_93c9d78dc77ea6605ccfc824": {
       "commit": null,

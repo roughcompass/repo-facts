@@ -54,12 +54,14 @@
     "ci_systems": {
       "facts": [],
       "search": {
-        "complete": false,
-        "rules": [],
+        "complete": true,
+        "rules": [
+          "ci.definition"
+        ],
         "skipped": [],
         "surface": []
       },
-      "state": "unknown"
+      "state": "absent"
     },
     "composition": {
       "facts": [],
@@ -615,14 +617,59 @@
       "state": "unknown"
     },
     "verification_commands": {
-      "facts": [],
+      "facts": [
+        {
+          "evidence": [
+            "ev_da5c56c8238d8ae21dac42ca"
+          ],
+          "key": "package.json#scripts/build",
+          "rule": "manifest.verification-script",
+          "state": "observed",
+          "value": {
+            "command": "npm run build --workspaces",
+            "context": {
+              "script": "build",
+              "via": []
+            },
+            "kinds": [
+              "build"
+            ],
+            "source": "package.json"
+          }
+        },
+        {
+          "evidence": [
+            "ev_7ef6847535252eeb310697e0"
+          ],
+          "key": "package.json#scripts/test",
+          "rule": "manifest.verification-script",
+          "state": "observed",
+          "value": {
+            "command": "jest",
+            "context": {
+              "script": "test",
+              "via": []
+            },
+            "kinds": [
+              "test"
+            ],
+            "source": "package.json"
+          }
+        }
+      ],
       "search": {
-        "complete": false,
-        "rules": [],
+        "complete": true,
+        "rules": [
+          "ci.verification-commands"
+        ],
         "skipped": [],
-        "surface": []
+        "surface": [
+          "package.json",
+          "packages/api/package.json",
+          "packages/web/package.json"
+        ]
       },
-      "state": "unknown"
+      "state": "observed"
     },
     "workspaces": {
       "facts": [
@@ -818,6 +865,21 @@
       "object_id": "7aa593b3b1033661c5b92d6256cd7c6a93cde36c",
       "path": "package-lock.json",
       "rule": "npm-lock.resolved-version"
+    },
+    "ev_7ef6847535252eeb310697e0": {
+      "commit": null,
+      "content_digest": "a4d497965c1c2cbca788633e9bbccb345646e87fdf806598bc0a03f1f12346de",
+      "detector": "ci",
+      "excerpt_digest": "7a2233e206ae70d32e0d12fe4315b65d72712420395d0a1e716be8c995e6a0ce",
+      "id": "ev_7ef6847535252eeb310697e0",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/scripts/test"
+      },
+      "object_id": "89d8cc222cc9c978014a310b218d5787343004cb",
+      "path": "package.json",
+      "rule": "manifest.verification-script"
     },
     "ev_87a9868f6b04294447d15408": {
       "commit": null,
@@ -1054,6 +1116,21 @@
       "object_id": "7aa593b3b1033661c5b92d6256cd7c6a93cde36c",
       "path": "package-lock.json",
       "rule": "lockfile.package-manager"
+    },
+    "ev_da5c56c8238d8ae21dac42ca": {
+      "commit": null,
+      "content_digest": "a4d497965c1c2cbca788633e9bbccb345646e87fdf806598bc0a03f1f12346de",
+      "detector": "ci",
+      "excerpt_digest": "1683d27dc0135d75ef278335b99ca209707b8f2d3a9d760e54feca12edf31c69",
+      "id": "ev_da5c56c8238d8ae21dac42ca",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/scripts/build"
+      },
+      "object_id": "89d8cc222cc9c978014a310b218d5787343004cb",
+      "path": "package.json",
+      "rule": "manifest.verification-script"
     },
     "ev_e1f4f59aa25378e1683c6624": {
       "commit": null,

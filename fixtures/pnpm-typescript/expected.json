@@ -68,12 +68,14 @@
     "ci_systems": {
       "facts": [],
       "search": {
-        "complete": false,
-        "rules": [],
+        "complete": true,
+        "rules": [
+          "ci.definition"
+        ],
         "skipped": [],
         "surface": []
       },
-      "state": "unknown"
+      "state": "absent"
     },
     "composition": {
       "facts": [],
@@ -617,14 +619,60 @@
       "state": "unknown"
     },
     "verification_commands": {
-      "facts": [],
+      "facts": [
+        {
+          "evidence": [
+            "ev_6803c3ec38f43a98c9d3c646"
+          ],
+          "key": "package.json#scripts/test",
+          "rule": "manifest.verification-script",
+          "state": "observed",
+          "value": {
+            "command": "vitest run",
+            "context": {
+              "script": "test",
+              "via": []
+            },
+            "kinds": [
+              "test"
+            ],
+            "source": "package.json"
+          }
+        },
+        {
+          "evidence": [
+            "ev_4421a83d03c2eff40b37a3f7"
+          ],
+          "key": "package.json#scripts/typecheck",
+          "rule": "manifest.verification-script",
+          "state": "observed",
+          "value": {
+            "command": "tsc --noEmit",
+            "context": {
+              "script": "typecheck",
+              "via": []
+            },
+            "kinds": [
+              "typecheck"
+            ],
+            "source": "package.json"
+          }
+        }
+      ],
       "search": {
-        "complete": false,
-        "rules": [],
+        "complete": true,
+        "rules": [
+          "ci.verification-commands"
+        ],
         "skipped": [],
-        "surface": []
+        "surface": [
+          "apps/web/package.json",
+          "libs/deprecated/package.json",
+          "libs/ui/core/package.json",
+          "package.json"
+        ]
       },
-      "state": "unknown"
+      "state": "observed"
     },
     "workspaces": {
       "facts": [
@@ -819,6 +867,21 @@
       "path": "pnpm-lock.yaml",
       "rule": "pnpm-lock.resolved-version"
     },
+    "ev_4421a83d03c2eff40b37a3f7": {
+      "commit": null,
+      "content_digest": "1a624925def4d194fea4276f1d93d1f716220ab4fd24c1513adca86403f77f6e",
+      "detector": "ci",
+      "excerpt_digest": "9a8999f9c52288059269c0f40ff8eafd14c9941076ccee86cd4bebb7c09d6b60",
+      "id": "ev_4421a83d03c2eff40b37a3f7",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/scripts/typecheck"
+      },
+      "object_id": "0a9f40baf6dd12d31aebfb9430a3ed0dfb409412",
+      "path": "package.json",
+      "rule": "manifest.verification-script"
+    },
     "ev_4700694e25547688fe0913fd": {
       "commit": null,
       "content_digest": "557ee32ecc1c84bf6079951ea248667f1e1b1a17dcc1370a45b4db2ff4c2a359",
@@ -876,6 +939,21 @@
       "object_id": "0a9f40baf6dd12d31aebfb9430a3ed0dfb409412",
       "path": "package.json",
       "rule": "manifest.tool-dependency"
+    },
+    "ev_6803c3ec38f43a98c9d3c646": {
+      "commit": null,
+      "content_digest": "1a624925def4d194fea4276f1d93d1f716220ab4fd24c1513adca86403f77f6e",
+      "detector": "ci",
+      "excerpt_digest": "8f1036543a0bc25aeefae4f8576b947b19a79dd5135d30e692a51bb3d20f6345",
+      "id": "ev_6803c3ec38f43a98c9d3c646",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/scripts/test"
+      },
+      "object_id": "0a9f40baf6dd12d31aebfb9430a3ed0dfb409412",
+      "path": "package.json",
+      "rule": "manifest.verification-script"
     },
     "ev_6938292061e28cbd9e48483a": {
       "commit": null,
