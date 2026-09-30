@@ -1,6 +1,6 @@
 {
   "name": "@repo-facts/services",
-  "version": "0.1.0-rc.0",
+  "version": "0.1.0",
   "description": "Service Dependency, access, and testability detectors",
   "license": "UNLICENSED",
   "type": "module",
@@ -18,10 +18,10 @@
   ],
   "sideEffects": false,
   "dependencies": {
-    "@repo-facts/architecture": "0.1.0-rc.0",
-    "@repo-facts/contract": "0.1.0-rc.0",
-    "@repo-facts/core": "0.1.0-rc.0",
-    "@repo-facts/syntax": "0.1.0-rc.0",
+    "@repo-facts/architecture": "0.1.0",
+    "@repo-facts/contract": "0.1.0",
+    "@repo-facts/core": "0.1.0",
+    "@repo-facts/syntax": "0.1.0",
     "typescript": "6.0.3"
   }
 }

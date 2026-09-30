@@ -1,6 +1,6 @@
 {
   "name": "@repo-facts/contract",
-  "version": "0.1.0-rc.0",
+  "version": "0.1.0",
   "description": "Fact contract, reconciliation, reader interface, and canonical JSON for repository facts",
   "license": "UNLICENSED",
   "type": "module",

@@ -70,7 +70,7 @@ ignore-scripts=true
 Then pin an exact release:
 
 ```sh
-npm install --save-exact @repo-facts/bundle@0.1.0-rc.0
+npm install --save-exact @repo-facts/bundle@0.1.0
 ```
 
 - **The scope resolves only to the internal registry.** If `REPO_FACTS_NPM_REGISTRY` is unset, the URL stays unexpanded and the install fails instead of falling back to a public registry.
