@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { type CategoryDefinition, type Detector, MemoryReader, dump, factDocumentProblems, parseCanonical, runDetectors } from "@repo-facts/contract";
+import { compileRules, ruleDetector } from "@repo-facts/syntax";
 
 const ROOT = path.resolve(import.meta.dirname, "../..");
 const DOCS = path.join(ROOT, "docs");
@@ -66,5 +67,22 @@ describe("documentation", () => {
     expect(doc).toContain(marker);
     const block = /```ts\n([\s\S]*?)```/.exec(doc.slice(doc.indexOf(marker)))![1];
     expect(block).toBe(fs.readFileSync(path.join(ROOT, "packages/contract/test/documented-usage.test.ts"), "utf8"));
+  });
+
+  it("runs the syntax rule guide's worked example exactly as documented", async () => {
+    const doc = fs.readFileSync(path.join(DOCS, "syntax-rules.md"), "utf8");
+    const block = (marker: string, language: string) => {
+      const start = doc.indexOf(marker);
+      expect(start, marker).toBeGreaterThan(-1);
+      return new RegExp("```" + language + "\\n([\\s\\S]*?)```").exec(doc.slice(start))![1]!;
+    };
+    const compiled = compileRules([{ path: "docs/syntax-rules.md", text: block("<!-- example-rule -->", "yaml") }]);
+    if (!compiled.ok) throw new Error(compiled.problems.join("\n"));
+    const sourcePath = /<!-- example-source: (\S+) -->/.exec(doc)![1]!;
+    const reader = MemoryReader.fromFiles({ [sourcePath]: block("<!-- example-source:", "ts") });
+    const detector = ruleDetector({ id: "example-rules", version: "1", stage: "architecture", rules: compiled.rules, sources: () => [sourcePath] });
+    const document = await runDetectors({ reader, detectorRelease: "0.1.0", detectors: [detector] });
+    const facts = document.categories.composition!.facts.map((fact) => ({ key: fact.key, value: fact.value }));
+    expect(facts).toEqual(JSON.parse(block("<!-- example-facts -->", "json")));
   });
 });

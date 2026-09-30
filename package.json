@@ -29,7 +29,8 @@
     "test:release": "vitest run --project release",
     "release:dry-run": "node scripts/release.mjs publish --dry-run",
     "ci": "npm run verify && npm run test:release && npm run release:dry-run",
-    "fixtures:update": "REPO_FACTS_UPDATE_FIXTURES=1 vitest run --project unit test/golden"
+    "fixtures:update": "REPO_FACTS_UPDATE_FIXTURES=1 vitest run --project unit test/golden",
+    "rules:compile": "REPO_FACTS_UPDATE_RULES=1 vitest run --project unit test/rules"
   },
   "devDependencies": {
     "@eslint/js": "9.39.5",

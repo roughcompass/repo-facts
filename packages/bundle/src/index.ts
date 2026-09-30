@@ -1,5 +1,7 @@
 import { type Budgets, type CategoryDefinition, type Detector, type DetectorRunOptions, FACT_DOCUMENT_SCHEMA, FACT_DOCUMENT_VERSION, type FactDocument, type JsonObject, type SourceReader, digestOf, runDetectors } from "@repo-facts/contract";
+import { RULES_DIGEST as ARCHITECTURE_RULES_DIGEST } from "@repo-facts/architecture";
 import { CORE_DETECTORS } from "@repo-facts/core";
+import { RULES_DIGEST as SERVICE_RULES_DIGEST } from "@repo-facts/services";
 import { SYNTAX_DEPTH_LIMIT, SYNTAX_NODE_LIMIT, SYNTAX_PARSER } from "@repo-facts/syntax";
 import { DETECTOR_RELEASE } from "./release.js";
 
@@ -40,8 +42,8 @@ export function configurationFor(parts: ConfigurationParts): JsonObject {
   };
 }
 
-/** No syntax rules ship yet; this is the digest of an empty rule set. */
-const RULES_DIGEST = digestOf([]).digest;
+/** The digest of every compiled syntax rule this release ships, by package. */
+const RULES_DIGEST = digestOf({ architecture: ARCHITECTURE_RULES_DIGEST, services: SERVICE_RULES_DIGEST }).digest;
 
 /** This release's configuration under the reader limits +limits+, and its SHA-256 digest. */
 export function detectorConfiguration(limits: Budgets): { configuration: JsonObject; digest: string } {
