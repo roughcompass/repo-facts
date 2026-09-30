@@ -1,0 +1,3 @@
+{
+  "description": "A single-spa root configuration with an import map, modeled on spa-root, with decoys in comments and strings"
+}

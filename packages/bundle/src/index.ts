@@ -1,5 +1,5 @@
 import { type Budgets, type CategoryDefinition, type Detector, type DetectorRunOptions, FACT_DOCUMENT_SCHEMA, FACT_DOCUMENT_VERSION, type FactDocument, type JsonObject, type SourceReader, digestOf, runDetectors } from "@repo-facts/contract";
-import { RULES_DIGEST as ARCHITECTURE_RULES_DIGEST } from "@repo-facts/architecture";
+import { ARCHITECTURE_DETECTORS, RULES_DIGEST as ARCHITECTURE_RULES_DIGEST } from "@repo-facts/architecture";
 import { CORE_DETECTORS } from "@repo-facts/core";
 import { RULES_DIGEST as SERVICE_RULES_DIGEST } from "@repo-facts/services";
 import { SYNTAX_DEPTH_LIMIT, SYNTAX_NODE_LIMIT, SYNTAX_PARSER } from "@repo-facts/syntax";
@@ -15,7 +15,7 @@ import { DETECTOR_RELEASE } from "./release.js";
 export { DETECTOR_RELEASE };
 
 /** Every detector in the release, in the order they run within each stage. */
-export const DETECTORS: readonly Detector[] = [...CORE_DETECTORS];
+export const DETECTORS: readonly Detector[] = [...CORE_DETECTORS, ...ARCHITECTURE_DETECTORS];
 
 export const DETECTOR_CONFIGURATION_SCHEMA = "repo_facts.detector_configuration";
 

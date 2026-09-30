@@ -7,8 +7,9 @@ import type { Rule } from "./schema.js";
 /**
  * A detector built from rules: it parses each source file once, evaluates
  * every rule, and reports what the rules emit. Fact and reference emits are
- * reported directly from their templates; service and signal emits go to
- * `onMatch`, where detector code turns them into candidates.
+ * reported directly from their templates. Every match, including service and
+ * signal emits, is also passed to `onMatch`, where detector code can turn it
+ * into candidates or draw conclusions across matches.
  */
 
 export interface MatchedRule extends RuleMatch {
@@ -49,7 +50,7 @@ export function ruleDetector(options: RuleDetectorOptions): Detector {
         for (const match of matchRules(tree, options.rules)) {
           const matched: MatchedRule = { ...match, tree, evidence: nodeEvidence(context, tree, match.node, match.rule.id) };
           emit(context, matched);
-          if ("service" in match.rule.emit || "signal" in match.rule.emit) options.onMatch?.(context, matched);
+          options.onMatch?.(context, matched);
         }
       }
       for (const category of categories) context.search({ category, rule: options.id, surface: sources, complete: true, skipped });

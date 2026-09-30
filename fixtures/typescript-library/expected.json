@@ -77,10 +77,17 @@
     "composition": {
       "facts": [],
       "search": {
-        "complete": false,
-        "rules": [],
+        "complete": true,
+        "rules": [
+          "architecture.import-map",
+          "composition"
+        ],
         "skipped": [],
-        "surface": []
+        "surface": [
+          "src/index.test.ts",
+          "src/index.ts",
+          "tsup.config.ts"
+        ]
       },
       "state": "unknown"
     },
@@ -295,24 +302,97 @@
       "state": "observed"
     },
     "packages_consumed": {
-      "facts": [],
+      "facts": [
+        {
+          "evidence": [
+            "ev_4ef33868f89dbfe20f1ab5c8"
+          ],
+          "key": "react",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "react"
+          }
+        },
+        {
+          "evidence": [
+            "ev_60c5ae56bc3afab1ae0617e2"
+          ],
+          "key": "tsup",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "tsup"
+          }
+        },
+        {
+          "evidence": [
+            "ev_a2beea3db12a8ec7776edd14"
+          ],
+          "key": "typescript",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "typescript"
+          }
+        },
+        {
+          "evidence": [
+            "ev_f721ad2f8d6e10224a5ca2ec"
+          ],
+          "key": "vitest",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "vitest"
+          }
+        }
+      ],
       "search": {
-        "complete": false,
-        "rules": [],
+        "complete": true,
+        "rules": [
+          "packages.consumed"
+        ],
         "skipped": [],
-        "surface": []
+        "surface": [
+          "package.json"
+        ]
       },
-      "state": "unknown"
+      "state": "observed"
     },
     "packages_produced": {
-      "facts": [],
+      "facts": [
+        {
+          "evidence": [
+            "ev_922395aca5bad79b1a731a01",
+            "ev_c1531916bbaa46dd748d436c"
+          ],
+          "key": "@acme/formatting",
+          "rule": "packages.produced",
+          "state": "observed",
+          "value": {
+            "manifest": "package.json",
+            "name": "@acme/formatting",
+            "published": true,
+            "version": "3.2.0"
+          }
+        }
+      ],
       "search": {
-        "complete": false,
-        "rules": [],
+        "complete": true,
+        "rules": [
+          "packages.produced"
+        ],
         "skipped": [],
-        "surface": []
+        "surface": [
+          "package.json"
+        ]
       },
-      "state": "unknown"
+      "state": "observed"
     },
     "resolved_dependencies": {
       "facts": [
@@ -373,10 +453,16 @@
     "runtime_integrations": {
       "facts": [],
       "search": {
-        "complete": false,
-        "rules": [],
+        "complete": true,
+        "rules": [
+          "composition"
+        ],
         "skipped": [],
-        "surface": []
+        "surface": [
+          "src/index.test.ts",
+          "src/index.ts",
+          "tsup.config.ts"
+        ]
       },
       "state": "unknown"
     },
@@ -733,6 +819,21 @@
       "path": "package.json",
       "rule": "manifest.verification-script"
     },
+    "ev_4ef33868f89dbfe20f1ab5c8": {
+      "commit": null,
+      "content_digest": "bf52a898d831fb09f569953d58380bc683214387f3bde64d81bce1623487f09d",
+      "detector": "package-relations",
+      "excerpt_digest": "33102baf503be2635e228bf733cfa5c789f1d5e66d5e11d2749a63ce4d2acb92",
+      "id": "ev_4ef33868f89dbfe20f1ab5c8",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/peerDependencies/react"
+      },
+      "object_id": "6d69707290c76c75201a1b53a563ed4eb1ce47dd",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
     "ev_50ee008299f7443f20674fcc": {
       "commit": null,
       "content_digest": "48e8c7b20eb98a8ffe61ffa10b4e15c7dc701950018b90e104695606e4c675a0",
@@ -789,6 +890,21 @@
       "path": "package.json",
       "rule": "manifest.dependencies"
     },
+    "ev_60c5ae56bc3afab1ae0617e2": {
+      "commit": null,
+      "content_digest": "bf52a898d831fb09f569953d58380bc683214387f3bde64d81bce1623487f09d",
+      "detector": "package-relations",
+      "excerpt_digest": "c405d69b02617f0a90096c709318b72116b5b8347873233f020cc463daf67951",
+      "id": "ev_60c5ae56bc3afab1ae0617e2",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/tsup"
+      },
+      "object_id": "6d69707290c76c75201a1b53a563ed4eb1ce47dd",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
     "ev_6165e533a7fd9220e3d85180": {
       "commit": null,
       "content_digest": "221c996f1009158f8e5fe95c92e81763c4af3dfbc8dad9899700d8e817af71f6",
@@ -833,6 +949,21 @@
       "object_id": "6d69707290c76c75201a1b53a563ed4eb1ce47dd",
       "path": "package.json",
       "rule": "manifest.verification-script"
+    },
+    "ev_922395aca5bad79b1a731a01": {
+      "commit": null,
+      "content_digest": "bf52a898d831fb09f569953d58380bc683214387f3bde64d81bce1623487f09d",
+      "detector": "package-relations",
+      "excerpt_digest": "90d9718ea77fc7da83b6563856e2625708bb1e37710d6fe5bf5684558209845c",
+      "id": "ev_922395aca5bad79b1a731a01",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/name"
+      },
+      "object_id": "6d69707290c76c75201a1b53a563ed4eb1ce47dd",
+      "path": "package.json",
+      "rule": "packages.produced"
     },
     "ev_93c9d78dc77ea6605ccfc824": {
       "commit": null,
@@ -879,6 +1010,21 @@
       "path": "package-lock.json",
       "rule": "npm-lock.resolved-version"
     },
+    "ev_a2beea3db12a8ec7776edd14": {
+      "commit": null,
+      "content_digest": "bf52a898d831fb09f569953d58380bc683214387f3bde64d81bce1623487f09d",
+      "detector": "package-relations",
+      "excerpt_digest": "fa4b3ccaab62849bf58af9a41e4d3df128e98909bbbbff64367fc28137e071a3",
+      "id": "ev_a2beea3db12a8ec7776edd14",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/typescript"
+      },
+      "object_id": "6d69707290c76c75201a1b53a563ed4eb1ce47dd",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
     "ev_b540b641503e0c7b77b187ba": {
       "commit": null,
       "content_digest": "180c4021f94d8da1f38a22d37c51439164ab4a628f7a6835f00d2d26e6903f51",
@@ -906,6 +1052,21 @@
       "object_id": "6d69707290c76c75201a1b53a563ed4eb1ce47dd",
       "path": "package.json",
       "rule": "manifest.scripts"
+    },
+    "ev_c1531916bbaa46dd748d436c": {
+      "commit": null,
+      "content_digest": "bf52a898d831fb09f569953d58380bc683214387f3bde64d81bce1623487f09d",
+      "detector": "package-relations",
+      "excerpt_digest": "47bd9caf921e97cc7d2dfaec3039ce212df205c63f92b4453507f9a554204f9f",
+      "id": "ev_c1531916bbaa46dd748d436c",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/version"
+      },
+      "object_id": "6d69707290c76c75201a1b53a563ed4eb1ce47dd",
+      "path": "package.json",
+      "rule": "packages.produced"
     },
     "ev_d5398f2e36eda719381fa69d": {
       "commit": null,
@@ -1021,6 +1182,21 @@
       "path": "src/index.test.ts",
       "rule": "inventory.language-by-extension"
     },
+    "ev_f721ad2f8d6e10224a5ca2ec": {
+      "commit": null,
+      "content_digest": "bf52a898d831fb09f569953d58380bc683214387f3bde64d81bce1623487f09d",
+      "detector": "package-relations",
+      "excerpt_digest": "cb38356703f35d970058cb26ce297b4e48149b4e14cc9c93983e4ff1adaa6045",
+      "id": "ev_f721ad2f8d6e10224a5ca2ec",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/vitest"
+      },
+      "object_id": "6d69707290c76c75201a1b53a563ed4eb1ce47dd",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
     "ev_fe9f133fea5ddc48a2daf145": {
       "commit": null,
       "content_digest": "bf52a898d831fb09f569953d58380bc683214387f3bde64d81bce1623487f09d",
@@ -1040,15 +1216,81 @@
   "extensions": [],
   "inventory": {
     "bytes": 868,
-    "bytes_read": 775,
+    "bytes_read": 868,
     "entries": 7,
     "executables": 0,
     "files": 6,
-    "files_read": 4,
+    "files_read": 6,
     "gitlinks": 0,
     "symlinks": 0
   },
-  "relationship_references": [],
+  "relationship_references": [
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_f721ad2f8d6e10224a5ca2ec"
+      ],
+      "id": "ref_475ad5b6b788a2d605d4615b",
+      "identifier": {
+        "name": "vitest"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_4ef33868f89dbfe20f1ab5c8"
+      ],
+      "id": "ref_7feb1042963b1be60c179f1d",
+      "identifier": {
+        "name": "react"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_a2beea3db12a8ec7776edd14"
+      ],
+      "id": "ref_c6bc68a14967b299d238faf9",
+      "identifier": {
+        "name": "typescript"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_922395aca5bad79b1a731a01"
+      ],
+      "id": "ref_deeed133788585cac56f20e2",
+      "identifier": {
+        "name": "@acme/formatting"
+      },
+      "role": "producer",
+      "rule": "packages.produced",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_60c5ae56bc3afab1ae0617e2"
+      ],
+      "id": "ref_ffe5e2d272352af0c4bdffd2",
+      "identifier": {
+        "name": "tsup"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    }
+  ],
   "schema": "repo_facts.fact_document",
   "schema_version": 1,
   "service_dependencies": []

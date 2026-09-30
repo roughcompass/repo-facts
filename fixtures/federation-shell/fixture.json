@@ -1,0 +1,3 @@
+{
+  "description": "A Module Federation host that embeds a legacy frame and listens for its messages, modeled on mf-shell"
+}

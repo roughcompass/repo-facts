@@ -66,10 +66,16 @@
     "composition": {
       "facts": [],
       "search": {
-        "complete": false,
-        "rules": [],
+        "complete": true,
+        "rules": [
+          "architecture.import-map",
+          "composition"
+        ],
         "skipped": [],
-        "surface": []
+        "surface": [
+          "packages/web/src/index.js",
+          "packages/web/webpack.config.js"
+        ]
       },
       "state": "unknown"
     },
@@ -367,24 +373,143 @@
       "state": "inferred"
     },
     "packages_consumed": {
-      "facts": [],
+      "facts": [
+        {
+          "evidence": [
+            "ev_6cf529e7f3a950fac54a242f"
+          ],
+          "key": "express",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "express"
+          }
+        },
+        {
+          "evidence": [
+            "ev_ad7831320e0f08f31ca964f8"
+          ],
+          "key": "jest",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "jest"
+          }
+        },
+        {
+          "evidence": [
+            "ev_df3d59a25c2bbc479572b8ab",
+            "ev_eb3ea3f41457fef2428956fb"
+          ],
+          "key": "react",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "react"
+          }
+        },
+        {
+          "evidence": [
+            "ev_6236ebd73ff373b8dbaac81a"
+          ],
+          "key": "react-dom",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "react-dom"
+          }
+        },
+        {
+          "evidence": [
+            "ev_7c64fd988916faf5d9c17e2d"
+          ],
+          "key": "webpack",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "webpack"
+          }
+        }
+      ],
       "search": {
-        "complete": false,
-        "rules": [],
+        "complete": true,
+        "rules": [
+          "packages.consumed"
+        ],
         "skipped": [],
-        "surface": []
+        "surface": [
+          "package.json",
+          "packages/api/package.json",
+          "packages/web/package.json"
+        ]
       },
-      "state": "unknown"
+      "state": "observed"
     },
     "packages_produced": {
-      "facts": [],
+      "facts": [
+        {
+          "evidence": [
+            "ev_90dc2fa71678ed185b2fcc34",
+            "ev_d01b62577d39b30197f41a79"
+          ],
+          "key": "@acme/orders-api",
+          "rule": "packages.produced",
+          "state": "observed",
+          "value": {
+            "manifest": "packages/api/package.json",
+            "name": "@acme/orders-api",
+            "published": true,
+            "version": "1.4.0"
+          }
+        },
+        {
+          "evidence": [
+            "ev_a6deb2184fba37dde84771aa",
+            "ev_f9238dc6b3c58b2e9738ab09"
+          ],
+          "key": "@acme/orders-web",
+          "rule": "packages.produced",
+          "state": "observed",
+          "value": {
+            "manifest": "packages/web/package.json",
+            "name": "@acme/orders-web",
+            "published": true,
+            "version": "2.0.0"
+          }
+        },
+        {
+          "evidence": [
+            "ev_07e15e398b65068f661cab95"
+          ],
+          "key": "orders-monorepo",
+          "rule": "packages.produced",
+          "state": "observed",
+          "value": {
+            "manifest": "package.json",
+            "name": "orders-monorepo",
+            "published": false,
+            "version": null
+          }
+        }
+      ],
       "search": {
-        "complete": false,
-        "rules": [],
+        "complete": true,
+        "rules": [
+          "packages.produced"
+        ],
         "skipped": [],
-        "surface": []
+        "surface": [
+          "package.json",
+          "packages/api/package.json",
+          "packages/web/package.json"
+        ]
       },
-      "state": "unknown"
+      "state": "observed"
     },
     "resolved_dependencies": {
       "facts": [
@@ -471,10 +596,15 @@
     "runtime_integrations": {
       "facts": [],
       "search": {
-        "complete": false,
-        "rules": [],
+        "complete": true,
+        "rules": [
+          "composition"
+        ],
         "skipped": [],
-        "surface": []
+        "surface": [
+          "packages/web/src/index.js",
+          "packages/web/webpack.config.js"
+        ]
       },
       "state": "unknown"
     },
@@ -718,6 +848,21 @@
   "detector_release": "golden",
   "diagnostics": [],
   "evidence": {
+    "ev_07e15e398b65068f661cab95": {
+      "commit": null,
+      "content_digest": "a4d497965c1c2cbca788633e9bbccb345646e87fdf806598bc0a03f1f12346de",
+      "detector": "package-relations",
+      "excerpt_digest": "68fa7eca678040fbe2f680d6bc99a2e58d2fd416a4c3de8dc4db3df5cab3291c",
+      "id": "ev_07e15e398b65068f661cab95",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/name"
+      },
+      "object_id": "89d8cc222cc9c978014a310b218d5787343004cb",
+      "path": "package.json",
+      "rule": "packages.produced"
+    },
     "ev_130e7530e805d4ac6d69dc4f": {
       "commit": null,
       "content_digest": "45c84d39d82bf8723235a5dad28840eccec93f063e7cf3e1b25043aca133a658",
@@ -821,6 +966,36 @@
       "path": "packages/web/package.json",
       "rule": "manifest.tool-dependency"
     },
+    "ev_6236ebd73ff373b8dbaac81a": {
+      "commit": null,
+      "content_digest": "45c84d39d82bf8723235a5dad28840eccec93f063e7cf3e1b25043aca133a658",
+      "detector": "package-relations",
+      "excerpt_digest": "cf5afe4db7cadcb7822c47decd11ad140f65edeac523ed6ba5abb854379d1e67",
+      "id": "ev_6236ebd73ff373b8dbaac81a",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/react-dom"
+      },
+      "object_id": "5ff47b515d7b8b2074baffe287d57db8efdedf6e",
+      "path": "packages/web/package.json",
+      "rule": "packages.consumed"
+    },
+    "ev_6cf529e7f3a950fac54a242f": {
+      "commit": null,
+      "content_digest": "aba839f100e2fa3d2d01e33b808083818ba87dbbdb167379ddbd4e86c5afe1e3",
+      "detector": "package-relations",
+      "excerpt_digest": "3caa39f225577836b3bfec1787d0434f4bea6c57d007b36d381b600a8a02e3f0",
+      "id": "ev_6cf529e7f3a950fac54a242f",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/express"
+      },
+      "object_id": "b57f9c8ccf43a2949e78add214a400371e98d1ac",
+      "path": "packages/api/package.json",
+      "rule": "packages.consumed"
+    },
     "ev_729a39e700366f951efe97fa": {
       "commit": null,
       "content_digest": "ea2ea56b6a40f32deb8f69d5381f230c4512b34c3ac6361dfe82014646185170",
@@ -835,6 +1010,21 @@
       "object_id": "7aa593b3b1033661c5b92d6256cd7c6a93cde36c",
       "path": "package-lock.json",
       "rule": "npm-lock.resolved-version"
+    },
+    "ev_7c64fd988916faf5d9c17e2d": {
+      "commit": null,
+      "content_digest": "45c84d39d82bf8723235a5dad28840eccec93f063e7cf3e1b25043aca133a658",
+      "detector": "package-relations",
+      "excerpt_digest": "49a17797cda061cfa646edbccc1501f387f7f274d600712dfbc7822d7abd6e95",
+      "id": "ev_7c64fd988916faf5d9c17e2d",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/webpack"
+      },
+      "object_id": "5ff47b515d7b8b2074baffe287d57db8efdedf6e",
+      "path": "packages/web/package.json",
+      "rule": "packages.consumed"
     },
     "ev_7d01b7bcbdc852372f58428d": {
       "commit": null,
@@ -926,6 +1116,21 @@
       "path": "package.json",
       "rule": "manifest.dependencies"
     },
+    "ev_90dc2fa71678ed185b2fcc34": {
+      "commit": null,
+      "content_digest": "aba839f100e2fa3d2d01e33b808083818ba87dbbdb167379ddbd4e86c5afe1e3",
+      "detector": "package-relations",
+      "excerpt_digest": "d40ef8b691c116be4224fa8fdd534f30c516107ee89e330c7c7b532f4746783e",
+      "id": "ev_90dc2fa71678ed185b2fcc34",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/name"
+      },
+      "object_id": "b57f9c8ccf43a2949e78add214a400371e98d1ac",
+      "path": "packages/api/package.json",
+      "rule": "packages.produced"
+    },
     "ev_998880f7e411d39ec9148993": {
       "commit": null,
       "content_digest": "ea2ea56b6a40f32deb8f69d5381f230c4512b34c3ac6361dfe82014646185170",
@@ -998,6 +1203,36 @@
       "object_id": "b57f9c8ccf43a2949e78add214a400371e98d1ac",
       "path": "packages/api/package.json",
       "rule": "manifest.framework"
+    },
+    "ev_a6deb2184fba37dde84771aa": {
+      "commit": null,
+      "content_digest": "45c84d39d82bf8723235a5dad28840eccec93f063e7cf3e1b25043aca133a658",
+      "detector": "package-relations",
+      "excerpt_digest": "0175d86befbe75525f132794baff42abbf4e2a659aa20f2baec341740a9573e7",
+      "id": "ev_a6deb2184fba37dde84771aa",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/version"
+      },
+      "object_id": "5ff47b515d7b8b2074baffe287d57db8efdedf6e",
+      "path": "packages/web/package.json",
+      "rule": "packages.produced"
+    },
+    "ev_ad7831320e0f08f31ca964f8": {
+      "commit": null,
+      "content_digest": "a4d497965c1c2cbca788633e9bbccb345646e87fdf806598bc0a03f1f12346de",
+      "detector": "package-relations",
+      "excerpt_digest": "4cca82e7ab6ad1fd72ed85a24978f534b06977e8a1a8ca95c82bff613fbb749c",
+      "id": "ev_ad7831320e0f08f31ca964f8",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/jest"
+      },
+      "object_id": "89d8cc222cc9c978014a310b218d5787343004cb",
+      "path": "package.json",
+      "rule": "packages.consumed"
     },
     "ev_b3d394b856d08f6156a21c36": {
       "commit": null,
@@ -1104,6 +1339,21 @@
       "path": "package.json",
       "rule": "manifest.scripts"
     },
+    "ev_d01b62577d39b30197f41a79": {
+      "commit": null,
+      "content_digest": "aba839f100e2fa3d2d01e33b808083818ba87dbbdb167379ddbd4e86c5afe1e3",
+      "detector": "package-relations",
+      "excerpt_digest": "2d01580d3f7af3b843c9ce1aae086168af4028afa1416ff099ccbaacadd96b44",
+      "id": "ev_d01b62577d39b30197f41a79",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/version"
+      },
+      "object_id": "b57f9c8ccf43a2949e78add214a400371e98d1ac",
+      "path": "packages/api/package.json",
+      "rule": "packages.produced"
+    },
     "ev_d406bd5134996872d0077c31": {
       "commit": null,
       "content_digest": "a96ba32b475d978c1a8cc0b162ed1ce390408eb4f06bf95db8c3a712f6b47fbd",
@@ -1131,6 +1381,21 @@
       "object_id": "89d8cc222cc9c978014a310b218d5787343004cb",
       "path": "package.json",
       "rule": "manifest.verification-script"
+    },
+    "ev_df3d59a25c2bbc479572b8ab": {
+      "commit": null,
+      "content_digest": "45c84d39d82bf8723235a5dad28840eccec93f063e7cf3e1b25043aca133a658",
+      "detector": "package-relations",
+      "excerpt_digest": "cf5afe4db7cadcb7822c47decd11ad140f65edeac523ed6ba5abb854379d1e67",
+      "id": "ev_df3d59a25c2bbc479572b8ab",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/react"
+      },
+      "object_id": "5ff47b515d7b8b2074baffe287d57db8efdedf6e",
+      "path": "packages/web/package.json",
+      "rule": "packages.consumed"
     },
     "ev_e1f4f59aa25378e1683c6624": {
       "commit": null,
@@ -1201,6 +1466,21 @@
       "path": "packages/web/src/index.js",
       "rule": "inventory.language-by-extension"
     },
+    "ev_eb3ea3f41457fef2428956fb": {
+      "commit": null,
+      "content_digest": "45c84d39d82bf8723235a5dad28840eccec93f063e7cf3e1b25043aca133a658",
+      "detector": "package-relations",
+      "excerpt_digest": "33102baf503be2635e228bf733cfa5c789f1d5e66d5e11d2749a63ce4d2acb92",
+      "id": "ev_eb3ea3f41457fef2428956fb",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/peerDependencies/react"
+      },
+      "object_id": "5ff47b515d7b8b2074baffe287d57db8efdedf6e",
+      "path": "packages/web/package.json",
+      "rule": "packages.consumed"
+    },
     "ev_ee4d9b44a348c29be2271b16": {
       "commit": null,
       "content_digest": "aba839f100e2fa3d2d01e33b808083818ba87dbbdb167379ddbd4e86c5afe1e3",
@@ -1258,20 +1538,141 @@
       "object_id": "89d8cc222cc9c978014a310b218d5787343004cb",
       "path": "package.json",
       "rule": "manifest.tool-dependency"
+    },
+    "ev_f9238dc6b3c58b2e9738ab09": {
+      "commit": null,
+      "content_digest": "45c84d39d82bf8723235a5dad28840eccec93f063e7cf3e1b25043aca133a658",
+      "detector": "package-relations",
+      "excerpt_digest": "771e970ae076f913bb109389536675c6b6cc24ddaa8f0acbe5e264c443167a20",
+      "id": "ev_f9238dc6b3c58b2e9738ab09",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/name"
+      },
+      "object_id": "5ff47b515d7b8b2074baffe287d57db8efdedf6e",
+      "path": "packages/web/package.json",
+      "rule": "packages.produced"
     }
   },
   "extensions": [],
   "inventory": {
     "bytes": 1495,
-    "bytes_read": 1484,
+    "bytes_read": 1495,
     "entries": 10,
     "executables": 0,
     "files": 6,
-    "files_read": 5,
+    "files_read": 6,
     "gitlinks": 0,
     "symlinks": 0
   },
-  "relationship_references": [],
+  "relationship_references": [
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_7c64fd988916faf5d9c17e2d"
+      ],
+      "id": "ref_438bfb1b8bb6b70151d8f3e5",
+      "identifier": {
+        "name": "webpack"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_ad7831320e0f08f31ca964f8"
+      ],
+      "id": "ref_44e18a270a4da7778d90455f",
+      "identifier": {
+        "name": "jest"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_07e15e398b65068f661cab95"
+      ],
+      "id": "ref_5ebbf8807377faa9c3161428",
+      "identifier": {
+        "name": "orders-monorepo"
+      },
+      "role": "producer",
+      "rule": "packages.produced",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_90dc2fa71678ed185b2fcc34"
+      ],
+      "id": "ref_6b510408d257ab7a157e286a",
+      "identifier": {
+        "name": "@acme/orders-api"
+      },
+      "role": "producer",
+      "rule": "packages.produced",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_df3d59a25c2bbc479572b8ab",
+        "ev_eb3ea3f41457fef2428956fb"
+      ],
+      "id": "ref_7feb1042963b1be60c179f1d",
+      "identifier": {
+        "name": "react"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_f9238dc6b3c58b2e9738ab09"
+      ],
+      "id": "ref_da1cad0a0670a65dc8cfb872",
+      "identifier": {
+        "name": "@acme/orders-web"
+      },
+      "role": "producer",
+      "rule": "packages.produced",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_6236ebd73ff373b8dbaac81a"
+      ],
+      "id": "ref_ef7ff13524821467533db55c",
+      "identifier": {
+        "name": "react-dom"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_6cf529e7f3a950fac54a242f"
+      ],
+      "id": "ref_f9632237bba97d9ad636bb3b",
+      "identifier": {
+        "name": "express"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    }
+  ],
   "schema": "repo_facts.fact_document",
   "schema_version": 1,
   "service_dependencies": []

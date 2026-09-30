@@ -1,0 +1,60 @@
+format: 1
+rules:
+  - id: architecture.iframe.embed
+    version: 1
+    description: An embedded frame and the address it loads
+    match: { jsx: { element: [iframe] } }
+    capture:
+      src: { attribute: src }
+    emit:
+      fact:
+        category: composition
+        key: "iframe:{src}"
+        value: { mechanism: iframe, src: $src }
+        basis: observed
+
+  - id: architecture.iframe.reference
+    version: 1
+    description: An embedded frame, as a reference to the application it loads
+    match: { jsx: { element: [iframe] } }
+    capture:
+      src: { attribute: src }
+    emit:
+      reference: { type: iframe, role: embedder, identifier: { url: "{src}" }, basis: observed }
+
+  - id: architecture.post-message.send
+    version: 1
+    description: A window message sent to another frame
+    match: { call: { anyReceiver: true, method: [postMessage] } }
+    capture:
+      message: { argument: 0 }
+      origin: { argument: 1 }
+    emit:
+      fact:
+        category: runtime_integrations
+        key: "postMessage:send:{origin}"
+        value: { contract: postMessage, direction: send, targetOrigin: $origin, message: $message }
+        basis: observed
+
+  - id: architecture.post-message.reference
+    version: 1
+    description: A window message sent to a literal origin, as a runtime-contract reference
+    match: { call: { anyReceiver: true, method: [postMessage] } }
+    capture:
+      origin: { argument: 1 }
+    emit:
+      reference: { type: runtime_contract, role: caller, identifier: { contract: postMessage, origin: "{origin}" }, basis: observed }
+
+  - id: architecture.post-message.receive
+    version: 1
+    description: A listener for window messages
+    match: { call: { anyReceiver: true, method: [addEventListener] } }
+    capture:
+      event: { argument: 0 }
+    where: [{ capture: event, equals: message }]
+    emit:
+      fact:
+        category: runtime_integrations
+        key: "postMessage:receive"
+        value: { contract: postMessage, direction: receive }
+        basis: observed

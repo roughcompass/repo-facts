@@ -108,8 +108,15 @@ export const ruleSchema = z.strictObject({
   description: z.string().min(1),
   match: matchSchema,
   capture: z.record(identifier, captureSchema).optional(),
-  /** Every condition must hold for the match to count. */
-  where: z.array(z.strictObject({ capture: identifier, equals: literal })).optional(),
+  /** Every condition must hold for the match to count: a capture equals a literal, or resolves to a kind of value. */
+  where: z
+    .array(
+      z.union([
+        z.strictObject({ capture: identifier, equals: literal }),
+        z.strictObject({ capture: identifier, is: z.enum(["string", "number", "boolean", "object", "array", "template", "configured", "unresolved", "absent"]) }),
+      ]),
+    )
+    .optional(),
   emit: emitSchema,
 });
 

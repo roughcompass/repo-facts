@@ -1,0 +1,13 @@
+{
+  "name": "spa-root",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "single-spa": "6.0.3",
+    "@acme/analytics": "1.0.0"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3",
+    "vite": "5.4.21"
+  }
+}

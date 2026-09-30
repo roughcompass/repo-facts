@@ -251,6 +251,13 @@ describe("rule matching", () => {
     ]);
   });
 
+  it("tests the kind of a captured value", () => {
+    const result = compileRules([{ path: "kind.yaml", text: "format: 1\nrules:\n  - id: t.object\n    version: 1\n    description: x\n    match: { call: { global: register } }\n    capture: { first: { argument: 0 } }\n    where: [{ capture: first, is: object }]\n    emit: { signal: { kind: object } }\n  - id: t.string\n    version: 1\n    description: x\n    match: { call: { global: register } }\n    capture: { first: { argument: 0 } }\n    where: [{ capture: first, is: string }]\n    emit: { signal: { kind: string } }\n" }]);
+    if (!result.ok) throw new Error(result.problems.join("\n"));
+    const found = matchRules(tree('register({ name: "a" });\nregister("b", app);\nregister(compute());\n'), result.rules).map((match) => match.rule.id);
+    expect(found).toEqual(["t.object", "t.string"]);
+  });
+
   it("redacts credentials in captured strings", () => {
     const [[, , captures]] = matches('fetch("https://deploy:s3cr3t@api.example.test/orders");') as [[string, number, Record<string, unknown>]];
     expect(captures.url).toEqual({ kind: "literal", value: "https://[redacted]@api.example.test/orders" });
@@ -273,7 +280,7 @@ describe("rule detectors", () => {
       },
       { commit: "a".repeat(40) },
     );
-    const document = await runDetectors({ reader, detectorRelease: "0.1.0", detectors: [detector((_context, match) => signals.push(`${match.rule.id}:${match.tree.path}`))] });
+    const document = await runDetectors({ reader, detectorRelease: "0.1.0", detectors: [detector((_context, match) => void ("signal" in match.rule.emit && signals.push(`${match.rule.id}:${match.tree.path}`)))] });
     expect(factDocumentProblems(document)).toEqual([]);
     const composition = document.categories.composition!;
     expect(composition.facts.map((fact) => [fact.key, fact.value])).toEqual([

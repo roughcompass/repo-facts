@@ -1,0 +1,67 @@
+format: 1
+rules:
+  - id: architecture.single-spa.register
+    version: 1
+    description: A single-spa application registered with a configuration object
+    match: { call: { module: single-spa, members: [registerApplication] } }
+    capture:
+      config: { argument: 0 }
+      name: { argument: 0, property: [name] }
+      activeWhen: { argument: 0, property: [activeWhen] }
+    where: [{ capture: config, is: object }]
+    emit:
+      fact:
+        category: composition
+        key: "single-spa:application:{name}"
+        value: { mechanism: single-spa, role: registration, application: $name, activeWhen: $activeWhen }
+        basis: observed
+
+  - id: architecture.single-spa.register-positional
+    version: 1
+    description: A single-spa application registered with positional arguments
+    match: { call: { module: single-spa, members: [registerApplication] } }
+    capture:
+      name: { argument: 0 }
+      activeWhen: { argument: 2 }
+    where: [{ capture: name, is: string }]
+    emit:
+      fact:
+        category: composition
+        key: "single-spa:application:{name}"
+        value: { mechanism: single-spa, role: registration, application: $name, activeWhen: $activeWhen }
+        basis: observed
+
+  - id: architecture.single-spa.register-reference
+    version: 1
+    description: A registered single-spa application, as a reference to the repository that provides it
+    match: { call: { module: single-spa, members: [registerApplication] } }
+    capture:
+      config: { argument: 0 }
+      name: { argument: 0, property: [name] }
+    where: [{ capture: config, is: object }]
+    emit:
+      reference: { type: composition, role: host, identifier: { mechanism: single-spa, application: "{name}" }, basis: observed }
+
+  - id: architecture.single-spa.register-positional-reference
+    version: 1
+    description: A positionally registered single-spa application, as a reference to the repository that provides it
+    match: { call: { module: single-spa, members: [registerApplication] } }
+    capture:
+      name: { argument: 0 }
+    where: [{ capture: name, is: string }]
+    emit:
+      reference: { type: composition, role: host, identifier: { mechanism: single-spa, application: "{name}" }, basis: observed }
+
+  - id: architecture.single-spa.start
+    version: 1
+    description: single-spa started by a root configuration
+    match: { call: { module: single-spa, members: [start] } }
+    emit: { signal: { kind: single-spa-start } }
+
+  - id: architecture.single-spa.lifecycles
+    version: 1
+    description: Lifecycles produced by a single-spa framework helper
+    match: { call: { module: [single-spa-react, single-spa-vue, single-spa-angular, single-spa-svelte, single-spa-html] } }
+    capture:
+      helper: { argument: 0 }
+    emit: { signal: { kind: single-spa-lifecycles } }

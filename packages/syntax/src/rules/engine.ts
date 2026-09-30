@@ -239,7 +239,9 @@ function capture(tree: SyntaxTree, spec: CaptureSpec, node: ts.Node, module?: st
 function satisfies(rule: Rule, captures: Record<string, StaticValue>): boolean {
   return (rule.where ?? []).every((condition) => {
     const value = captures[condition.capture];
-    return value !== undefined && (value.kind === "string" || value.kind === "number" || value.kind === "boolean") && value.value === condition.equals;
+    if (value === undefined) return false;
+    if ("is" in condition) return (value.kind === "undefined" ? "absent" : value.kind) === condition.is;
+    return (value.kind === "string" || value.kind === "number" || value.kind === "boolean") && value.value === condition.equals;
   });
 }
 

@@ -1,0 +1,777 @@
+{
+  "categories": {
+    "access_signals": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "api_contracts": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "build_tools": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "config.tool-file",
+          "manifest.tool-dependency"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "ci_systems": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "ci.definition"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    },
+    "composition": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "architecture.import-map",
+          "composition"
+        ],
+        "skipped": [],
+        "surface": [
+          "src/App.js",
+          "src/runtime.js"
+        ]
+      },
+      "state": "unknown"
+    },
+    "dependencies": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_a4f6fd6438f0c9581ae8c4e9"
+          ],
+          "key": "package.json#dependencies/react",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "dependencies",
+            "manifest": "package.json",
+            "name": "react",
+            "specifier": "17.0.2"
+          }
+        },
+        {
+          "evidence": [
+            "ev_8433b3361261d3b2a45bdcec"
+          ],
+          "key": "package.json#dependencies/react-dom",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "dependencies",
+            "manifest": "package.json",
+            "name": "react-dom",
+            "specifier": "17.0.2"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.dependencies"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "egress_routes": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "frameworks": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_46962f9723661a414f24ce0e"
+          ],
+          "key": "package.json#react",
+          "rule": "manifest.framework",
+          "state": "observed",
+          "value": {
+            "id": "react",
+            "label": "React",
+            "manifest": "package.json",
+            "package": "react",
+            "specifiers": {
+              "dependencies": "17.0.2"
+            }
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.framework"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "languages": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_ea58292bdad1a1bcedf8dcc0"
+          ],
+          "key": "JSON",
+          "rule": "inventory.language-by-extension",
+          "state": "observed",
+          "value": {
+            "bytes": 145,
+            "files": 1
+          }
+        },
+        {
+          "evidence": [
+            "ev_274b9e7fb65a0952f57b852e",
+            "ev_99a0abef12f66afb17fc14cf"
+          ],
+          "key": "JavaScript",
+          "rule": "inventory.language-by-extension",
+          "state": "observed",
+          "value": {
+            "bytes": 474,
+            "files": 2
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.language-by-extension"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "observed"
+    },
+    "package_identity": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_0baf5720315f20441275e71b",
+            "ev_cd6ce6d063d22bb5d037822d"
+          ],
+          "key": "package.json",
+          "rule": "manifest.identity",
+          "state": "observed",
+          "value": {
+            "manifest": "package.json",
+            "name": "legacy-portal",
+            "private": true,
+            "version": "1.0.0"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.identity"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "package_managers": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "lockfile.package-manager",
+          "manifest.package-manager"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "packages_consumed": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_6c359a207b5f4ab20c43602f"
+          ],
+          "key": "react",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "react"
+          }
+        },
+        {
+          "evidence": [
+            "ev_40da8cb0f758b879bcc1c248"
+          ],
+          "key": "react-dom",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "react-dom"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "packages.consumed"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "packages_produced": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_8b8c3003225bc37b5b2fbc9c",
+            "ev_f23f82a3ddf219a29d40fcaa"
+          ],
+          "key": "legacy-portal",
+          "rule": "packages.produced",
+          "state": "observed",
+          "value": {
+            "manifest": "package.json",
+            "name": "legacy-portal",
+            "published": false,
+            "version": "1.0.0"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "packages.produced"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "resolved_dependencies": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "npm-lock.resolved-version",
+          "pnpm-lock.resolved-version",
+          "yarn-lock.resolved-version"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "runtime_integrations": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_a78040f5846c9f38dbc4da39"
+          ],
+          "key": "postMessage:receive",
+          "rule": "architecture.post-message.receive",
+          "state": "observed",
+          "value": {
+            "contract": "postMessage",
+            "direction": "receive"
+          }
+        },
+        {
+          "evidence": [
+            "ev_f20d70df6eb980af0c8e0bf1"
+          ],
+          "key": "postMessage:send:http://127.0.0.1:9100",
+          "rule": "architecture.post-message.send",
+          "state": "observed",
+          "value": {
+            "contract": "postMessage",
+            "direction": "send",
+            "message": {
+              "complete": true,
+              "kind": "object",
+              "properties": {
+                "payload": {
+                  "detail": "payload is supplied by a caller",
+                  "kind": "unresolved",
+                  "reason": "parameter"
+                },
+                "source": {
+                  "kind": "literal",
+                  "value": "legacy-portal"
+                },
+                "type": {
+                  "detail": "type is supplied by a caller",
+                  "kind": "unresolved",
+                  "reason": "parameter"
+                }
+              }
+            },
+            "targetOrigin": {
+              "kind": "literal",
+              "value": "http://127.0.0.1:9100"
+            }
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "composition"
+        ],
+        "skipped": [],
+        "surface": [
+          "src/App.js",
+          "src/runtime.js"
+        ]
+      },
+      "state": "observed"
+    },
+    "runtime_requirements": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "runtime.declarations"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "scripts": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.scripts"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "served_origins": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "submodules": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.gitlink"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    },
+    "test_frameworks": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "config.tool-file",
+          "manifest.tool-dependency"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "test_substitutes": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "verification_commands": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "ci.verification-commands"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "workspaces": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.workspaces",
+          "pnpm-workspace.packages"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    }
+  },
+  "commit": null,
+  "detector_release": "golden",
+  "diagnostics": [],
+  "evidence": {
+    "ev_0baf5720315f20441275e71b": {
+      "commit": null,
+      "content_digest": "4ee9d73c958d779b1f43a5ca9ded7cccfee05d027518366276479ce5c546b0cd",
+      "detector": "package-metadata",
+      "excerpt_digest": "39fe4a40977d0585fd5704359e3685b0ada5cf5ee061e5d97385601d120cd0ec",
+      "id": "ev_0baf5720315f20441275e71b",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/version"
+      },
+      "object_id": "94a947846ac630b8df8ec79e9249d780edf8c872",
+      "path": "package.json",
+      "rule": "manifest.identity"
+    },
+    "ev_274b9e7fb65a0952f57b852e": {
+      "commit": null,
+      "content_digest": "2392089ffb79ac26868a66f49b71c615a8e3fc692bac56920e587c2e077e272c",
+      "detector": "inventory",
+      "excerpt_digest": "2392089ffb79ac26868a66f49b71c615a8e3fc692bac56920e587c2e077e272c",
+      "id": "ev_274b9e7fb65a0952f57b852e",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "814db472e4b4cd1748d10239f9eccc21bbe1b69e",
+      "path": "src/App.js",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_40da8cb0f758b879bcc1c248": {
+      "commit": null,
+      "content_digest": "4ee9d73c958d779b1f43a5ca9ded7cccfee05d027518366276479ce5c546b0cd",
+      "detector": "package-relations",
+      "excerpt_digest": "7d515e0fd30808f4f805fb0a94aa9f5695195eb9292d4f6cd41547fae134e612",
+      "id": "ev_40da8cb0f758b879bcc1c248",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/react-dom"
+      },
+      "object_id": "94a947846ac630b8df8ec79e9249d780edf8c872",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
+    "ev_46962f9723661a414f24ce0e": {
+      "commit": null,
+      "content_digest": "4ee9d73c958d779b1f43a5ca9ded7cccfee05d027518366276479ce5c546b0cd",
+      "detector": "tooling",
+      "excerpt_digest": "7d515e0fd30808f4f805fb0a94aa9f5695195eb9292d4f6cd41547fae134e612",
+      "id": "ev_46962f9723661a414f24ce0e",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/react"
+      },
+      "object_id": "94a947846ac630b8df8ec79e9249d780edf8c872",
+      "path": "package.json",
+      "rule": "manifest.framework"
+    },
+    "ev_6c359a207b5f4ab20c43602f": {
+      "commit": null,
+      "content_digest": "4ee9d73c958d779b1f43a5ca9ded7cccfee05d027518366276479ce5c546b0cd",
+      "detector": "package-relations",
+      "excerpt_digest": "7d515e0fd30808f4f805fb0a94aa9f5695195eb9292d4f6cd41547fae134e612",
+      "id": "ev_6c359a207b5f4ab20c43602f",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/react"
+      },
+      "object_id": "94a947846ac630b8df8ec79e9249d780edf8c872",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
+    "ev_8433b3361261d3b2a45bdcec": {
+      "commit": null,
+      "content_digest": "4ee9d73c958d779b1f43a5ca9ded7cccfee05d027518366276479ce5c546b0cd",
+      "detector": "package-metadata",
+      "excerpt_digest": "7d515e0fd30808f4f805fb0a94aa9f5695195eb9292d4f6cd41547fae134e612",
+      "id": "ev_8433b3361261d3b2a45bdcec",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/react-dom"
+      },
+      "object_id": "94a947846ac630b8df8ec79e9249d780edf8c872",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_8b8c3003225bc37b5b2fbc9c": {
+      "commit": null,
+      "content_digest": "4ee9d73c958d779b1f43a5ca9ded7cccfee05d027518366276479ce5c546b0cd",
+      "detector": "package-relations",
+      "excerpt_digest": "39fe4a40977d0585fd5704359e3685b0ada5cf5ee061e5d97385601d120cd0ec",
+      "id": "ev_8b8c3003225bc37b5b2fbc9c",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/version"
+      },
+      "object_id": "94a947846ac630b8df8ec79e9249d780edf8c872",
+      "path": "package.json",
+      "rule": "packages.produced"
+    },
+    "ev_92fb2138ab65bb127f67592c": {
+      "commit": null,
+      "content_digest": "0a131429e6c562191b93a90b6de7ffa20d8151002b025a882635c77b05c42109",
+      "detector": "composition",
+      "excerpt_digest": "a87c1e5db947533e28fdbb2254257af76ca16bd2378617388d3b4a2e75b923e5",
+      "id": "ev_92fb2138ab65bb127f67592c",
+      "location": {
+        "end": 4,
+        "kind": "lines",
+        "start": 4
+      },
+      "object_id": "80c8c722f371ceccd613201aed7370b93e2d84d7",
+      "path": "src/runtime.js",
+      "rule": "architecture.post-message.reference"
+    },
+    "ev_99a0abef12f66afb17fc14cf": {
+      "commit": null,
+      "content_digest": "da58176c0f8ad9dddcdf30b06b7b5811631611253b9651ca9d30dba3d58a012b",
+      "detector": "inventory",
+      "excerpt_digest": "da58176c0f8ad9dddcdf30b06b7b5811631611253b9651ca9d30dba3d58a012b",
+      "id": "ev_99a0abef12f66afb17fc14cf",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "80c8c722f371ceccd613201aed7370b93e2d84d7",
+      "path": "src/runtime.js",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_a4f6fd6438f0c9581ae8c4e9": {
+      "commit": null,
+      "content_digest": "4ee9d73c958d779b1f43a5ca9ded7cccfee05d027518366276479ce5c546b0cd",
+      "detector": "package-metadata",
+      "excerpt_digest": "7d515e0fd30808f4f805fb0a94aa9f5695195eb9292d4f6cd41547fae134e612",
+      "id": "ev_a4f6fd6438f0c9581ae8c4e9",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/react"
+      },
+      "object_id": "94a947846ac630b8df8ec79e9249d780edf8c872",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_a78040f5846c9f38dbc4da39": {
+      "commit": null,
+      "content_digest": "0a131429e6c562191b93a90b6de7ffa20d8151002b025a882635c77b05c42109",
+      "detector": "composition",
+      "excerpt_digest": "42b08b90cd76446a1482d69f772a4e688a4e4768ed85b155534594b25a34240d",
+      "id": "ev_a78040f5846c9f38dbc4da39",
+      "location": {
+        "end": 9,
+        "kind": "lines",
+        "start": 9
+      },
+      "object_id": "80c8c722f371ceccd613201aed7370b93e2d84d7",
+      "path": "src/runtime.js",
+      "rule": "architecture.post-message.receive"
+    },
+    "ev_cd6ce6d063d22bb5d037822d": {
+      "commit": null,
+      "content_digest": "4ee9d73c958d779b1f43a5ca9ded7cccfee05d027518366276479ce5c546b0cd",
+      "detector": "package-metadata",
+      "excerpt_digest": "810d37eabd6b28bfa1f9e66a51bdefa1d1204b3ed0f2b76f43b3c6f70069d61c",
+      "id": "ev_cd6ce6d063d22bb5d037822d",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/name"
+      },
+      "object_id": "94a947846ac630b8df8ec79e9249d780edf8c872",
+      "path": "package.json",
+      "rule": "manifest.identity"
+    },
+    "ev_ea58292bdad1a1bcedf8dcc0": {
+      "commit": null,
+      "content_digest": "c817260eb98dc672d03535993f8b44da641e1eb2377adebcd613ae02e357e0be",
+      "detector": "inventory",
+      "excerpt_digest": "c817260eb98dc672d03535993f8b44da641e1eb2377adebcd613ae02e357e0be",
+      "id": "ev_ea58292bdad1a1bcedf8dcc0",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "94a947846ac630b8df8ec79e9249d780edf8c872",
+      "path": "package.json",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_f20d70df6eb980af0c8e0bf1": {
+      "commit": null,
+      "content_digest": "0a131429e6c562191b93a90b6de7ffa20d8151002b025a882635c77b05c42109",
+      "detector": "composition",
+      "excerpt_digest": "a87c1e5db947533e28fdbb2254257af76ca16bd2378617388d3b4a2e75b923e5",
+      "id": "ev_f20d70df6eb980af0c8e0bf1",
+      "location": {
+        "end": 4,
+        "kind": "lines",
+        "start": 4
+      },
+      "object_id": "80c8c722f371ceccd613201aed7370b93e2d84d7",
+      "path": "src/runtime.js",
+      "rule": "architecture.post-message.send"
+    },
+    "ev_f23f82a3ddf219a29d40fcaa": {
+      "commit": null,
+      "content_digest": "4ee9d73c958d779b1f43a5ca9ded7cccfee05d027518366276479ce5c546b0cd",
+      "detector": "package-relations",
+      "excerpt_digest": "810d37eabd6b28bfa1f9e66a51bdefa1d1204b3ed0f2b76f43b3c6f70069d61c",
+      "id": "ev_f23f82a3ddf219a29d40fcaa",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/name"
+      },
+      "object_id": "94a947846ac630b8df8ec79e9249d780edf8c872",
+      "path": "package.json",
+      "rule": "packages.produced"
+    }
+  },
+  "extensions": [],
+  "inventory": {
+    "bytes": 619,
+    "bytes_read": 619,
+    "entries": 4,
+    "executables": 0,
+    "files": 3,
+    "files_read": 3,
+    "gitlinks": 0,
+    "symlinks": 0
+  },
+  "relationship_references": [
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_f23f82a3ddf219a29d40fcaa"
+      ],
+      "id": "ref_0a1961ee05182ca6807fc5f0",
+      "identifier": {
+        "name": "legacy-portal"
+      },
+      "role": "producer",
+      "rule": "packages.produced",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_6c359a207b5f4ab20c43602f"
+      ],
+      "id": "ref_7feb1042963b1be60c179f1d",
+      "identifier": {
+        "name": "react"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_40da8cb0f758b879bcc1c248"
+      ],
+      "id": "ref_ef7ff13524821467533db55c",
+      "identifier": {
+        "name": "react-dom"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_92fb2138ab65bb127f67592c"
+      ],
+      "id": "ref_fb78f693343fa58e4a5752d4",
+      "identifier": {
+        "contract": "postMessage",
+        "origin": "http://127.0.0.1:9100"
+      },
+      "role": "caller",
+      "rule": "architecture.post-message.reference",
+      "type": "runtime_contract"
+    }
+  ],
+  "schema": "repo_facts.fact_document",
+  "schema_version": 1,
+  "service_dependencies": []
+}

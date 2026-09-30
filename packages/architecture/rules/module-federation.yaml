@@ -1,0 +1,56 @@
+format: 1
+rules:
+  - id: architecture.module-federation.webpack
+    version: 1
+    description: webpack's Module Federation plugin
+    match: { new: { module: webpack, members: [container], method: [ModuleFederationPlugin] } }
+    capture:
+      name: { argument: 0, property: [name] }
+      remotes: { argument: 0, property: [remotes] }
+      exposes: { argument: 0, property: [exposes] }
+      shared: { argument: 0, property: [shared] }
+    emit: { signal: { kind: module-federation } }
+
+  - id: architecture.module-federation.rspack
+    version: 1
+    description: Rspack's Module Federation plugins
+    match: { new: { module: "@rspack/core", members: [container], method: [ModuleFederationPlugin, ModuleFederationPluginV1] } }
+    capture:
+      name: { argument: 0, property: [name] }
+      remotes: { argument: 0, property: [remotes] }
+      exposes: { argument: 0, property: [exposes] }
+      shared: { argument: 0, property: [shared] }
+    emit: { signal: { kind: module-federation } }
+
+  - id: architecture.module-federation.enhanced
+    version: 1
+    description: The Module Federation 2 plugin for webpack and Rspack
+    match: { new: { module: ["@module-federation/enhanced", "@module-federation/enhanced/webpack", "@module-federation/enhanced/rspack"], members: [ModuleFederationPlugin] } }
+    capture:
+      name: { argument: 0, property: [name] }
+      remotes: { argument: 0, property: [remotes] }
+      exposes: { argument: 0, property: [exposes] }
+      shared: { argument: 0, property: [shared] }
+    emit: { signal: { kind: module-federation } }
+
+  - id: architecture.module-federation.vite
+    version: 1
+    description: Module Federation plugins for Vite
+    match: { call: { module: ["@originjs/vite-plugin-federation", "@module-federation/vite"] } }
+    capture:
+      name: { argument: 0, property: [name] }
+      remotes: { argument: 0, property: [remotes] }
+      exposes: { argument: 0, property: [exposes] }
+      shared: { argument: 0, property: [shared] }
+    emit: { signal: { kind: module-federation } }
+
+  - id: architecture.module-federation.vite-named
+    version: 1
+    description: The named federation export of @module-federation/vite
+    match: { call: { module: "@module-federation/vite", members: [federation] } }
+    capture:
+      name: { argument: 0, property: [name] }
+      remotes: { argument: 0, property: [remotes] }
+      exposes: { argument: 0, property: [exposes] }
+      shared: { argument: 0, property: [shared] }
+    emit: { signal: { kind: module-federation } }

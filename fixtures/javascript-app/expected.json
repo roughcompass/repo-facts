@@ -50,10 +50,16 @@
     "composition": {
       "facts": [],
       "search": {
-        "complete": false,
-        "rules": [],
+        "complete": true,
+        "rules": [
+          "architecture.import-map",
+          "composition"
+        ],
         "skipped": [],
-        "surface": []
+        "surface": [
+          "pages/index.js",
+          "playwright.config.js"
+        ]
       },
       "state": "unknown"
     },
@@ -257,24 +263,85 @@
       "state": "absent"
     },
     "packages_consumed": {
-      "facts": [],
+      "facts": [
+        {
+          "evidence": [
+            "ev_30b72c3f5ca1948939f2f7c9"
+          ],
+          "key": "@playwright/test",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "@playwright/test"
+          }
+        },
+        {
+          "evidence": [
+            "ev_db18ae5a6e175690570cc2ae"
+          ],
+          "key": "next",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "next"
+          }
+        },
+        {
+          "evidence": [
+            "ev_6efa376acb03bbd8e63cbd88"
+          ],
+          "key": "react",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "react"
+          }
+        }
+      ],
       "search": {
-        "complete": false,
-        "rules": [],
+        "complete": true,
+        "rules": [
+          "packages.consumed"
+        ],
         "skipped": [],
-        "surface": []
+        "surface": [
+          "package.json"
+        ]
       },
-      "state": "unknown"
+      "state": "observed"
     },
     "packages_produced": {
-      "facts": [],
+      "facts": [
+        {
+          "evidence": [
+            "ev_30bde507ada5fdf27fa4f6d4",
+            "ev_819e5886be8ab661c896dd87"
+          ],
+          "key": "storefront",
+          "rule": "packages.produced",
+          "state": "observed",
+          "value": {
+            "manifest": "package.json",
+            "name": "storefront",
+            "published": true,
+            "version": "0.1.0"
+          }
+        }
+      ],
       "search": {
-        "complete": false,
-        "rules": [],
+        "complete": true,
+        "rules": [
+          "packages.produced"
+        ],
         "skipped": [],
-        "surface": []
+        "surface": [
+          "package.json"
+        ]
       },
-      "state": "unknown"
+      "state": "observed"
     },
     "resolved_dependencies": {
       "facts": [],
@@ -293,10 +360,15 @@
     "runtime_integrations": {
       "facts": [],
       "search": {
-        "complete": false,
-        "rules": [],
+        "complete": true,
+        "rules": [
+          "composition"
+        ],
         "skipped": [],
-        "surface": []
+        "surface": [
+          "pages/index.js",
+          "playwright.config.js"
+        ]
       },
       "state": "unknown"
     },
@@ -498,6 +570,36 @@
       "path": "package.json",
       "rule": "manifest.tool-dependency"
     },
+    "ev_30b72c3f5ca1948939f2f7c9": {
+      "commit": null,
+      "content_digest": "f7d4dbbc23bf8397eff7e30bc5f2bf1fd48aacc88fad603f85ef717a26733104",
+      "detector": "package-relations",
+      "excerpt_digest": "4215f788ee07312000e95b363de0633776406c60a297f92e6b819df58e8a82ed",
+      "id": "ev_30b72c3f5ca1948939f2f7c9",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/@playwright~1test"
+      },
+      "object_id": "505a83de4d390e8afa7856f2f6cd8bae9e2d560c",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
+    "ev_30bde507ada5fdf27fa4f6d4": {
+      "commit": null,
+      "content_digest": "f7d4dbbc23bf8397eff7e30bc5f2bf1fd48aacc88fad603f85ef717a26733104",
+      "detector": "package-relations",
+      "excerpt_digest": "9bdca1b57e6a02637da8e1392e96cca76d4fa5194904b6d6f8bc08eaf4d9fd4e",
+      "id": "ev_30bde507ada5fdf27fa4f6d4",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/name"
+      },
+      "object_id": "505a83de4d390e8afa7856f2f6cd8bae9e2d560c",
+      "path": "package.json",
+      "rule": "packages.produced"
+    },
     "ev_30c30d30f75ca54f52ccefd8": {
       "commit": null,
       "content_digest": "f226d25fc8984deaf75645f65d0f00e84f6ca105551f09b2a226f50a09b7ccd3",
@@ -599,6 +701,36 @@
       "path": "package.json",
       "rule": "manifest.dependencies"
     },
+    "ev_6efa376acb03bbd8e63cbd88": {
+      "commit": null,
+      "content_digest": "f7d4dbbc23bf8397eff7e30bc5f2bf1fd48aacc88fad603f85ef717a26733104",
+      "detector": "package-relations",
+      "excerpt_digest": "c3b5746f369a734a71d7340963dbba88e4ebdd8742c57d3f93abf713a79df2b5",
+      "id": "ev_6efa376acb03bbd8e63cbd88",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/react"
+      },
+      "object_id": "505a83de4d390e8afa7856f2f6cd8bae9e2d560c",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
+    "ev_819e5886be8ab661c896dd87": {
+      "commit": null,
+      "content_digest": "f7d4dbbc23bf8397eff7e30bc5f2bf1fd48aacc88fad603f85ef717a26733104",
+      "detector": "package-relations",
+      "excerpt_digest": "8e633b4f41f99d4c388915bc852f2143cf4e9f5eaad70c76a81d4f4aa629eec1",
+      "id": "ev_819e5886be8ab661c896dd87",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/version"
+      },
+      "object_id": "505a83de4d390e8afa7856f2f6cd8bae9e2d560c",
+      "path": "package.json",
+      "rule": "packages.produced"
+    },
     "ev_8fb87afd7eff44ef79ba8225": {
       "commit": null,
       "content_digest": "f7d4dbbc23bf8397eff7e30bc5f2bf1fd48aacc88fad603f85ef717a26733104",
@@ -659,6 +791,21 @@
       "path": "package.json",
       "rule": "manifest.identity"
     },
+    "ev_db18ae5a6e175690570cc2ae": {
+      "commit": null,
+      "content_digest": "f7d4dbbc23bf8397eff7e30bc5f2bf1fd48aacc88fad603f85ef717a26733104",
+      "detector": "package-relations",
+      "excerpt_digest": "5b20389e29f28f31ea57fcd6cd92d65c017cf2f420ce30ffb154037302f1b724",
+      "id": "ev_db18ae5a6e175690570cc2ae",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/next"
+      },
+      "object_id": "505a83de4d390e8afa7856f2f6cd8bae9e2d560c",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
     "ev_ef37252da7430de4ed54f556": {
       "commit": null,
       "content_digest": "2839c523b057cf9de8d5c1e186e84db991d86ef231dd31bf6300847ed5e2f193",
@@ -689,15 +836,68 @@
   "extensions": [],
   "inventory": {
     "bytes": 315,
-    "bytes_read": 267,
+    "bytes_read": 315,
     "entries": 4,
     "executables": 0,
     "files": 3,
-    "files_read": 2,
+    "files_read": 3,
     "gitlinks": 0,
     "symlinks": 0
   },
-  "relationship_references": [],
+  "relationship_references": [
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_30bde507ada5fdf27fa4f6d4"
+      ],
+      "id": "ref_264c566a476d2c515904c306",
+      "identifier": {
+        "name": "storefront"
+      },
+      "role": "producer",
+      "rule": "packages.produced",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_db18ae5a6e175690570cc2ae"
+      ],
+      "id": "ref_2cd465fcca7644f85e3e4f69",
+      "identifier": {
+        "name": "next"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_6efa376acb03bbd8e63cbd88"
+      ],
+      "id": "ref_7feb1042963b1be60c179f1d",
+      "identifier": {
+        "name": "react"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_30b72c3f5ca1948939f2f7c9"
+      ],
+      "id": "ref_aedc6196cf3c572362430e3a",
+      "identifier": {
+        "name": "@playwright/test"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    }
+  ],
   "schema": "repo_facts.fact_document",
   "schema_version": 1,
   "service_dependencies": []

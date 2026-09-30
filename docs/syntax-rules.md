@@ -96,13 +96,13 @@ Matching is structural and conservative. Comments and string contents are never 
 
 Captured values are resolved with the static-value resolver. They're recorded as `literal`, `template`, `configured` (for `process.env` and `import.meta.env` keys), `object`, `array`, `absent`, or `unresolved` with a reason. A spread before an argument's position makes it unresolved. Every captured string is redacted of credentials.
 
-`where` lists conditions that must all hold. Each compares a capture to a literal, such as an event name equal to `message`.
+`where` lists conditions that must all hold. A condition either compares a capture to a literal with `equals`, such as an event name equal to `message`, or tests the kind of value it resolved to with `is`: `string`, `number`, `boolean`, `object`, `array`, `template`, `configured`, `unresolved`, or `absent`. For example, `is: object` tells `registerApplication({ name })` apart from `registerApplication("name", app)`.
 
 ## Emits
 
 - `fact` reports a fact with a category, a key, a value, and a basis. In the key, `{capture}` interpolates a literal capture; if any interpolated capture isn't a literal, the key becomes the match's file and line. In the value, a string exactly `$capture` is replaced by that capture's resolved value. An `inferred` fact must give its `reasoning`.
 - `reference` reports a typed relationship reference. Every identifier field must interpolate to a literal; otherwise the reference isn't reported, and an `unresolved_reference` diagnostic says why.
-- `service` and `signal` hand the match to detector code, for Service Dependencies and for patterns that rules alone can't describe.
+- `service` and `signal` hand the match to detector code, for Service Dependencies and for patterns that rules alone can't describe. Detector code sees every match, of every emit kind, so it can also draw conclusions across matches, such as recognizing a single-spa root configuration from its registrations and its `start()` call.
 
 Each fact and reference names its rule and cites the matched node's lines as evidence.
 

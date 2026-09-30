@@ -80,10 +80,17 @@
     "composition": {
       "facts": [],
       "search": {
-        "complete": false,
-        "rules": [],
+        "complete": true,
+        "rules": [
+          "architecture.import-map",
+          "composition"
+        ],
         "skipped": [],
-        "surface": []
+        "surface": [
+          "apps/web/src/main.ts",
+          "vite.config.ts",
+          "vitest.config.ts"
+        ]
       },
       "state": "unknown"
     },
@@ -364,24 +371,144 @@
       "state": "observed"
     },
     "packages_consumed": {
-      "facts": [],
+      "facts": [
+        {
+          "evidence": [
+            "ev_a2be3089db3e8c03c74760f1"
+          ],
+          "key": "typescript",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "typescript"
+          }
+        },
+        {
+          "evidence": [
+            "ev_c1653e261f0a17a38f5e6f04"
+          ],
+          "key": "vite",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "vite"
+          }
+        },
+        {
+          "evidence": [
+            "ev_cd43d29409ae1a1438bde024"
+          ],
+          "key": "vitest",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "vitest"
+          }
+        },
+        {
+          "evidence": [
+            "ev_3081dd607d6a13e79c16b148"
+          ],
+          "key": "vue",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "vue"
+          }
+        }
+      ],
       "search": {
-        "complete": false,
-        "rules": [],
+        "complete": true,
+        "rules": [
+          "packages.consumed"
+        ],
         "skipped": [],
-        "surface": []
+        "surface": [
+          "apps/web/package.json",
+          "libs/deprecated/package.json",
+          "libs/ui/core/package.json",
+          "package.json"
+        ]
       },
-      "state": "unknown"
+      "state": "observed"
     },
     "packages_produced": {
-      "facts": [],
+      "facts": [
+        {
+          "evidence": [
+            "ev_433059a2b7e48afc4381b1f8"
+          ],
+          "key": "@catalog/deprecated",
+          "rule": "packages.produced",
+          "state": "observed",
+          "value": {
+            "manifest": "libs/deprecated/package.json",
+            "name": "@catalog/deprecated",
+            "published": true,
+            "version": null
+          }
+        },
+        {
+          "evidence": [
+            "ev_bb554504d03eadc6838f0329"
+          ],
+          "key": "@catalog/ui-core",
+          "rule": "packages.produced",
+          "state": "observed",
+          "value": {
+            "manifest": "libs/ui/core/package.json",
+            "name": "@catalog/ui-core",
+            "published": true,
+            "version": null
+          }
+        },
+        {
+          "evidence": [
+            "ev_d1d35b106f0a0a966927119a"
+          ],
+          "key": "@catalog/web",
+          "rule": "packages.produced",
+          "state": "observed",
+          "value": {
+            "manifest": "apps/web/package.json",
+            "name": "@catalog/web",
+            "published": true,
+            "version": null
+          }
+        },
+        {
+          "evidence": [
+            "ev_479eddb4f6b6494ecb5d8417"
+          ],
+          "key": "catalog",
+          "rule": "packages.produced",
+          "state": "observed",
+          "value": {
+            "manifest": "package.json",
+            "name": "catalog",
+            "published": true,
+            "version": null
+          }
+        }
+      ],
       "search": {
-        "complete": false,
-        "rules": [],
+        "complete": true,
+        "rules": [
+          "packages.produced"
+        ],
         "skipped": [],
-        "surface": []
+        "surface": [
+          "apps/web/package.json",
+          "libs/deprecated/package.json",
+          "libs/ui/core/package.json",
+          "package.json"
+        ]
       },
-      "state": "unknown"
+      "state": "observed"
     },
     "resolved_dependencies": {
       "facts": [
@@ -455,10 +582,16 @@
     "runtime_integrations": {
       "facts": [],
       "search": {
-        "complete": false,
-        "rules": [],
+        "complete": true,
+        "rules": [
+          "composition"
+        ],
         "skipped": [],
-        "surface": []
+        "surface": [
+          "apps/web/src/main.ts",
+          "vite.config.ts",
+          "vitest.config.ts"
+        ]
       },
       "state": "unknown"
     },
@@ -811,6 +944,21 @@
       "path": "libs/ui/core/package.json",
       "rule": "manifest.identity"
     },
+    "ev_3081dd607d6a13e79c16b148": {
+      "commit": null,
+      "content_digest": "279a3aca4c57bfafd04be921b1ccbc8b5f083e818629a2f06e2003d2c9c7f7c6",
+      "detector": "package-relations",
+      "excerpt_digest": "5f374e367aaa66680f01492e1b3ec4149badf25869f984affb6b48b70996560e",
+      "id": "ev_3081dd607d6a13e79c16b148",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/vue"
+      },
+      "object_id": "bd15bac6b70f7162bf630734b639939815cb00bf",
+      "path": "apps/web/package.json",
+      "rule": "packages.consumed"
+    },
     "ev_3888c88a1b1557fec28c45bd": {
       "commit": null,
       "content_digest": "279a3aca4c57bfafd04be921b1ccbc8b5f083e818629a2f06e2003d2c9c7f7c6",
@@ -838,6 +986,21 @@
       "object_id": "ff8b4c56321a3362fc00224b01800f62466f9a1f",
       "path": "vite.config.ts",
       "rule": "inventory.language-by-extension"
+    },
+    "ev_433059a2b7e48afc4381b1f8": {
+      "commit": null,
+      "content_digest": "49d3d52ab644eafcb76ff89e5cf9a779ca12bf2ab4f9a96918b912721319f357",
+      "detector": "package-relations",
+      "excerpt_digest": "c4a1d2ff29bf8aa53eec8a08cf7f9e90f3b3654fc7c9cd7fed0ff1b8498872c2",
+      "id": "ev_433059a2b7e48afc4381b1f8",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/name"
+      },
+      "object_id": "0ced80877a361e944af75055893f65ae66fdb425",
+      "path": "libs/deprecated/package.json",
+      "rule": "packages.produced"
     },
     "ev_438f9417da8643f47f4437c0": {
       "commit": null,
@@ -896,6 +1059,21 @@
       "object_id": "ede682f929c5fab7468bc4ba5651955cd1e16c69",
       "path": "pnpm-lock.yaml",
       "rule": "pnpm-lock.resolved-version"
+    },
+    "ev_479eddb4f6b6494ecb5d8417": {
+      "commit": null,
+      "content_digest": "1a624925def4d194fea4276f1d93d1f716220ab4fd24c1513adca86403f77f6e",
+      "detector": "package-relations",
+      "excerpt_digest": "12ea5e22b2603f39d9541c790c8c28f30d35adf7df422773762948cfaae4b4a5",
+      "id": "ev_479eddb4f6b6494ecb5d8417",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/name"
+      },
+      "object_id": "0a9f40baf6dd12d31aebfb9430a3ed0dfb409412",
+      "path": "package.json",
+      "rule": "packages.produced"
     },
     "ev_50ee008299f7443f20674fcc": {
       "commit": null,
@@ -1095,6 +1273,21 @@
       "path": "libs/deprecated/package.json",
       "rule": "manifest.identity"
     },
+    "ev_a2be3089db3e8c03c74760f1": {
+      "commit": null,
+      "content_digest": "1a624925def4d194fea4276f1d93d1f716220ab4fd24c1513adca86403f77f6e",
+      "detector": "package-relations",
+      "excerpt_digest": "fa4b3ccaab62849bf58af9a41e4d3df128e98909bbbbff64367fc28137e071a3",
+      "id": "ev_a2be3089db3e8c03c74760f1",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/typescript"
+      },
+      "object_id": "0a9f40baf6dd12d31aebfb9430a3ed0dfb409412",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
     "ev_a4334abcacbd21f30dc2035e": {
       "commit": null,
       "content_digest": "5842d26bd9e24a4e93ce8617537849cb97d30518d93a8c2bed97aa73c84a874e",
@@ -1151,6 +1344,36 @@
       "path": "apps/web/package.json",
       "rule": "inventory.language-by-extension"
     },
+    "ev_bb554504d03eadc6838f0329": {
+      "commit": null,
+      "content_digest": "a630687f3831df8c0e515ff80831bd076e4b85e830095df63d3be67acb929a6e",
+      "detector": "package-relations",
+      "excerpt_digest": "95a9fe1f73d55b5920d45972b66ee1d22c32e3c2820e40992c8f3cdb98b2f33e",
+      "id": "ev_bb554504d03eadc6838f0329",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/name"
+      },
+      "object_id": "910d41fca718a5688137bf6e873e6e32cb5c6469",
+      "path": "libs/ui/core/package.json",
+      "rule": "packages.produced"
+    },
+    "ev_c1653e261f0a17a38f5e6f04": {
+      "commit": null,
+      "content_digest": "1a624925def4d194fea4276f1d93d1f716220ab4fd24c1513adca86403f77f6e",
+      "detector": "package-relations",
+      "excerpt_digest": "c964b9157beb5b46fa409f08bbddfc13de3c20b5651e7b49523359636a765e9b",
+      "id": "ev_c1653e261f0a17a38f5e6f04",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/vite"
+      },
+      "object_id": "0a9f40baf6dd12d31aebfb9430a3ed0dfb409412",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
     "ev_c915e555ebee959acf03946c": {
       "commit": null,
       "content_digest": "279a3aca4c57bfafd04be921b1ccbc8b5f083e818629a2f06e2003d2c9c7f7c6",
@@ -1181,6 +1404,21 @@
       "path": "apps/web/package.json",
       "rule": "manifest.framework"
     },
+    "ev_cd43d29409ae1a1438bde024": {
+      "commit": null,
+      "content_digest": "1a624925def4d194fea4276f1d93d1f716220ab4fd24c1513adca86403f77f6e",
+      "detector": "package-relations",
+      "excerpt_digest": "cb38356703f35d970058cb26ce297b4e48149b4e14cc9c93983e4ff1adaa6045",
+      "id": "ev_cd43d29409ae1a1438bde024",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/vitest"
+      },
+      "object_id": "0a9f40baf6dd12d31aebfb9430a3ed0dfb409412",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
     "ev_d0174fb8253203e4173c084f": {
       "commit": null,
       "content_digest": "9946da8a55bd39710bb616ffcfc380d6a8eb46f9678fc069c044214ab21a5317",
@@ -1193,6 +1431,21 @@
       "object_id": "447dd86533119235816d7df63c9f56bfff524eb7",
       "path": "pnpm-workspace.yaml",
       "rule": "inventory.language-by-extension"
+    },
+    "ev_d1d35b106f0a0a966927119a": {
+      "commit": null,
+      "content_digest": "279a3aca4c57bfafd04be921b1ccbc8b5f083e818629a2f06e2003d2c9c7f7c6",
+      "detector": "package-relations",
+      "excerpt_digest": "fa41e6d6bcedd186d7862bf8dc8d06f4ab8ff6b6d30fa23a38f7947121dd2cb1",
+      "id": "ev_d1d35b106f0a0a966927119a",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/name"
+      },
+      "object_id": "bd15bac6b70f7162bf630734b639939815cb00bf",
+      "path": "apps/web/package.json",
+      "rule": "packages.produced"
     },
     "ev_d74d57196e478e5abbe1f80f": {
       "commit": null,
@@ -1301,15 +1554,120 @@
   "extensions": [],
   "inventory": {
     "bytes": 959,
-    "bytes_read": 948,
+    "bytes_read": 959,
     "entries": 17,
     "executables": 0,
     "files": 10,
-    "files_read": 9,
+    "files_read": 10,
     "gitlinks": 0,
     "symlinks": 0
   },
-  "relationship_references": [],
+  "relationship_references": [
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_cd43d29409ae1a1438bde024"
+      ],
+      "id": "ref_475ad5b6b788a2d605d4615b",
+      "identifier": {
+        "name": "vitest"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_bb554504d03eadc6838f0329"
+      ],
+      "id": "ref_516e3a898acc0a78659bc72b",
+      "identifier": {
+        "name": "@catalog/ui-core"
+      },
+      "role": "producer",
+      "rule": "packages.produced",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_c1653e261f0a17a38f5e6f04"
+      ],
+      "id": "ref_55bd69cf3b6dac0debfdd279",
+      "identifier": {
+        "name": "vite"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_d1d35b106f0a0a966927119a"
+      ],
+      "id": "ref_c376d3df7c2ddce45613bd8b",
+      "identifier": {
+        "name": "@catalog/web"
+      },
+      "role": "producer",
+      "rule": "packages.produced",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_a2be3089db3e8c03c74760f1"
+      ],
+      "id": "ref_c6bc68a14967b299d238faf9",
+      "identifier": {
+        "name": "typescript"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_3081dd607d6a13e79c16b148"
+      ],
+      "id": "ref_d64f9e50465121f74b705a95",
+      "identifier": {
+        "name": "vue"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_433059a2b7e48afc4381b1f8"
+      ],
+      "id": "ref_e08fef40219c230cc8e624db",
+      "identifier": {
+        "name": "@catalog/deprecated"
+      },
+      "role": "producer",
+      "rule": "packages.produced",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_479eddb4f6b6494ecb5d8417"
+      ],
+      "id": "ref_eadd6aefff4c1b1a4c70100b",
+      "identifier": {
+        "name": "catalog"
+      },
+      "role": "producer",
+      "rule": "packages.produced",
+      "type": "package"
+    }
+  ],
   "schema": "repo_facts.fact_document",
   "schema_version": 1,
   "service_dependencies": []

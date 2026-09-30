@@ -12,6 +12,14 @@ describe("golden fixtures", () => {
     expect(fixtureNames().length).toBeGreaterThan(0);
   });
 
+  it("never reports composition, runtime integrations, or references from comments or strings", async () => {
+    for (const name of fixtureNames()) {
+      const document = await analyze(readerFor(loadFixture(name)));
+      const reported = JSON.stringify([document.categories.composition, document.categories.runtime_integrations, document.relationship_references]);
+      expect(reported.includes("decoy"), name).toBe(false);
+    }
+  });
+
   for (const name of fixtureNames()) {
     it(`${name} produces its expected fact document`, async () => {
       const fixture = loadFixture(name);
