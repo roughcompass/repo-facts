@@ -1,6 +1,6 @@
 {
   "name": "@repo-facts/architecture",
-  "version": "0.0.0",
+  "version": "0.1.0-rc.0",
   "description": "Composition and package-relationship detectors",
   "license": "UNLICENSED",
   "type": "module",
@@ -18,8 +18,8 @@
   ],
   "sideEffects": false,
   "dependencies": {
-    "@repo-facts/contract": "0.0.0",
-    "@repo-facts/core": "0.0.0",
-    "@repo-facts/syntax": "0.0.0"
+    "@repo-facts/contract": "0.1.0-rc.0",
+    "@repo-facts/core": "0.1.0-rc.0",
+    "@repo-facts/syntax": "0.1.0-rc.0"
   }
 }
