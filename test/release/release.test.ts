@@ -25,8 +25,13 @@ describe("lockstep releases", () => {
     const root = path.join(workspace, name);
     const files = execFileSync("git", ["ls-files", "--cached", "--others", "--exclude-standard", "-z"], { cwd: ROOT, encoding: "utf8" }).split("\0").filter(Boolean);
     for (const file of files) {
+      const source = path.join(ROOT, file);
+      const stat = fs.lstatSync(source, { throwIfNoEntry: false });
+      if (!stat) continue;
       fs.mkdirSync(path.dirname(path.join(root, file)), { recursive: true });
-      fs.copyFileSync(path.join(ROOT, file), path.join(root, file));
+      // Symbolic links stay links, as in a clone; following one would copy content from outside the repository.
+      if (stat.isSymbolicLink()) fs.symlinkSync(fs.readlinkSync(source), path.join(root, file));
+      else fs.copyFileSync(source, path.join(root, file));
     }
     // Reuse installed tooling to run the scripts; publication installs afresh.
     fs.symlinkSync(path.join(ROOT, "node_modules"), path.join(root, "node_modules"));

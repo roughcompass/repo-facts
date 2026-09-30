@@ -133,7 +133,9 @@ describe("local registry and committed npm configuration", () => {
     const configuration = (file: string) => path.basename(file) === ".npmrc" || /^(\.github|registry|scripts)\//.test(file);
     expect(files.filter(configuration).length).toBeGreaterThan(3);
     for (const file of files) {
-      const content = fs.readFileSync(path.join(ROOT, file), "utf8");
+      // A committed symbolic link's content is its target path; following it would read outside the repository.
+      const absolute = path.join(ROOT, file);
+      const content = fs.lstatSync(absolute).isSymbolicLink() ? fs.readlinkSync(absolute) : fs.readFileSync(absolute, "utf8");
       expect(content.includes(token), file).toBe(false);
       expect(content.includes(account.password), file).toBe(false);
       if (configuration(file)) expect(content, file).not.toMatch(/_authToken\s*=\s*[^$\s]/);

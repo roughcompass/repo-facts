@@ -115,9 +115,13 @@ function snapshotWorkingTree(root, checkout) {
   const files = execFileSync("git", ["ls-files", "--cached", "--others", "--exclude-standard", "-z"], { cwd: root, encoding: "utf8" }).split("\0").filter(Boolean);
   execFileSync("git", ["init", "--quiet", "-b", "snapshot", checkout]);
   for (const file of files) {
-    if (!fs.existsSync(path.join(root, file))) continue;
+    const source = path.join(root, file);
+    const stat = fs.lstatSync(source, { throwIfNoEntry: false });
+    if (!stat) continue;
     fs.mkdirSync(path.dirname(path.join(checkout, file)), { recursive: true });
-    fs.copyFileSync(path.join(root, file), path.join(checkout, file));
+    // Symbolic links are recreated as links; following one would copy content from outside the repository.
+    if (stat.isSymbolicLink()) fs.symlinkSync(fs.readlinkSync(source), path.join(checkout, file));
+    else fs.copyFileSync(source, path.join(checkout, file));
   }
   execFileSync("git", [...SNAPSHOT_IDENTITY, "add", "--all"], { cwd: checkout });
   execFileSync("git", [...SNAPSHOT_IDENTITY, "commit", "--quiet", "-m", "Working tree snapshot for a release dry run"], { cwd: checkout });
