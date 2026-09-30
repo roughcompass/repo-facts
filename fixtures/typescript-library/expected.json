@@ -3,22 +3,34 @@
     "access_signals": {
       "facts": [],
       "search": {
-        "complete": false,
-        "rules": [],
+        "complete": true,
+        "rules": [
+          "access.search"
+        ],
         "skipped": [],
-        "surface": []
+        "surface": [
+          "src/index.test.ts",
+          "src/index.ts",
+          "tsup.config.ts"
+        ]
       },
-      "state": "unknown"
+      "state": "absent"
     },
     "api_contracts": {
       "facts": [],
       "search": {
-        "complete": false,
-        "rules": [],
+        "complete": true,
+        "rules": [
+          "contracts.search"
+        ],
         "skipped": [],
-        "surface": []
+        "surface": [
+          "src/index.test.ts",
+          "src/index.ts",
+          "tsup.config.ts"
+        ]
       },
-      "state": "unknown"
+      "state": "absent"
     },
     "build_tools": {
       "facts": [
@@ -165,12 +177,18 @@
     "egress_routes": {
       "facts": [],
       "search": {
-        "complete": false,
-        "rules": [],
+        "complete": true,
+        "rules": [
+          "egress.search"
+        ],
         "skipped": [],
-        "surface": []
+        "surface": [
+          "src/index.test.ts",
+          "src/index.ts",
+          "tsup.config.ts"
+        ]
       },
-      "state": "unknown"
+      "state": "absent"
     },
     "frameworks": {
       "facts": [
@@ -605,12 +623,18 @@
     "test_substitutes": {
       "facts": [],
       "search": {
-        "complete": false,
-        "rules": [],
+        "complete": true,
+        "rules": [
+          "substitutes.search"
+        ],
         "skipped": [],
-        "surface": []
+        "surface": [
+          "src/index.test.ts",
+          "src/index.ts",
+          "tsup.config.ts"
+        ]
       },
-      "state": "unknown"
+      "state": "absent"
     },
     "verification_commands": {
       "facts": [

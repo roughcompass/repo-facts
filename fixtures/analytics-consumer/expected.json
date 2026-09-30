@@ -3,22 +3,30 @@
     "access_signals": {
       "facts": [],
       "search": {
-        "complete": false,
-        "rules": [],
+        "complete": true,
+        "rules": [
+          "access.search"
+        ],
         "skipped": [],
-        "surface": []
+        "surface": [
+          "src/useAnalytics.ts"
+        ]
       },
-      "state": "unknown"
+      "state": "absent"
     },
     "api_contracts": {
       "facts": [],
       "search": {
-        "complete": false,
-        "rules": [],
+        "complete": true,
+        "rules": [
+          "contracts.search"
+        ],
         "skipped": [],
-        "surface": []
+        "surface": [
+          "src/useAnalytics.ts"
+        ]
       },
-      "state": "unknown"
+      "state": "absent"
     },
     "build_tools": {
       "facts": [],
@@ -108,12 +116,16 @@
     "egress_routes": {
       "facts": [],
       "search": {
-        "complete": false,
-        "rules": [],
+        "complete": true,
+        "rules": [
+          "egress.search"
+        ],
         "skipped": [],
-        "surface": []
+        "surface": [
+          "src/useAnalytics.ts"
+        ]
       },
-      "state": "unknown"
+      "state": "absent"
     },
     "frameworks": {
       "facts": [
@@ -394,12 +406,16 @@
     "test_substitutes": {
       "facts": [],
       "search": {
-        "complete": false,
-        "rules": [],
+        "complete": true,
+        "rules": [
+          "substitutes.search"
+        ],
         "skipped": [],
-        "surface": []
+        "surface": [
+          "src/useAnalytics.ts"
+        ]
       },
-      "state": "unknown"
+      "state": "absent"
     },
     "verification_commands": {
       "facts": [],
@@ -713,8 +729,18 @@
       },
       "contracts": {
         "evidence": [],
-        "rule": "not-established",
-        "state": "unknown",
+        "rule": "contracts.search",
+        "search": {
+          "complete": true,
+          "rules": [
+            "contracts.search"
+          ],
+          "skipped": [],
+          "surface": [
+            "src/useAnalytics.ts"
+          ]
+        },
+        "state": "absent",
         "value": null
       },
       "endpoint": {
@@ -749,9 +775,7 @@
         "authentication",
         "timeout",
         "retry",
-        "proxy",
-        "contracts",
-        "substitutes"
+        "proxy"
       ],
       "operations": {
         "evidence": [
@@ -797,8 +821,18 @@
       },
       "substitutes": {
         "evidence": [],
-        "rule": "not-established",
-        "state": "unknown",
+        "rule": "substitutes.search",
+        "search": {
+          "complete": true,
+          "rules": [
+            "substitutes.search"
+          ],
+          "skipped": [],
+          "surface": [
+            "src/useAnalytics.ts"
+          ]
+        },
+        "state": "absent",
         "value": null
       },
       "timeout": {

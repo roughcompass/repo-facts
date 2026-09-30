@@ -1,0 +1,10 @@
+openapi: 3.1.0
+info:
+  title: Billing
+  version: 1.0.0
+paths:
+  /invoices:
+    get:
+      responses:
+        "200":
+          description: The invoices

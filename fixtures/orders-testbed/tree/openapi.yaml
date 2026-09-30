@@ -1,0 +1,12 @@
+openapi: 3.1.0
+info:
+  title: Orders
+  version: 1.0.0
+servers:
+  - url: https://orders.example.test
+paths:
+  /orders:
+    get:
+      responses:
+        "200":
+          description: The orders

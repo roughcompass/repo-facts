@@ -4,6 +4,42 @@ import type { Rule } from "@repo-facts/syntax";
 export const RULES: readonly Rule[] = [
   {
     "capture": {
+      "module": {
+        "module": true
+      }
+    },
+    "description": "An authentication library",
+    "emit": {
+      "signal": {
+        "kind": "auth-library"
+      }
+    },
+    "id": "services.access.auth-library",
+    "match": {
+      "import": {
+        "module": [
+          "@azure/msal-browser",
+          "@azure/msal-react",
+          "@azure/msal-node",
+          "oidc-client-ts",
+          "oidc-client",
+          "keycloak-js",
+          "next-auth",
+          "next-auth/react",
+          "@auth0/auth0-react",
+          "@auth0/auth0-spa-js",
+          "@okta/okta-auth-js",
+          "@okta/okta-react",
+          "firebase/auth",
+          "aws-amplify",
+          "@aws-amplify/auth"
+        ]
+      }
+    },
+    "version": 1
+  },
+  {
+    "capture": {
       "options": {
         "argument": 1
       },
@@ -338,6 +374,72 @@ export const RULES: readonly Rule[] = [
   },
   {
     "capture": {
+      "first": {
+        "argument": 0
+      },
+      "options": {
+        "argument": 1
+      }
+    },
+    "description": "A route proxied with http-proxy-middleware",
+    "emit": {
+      "signal": {
+        "kind": "proxy-middleware"
+      }
+    },
+    "id": "services.egress.proxy-middleware",
+    "match": {
+      "call": {
+        "members": [
+          "createProxyMiddleware"
+        ],
+        "module": [
+          "http-proxy-middleware"
+        ]
+      }
+    },
+    "version": 1
+  },
+  {
+    "capture": {
+      "proxy": {
+        "argument": 0,
+        "property": [
+          "server",
+          "proxy"
+        ]
+      }
+    },
+    "description": "Development proxy routes in a Vite configuration",
+    "emit": {
+      "signal": {
+        "kind": "dev-proxy"
+      }
+    },
+    "id": "services.egress.vite-proxy",
+    "match": {
+      "call": {
+        "members": [
+          "defineConfig"
+        ],
+        "module": [
+          "vite"
+        ]
+      }
+    },
+    "version": 1,
+    "where": [
+      {
+        "capture": "proxy",
+        "is": [
+          "object",
+          "unresolved"
+        ]
+      }
+    ]
+  },
+  {
+    "capture": {
       "credentials": {
         "argument": 1,
         "property": [
@@ -426,6 +528,12 @@ export const RULES: readonly Rule[] = [
       },
       "config": {
         "argument": 0
+      },
+      "headers": {
+        "argument": 0,
+        "property": [
+          "headers"
+        ]
       }
     },
     "description": "A client generated from an OpenAPI document with openapi-fetch",
@@ -443,7 +551,7 @@ export const RULES: readonly Rule[] = [
         ]
       }
     },
-    "version": 1,
+    "version": 2,
     "where": [
       {
         "capture": "config",
@@ -707,6 +815,295 @@ export const RULES: readonly Rule[] = [
   },
   {
     "capture": {
+      "module": {
+        "argument": 0
+      }
+    },
+    "description": "A module replaced with a global vi.mock or jest.mock",
+    "emit": {
+      "signal": {
+        "kind": "module-mock-candidate"
+      }
+    },
+    "id": "services.substitute.global-module-mock",
+    "match": {
+      "call": {
+        "anyReceiver": true,
+        "method": [
+          "mock",
+          "doMock"
+        ]
+      }
+    },
+    "version": 1,
+    "where": [
+      {
+        "capture": "module",
+        "is": [
+          "string"
+        ]
+      }
+    ]
+  },
+  {
+    "capture": {
+      "name": {
+        "argument": 1
+      }
+    },
+    "description": "The global fetch replaced with jest.spyOn or vi.spyOn",
+    "emit": {
+      "signal": {
+        "kind": "fetch-stub"
+      }
+    },
+    "id": "services.substitute.jest-spy-fetch",
+    "match": {
+      "call": {
+        "anyReceiver": true,
+        "method": [
+          "spyOn"
+        ]
+      }
+    },
+    "version": 1,
+    "where": [
+      {
+        "capture": "name",
+        "equals": "fetch"
+      }
+    ]
+  },
+  {
+    "capture": {
+      "module": {
+        "module": true
+      }
+    },
+    "description": "A mock server library",
+    "emit": {
+      "signal": {
+        "kind": "mock-server"
+      }
+    },
+    "id": "services.substitute.mock-server-library",
+    "match": {
+      "import": {
+        "module": [
+          "miragejs",
+          "json-server",
+          "@mswjs/data",
+          "pretender"
+        ]
+      }
+    },
+    "version": 1
+  },
+  {
+    "capture": {
+      "operation": {
+        "argument": 0
+      }
+    },
+    "description": "A Mock Service Worker GraphQL operation handler",
+    "emit": {
+      "signal": {
+        "kind": "graphql-interceptor"
+      }
+    },
+    "id": "services.substitute.msw-graphql-handler",
+    "match": {
+      "call": {
+        "members": [
+          "graphql"
+        ],
+        "method": [
+          "query",
+          "mutation",
+          "operation"
+        ],
+        "module": [
+          "msw"
+        ]
+      }
+    },
+    "version": 1
+  },
+  {
+    "capture": {
+      "url": {
+        "argument": 0
+      }
+    },
+    "description": "A Mock Service Worker request handler",
+    "emit": {
+      "signal": {
+        "kind": "request-interceptor"
+      }
+    },
+    "id": "services.substitute.msw-handler",
+    "match": {
+      "call": {
+        "members": [
+          "http"
+        ],
+        "method": [
+          "get",
+          "post",
+          "put",
+          "patch",
+          "delete",
+          "head",
+          "options",
+          "all"
+        ],
+        "module": [
+          "msw"
+        ]
+      }
+    },
+    "version": 1
+  },
+  {
+    "capture": {
+      "url": {
+        "argument": 0
+      }
+    },
+    "description": "A Mock Service Worker request handler written with the legacy rest namespace",
+    "emit": {
+      "signal": {
+        "kind": "request-interceptor"
+      }
+    },
+    "id": "services.substitute.msw-rest-handler",
+    "match": {
+      "call": {
+        "members": [
+          "rest"
+        ],
+        "method": [
+          "get",
+          "post",
+          "put",
+          "patch",
+          "delete",
+          "head",
+          "options",
+          "all"
+        ],
+        "module": [
+          "msw"
+        ]
+      }
+    },
+    "version": 1
+  },
+  {
+    "description": "A Mock Service Worker server or worker",
+    "emit": {
+      "signal": {
+        "kind": "mock-server"
+      }
+    },
+    "id": "services.substitute.msw-server",
+    "match": {
+      "call": {
+        "method": [
+          "setupServer",
+          "setupWorker"
+        ],
+        "module": [
+          "msw",
+          "msw/node",
+          "msw/browser"
+        ]
+      }
+    },
+    "version": 1
+  },
+  {
+    "capture": {
+      "url": {
+        "argument": 0
+      }
+    },
+    "description": "A nock interceptor for an origin",
+    "emit": {
+      "signal": {
+        "kind": "request-interceptor"
+      }
+    },
+    "id": "services.substitute.nock",
+    "match": {
+      "call": {
+        "module": [
+          "nock"
+        ]
+      }
+    },
+    "version": 1
+  },
+  {
+    "capture": {
+      "module": {
+        "argument": 0
+      }
+    },
+    "description": "A module replaced with vi.mock",
+    "emit": {
+      "signal": {
+        "kind": "module-mock"
+      }
+    },
+    "id": "services.substitute.vitest-module-mock",
+    "match": {
+      "call": {
+        "members": [
+          "vi"
+        ],
+        "method": [
+          "mock",
+          "doMock"
+        ],
+        "module": [
+          "vitest"
+        ]
+      }
+    },
+    "version": 1
+  },
+  {
+    "capture": {
+      "name": {
+        "argument": 0
+      }
+    },
+    "description": "A global replaced with vi.stubGlobal",
+    "emit": {
+      "signal": {
+        "kind": "fetch-stub"
+      }
+    },
+    "id": "services.substitute.vitest-stub-global",
+    "match": {
+      "call": {
+        "anyReceiver": true,
+        "method": [
+          "stubGlobal"
+        ]
+      }
+    },
+    "version": 1,
+    "where": [
+      {
+        "capture": "name",
+        "equals": "fetch"
+      }
+    ]
+  },
+  {
+    "capture": {
       "url": {
         "argument": 0
       }
@@ -732,4 +1129,4 @@ export const RULES: readonly Rule[] = [
   }
 ];
 
-export const RULES_DIGEST = "0914e04b05385aff6d48b2ce483535b56bfd6f21e49a45f8df8d2557742f4a5c";
+export const RULES_DIGEST = "112f81bdb910917eeace94f63a54d8425ce4bf6fa283af50e65ff0cccf09dd4f";

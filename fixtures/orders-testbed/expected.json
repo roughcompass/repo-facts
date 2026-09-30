@@ -1,0 +1,2337 @@
+{
+  "categories": {
+    "access_signals": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_9c707561e7edbaba174725cd"
+          ],
+          "key": "file:.env.local",
+          "rule": "access.credential-file",
+          "state": "observed",
+          "value": {
+            "format": "env-file",
+            "kind": "credential_file",
+            "label": "Environment file",
+            "path": ".env.local"
+          }
+        },
+        {
+          "evidence": [
+            "ev_8fe63d4c70baad5bee540098"
+          ],
+          "key": "name:BILLING_API_SECRET",
+          "rule": "access.dockerfile-variable",
+          "state": "observed",
+          "value": {
+            "kind": "credential_reference",
+            "name": "BILLING_API_SECRET",
+            "read_from": [
+              "Dockerfile"
+            ]
+          }
+        },
+        {
+          "evidence": [
+            "ev_d7447787384c44a63800a64b"
+          ],
+          "key": "name:NPM_TOKEN",
+          "rule": "access.dockerfile-variable",
+          "state": "observed",
+          "value": {
+            "kind": "credential_reference",
+            "name": "NPM_TOKEN",
+            "read_from": [
+              "Dockerfile"
+            ]
+          }
+        },
+        {
+          "evidence": [
+            "ev_593457d868740f1c6962e95c"
+          ],
+          "key": "name:VITE_BILLING_TOKEN",
+          "rule": "access.environment-reference",
+          "state": "observed",
+          "value": {
+            "kind": "credential_reference",
+            "name": "VITE_BILLING_TOKEN",
+            "read_from": [
+              "import.meta.env"
+            ]
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "access.search"
+        ],
+        "skipped": [],
+        "surface": [
+          "Dockerfile",
+          "src/billing.ts",
+          "src/orders.test.ts",
+          "src/orders.ts",
+          "src/profile.test.ts",
+          "src/profile.ts",
+          "src/stream.ts",
+          "vite.config.ts"
+        ]
+      },
+      "state": "observed"
+    },
+    "api_contracts": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_1e399b62dc4631ef33e5daae"
+          ],
+          "key": "contracts/billing.openapi.yaml",
+          "rule": "contracts.openapi-document",
+          "state": "observed",
+          "value": {
+            "kind": "openapi",
+            "operations": 1,
+            "path": "contracts/billing.openapi.yaml",
+            "servers": [],
+            "title": "Billing",
+            "version": "3.1.0"
+          }
+        },
+        {
+          "evidence": [
+            "ev_57616d9f3ac73d19967f0e1b"
+          ],
+          "key": "contracts/payments.openapi.yaml",
+          "rule": "contracts.openapi-document",
+          "state": "observed",
+          "value": {
+            "kind": "openapi",
+            "operations": 1,
+            "path": "contracts/payments.openapi.yaml",
+            "servers": [],
+            "title": "Payments",
+            "version": "3.1.0"
+          }
+        },
+        {
+          "evidence": [
+            "ev_a54b9c99968e71e702050502"
+          ],
+          "key": "openapi.yaml",
+          "rule": "contracts.openapi-document",
+          "state": "observed",
+          "value": {
+            "kind": "openapi",
+            "operations": 1,
+            "path": "openapi.yaml",
+            "servers": [
+              "https://orders.example.test"
+            ],
+            "title": "Orders",
+            "version": "3.1.0"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "contracts.search"
+        ],
+        "skipped": [],
+        "surface": [
+          "contracts/billing.openapi.yaml",
+          "contracts/payments.openapi.yaml",
+          "openapi.yaml",
+          "src/billing.ts",
+          "src/orders.test.ts",
+          "src/orders.ts",
+          "src/profile.test.ts",
+          "src/profile.ts",
+          "src/stream.ts",
+          "vite.config.ts"
+        ]
+      },
+      "state": "observed"
+    },
+    "build_tools": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_a917edb142d7c9c7c86a0f32",
+            "ev_aff5c82f6b959688aa0e2058"
+          ],
+          "key": "vite",
+          "rule": "manifest.tool-dependency",
+          "state": "observed",
+          "value": {
+            "id": "vite",
+            "label": "Vite"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "config.tool-file",
+          "manifest.tool-dependency"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "ci_systems": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "ci.definition"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    },
+    "composition": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "architecture.import-map",
+          "composition"
+        ],
+        "skipped": [],
+        "surface": [
+          "src/billing.ts",
+          "src/orders.test.ts",
+          "src/orders.ts",
+          "src/profile.test.ts",
+          "src/profile.ts",
+          "src/stream.ts",
+          "vite.config.ts"
+        ]
+      },
+      "state": "unknown"
+    },
+    "dependencies": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_080b09de446e58d88c389f3c"
+          ],
+          "key": "package.json#dependencies/openapi-fetch",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "dependencies",
+            "manifest": "package.json",
+            "name": "openapi-fetch",
+            "specifier": "0.13.0"
+          }
+        },
+        {
+          "evidence": [
+            "ev_a02b07f92c855ac6f73da47e"
+          ],
+          "key": "package.json#devDependencies/msw",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "devDependencies",
+            "manifest": "package.json",
+            "name": "msw",
+            "specifier": "2.7.0"
+          }
+        },
+        {
+          "evidence": [
+            "ev_598114de13c5f4da63a5ebfc"
+          ],
+          "key": "package.json#devDependencies/vite",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "devDependencies",
+            "manifest": "package.json",
+            "name": "vite",
+            "specifier": "6.2.0"
+          }
+        },
+        {
+          "evidence": [
+            "ev_865d279f19576bb037544cea"
+          ],
+          "key": "package.json#devDependencies/vitest",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "devDependencies",
+            "manifest": "package.json",
+            "name": "vitest",
+            "specifier": "3.0.0"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.dependencies"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "egress_routes": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_60365abb1004e3ed9d77e1ff"
+          ],
+          "key": "dev-proxy:vite.config.ts:/api",
+          "rule": "services.egress.vite-proxy",
+          "state": "observed",
+          "value": {
+            "configuration": "vite.config.ts",
+            "kind": "dev_proxy",
+            "route": "/api",
+            "target": {
+              "kind": "literal",
+              "value": "http://localhost:8080"
+            }
+          }
+        },
+        {
+          "evidence": [
+            "ev_7865bf2cb8ebdd3fcab51087"
+          ],
+          "key": "gateway-file:deploy/nginx.conf",
+          "rule": "egress.gateway-configuration-file",
+          "state": "observed",
+          "value": {
+            "kind": "gateway_configuration_file",
+            "path": "deploy/nginx.conf",
+            "rules": "not_analyzed",
+            "server": "nginx"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "egress.search"
+        ],
+        "skipped": [
+          "deploy/nginx.conf"
+        ],
+        "surface": [
+          "src/billing.ts",
+          "src/orders.test.ts",
+          "src/orders.ts",
+          "src/profile.test.ts",
+          "src/profile.ts",
+          "src/stream.ts",
+          "vite.config.ts"
+        ]
+      },
+      "state": "observed"
+    },
+    "frameworks": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.framework"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "languages": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_e05a4f16bee643dafa992f5b",
+            "ev_f96bb29f779f3f2fe8ad1a2b"
+          ],
+          "key": "JSON",
+          "rule": "inventory.language-by-extension",
+          "state": "observed",
+          "value": {
+            "bytes": 301,
+            "files": 2
+          }
+        },
+        {
+          "evidence": [
+            "ev_10de71378b871488effc2730",
+            "ev_2a552f15d13be879fdedc85e",
+            "ev_68c0dc6f430d3b7203b534f7"
+          ],
+          "key": "TypeScript",
+          "rule": "inventory.language-by-extension",
+          "state": "observed",
+          "value": {
+            "bytes": 1482,
+            "files": 7
+          }
+        },
+        {
+          "evidence": [
+            "ev_d6db6e373e085127255395f1",
+            "ev_eb448d2544282dda1ed8b7d8",
+            "ev_f25433360958c9b3a956f58f"
+          ],
+          "key": "YAML",
+          "rule": "inventory.language-by-extension",
+          "state": "observed",
+          "value": {
+            "bytes": 498,
+            "files": 3
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.language-by-extension"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "observed"
+    },
+    "package_identity": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_651946be1051540b522bf14e",
+            "ev_ed4ab1e3549eae5c8013ce27"
+          ],
+          "key": "package.json",
+          "rule": "manifest.identity",
+          "state": "observed",
+          "value": {
+            "manifest": "package.json",
+            "name": "orders-testbed",
+            "private": true,
+            "version": "1.0.0"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.identity"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "package_managers": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "lockfile.package-manager",
+          "manifest.package-manager"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "packages_consumed": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_fef25f8c329218dd615a36bf"
+          ],
+          "key": "msw",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "msw"
+          }
+        },
+        {
+          "evidence": [
+            "ev_005be8ceaa8fa00d2278ee48"
+          ],
+          "key": "openapi-fetch",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "openapi-fetch"
+          }
+        },
+        {
+          "evidence": [
+            "ev_b932481130da4cbd5e3ab354"
+          ],
+          "key": "vite",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "vite"
+          }
+        },
+        {
+          "evidence": [
+            "ev_4bf129b489a0c90b67c3eb6d"
+          ],
+          "key": "vitest",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "vitest"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "packages.consumed"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "packages_produced": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_0c7808572336e3f9ab9ae842",
+            "ev_64ab873a66911bc1ee36ce56"
+          ],
+          "key": "orders-testbed",
+          "rule": "packages.produced",
+          "state": "observed",
+          "value": {
+            "manifest": "package.json",
+            "name": "orders-testbed",
+            "published": false,
+            "version": "1.0.0"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "packages.produced"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "resolved_dependencies": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "npm-lock.resolved-version",
+          "pnpm-lock.resolved-version",
+          "yarn-lock.resolved-version"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "runtime_integrations": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "composition"
+        ],
+        "skipped": [],
+        "surface": [
+          "src/billing.ts",
+          "src/orders.test.ts",
+          "src/orders.ts",
+          "src/profile.test.ts",
+          "src/profile.ts",
+          "src/stream.ts",
+          "vite.config.ts"
+        ]
+      },
+      "state": "unknown"
+    },
+    "runtime_requirements": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_7bd5ae565a0da55e8bfb0f4a"
+          ],
+          "key": "node",
+          "rule": "runtime.dockerfile",
+          "state": "observed",
+          "value": {
+            "declared": [
+              "24-alpine"
+            ],
+            "range": ">=24.0.0 <25.0.0-0"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "runtime.declarations"
+        ],
+        "skipped": [],
+        "surface": [
+          "Dockerfile",
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "scripts": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_69a5923eb13cb836f2dd5a3b"
+          ],
+          "key": "package.json#test",
+          "rule": "manifest.scripts",
+          "state": "observed",
+          "value": {
+            "command": "vitest run",
+            "manifest": "package.json",
+            "name": "test"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.scripts"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "served_origins": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "submodules": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.gitlink"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    },
+    "test_frameworks": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_ae8022a8af29fc61fb36399c"
+          ],
+          "key": "vitest",
+          "rule": "manifest.tool-dependency",
+          "state": "observed",
+          "value": {
+            "id": "vitest",
+            "label": "Vitest"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "config.tool-file",
+          "manifest.tool-dependency"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "test_substitutes": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_a6357cf750ac1e2fd7cc443d"
+          ],
+          "key": "fixtures:src/__fixtures__",
+          "rule": "substitutes.fixture",
+          "state": "observed",
+          "value": {
+            "kind": "fixture_directory",
+            "path": "src/__fixtures__"
+          }
+        },
+        {
+          "evidence": [
+            "ev_3bd8b11a85cb39037cd80475"
+          ],
+          "key": "global-stub:src/profile.test.ts:6",
+          "rule": "services.substitute.vitest-stub-global",
+          "state": "observed",
+          "value": {
+            "global": "fetch",
+            "kind": "global_stub"
+          }
+        },
+        {
+          "evidence": [
+            "ev_e51ac87b334a62fecb7609ca"
+          ],
+          "key": "interceptor:src/orders.test.ts:6",
+          "rule": "services.substitute.msw-handler",
+          "state": "observed",
+          "value": {
+            "kind": "request_interceptor",
+            "library": "msw",
+            "url": {
+              "kind": "literal",
+              "value": "https://orders.example.test/orders"
+            }
+          }
+        },
+        {
+          "evidence": [
+            "ev_695fa393ebfd9966373da93e"
+          ],
+          "key": "mock-server:src/orders.test.ts:6",
+          "rule": "services.substitute.msw-server",
+          "state": "observed",
+          "value": {
+            "kind": "mock_server",
+            "library": "msw/node"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "substitutes.search"
+        ],
+        "skipped": [],
+        "surface": [
+          "src/billing.ts",
+          "src/orders.test.ts",
+          "src/orders.ts",
+          "src/profile.test.ts",
+          "src/profile.ts",
+          "src/stream.ts",
+          "vite.config.ts"
+        ]
+      },
+      "state": "observed"
+    },
+    "verification_commands": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_ca4876a9c57bfad4e91cfa50"
+          ],
+          "key": "package.json#scripts/test",
+          "rule": "manifest.verification-script",
+          "state": "observed",
+          "value": {
+            "command": "vitest run",
+            "context": {
+              "script": "test",
+              "via": []
+            },
+            "kinds": [
+              "test"
+            ],
+            "source": "package.json"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "ci.verification-commands"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "workspaces": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.workspaces",
+          "pnpm-workspace.packages"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    }
+  },
+  "commit": null,
+  "detector_release": "golden",
+  "diagnostics": [],
+  "evidence": {
+    "ev_005be8ceaa8fa00d2278ee48": {
+      "commit": null,
+      "content_digest": "88414dde196c3a3ab0b6d2095f9e450715ebf17ad2abe200cb637dd58b2eff5c",
+      "detector": "package-relations",
+      "excerpt_digest": "b7ee182521ffeb5457f713c09d5b5d38eb694cd9b4b311d359f4fda9bb0fc789",
+      "id": "ev_005be8ceaa8fa00d2278ee48",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/openapi-fetch"
+      },
+      "object_id": "89164b632c302efeb16e4e2f870d0db2141281ec",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
+    "ev_080b09de446e58d88c389f3c": {
+      "commit": null,
+      "content_digest": "88414dde196c3a3ab0b6d2095f9e450715ebf17ad2abe200cb637dd58b2eff5c",
+      "detector": "package-metadata",
+      "excerpt_digest": "b7ee182521ffeb5457f713c09d5b5d38eb694cd9b4b311d359f4fda9bb0fc789",
+      "id": "ev_080b09de446e58d88c389f3c",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/openapi-fetch"
+      },
+      "object_id": "89164b632c302efeb16e4e2f870d0db2141281ec",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_0c7808572336e3f9ab9ae842": {
+      "commit": null,
+      "content_digest": "88414dde196c3a3ab0b6d2095f9e450715ebf17ad2abe200cb637dd58b2eff5c",
+      "detector": "package-relations",
+      "excerpt_digest": "d695de3c815425066dfb1e15cc7e0b095170b70ed1860b76fcd7f714674a1563",
+      "id": "ev_0c7808572336e3f9ab9ae842",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/name"
+      },
+      "object_id": "89164b632c302efeb16e4e2f870d0db2141281ec",
+      "path": "package.json",
+      "rule": "packages.produced"
+    },
+    "ev_10b6c010bfa6b6cba97baade": {
+      "commit": null,
+      "content_digest": "729a328c716afb4867000c81c23190477b661a578d65d78f683771d3baf37c34",
+      "detector": "service-dependencies",
+      "excerpt_digest": "0b053fe33769a165c2ee69dd7844c29b4860ca31d02ff118843e84e1db4c9f3e",
+      "id": "ev_10b6c010bfa6b6cba97baade",
+      "location": {
+        "end": 6,
+        "kind": "lines",
+        "start": 6
+      },
+      "object_id": "c79511385ce24c88f48e6096491446d8002c2f93",
+      "path": "src/billing.ts",
+      "rule": "services.generated.openapi-fetch-request"
+    },
+    "ev_10de71378b871488effc2730": {
+      "commit": null,
+      "content_digest": "d10b0b2a2cba4614f7744f99839adf55d02a883d64b56dba25229c960f584ecb",
+      "detector": "inventory",
+      "excerpt_digest": "d10b0b2a2cba4614f7744f99839adf55d02a883d64b56dba25229c960f584ecb",
+      "id": "ev_10de71378b871488effc2730",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "995851b3b305335a076a0eece89a495cd7e7868e",
+      "path": "src/orders.test.ts",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_12f9c8fe5d25f7bdf5c0734c": {
+      "commit": null,
+      "content_digest": "0e66e6420acc19018898ccd037b7b9fe31be13cf41efeeaf4ce5461d30105687",
+      "detector": "service-dependencies",
+      "excerpt_digest": "333466e6a9e2a637d122769a407ea174d9c3220463a2c0c3f6832786f3703796",
+      "id": "ev_12f9c8fe5d25f7bdf5c0734c",
+      "location": {
+        "end": 2,
+        "kind": "lines",
+        "start": 2
+      },
+      "object_id": "34884381c9ac141fb6bd4b2020a6a8a8efa04e68",
+      "path": "src/orders.ts",
+      "rule": "services.fetch"
+    },
+    "ev_1e399b62dc4631ef33e5daae": {
+      "commit": null,
+      "content_digest": "a922f347ed61a4d8161f820e4ccce55c3226ddbabad67904a77218f68ca5caed",
+      "detector": "service-signals",
+      "excerpt_digest": "536c8d78e8a0acbef96c0881c0b313c1dc7090176417df5982b2c7c82423ca16",
+      "id": "ev_1e399b62dc4631ef33e5daae",
+      "location": {
+        "format": "yaml",
+        "kind": "pointer",
+        "pointer": "/openapi"
+      },
+      "object_id": "6b152bc2b34f68b58aea17f46fe8d902fb84c899",
+      "path": "contracts/billing.openapi.yaml",
+      "rule": "contracts.openapi-document"
+    },
+    "ev_2a552f15d13be879fdedc85e": {
+      "commit": null,
+      "content_digest": "5c9a78de6b6b8f6fe6c94cbea63d5fe91df02db7249bee901cc1197d52153902",
+      "detector": "inventory",
+      "excerpt_digest": "5c9a78de6b6b8f6fe6c94cbea63d5fe91df02db7249bee901cc1197d52153902",
+      "id": "ev_2a552f15d13be879fdedc85e",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "c79511385ce24c88f48e6096491446d8002c2f93",
+      "path": "src/billing.ts",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_3bd8b11a85cb39037cd80475": {
+      "commit": null,
+      "content_digest": "229a0de9201a319f6a447c8ce1a33c871b74bfab411c0a5e90b17fd9b601b6b9",
+      "detector": "service-dependencies",
+      "excerpt_digest": "964425381e2b1421c316e4c16cd48518fa84fd26bc2d58f5ecbf64db16063378",
+      "id": "ev_3bd8b11a85cb39037cd80475",
+      "location": {
+        "end": 6,
+        "kind": "lines",
+        "start": 6
+      },
+      "object_id": "c3cf94bd39906783c62a22b5e92d5cba47b5e8c9",
+      "path": "src/profile.test.ts",
+      "rule": "services.substitute.vitest-stub-global"
+    },
+    "ev_4bf129b489a0c90b67c3eb6d": {
+      "commit": null,
+      "content_digest": "88414dde196c3a3ab0b6d2095f9e450715ebf17ad2abe200cb637dd58b2eff5c",
+      "detector": "package-relations",
+      "excerpt_digest": "9976f8dfb5b1b01a70346fd75b7644f4cdc8f71299e2cde16f8839cf82a984ea",
+      "id": "ev_4bf129b489a0c90b67c3eb6d",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/vitest"
+      },
+      "object_id": "89164b632c302efeb16e4e2f870d0db2141281ec",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
+    "ev_57616d9f3ac73d19967f0e1b": {
+      "commit": null,
+      "content_digest": "1853962a50d5daf02ccf426879a2f9232b78d787166783aed1546cd04afb6edd",
+      "detector": "service-signals",
+      "excerpt_digest": "536c8d78e8a0acbef96c0881c0b313c1dc7090176417df5982b2c7c82423ca16",
+      "id": "ev_57616d9f3ac73d19967f0e1b",
+      "location": {
+        "format": "yaml",
+        "kind": "pointer",
+        "pointer": "/openapi"
+      },
+      "object_id": "3ea508a05edbca1c0118a088d26e99fe184e2039",
+      "path": "contracts/payments.openapi.yaml",
+      "rule": "contracts.openapi-document"
+    },
+    "ev_593457d868740f1c6962e95c": {
+      "commit": null,
+      "content_digest": "729a328c716afb4867000c81c23190477b661a578d65d78f683771d3baf37c34",
+      "detector": "service-signals",
+      "excerpt_digest": "78040e5486a7f0912074c0eb9c22605ea86c005dad3b80de594f9b1926a60a65",
+      "id": "ev_593457d868740f1c6962e95c",
+      "location": {
+        "end": 3,
+        "kind": "lines",
+        "start": 3
+      },
+      "object_id": "c79511385ce24c88f48e6096491446d8002c2f93",
+      "path": "src/billing.ts",
+      "rule": "access.environment-reference"
+    },
+    "ev_598114de13c5f4da63a5ebfc": {
+      "commit": null,
+      "content_digest": "88414dde196c3a3ab0b6d2095f9e450715ebf17ad2abe200cb637dd58b2eff5c",
+      "detector": "package-metadata",
+      "excerpt_digest": "924687e02818c67b11bc84a752290a5db8c36ad4aaf4f193eb0d6a6b1cb087fe",
+      "id": "ev_598114de13c5f4da63a5ebfc",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/vite"
+      },
+      "object_id": "89164b632c302efeb16e4e2f870d0db2141281ec",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_60365abb1004e3ed9d77e1ff": {
+      "commit": null,
+      "content_digest": "a5bbe59695beea2c241c49234992188274c319ac6038dcf9ad37994363043a89",
+      "detector": "service-signals",
+      "excerpt_digest": "94ba223466fbde57f490b1cd5d8360ba4c197bb0e9cc8b2a5d239ff54a1500c3",
+      "id": "ev_60365abb1004e3ed9d77e1ff",
+      "location": {
+        "end": 6,
+        "kind": "lines",
+        "start": 6
+      },
+      "object_id": "504d74959110b82cabe0d2d5cfd535366a4fb645",
+      "path": "vite.config.ts",
+      "rule": "services.egress.vite-proxy"
+    },
+    "ev_64ab873a66911bc1ee36ce56": {
+      "commit": null,
+      "content_digest": "88414dde196c3a3ab0b6d2095f9e450715ebf17ad2abe200cb637dd58b2eff5c",
+      "detector": "package-relations",
+      "excerpt_digest": "39fe4a40977d0585fd5704359e3685b0ada5cf5ee061e5d97385601d120cd0ec",
+      "id": "ev_64ab873a66911bc1ee36ce56",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/version"
+      },
+      "object_id": "89164b632c302efeb16e4e2f870d0db2141281ec",
+      "path": "package.json",
+      "rule": "packages.produced"
+    },
+    "ev_651946be1051540b522bf14e": {
+      "commit": null,
+      "content_digest": "88414dde196c3a3ab0b6d2095f9e450715ebf17ad2abe200cb637dd58b2eff5c",
+      "detector": "package-metadata",
+      "excerpt_digest": "39fe4a40977d0585fd5704359e3685b0ada5cf5ee061e5d97385601d120cd0ec",
+      "id": "ev_651946be1051540b522bf14e",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/version"
+      },
+      "object_id": "89164b632c302efeb16e4e2f870d0db2141281ec",
+      "path": "package.json",
+      "rule": "manifest.identity"
+    },
+    "ev_68c0dc6f430d3b7203b534f7": {
+      "commit": null,
+      "content_digest": "096d970a882c5ec207d2e52febc9765f919a7ed28b5f67e23378b0c90c9cfa9f",
+      "detector": "inventory",
+      "excerpt_digest": "096d970a882c5ec207d2e52febc9765f919a7ed28b5f67e23378b0c90c9cfa9f",
+      "id": "ev_68c0dc6f430d3b7203b534f7",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "34884381c9ac141fb6bd4b2020a6a8a8efa04e68",
+      "path": "src/orders.ts",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_695fa393ebfd9966373da93e": {
+      "commit": null,
+      "content_digest": "3e372ec0548dfaec8aa4fb10026c87ffcab0e816ef1a4763164492f632b9d69c",
+      "detector": "service-dependencies",
+      "excerpt_digest": "984263a6e7ff57a122ae1771b56b432df8bdd6a3b8d6164c77d14a132f1fc0c1",
+      "id": "ev_695fa393ebfd9966373da93e",
+      "location": {
+        "end": 6,
+        "kind": "lines",
+        "start": 6
+      },
+      "object_id": "995851b3b305335a076a0eece89a495cd7e7868e",
+      "path": "src/orders.test.ts",
+      "rule": "services.substitute.msw-server"
+    },
+    "ev_69a5923eb13cb836f2dd5a3b": {
+      "commit": null,
+      "content_digest": "88414dde196c3a3ab0b6d2095f9e450715ebf17ad2abe200cb637dd58b2eff5c",
+      "detector": "package-metadata",
+      "excerpt_digest": "8f1036543a0bc25aeefae4f8576b947b19a79dd5135d30e692a51bb3d20f6345",
+      "id": "ev_69a5923eb13cb836f2dd5a3b",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/scripts/test"
+      },
+      "object_id": "89164b632c302efeb16e4e2f870d0db2141281ec",
+      "path": "package.json",
+      "rule": "manifest.scripts"
+    },
+    "ev_7865bf2cb8ebdd3fcab51087": {
+      "commit": null,
+      "content_digest": "c0add5f701ada52240889cc370f52f7a58ce8a44d25f78f4ed937f5bca74c788",
+      "detector": "service-signals",
+      "excerpt_digest": "c0add5f701ada52240889cc370f52f7a58ce8a44d25f78f4ed937f5bca74c788",
+      "id": "ev_7865bf2cb8ebdd3fcab51087",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "ae4652ccc39ec47840d783ef4cc7cf27986bd8b8",
+      "path": "deploy/nginx.conf",
+      "rule": "egress.gateway-configuration-file"
+    },
+    "ev_78c42d163e03f998446cd0a2": {
+      "commit": null,
+      "content_digest": "b2b2ba541a7d75bf46bf78c09150fbb12f8c23f9bb5811216e700f9dc5b7531a",
+      "detector": "service-dependencies",
+      "excerpt_digest": "32dcce1d53639015d343135851d3b0a34267fae39601ea2da57adf0cd962b90c",
+      "id": "ev_78c42d163e03f998446cd0a2",
+      "location": {
+        "end": 1,
+        "kind": "lines",
+        "start": 1
+      },
+      "object_id": "407abc3d67e2936bb8d57857f3c2179fd07b5562",
+      "path": "src/stream.ts",
+      "rule": "services.websocket"
+    },
+    "ev_7bd5ae565a0da55e8bfb0f4a": {
+      "commit": null,
+      "content_digest": "5e65e4d80a2bf28e7881525cd47bbe801fac8fc126224130ba85780c2095a17b",
+      "detector": "runtime-files",
+      "excerpt_digest": "e9770c1753c20565d6ef4a681f40aa1b0b65ab8a8feda75334102ae1c3e45c0e",
+      "id": "ev_7bd5ae565a0da55e8bfb0f4a",
+      "location": {
+        "end": 1,
+        "kind": "lines",
+        "start": 1
+      },
+      "object_id": "e3f664514d74cf148908ecee0f98afdcbaaea5a9",
+      "path": "Dockerfile",
+      "rule": "runtime.dockerfile"
+    },
+    "ev_865d279f19576bb037544cea": {
+      "commit": null,
+      "content_digest": "88414dde196c3a3ab0b6d2095f9e450715ebf17ad2abe200cb637dd58b2eff5c",
+      "detector": "package-metadata",
+      "excerpt_digest": "9976f8dfb5b1b01a70346fd75b7644f4cdc8f71299e2cde16f8839cf82a984ea",
+      "id": "ev_865d279f19576bb037544cea",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/vitest"
+      },
+      "object_id": "89164b632c302efeb16e4e2f870d0db2141281ec",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_8fe63d4c70baad5bee540098": {
+      "commit": null,
+      "content_digest": "5e65e4d80a2bf28e7881525cd47bbe801fac8fc126224130ba85780c2095a17b",
+      "detector": "service-signals",
+      "excerpt_digest": "7449e1dff68b568b17a12a47a4b79550a913d62bfd0faaa353d3148c544fd5ac",
+      "id": "ev_8fe63d4c70baad5bee540098",
+      "location": {
+        "end": 4,
+        "kind": "lines",
+        "start": 3
+      },
+      "object_id": "e3f664514d74cf148908ecee0f98afdcbaaea5a9",
+      "path": "Dockerfile",
+      "rule": "access.dockerfile-variable"
+    },
+    "ev_9c707561e7edbaba174725cd": {
+      "commit": null,
+      "content_digest": "b2be521bf6b58fd4cdbf4bca224023b6891dcc3084e924a151da70bc2c7a549d",
+      "detector": "service-signals",
+      "excerpt_digest": "b2be521bf6b58fd4cdbf4bca224023b6891dcc3084e924a151da70bc2c7a549d",
+      "id": "ev_9c707561e7edbaba174725cd",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "d0f0ed1644c624d5bb44003619fdad82915081fd",
+      "path": ".env.local",
+      "rule": "access.credential-file"
+    },
+    "ev_9d35419e501a6b606f545899": {
+      "commit": null,
+      "content_digest": "165301936e49da8549f5fa65de7a1deeb79d82a4ac896c35163cc80dee9ffffe",
+      "detector": "service-dependencies",
+      "excerpt_digest": "31df88335575a99b186b00b92a005525047e6a109f0e06f12ee63924f4b2c70c",
+      "id": "ev_9d35419e501a6b606f545899",
+      "location": {
+        "end": 2,
+        "kind": "lines",
+        "start": 2
+      },
+      "object_id": "ff71064b4c588a537f542615f75efe1361999aa1",
+      "path": "src/profile.ts",
+      "rule": "services.fetch"
+    },
+    "ev_a02b07f92c855ac6f73da47e": {
+      "commit": null,
+      "content_digest": "88414dde196c3a3ab0b6d2095f9e450715ebf17ad2abe200cb637dd58b2eff5c",
+      "detector": "package-metadata",
+      "excerpt_digest": "b9ee16917afb7bb24688826eabed6df6bcb6974115222eb318e4d565cfaa291e",
+      "id": "ev_a02b07f92c855ac6f73da47e",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/msw"
+      },
+      "object_id": "89164b632c302efeb16e4e2f870d0db2141281ec",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_a54b9c99968e71e702050502": {
+      "commit": null,
+      "content_digest": "0908723a304d2006f8acdd5d81b7134bbf199b198f470ac6ee679800f6fa7e78",
+      "detector": "service-signals",
+      "excerpt_digest": "536c8d78e8a0acbef96c0881c0b313c1dc7090176417df5982b2c7c82423ca16",
+      "id": "ev_a54b9c99968e71e702050502",
+      "location": {
+        "format": "yaml",
+        "kind": "pointer",
+        "pointer": "/openapi"
+      },
+      "object_id": "e8574bb529c3e87dd485747f78b4c0404c6b36cc",
+      "path": "openapi.yaml",
+      "rule": "contracts.openapi-document"
+    },
+    "ev_a6357cf750ac1e2fd7cc443d": {
+      "commit": null,
+      "content_digest": "b3306615b3cabebbb90eb467b0af6d7c046735c4923b37848ae6736e8ba2170f",
+      "detector": "service-signals",
+      "excerpt_digest": "b3306615b3cabebbb90eb467b0af6d7c046735c4923b37848ae6736e8ba2170f",
+      "id": "ev_a6357cf750ac1e2fd7cc443d",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "b0a693a7b5a6bc327c365d0a077c9adda1155c93",
+      "path": "src/__fixtures__",
+      "rule": "substitutes.fixture"
+    },
+    "ev_a821a97973496be572c4fc40": {
+      "commit": null,
+      "content_digest": "a9ef1f3666d8757113f4c21cc26d4dbe9d46207651d344d7c67b0afeb8f0764c",
+      "detector": "service-signals",
+      "excerpt_digest": "a9ef1f3666d8757113f4c21cc26d4dbe9d46207651d344d7c67b0afeb8f0764c",
+      "id": "ev_a821a97973496be572c4fc40",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "8f842fdc288a3c465f535893b2a8a5937803efe1",
+      "path": "src/__fixtures__/profile.json",
+      "rule": "substitutes.fixture"
+    },
+    "ev_a917edb142d7c9c7c86a0f32": {
+      "commit": null,
+      "content_digest": "1fb18bb48082ea6e9a590dcfa6ff956e7cfd2b179aae3947238ac6c8137d7157",
+      "detector": "tooling",
+      "excerpt_digest": "1fb18bb48082ea6e9a590dcfa6ff956e7cfd2b179aae3947238ac6c8137d7157",
+      "id": "ev_a917edb142d7c9c7c86a0f32",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "504d74959110b82cabe0d2d5cfd535366a4fb645",
+      "path": "vite.config.ts",
+      "rule": "config.tool-file"
+    },
+    "ev_ae8022a8af29fc61fb36399c": {
+      "commit": null,
+      "content_digest": "88414dde196c3a3ab0b6d2095f9e450715ebf17ad2abe200cb637dd58b2eff5c",
+      "detector": "tooling",
+      "excerpt_digest": "9976f8dfb5b1b01a70346fd75b7644f4cdc8f71299e2cde16f8839cf82a984ea",
+      "id": "ev_ae8022a8af29fc61fb36399c",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/vitest"
+      },
+      "object_id": "89164b632c302efeb16e4e2f870d0db2141281ec",
+      "path": "package.json",
+      "rule": "manifest.tool-dependency"
+    },
+    "ev_aff5c82f6b959688aa0e2058": {
+      "commit": null,
+      "content_digest": "88414dde196c3a3ab0b6d2095f9e450715ebf17ad2abe200cb637dd58b2eff5c",
+      "detector": "tooling",
+      "excerpt_digest": "924687e02818c67b11bc84a752290a5db8c36ad4aaf4f193eb0d6a6b1cb087fe",
+      "id": "ev_aff5c82f6b959688aa0e2058",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/vite"
+      },
+      "object_id": "89164b632c302efeb16e4e2f870d0db2141281ec",
+      "path": "package.json",
+      "rule": "manifest.tool-dependency"
+    },
+    "ev_b932481130da4cbd5e3ab354": {
+      "commit": null,
+      "content_digest": "88414dde196c3a3ab0b6d2095f9e450715ebf17ad2abe200cb637dd58b2eff5c",
+      "detector": "package-relations",
+      "excerpt_digest": "924687e02818c67b11bc84a752290a5db8c36ad4aaf4f193eb0d6a6b1cb087fe",
+      "id": "ev_b932481130da4cbd5e3ab354",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/vite"
+      },
+      "object_id": "89164b632c302efeb16e4e2f870d0db2141281ec",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
+    "ev_ca4876a9c57bfad4e91cfa50": {
+      "commit": null,
+      "content_digest": "88414dde196c3a3ab0b6d2095f9e450715ebf17ad2abe200cb637dd58b2eff5c",
+      "detector": "ci",
+      "excerpt_digest": "8f1036543a0bc25aeefae4f8576b947b19a79dd5135d30e692a51bb3d20f6345",
+      "id": "ev_ca4876a9c57bfad4e91cfa50",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/scripts/test"
+      },
+      "object_id": "89164b632c302efeb16e4e2f870d0db2141281ec",
+      "path": "package.json",
+      "rule": "manifest.verification-script"
+    },
+    "ev_d0adedf019d570c379aa78a5": {
+      "commit": null,
+      "content_digest": "729a328c716afb4867000c81c23190477b661a578d65d78f683771d3baf37c34",
+      "detector": "service-dependencies",
+      "excerpt_digest": "78040e5486a7f0912074c0eb9c22605ea86c005dad3b80de594f9b1926a60a65",
+      "id": "ev_d0adedf019d570c379aa78a5",
+      "location": {
+        "end": 3,
+        "kind": "lines",
+        "start": 3
+      },
+      "object_id": "c79511385ce24c88f48e6096491446d8002c2f93",
+      "path": "src/billing.ts",
+      "rule": "services.generated.openapi-fetch-request"
+    },
+    "ev_d6db6e373e085127255395f1": {
+      "commit": null,
+      "content_digest": "11e6256c316f7eebdc401f3208837a7d941a7a32636f40346b09d5a1a2902ba0",
+      "detector": "inventory",
+      "excerpt_digest": "11e6256c316f7eebdc401f3208837a7d941a7a32636f40346b09d5a1a2902ba0",
+      "id": "ev_d6db6e373e085127255395f1",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "e8574bb529c3e87dd485747f78b4c0404c6b36cc",
+      "path": "openapi.yaml",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_d7447787384c44a63800a64b": {
+      "commit": null,
+      "content_digest": "5e65e4d80a2bf28e7881525cd47bbe801fac8fc126224130ba85780c2095a17b",
+      "detector": "service-signals",
+      "excerpt_digest": "36b2e8b8e8c8bf2dc10579394861629f89e68997cba4778ce705070148116090",
+      "id": "ev_d7447787384c44a63800a64b",
+      "location": {
+        "end": 2,
+        "kind": "lines",
+        "start": 2
+      },
+      "object_id": "e3f664514d74cf148908ecee0f98afdcbaaea5a9",
+      "path": "Dockerfile",
+      "rule": "access.dockerfile-variable"
+    },
+    "ev_e05a4f16bee643dafa992f5b": {
+      "commit": null,
+      "content_digest": "8eb0c41076255c478e998f8eb1ca79fed511eee6fb9fad1d3e922590feb3aeb6",
+      "detector": "inventory",
+      "excerpt_digest": "8eb0c41076255c478e998f8eb1ca79fed511eee6fb9fad1d3e922590feb3aeb6",
+      "id": "ev_e05a4f16bee643dafa992f5b",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "89164b632c302efeb16e4e2f870d0db2141281ec",
+      "path": "package.json",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_e51ac87b334a62fecb7609ca": {
+      "commit": null,
+      "content_digest": "3e372ec0548dfaec8aa4fb10026c87ffcab0e816ef1a4763164492f632b9d69c",
+      "detector": "service-dependencies",
+      "excerpt_digest": "984263a6e7ff57a122ae1771b56b432df8bdd6a3b8d6164c77d14a132f1fc0c1",
+      "id": "ev_e51ac87b334a62fecb7609ca",
+      "location": {
+        "end": 6,
+        "kind": "lines",
+        "start": 6
+      },
+      "object_id": "995851b3b305335a076a0eece89a495cd7e7868e",
+      "path": "src/orders.test.ts",
+      "rule": "services.substitute.msw-handler"
+    },
+    "ev_eb448d2544282dda1ed8b7d8": {
+      "commit": null,
+      "content_digest": "8d7b1f94c486a8160b8d51dab17a5759aff9e59244d11d4d6fcda322e4e68d92",
+      "detector": "inventory",
+      "excerpt_digest": "8d7b1f94c486a8160b8d51dab17a5759aff9e59244d11d4d6fcda322e4e68d92",
+      "id": "ev_eb448d2544282dda1ed8b7d8",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "6b152bc2b34f68b58aea17f46fe8d902fb84c899",
+      "path": "contracts/billing.openapi.yaml",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_ed4ab1e3549eae5c8013ce27": {
+      "commit": null,
+      "content_digest": "88414dde196c3a3ab0b6d2095f9e450715ebf17ad2abe200cb637dd58b2eff5c",
+      "detector": "package-metadata",
+      "excerpt_digest": "d695de3c815425066dfb1e15cc7e0b095170b70ed1860b76fcd7f714674a1563",
+      "id": "ev_ed4ab1e3549eae5c8013ce27",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/name"
+      },
+      "object_id": "89164b632c302efeb16e4e2f870d0db2141281ec",
+      "path": "package.json",
+      "rule": "manifest.identity"
+    },
+    "ev_f25433360958c9b3a956f58f": {
+      "commit": null,
+      "content_digest": "777690f5da43993c14a3d0f5d64d2d10f3b5273de26bc32f07f1529fa1177441",
+      "detector": "inventory",
+      "excerpt_digest": "777690f5da43993c14a3d0f5d64d2d10f3b5273de26bc32f07f1529fa1177441",
+      "id": "ev_f25433360958c9b3a956f58f",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "3ea508a05edbca1c0118a088d26e99fe184e2039",
+      "path": "contracts/payments.openapi.yaml",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_f96bb29f779f3f2fe8ad1a2b": {
+      "commit": null,
+      "content_digest": "a9ef1f3666d8757113f4c21cc26d4dbe9d46207651d344d7c67b0afeb8f0764c",
+      "detector": "inventory",
+      "excerpt_digest": "a9ef1f3666d8757113f4c21cc26d4dbe9d46207651d344d7c67b0afeb8f0764c",
+      "id": "ev_f96bb29f779f3f2fe8ad1a2b",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "8f842fdc288a3c465f535893b2a8a5937803efe1",
+      "path": "src/__fixtures__/profile.json",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_fef25f8c329218dd615a36bf": {
+      "commit": null,
+      "content_digest": "88414dde196c3a3ab0b6d2095f9e450715ebf17ad2abe200cb637dd58b2eff5c",
+      "detector": "package-relations",
+      "excerpt_digest": "b9ee16917afb7bb24688826eabed6df6bcb6974115222eb318e4d565cfaa291e",
+      "id": "ev_fef25f8c329218dd615a36bf",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/msw"
+      },
+      "object_id": "89164b632c302efeb16e4e2f870d0db2141281ec",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    }
+  },
+  "extensions": [],
+  "inventory": {
+    "bytes": 2497,
+    "bytes_read": 2366,
+    "entries": 19,
+    "executables": 0,
+    "files": 15,
+    "files_read": 12,
+    "gitlinks": 0,
+    "symlinks": 0
+  },
+  "relationship_references": [
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_10b6c010bfa6b6cba97baade"
+      ],
+      "id": "ref_1ddcd5c3309e6fc19114b02d",
+      "identifier": {
+        "key": "config:import.meta.env:VITE_BILLING_URL"
+      },
+      "role": "caller",
+      "rule": "services.generated.openapi-fetch-request",
+      "type": "service"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_4bf129b489a0c90b67c3eb6d"
+      ],
+      "id": "ref_475ad5b6b788a2d605d4615b",
+      "identifier": {
+        "name": "vitest"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_12f9c8fe5d25f7bdf5c0734c"
+      ],
+      "id": "ref_4956d86cd82365723e02fa88",
+      "identifier": {
+        "key": "https://orders.example.test"
+      },
+      "role": "caller",
+      "rule": "services.fetch",
+      "type": "service"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_fef25f8c329218dd615a36bf"
+      ],
+      "id": "ref_54bb10b0edc2caf8bcb3be6c",
+      "identifier": {
+        "name": "msw"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_b932481130da4cbd5e3ab354"
+      ],
+      "id": "ref_55bd69cf3b6dac0debfdd279",
+      "identifier": {
+        "name": "vite"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_0c7808572336e3f9ab9ae842"
+      ],
+      "id": "ref_61b7b9a8ebb0aacfa7ca9362",
+      "identifier": {
+        "name": "orders-testbed"
+      },
+      "role": "producer",
+      "rule": "packages.produced",
+      "type": "package"
+    },
+    {
+      "basis": "inferred",
+      "evidence": [
+        "ev_9d35419e501a6b606f545899"
+      ],
+      "id": "ref_ac9659602a88402d4c7d459f",
+      "identifier": {
+        "key": "same-origin:/api"
+      },
+      "role": "caller",
+      "rule": "services.fetch",
+      "type": "service"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_005be8ceaa8fa00d2278ee48"
+      ],
+      "id": "ref_e8c0fe602d1de8e347553daa",
+      "identifier": {
+        "name": "openapi-fetch"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_78c42d163e03f998446cd0a2"
+      ],
+      "id": "ref_ffba22de5bf9403fdb67a623",
+      "identifier": {
+        "key": "websocket:wss://stream.example.test"
+      },
+      "role": "caller",
+      "rule": "services.websocket",
+      "type": "service"
+    }
+  ],
+  "schema": "repo_facts.fact_document",
+  "schema_version": 1,
+  "service_dependencies": [
+    {
+      "access": {
+        "reason": "Static discovery cannot establish entitlement, credentials, or reachability; no connectivity check is performed.",
+        "state": "unknown"
+      },
+      "authentication": {
+        "evidence": [
+          "ev_10b6c010bfa6b6cba97baade"
+        ],
+        "rule": "services.generated.openapi-fetch-request",
+        "state": "observed",
+        "value": [
+          {
+            "header": "Authorization",
+            "value_source": {
+              "configured": [
+                {
+                  "key": "VITE_BILLING_TOKEN",
+                  "source": "import.meta.env"
+                }
+              ],
+              "kind": "template"
+            }
+          }
+        ]
+      },
+      "call_sites": [
+        "ev_10b6c010bfa6b6cba97baade"
+      ],
+      "characterizable": false,
+      "client": {
+        "kind": "generated",
+        "package": null
+      },
+      "consumed_response_fields": {
+        "evidence": [
+          "ev_10b6c010bfa6b6cba97baade"
+        ],
+        "rule": "services.generated.openapi-fetch-request",
+        "state": "unknown",
+        "value": {
+          "known": []
+        }
+      },
+      "contracts": {
+        "candidates": [
+          {
+            "evidence": [
+              "ev_1e399b62dc4631ef33e5daae"
+            ],
+            "rule": "services.evidence-association",
+            "value": [
+              {
+                "association": "generated_client",
+                "kind": "openapi",
+                "path": "contracts/billing.openapi.yaml"
+              }
+            ]
+          },
+          {
+            "evidence": [
+              "ev_57616d9f3ac73d19967f0e1b"
+            ],
+            "rule": "services.evidence-association",
+            "value": [
+              {
+                "association": "generated_client",
+                "kind": "openapi",
+                "path": "contracts/payments.openapi.yaml"
+              }
+            ]
+          },
+          {
+            "evidence": [
+              "ev_a54b9c99968e71e702050502"
+            ],
+            "rule": "services.evidence-association",
+            "value": [
+              {
+                "association": "generated_client",
+                "kind": "openapi",
+                "path": "openapi.yaml"
+              }
+            ]
+          }
+        ],
+        "evidence": [
+          "ev_1e399b62dc4631ef33e5daae",
+          "ev_57616d9f3ac73d19967f0e1b",
+          "ev_a54b9c99968e71e702050502"
+        ],
+        "rule": "services.evidence-association",
+        "state": "conflicting",
+        "value": null
+      },
+      "endpoint": {
+        "evidence": [
+          "ev_10b6c010bfa6b6cba97baade",
+          "ev_d0adedf019d570c379aa78a5"
+        ],
+        "rule": "services.generated.openapi-fetch-request",
+        "state": "observed",
+        "value": {
+          "derivation": "configured",
+          "key": "VITE_BILLING_URL",
+          "source": "import.meta.env"
+        }
+      },
+      "id": "svc_cfb0fb7a1b30c8bdee6b3b21",
+      "identity": {
+        "evidence": [
+          "ev_10b6c010bfa6b6cba97baade"
+        ],
+        "rule": "services.generated.openapi-fetch-request",
+        "state": "observed",
+        "value": {
+          "kind": "configuration",
+          "value": "import.meta.env.VITE_BILLING_URL"
+        }
+      },
+      "key": "config:import.meta.env:VITE_BILLING_URL",
+      "missing_evidence": [
+        "operations",
+        "consumed_response_fields",
+        "timeout",
+        "retry",
+        "proxy",
+        "contracts",
+        "substitutes"
+      ],
+      "operations": {
+        "evidence": [
+          "ev_10b6c010bfa6b6cba97baade"
+        ],
+        "rule": "services.generated.openapi-fetch-request",
+        "state": "unknown",
+        "value": {
+          "known": []
+        }
+      },
+      "protocol": {
+        "evidence": [
+          "ev_10b6c010bfa6b6cba97baade"
+        ],
+        "rule": "services.generated.openapi-fetch-request",
+        "state": "observed",
+        "value": "http"
+      },
+      "proxy": {
+        "evidence": [],
+        "rule": "not-established",
+        "state": "unknown",
+        "value": null
+      },
+      "request_shape": {
+        "evidence": [
+          "ev_10b6c010bfa6b6cba97baade"
+        ],
+        "rule": "services.generated.openapi-fetch-request",
+        "search": {
+          "complete": true,
+          "rules": [
+            "services.generated.openapi-fetch-request"
+          ],
+          "skipped": [],
+          "surface": [
+            "src/billing.ts"
+          ]
+        },
+        "state": "absent",
+        "value": null
+      },
+      "retry": {
+        "evidence": [
+          "ev_10b6c010bfa6b6cba97baade"
+        ],
+        "rule": "services.generated.openapi-fetch-request",
+        "state": "unknown",
+        "value": {
+          "reason": "Retries could be added outside the call site"
+        }
+      },
+      "substitutes": {
+        "evidence": [],
+        "rule": "substitutes.search",
+        "state": "unknown",
+        "value": {
+          "reason": "No substitute is tied to this service by evidence, but some could apply to it"
+        }
+      },
+      "timeout": {
+        "evidence": [
+          "ev_10b6c010bfa6b6cba97baade"
+        ],
+        "rule": "services.generated.openapi-fetch-request",
+        "state": "unknown",
+        "value": {
+          "reason": "This client's timeout is not stated at the call site"
+        }
+      }
+    },
+    {
+      "access": {
+        "reason": "Static discovery cannot establish entitlement, credentials, or reachability; no connectivity check is performed.",
+        "state": "unknown"
+      },
+      "authentication": {
+        "evidence": [
+          "ev_12f9c8fe5d25f7bdf5c0734c"
+        ],
+        "rule": "services.fetch",
+        "state": "unknown",
+        "value": {
+          "reason": "No authentication is stated at the call site"
+        }
+      },
+      "call_sites": [
+        "ev_12f9c8fe5d25f7bdf5c0734c"
+      ],
+      "characterizable": false,
+      "client": {
+        "kind": "fetch",
+        "package": null
+      },
+      "consumed_response_fields": {
+        "evidence": [
+          "ev_12f9c8fe5d25f7bdf5c0734c"
+        ],
+        "rule": "services.fetch",
+        "state": "unknown",
+        "value": {
+          "known": []
+        }
+      },
+      "contracts": {
+        "evidence": [
+          "ev_a54b9c99968e71e702050502"
+        ],
+        "rule": "services.evidence-association",
+        "state": "observed",
+        "value": [
+          {
+            "association": "server_origin",
+            "kind": "openapi",
+            "path": "openapi.yaml"
+          }
+        ]
+      },
+      "endpoint": {
+        "evidence": [
+          "ev_12f9c8fe5d25f7bdf5c0734c"
+        ],
+        "rule": "services.fetch",
+        "state": "observed",
+        "value": {
+          "derivation": "literal",
+          "origin": "https://orders.example.test"
+        }
+      },
+      "id": "svc_0d2d550babbcaf0dcf712062",
+      "identity": {
+        "evidence": [
+          "ev_12f9c8fe5d25f7bdf5c0734c"
+        ],
+        "rule": "services.fetch",
+        "state": "observed",
+        "value": {
+          "kind": "origin",
+          "value": "https://orders.example.test"
+        }
+      },
+      "key": "https://orders.example.test",
+      "missing_evidence": [
+        "consumed_response_fields",
+        "authentication",
+        "retry",
+        "proxy"
+      ],
+      "operations": {
+        "evidence": [
+          "ev_12f9c8fe5d25f7bdf5c0734c"
+        ],
+        "rule": "services.fetch",
+        "state": "observed",
+        "value": [
+          {
+            "method": "GET",
+            "method_source": "default",
+            "path": "/orders"
+          }
+        ]
+      },
+      "protocol": {
+        "evidence": [
+          "ev_12f9c8fe5d25f7bdf5c0734c"
+        ],
+        "rule": "services.fetch",
+        "state": "observed",
+        "value": "http"
+      },
+      "proxy": {
+        "evidence": [],
+        "rule": "not-established",
+        "state": "unknown",
+        "value": null
+      },
+      "request_shape": {
+        "evidence": [
+          "ev_12f9c8fe5d25f7bdf5c0734c"
+        ],
+        "rule": "services.fetch",
+        "search": {
+          "complete": true,
+          "rules": [
+            "services.fetch"
+          ],
+          "skipped": [],
+          "surface": [
+            "src/orders.ts"
+          ]
+        },
+        "state": "absent",
+        "value": null
+      },
+      "retry": {
+        "evidence": [
+          "ev_12f9c8fe5d25f7bdf5c0734c"
+        ],
+        "rule": "services.fetch",
+        "state": "unknown",
+        "value": {
+          "reason": "Retries could be added outside the call site"
+        }
+      },
+      "substitutes": {
+        "evidence": [
+          "ev_e51ac87b334a62fecb7609ca"
+        ],
+        "rule": "services.evidence-association",
+        "state": "observed",
+        "value": [
+          {
+            "association": "intercepted_origin",
+            "kind": "request_interceptor",
+            "library": "msw",
+            "path": "src/orders.test.ts",
+            "url": {
+              "kind": "literal",
+              "value": "https://orders.example.test/orders"
+            }
+          }
+        ]
+      },
+      "timeout": {
+        "evidence": [
+          "ev_12f9c8fe5d25f7bdf5c0734c"
+        ],
+        "rule": "services.fetch",
+        "search": {
+          "complete": true,
+          "rules": [
+            "services.fetch"
+          ],
+          "skipped": [],
+          "surface": [
+            "src/orders.ts"
+          ]
+        },
+        "state": "absent",
+        "value": null
+      }
+    },
+    {
+      "access": {
+        "reason": "Static discovery cannot establish entitlement, credentials, or reachability; no connectivity check is performed.",
+        "state": "unknown"
+      },
+      "authentication": {
+        "evidence": [
+          "ev_9d35419e501a6b606f545899"
+        ],
+        "rule": "services.fetch",
+        "state": "observed",
+        "value": [
+          {
+            "credentials": "include"
+          }
+        ]
+      },
+      "call_sites": [
+        "ev_9d35419e501a6b606f545899"
+      ],
+      "characterizable": false,
+      "client": {
+        "kind": "fetch",
+        "package": null
+      },
+      "consumed_response_fields": {
+        "evidence": [
+          "ev_9d35419e501a6b606f545899"
+        ],
+        "rule": "services.fetch",
+        "state": "unknown",
+        "value": {
+          "known": []
+        }
+      },
+      "contracts": {
+        "evidence": [],
+        "rule": "contracts.search",
+        "search": {
+          "complete": true,
+          "rules": [
+            "contracts.search"
+          ],
+          "skipped": [],
+          "surface": [
+            "contracts/billing.openapi.yaml",
+            "contracts/payments.openapi.yaml",
+            "openapi.yaml",
+            "src/billing.ts",
+            "src/orders.test.ts",
+            "src/orders.ts",
+            "src/profile.test.ts",
+            "src/profile.ts",
+            "src/stream.ts",
+            "vite.config.ts"
+          ]
+        },
+        "state": "absent",
+        "value": null
+      },
+      "endpoint": {
+        "evidence": [
+          "ev_9d35419e501a6b606f545899"
+        ],
+        "rule": "services.fetch",
+        "state": "observed",
+        "value": {
+          "derivation": "relative"
+        }
+      },
+      "id": "svc_629f14ecea1d12112bc5dbc1",
+      "identity": {
+        "evidence": [
+          "ev_9d35419e501a6b606f545899"
+        ],
+        "reasoning": "Relative requests go to the origin the application is served from; they are grouped by their first path segment.",
+        "rule": "services.fetch",
+        "state": "inferred",
+        "value": {
+          "kind": "same_origin",
+          "value": "/api"
+        }
+      },
+      "key": "same-origin:/api",
+      "missing_evidence": [
+        "consumed_response_fields",
+        "retry"
+      ],
+      "operations": {
+        "evidence": [
+          "ev_9d35419e501a6b606f545899"
+        ],
+        "rule": "services.fetch",
+        "state": "observed",
+        "value": [
+          {
+            "method": "GET",
+            "method_source": "default",
+            "path": "/api/profile"
+          }
+        ]
+      },
+      "protocol": {
+        "evidence": [
+          "ev_9d35419e501a6b606f545899"
+        ],
+        "rule": "services.fetch",
+        "state": "observed",
+        "value": "http"
+      },
+      "proxy": {
+        "evidence": [
+          "ev_60365abb1004e3ed9d77e1ff"
+        ],
+        "rule": "services.egress.vite-proxy",
+        "state": "observed",
+        "value": {
+          "configuration": "vite.config.ts",
+          "kind": "dev_proxy",
+          "route": "/api",
+          "target": {
+            "kind": "literal",
+            "value": "http://localhost:8080"
+          }
+        }
+      },
+      "request_shape": {
+        "evidence": [
+          "ev_9d35419e501a6b606f545899"
+        ],
+        "rule": "services.fetch",
+        "search": {
+          "complete": true,
+          "rules": [
+            "services.fetch"
+          ],
+          "skipped": [],
+          "surface": [
+            "src/profile.ts"
+          ]
+        },
+        "state": "absent",
+        "value": null
+      },
+      "retry": {
+        "evidence": [
+          "ev_9d35419e501a6b606f545899"
+        ],
+        "rule": "services.fetch",
+        "state": "unknown",
+        "value": {
+          "reason": "Retries could be added outside the call site"
+        }
+      },
+      "substitutes": {
+        "evidence": [
+          "ev_3bd8b11a85cb39037cd80475",
+          "ev_a821a97973496be572c4fc40"
+        ],
+        "reasoning": "A test that imports this service's calls replaces the global fetch they use; the stub is not shown to answer them like the service. The fixture is imported by a test file whose substitute is tied to this service; it is not shown to be that substitute's data.",
+        "rule": "services.evidence-association",
+        "state": "inferred",
+        "value": [
+          {
+            "association": "imported_with_substitute",
+            "kind": "fixture",
+            "path": "src/__fixtures__/profile.json"
+          },
+          {
+            "association": "global_fetch",
+            "global": "fetch",
+            "kind": "global_stub",
+            "path": "src/profile.test.ts"
+          }
+        ]
+      },
+      "timeout": {
+        "evidence": [
+          "ev_9d35419e501a6b606f545899"
+        ],
+        "rule": "services.fetch",
+        "search": {
+          "complete": true,
+          "rules": [
+            "services.fetch"
+          ],
+          "skipped": [],
+          "surface": [
+            "src/profile.ts"
+          ]
+        },
+        "state": "absent",
+        "value": null
+      }
+    },
+    {
+      "access": {
+        "reason": "Static discovery cannot establish entitlement, credentials, or reachability; no connectivity check is performed.",
+        "state": "unknown"
+      },
+      "authentication": {
+        "evidence": [
+          "ev_78c42d163e03f998446cd0a2"
+        ],
+        "rule": "services.websocket",
+        "state": "unknown",
+        "value": {
+          "reason": "No authentication is stated at the call site"
+        }
+      },
+      "call_sites": [
+        "ev_78c42d163e03f998446cd0a2"
+      ],
+      "characterizable": false,
+      "client": {
+        "kind": "websocket",
+        "package": null
+      },
+      "consumed_response_fields": {
+        "evidence": [
+          "ev_78c42d163e03f998446cd0a2"
+        ],
+        "rule": "services.websocket",
+        "state": "unknown",
+        "value": {
+          "known": []
+        }
+      },
+      "contracts": {
+        "evidence": [],
+        "rule": "contracts.search",
+        "search": {
+          "complete": true,
+          "rules": [
+            "contracts.search"
+          ],
+          "skipped": [],
+          "surface": [
+            "contracts/billing.openapi.yaml",
+            "contracts/payments.openapi.yaml",
+            "openapi.yaml",
+            "src/billing.ts",
+            "src/orders.test.ts",
+            "src/orders.ts",
+            "src/profile.test.ts",
+            "src/profile.ts",
+            "src/stream.ts",
+            "vite.config.ts"
+          ]
+        },
+        "state": "absent",
+        "value": null
+      },
+      "endpoint": {
+        "evidence": [
+          "ev_78c42d163e03f998446cd0a2"
+        ],
+        "rule": "services.websocket",
+        "state": "observed",
+        "value": {
+          "derivation": "literal",
+          "origin": "wss://stream.example.test"
+        }
+      },
+      "id": "svc_ef06ba162ded2eb57f9033c2",
+      "identity": {
+        "evidence": [
+          "ev_78c42d163e03f998446cd0a2"
+        ],
+        "rule": "services.websocket",
+        "state": "observed",
+        "value": {
+          "kind": "origin",
+          "value": "wss://stream.example.test"
+        }
+      },
+      "key": "websocket:wss://stream.example.test",
+      "missing_evidence": [
+        "request_shape",
+        "consumed_response_fields",
+        "authentication",
+        "timeout",
+        "retry",
+        "proxy"
+      ],
+      "operations": {
+        "evidence": [
+          "ev_78c42d163e03f998446cd0a2"
+        ],
+        "rule": "services.websocket",
+        "state": "observed",
+        "value": [
+          {
+            "kind": "connect",
+            "path": "/feed"
+          }
+        ]
+      },
+      "protocol": {
+        "evidence": [
+          "ev_78c42d163e03f998446cd0a2"
+        ],
+        "rule": "services.websocket",
+        "state": "observed",
+        "value": "websocket"
+      },
+      "proxy": {
+        "evidence": [],
+        "rule": "not-established",
+        "state": "unknown",
+        "value": null
+      },
+      "request_shape": {
+        "evidence": [
+          "ev_78c42d163e03f998446cd0a2"
+        ],
+        "rule": "services.websocket",
+        "state": "unknown",
+        "value": null
+      },
+      "retry": {
+        "evidence": [
+          "ev_78c42d163e03f998446cd0a2"
+        ],
+        "rule": "services.websocket",
+        "state": "unknown",
+        "value": {
+          "reason": "Retries could be added outside the call site"
+        }
+      },
+      "substitutes": {
+        "evidence": [],
+        "rule": "substitutes.search",
+        "search": {
+          "complete": true,
+          "rules": [
+            "substitutes.search"
+          ],
+          "skipped": [],
+          "surface": [
+            "src/billing.ts",
+            "src/orders.test.ts",
+            "src/orders.ts",
+            "src/profile.test.ts",
+            "src/profile.ts",
+            "src/stream.ts",
+            "vite.config.ts"
+          ]
+        },
+        "state": "absent",
+        "value": null
+      },
+      "timeout": {
+        "evidence": [
+          "ev_78c42d163e03f998446cd0a2"
+        ],
+        "rule": "services.websocket",
+        "state": "unknown",
+        "value": {
+          "reason": "This client's timeout is not stated at the call site"
+        }
+      }
+    }
+  ]
+}

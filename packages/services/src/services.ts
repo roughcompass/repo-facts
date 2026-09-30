@@ -46,6 +46,23 @@ interface Site {
   retries: Setting;
 }
 
+/** Shared with later detectors: every rule match, and a summary of each Service Dependency. */
+export const SERVICE_MATCHES = "services.matches";
+export const SERVICE_SUMMARY = "services.summary";
+
+export interface ServiceSummary {
+  key: string;
+  client: ClientKind;
+  pkg: string | null;
+  protocol: string;
+  /** The literal origin, when the endpoint has one. */
+  origin: string | null;
+  /** Whether requests go to the origin the application is served from. */
+  sameOrigin: boolean;
+  paths: string[];
+  callSites: Evidence[];
+}
+
 const LIFECYCLE_FUNCTIONS = new Set(["bootstrap", "mount", "update", "unmount"]);
 /** Signals that create a client instance other rules' requests go through. */
 const INSTANCE_SIGNALS = new Set(["axios-instance", "generated-client"]);
@@ -65,6 +82,7 @@ export const serviceDependencyDetector: Detector = {
   async run(context) {
     const matches: MatchedRule[] = [];
     await ruleDetector({ id: "service-rules", version: "1", stage: "services", rules: RULES, sources: (inner) => inventoryOf(inner).sources, onMatch: (_inner, match) => void matches.push(match) }).run(context);
+    context.shared.set(SERVICE_MATCHES, matches);
 
     // Instances are created by these rules only; other rules can match the same node (a packaged-client rule matches `axios.create({ baseURL })`).
     const byNode = new Map<ts.Node, MatchedRule>(matches.filter((match) => "signal" in match.rule.emit && INSTANCE_SIGNALS.has(match.rule.emit.signal.kind)).map((match) => [match.node, match]));
@@ -194,7 +212,7 @@ function derive(tree: SyntaxTree, value: StaticValue): Endpoint {
   return { kind: "unknown", reason: "unsupported", detail: `A ${value.kind} value is not a destination`, path: null };
 }
 
-function fromText(text: string): Endpoint {
+export function fromText(text: string): Endpoint {
   const absolute = /^((?:https?|wss?):\/\/[^/?#]+)([^?#]*)/i.exec(text);
   if (absolute) return { kind: "literal", origin: absolute[1]!.toLowerCase(), path: normalizePath(absolute[2]!) };
   return { kind: "relative", path: normalizePath(text.split(/[?#]/)[0]!) };
@@ -380,7 +398,9 @@ function authenticationOf(headers: StaticValue | undefined, credentials: StaticV
   if (headers?.kind === "object") {
     for (const [name, value] of [...headers.properties.entries()].sort(([a], [b]) => compareCodeUnits(a, b))) {
       if (!AUTH_HEADERS.test(name)) continue;
-      const source = value.kind === "configured" ? { kind: "configured", source: value.source, key: value.key } : value.kind === "template" ? { kind: "template" } : value.kind === "string" ? { kind: "literal" } : { kind: "unresolved", reason: value.kind === "unresolved" ? value.reason : value.kind };
+      // A template such as `Bearer ${process.env.TOKEN}` keeps the key names it reads, never their values.
+      const configured = value.kind === "template" ? value.parts.flatMap((part) => (part.kind === "configured" ? [{ source: part.source, key: part.key }] : [])) : [];
+      const source = value.kind === "configured" ? { kind: "configured", source: value.source, key: value.key } : value.kind === "template" ? { kind: "template", configured } : value.kind === "string" ? { kind: "literal" } : { kind: "unresolved", reason: value.kind === "unresolved" ? value.reason : value.kind };
       signals.push({ header: name, value_source: source });
     }
   }
@@ -484,6 +504,8 @@ function endpointValue(endpoint: Endpoint, basePath: string | null): Value {
 }
 
 function report(context: DetectorContext, sites: Site[], documents: MatchedRule[]) {
+  const summaries: ServiceSummary[] = [];
+  context.shared.set(SERVICE_SUMMARY, summaries);
   const groups = new Map<string, Site[]>();
   for (const site of sites) {
     const { key } = identityOf(site);
@@ -496,6 +518,16 @@ function report(context: DetectorContext, sites: Site[], documents: MatchedRule[
     const identity = identityOf(first);
     const rule = first.match.rule.id;
     const callSites = group.map((site) => site.match.evidence);
+    summaries.push({
+      key,
+      client: first.client,
+      pkg: first.pkg,
+      protocol: first.protocol,
+      origin: first.endpoint.kind === "literal" ? first.endpoint.origin : null,
+      sameOrigin: first.endpoint.kind === "relative",
+      paths: [...new Set(group.flatMap((site) => (site.endpoint.path === null ? [] : [site.endpoint.path])))].sort(compareCodeUnits),
+      callSites,
+    });
     const all = [...callSites, ...group.flatMap((site) => site.endpointEvidence)];
     const proposal = (basis: ServiceFactCandidate["basis"], value: Value, evidence: readonly Evidence[] = callSites, extra: Partial<ServiceFactCandidate> = {}): ServiceFactCandidate => ({ basis, value, evidence, rule, ...extra });
 

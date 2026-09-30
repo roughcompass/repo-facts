@@ -1,12 +1,13 @@
 format: 1
 rules:
   - id: services.generated.openapi-fetch
-    version: 1
+    version: 2
     description: A client generated from an OpenAPI document with openapi-fetch
     match: { call: { module: [openapi-fetch, "@hey-api/client-fetch"] } }
     capture:
       config: { argument: 0 }
       baseURL: { argument: 0, property: [baseUrl] }
+      headers: { argument: 0, property: [headers] }
     where: [{ capture: config, is: object }]
     emit: { signal: { kind: generated-client } }
 

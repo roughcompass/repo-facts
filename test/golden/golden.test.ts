@@ -20,6 +20,14 @@ describe("golden fixtures", () => {
     }
   });
 
+  // Fixture secrets contain "do-not-leak"; only their names may appear in a document.
+  it("never records a credential or configuration value", async () => {
+    for (const name of fixtureNames()) {
+      const document = await analyze(readerFor(loadFixture(name)));
+      expect(JSON.stringify(document).includes("do-not-leak"), name).toBe(false);
+    }
+  });
+
   for (const name of fixtureNames()) {
     it(`${name} produces its expected fact document`, async () => {
       const fixture = loadFixture(name);

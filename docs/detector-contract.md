@@ -78,6 +78,10 @@ Each fact candidate has a basis:
 
 A fact that no detector addresses is `unknown`, with the rule `not-established`.
 
+The `contracts` and `substitutes` facts associate committed API contracts, generated schemas, interceptors, module mocks, stubs, and fixtures with a service by evidence. Each item names its `association`: for example, a matching server origin, an intercepted path, or a mocked module where the service is called. No association claims that a substitute behaves like the service.
+
+For each service, every candidate is tied, still possible, or ruled out by evidence. The fact is `observed` only when every tie is direct evidence, and `inferred` when any tie is a reasoned association, such as a global `fetch` stub. It is `absent` only after a complete search in which every candidate was ruled out. A candidate that could apply but isn't tied, such as a mock of an unresolved path alias, leaves the fact `unknown`. When several documents could each be a service's contract, each is its own candidate, and the fact is `conflicting`.
+
 ### Relationship references and diagnostics
 
 A `ReferenceCandidate` is a typed, evidence-backed pointer to another repository or service, such as a consumed package or a composition remote. Consumers resolve these references across repositories. A diagnostic records a path, a reason, and a detail. Never include secret values, credentials, or raw repository content beyond what identifies the input.

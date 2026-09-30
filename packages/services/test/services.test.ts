@@ -45,7 +45,7 @@ describe("HTTP clients", () => {
     expect(state(orders, "request_shape")).toEqual(["observed", [{ operation: { method: "POST", path: "/orders/{param}/reserve" }, fields: ["note", "quantity"] }]]);
     expect(state(orders, "consumed_response_fields")).toEqual(["observed", ["eta", "status"]]);
     expect(state(orders, "timeout")).toEqual(["observed", { ms: 5000 }]);
-    expect(state(orders, "authentication")).toEqual(["observed", [{ header: "Authorization", value_source: { kind: "template" } }]]);
+    expect(state(orders, "authentication")).toEqual(["observed", [{ header: "Authorization", value_source: { kind: "template", configured: [{ source: "process.env", key: "ORDERS_TOKEN" }] } }]]);
     expect(callSiteLines(document, orders)).toEqual(["src/orders.ts:3"]);
     expect(orders.characterizable).toBe(true);
     expect(orders.access).toMatchObject({ state: "unknown" });
