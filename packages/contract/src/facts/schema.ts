@@ -118,7 +118,7 @@ export const SERVICE_FACTS = [
 export type ServiceFact = (typeof SERVICE_FACTS)[number];
 
 export const ENDPOINT_KINDS = ["literal", "template", "configured", "host_provided", "unknown"] as const;
-export const CLIENT_KINDS = ["fetch", "axios", "websocket", "graphql", "generated", "packaged", "host_adapter"] as const;
+export const CLIENT_KINDS = ["fetch", "axios", "websocket", "event_source", "graphql", "generated", "packaged", "host_adapter"] as const;
 export const REFERENCE_TYPES = ["package", "composition", "iframe", "runtime_contract", "service"] as const;
 export const REFERENCE_ROLES = ["consumer", "producer", "host", "remote", "embedder", "caller"] as const;
 

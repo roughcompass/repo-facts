@@ -1,4 +1,4 @@
-import { REFERENCE_ROLES, REFERENCE_TYPES, SERVICE_FACTS } from "@repo-facts/contract";
+import { CLIENT_KINDS, REFERENCE_ROLES, REFERENCE_TYPES, SERVICE_FACTS } from "@repo-facts/contract";
 import { z } from "zod";
 
 /**
@@ -32,6 +32,8 @@ const calleeSchema = z
     global: identifier.optional(),
     /** A binding imported (or required) from one of these modules. */
     module: oneOrMore(moduleName).optional(),
+    /** Any export of any package (never a relative path); `method` can narrow the export's final name. */
+    anyModule: z.literal(true).optional(),
     /** A const bound to a node that this other rule matched, such as an axios instance. */
     instanceOf: ruleId.optional(),
     /** Any receiver; requires `method`. */
@@ -41,7 +43,7 @@ const calleeSchema = z
     /** Alternatives for the final member name, captured as `method`. */
     method: z.array(identifier).min(1).optional(),
   })
-  .refine((callee) => [callee.global, callee.module, callee.instanceOf, callee.anyReceiver].filter((root) => root !== undefined).length === 1, "needs exactly one of global, module, instanceOf, or anyReceiver")
+  .refine((callee) => [callee.global, callee.module, callee.anyModule, callee.instanceOf, callee.anyReceiver].filter((root) => root !== undefined).length === 1, "needs exactly one of global, module, anyModule, instanceOf, or anyReceiver")
   .refine((callee) => !callee.anyReceiver || callee.method !== undefined, "anyReceiver needs a method list");
 
 const matchSchema = z.union([
@@ -57,6 +59,8 @@ const propertyName = z.string().min(1).max(200);
 const captureSchema = z.union([
   /** An argument, optionally followed by a property path into an object literal. */
   z.strictObject({ argument: z.int().min(0).max(20), property: z.array(propertyName).min(1).optional() }),
+  /** The first of these properties present in an argument's object literal. */
+  z.strictObject({ argument: z.int().min(0).max(20), firstOf: z.array(propertyName).min(1) }),
   /** A JSX attribute's value. */
   z.strictObject({ attribute: z.string().regex(/^[A-Za-z_][A-Za-z0-9_:-]*$/) }),
   /** A tagged template's text. */
@@ -66,6 +70,7 @@ const captureSchema = z.union([
 ]);
 
 const literal = z.union([z.string(), z.int(), z.boolean()]);
+const valueKind = z.enum(["string", "number", "boolean", "null", "object", "array", "template", "configured", "unresolved", "absent"]);
 const template = z.string().min(1).max(500);
 const json: z.ZodType<unknown> = z.lazy(() => z.union([z.string(), z.int(), z.boolean(), z.null(), z.array(json), z.record(z.string(), json)]));
 
@@ -93,7 +98,7 @@ const emitSchema = z.union([
   }),
   z.strictObject({
     service: z.strictObject({
-      client: z.enum(["fetch", "axios", "websocket", "graphql", "generated", "packaged", "host_adapter"]),
+      client: z.enum(CLIENT_KINDS),
       /** Service facts supplied by captures (by name) or fixed literals. */
       facts: z.partialRecord(z.enum(SERVICE_FACTS), z.union([z.strictObject({ capture: identifier }), z.strictObject({ literal: json })])),
     }),
@@ -113,7 +118,7 @@ export const ruleSchema = z.strictObject({
     .array(
       z.union([
         z.strictObject({ capture: identifier, equals: literal }),
-        z.strictObject({ capture: identifier, is: z.enum(["string", "number", "boolean", "object", "array", "template", "configured", "unresolved", "absent"]) }),
+        z.strictObject({ capture: identifier, is: oneOrMore(valueKind) }),
       ]),
     )
     .optional(),

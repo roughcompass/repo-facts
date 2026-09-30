@@ -465,7 +465,9 @@ export const RULES: readonly Rule[] = [
     "where": [
       {
         "capture": "config",
-        "is": "object"
+        "is": [
+          "object"
+        ]
       }
     ]
   },
@@ -507,7 +509,9 @@ export const RULES: readonly Rule[] = [
     "where": [
       {
         "capture": "name",
-        "is": "string"
+        "is": [
+          "string"
+        ]
       }
     ]
   },
@@ -544,7 +548,9 @@ export const RULES: readonly Rule[] = [
     "where": [
       {
         "capture": "name",
-        "is": "string"
+        "is": [
+          "string"
+        ]
       }
     ]
   },
@@ -587,7 +593,9 @@ export const RULES: readonly Rule[] = [
     "where": [
       {
         "capture": "config",
-        "is": "object"
+        "is": [
+          "object"
+        ]
       }
     ]
   },
@@ -613,4 +621,4 @@ export const RULES: readonly Rule[] = [
   }
 ];
 
-export const RULES_DIGEST = "58f025b3caa960f2b79dc2a3855a0b67de110046590120536f19c4ca3d7b25dc";
+export const RULES_DIGEST = "2d959b575d3c6a2a6ce0408f302c04b358e2385f668f8e849d03a26275f812cf";

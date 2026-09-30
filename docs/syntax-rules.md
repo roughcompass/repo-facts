@@ -78,9 +78,10 @@ A callee has exactly one root:
 - `global` is an identifier not bound in the file. It also matches through `globalThis`, `window`, or `self`.
 - `module` is a binding imported from one of the listed modules. Default, namespace, named, and aliased imports all resolve, as do `require()`, destructuring from `require()`, and member chains such as `require("webpack").container`. A named import `x` is treated as the default export's member `x`, the way CommonJS interop presents it.
 - `instanceOf` is a `const` bound to a node that another rule matched. For example, `const api = axios.create(...)` makes `api.get(...)` an instance call. A `let` or `var` never resolves, because it can be reassigned.
+- `anyModule` is any export of any package, never a relative import. It finds packaged clients configured by a call, such as `init({ endpoint })`, without naming each package. A `method` list narrows the export's name.
 - `anyReceiver` is any object, together with a `method` list, such as `postMessage` on any window.
 
-`members` lists the exact member names between the root and the call, and `method` lists alternatives for the final member. The matched method is captured as `method`.
+`members` lists the exact member names between the root and the call, and `method` lists alternatives for the final member. The matched method is captured as `method`, and a callee imported from a package is captured as `calleeModule`.
 
 Matching is structural and conservative. Comments and string contents are never matched. Bindings are tracked per file, not per scope, so a name bound more than once is never resolved. A global name bound anywhere in the file, even as a parameter, isn't treated as the global. The engine misses those matches rather than guessing.
 
@@ -90,6 +91,7 @@ Matching is structural and conservative. Comments and string contents are never 
 | --- | --- |
 | `{ argument: N }` | The Nth argument, resolved statically |
 | `{ argument: N, property: [a, b] }` | A property path within that argument's object literal |
+| `{ argument: N, firstOf: [a, b] }` | The first of these properties present in that argument's object literal |
 | `{ attribute: src }` | A JSX attribute's value |
 | `{ template: true }` | A tagged template's text |
 | `{ module: true }` | An import's module specifier |

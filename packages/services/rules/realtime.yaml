@@ -1,0 +1,19 @@
+format: 1
+rules:
+  - id: services.websocket
+    version: 1
+    description: A WebSocket connection
+    match: { new: { global: WebSocket } }
+    capture:
+      url: { argument: 0 }
+    emit: { service: { client: websocket, facts: { protocol: { literal: websocket } } } }
+
+  - id: services.event-source
+    version: 1
+    description: A server-sent events stream
+    match: { new: { global: EventSource } }
+    capture:
+      url: { argument: 0 }
+      init: { argument: 1 }
+      credentials: { argument: 1, property: [withCredentials] }
+    emit: { service: { client: event_source, facts: { protocol: { literal: sse } } } }

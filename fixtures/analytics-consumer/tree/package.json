@@ -1,0 +1,9 @@
+{
+  "name": "mf-admin",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@acme/analytics": "1.0.0",
+    "react": "18.3.1"
+  }
+}

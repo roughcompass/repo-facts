@@ -21,6 +21,7 @@
     "@repo-facts/architecture": "0.1.0-rc.0",
     "@repo-facts/contract": "0.1.0-rc.0",
     "@repo-facts/core": "0.1.0-rc.0",
-    "@repo-facts/syntax": "0.1.0-rc.0"
+    "@repo-facts/syntax": "0.1.0-rc.0",
+    "typescript": "6.0.3"
   }
 }

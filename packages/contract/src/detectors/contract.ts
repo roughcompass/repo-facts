@@ -1,5 +1,5 @@
 import type { Evidence } from "../evidence.js";
-import type { ServiceFact } from "../facts/schema.js";
+import type { CLIENT_KINDS, ServiceFact } from "../facts/schema.js";
 import type { BlobContent, SkipReason, SourceReader, TreeEntry } from "../reader/types.js";
 import type { Format, Value } from "../structured.js";
 
@@ -70,7 +70,7 @@ export interface ServiceFactCandidate {
 export interface ServiceCandidate {
   /** Logical identity used to merge call sites of one dependency. */
   key: string;
-  client: { kind: "fetch" | "axios" | "websocket" | "graphql" | "generated" | "packaged" | "host_adapter"; package: string | null };
+  client: { kind: (typeof CLIENT_KINDS)[number]; package: string | null };
   callSites: readonly Evidence[];
   facts: Partial<Record<ServiceFact, ServiceFactCandidate>>;
 }

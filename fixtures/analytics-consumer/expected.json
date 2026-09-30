@@ -1,0 +1,816 @@
+{
+  "categories": {
+    "access_signals": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "api_contracts": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "build_tools": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "config.tool-file",
+          "manifest.tool-dependency"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "ci_systems": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "ci.definition"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    },
+    "composition": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "architecture.import-map",
+          "composition"
+        ],
+        "skipped": [],
+        "surface": [
+          "src/useAnalytics.ts"
+        ]
+      },
+      "state": "unknown"
+    },
+    "dependencies": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_553e92c9f1407da6ee911feb"
+          ],
+          "key": "package.json#dependencies/@acme/analytics",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "dependencies",
+            "manifest": "package.json",
+            "name": "@acme/analytics",
+            "specifier": "1.0.0"
+          }
+        },
+        {
+          "evidence": [
+            "ev_ac6c9a0c96f7addd193d2e21"
+          ],
+          "key": "package.json#dependencies/react",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "dependencies",
+            "manifest": "package.json",
+            "name": "react",
+            "specifier": "18.3.1"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.dependencies"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "egress_routes": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "frameworks": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_0f91945811a4ea419ac8ede5"
+          ],
+          "key": "package.json#react",
+          "rule": "manifest.framework",
+          "state": "observed",
+          "value": {
+            "id": "react",
+            "label": "React",
+            "manifest": "package.json",
+            "package": "react",
+            "specifiers": {
+              "dependencies": "18.3.1"
+            }
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.framework"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "languages": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_9775c96c35f8af94f8bb772d"
+          ],
+          "key": "JSON",
+          "rule": "inventory.language-by-extension",
+          "state": "observed",
+          "value": {
+            "bytes": 145,
+            "files": 1
+          }
+        },
+        {
+          "evidence": [
+            "ev_fbda281b238d3b29fa9beb50"
+          ],
+          "key": "TypeScript",
+          "rule": "inventory.language-by-extension",
+          "state": "observed",
+          "value": {
+            "bytes": 257,
+            "files": 1
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.language-by-extension"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "observed"
+    },
+    "package_identity": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_95a0bfe9e3037806c78f2d6d",
+            "ev_a084a2bb95ef74487f2994ca"
+          ],
+          "key": "package.json",
+          "rule": "manifest.identity",
+          "state": "observed",
+          "value": {
+            "manifest": "package.json",
+            "name": "mf-admin",
+            "private": true,
+            "version": "1.0.0"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.identity"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "package_managers": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "lockfile.package-manager",
+          "manifest.package-manager"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "packages_consumed": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_b0ae893fc65c7aae637975ec"
+          ],
+          "key": "@acme/analytics",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "@acme/analytics"
+          }
+        },
+        {
+          "evidence": [
+            "ev_a9a48ae0de3de61fd0f7f76a"
+          ],
+          "key": "react",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "react"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "packages.consumed"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "packages_produced": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_466005c88f436b9ec8df6ba6",
+            "ev_c53a31b8b80371b590369c78"
+          ],
+          "key": "mf-admin",
+          "rule": "packages.produced",
+          "state": "observed",
+          "value": {
+            "manifest": "package.json",
+            "name": "mf-admin",
+            "published": false,
+            "version": "1.0.0"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "packages.produced"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "resolved_dependencies": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "npm-lock.resolved-version",
+          "pnpm-lock.resolved-version",
+          "yarn-lock.resolved-version"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "runtime_integrations": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "composition"
+        ],
+        "skipped": [],
+        "surface": [
+          "src/useAnalytics.ts"
+        ]
+      },
+      "state": "unknown"
+    },
+    "runtime_requirements": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "runtime.declarations"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "scripts": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.scripts"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "served_origins": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "submodules": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.gitlink"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    },
+    "test_frameworks": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "config.tool-file",
+          "manifest.tool-dependency"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "test_substitutes": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "verification_commands": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "ci.verification-commands"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "workspaces": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.workspaces",
+          "pnpm-workspace.packages"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    }
+  },
+  "commit": null,
+  "detector_release": "golden",
+  "diagnostics": [],
+  "evidence": {
+    "ev_0f91945811a4ea419ac8ede5": {
+      "commit": null,
+      "content_digest": "e6b0a1839bbe2e4b2d0f38d8bce3c16418818511fd3a74c55dbb8dc375a98d79",
+      "detector": "tooling",
+      "excerpt_digest": "4432fe1325bcd7918b7ce08a089e63116c6bef0a37173a57b89ab7a038b5f484",
+      "id": "ev_0f91945811a4ea419ac8ede5",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/react"
+      },
+      "object_id": "e97ba77df84a59de08fff85e641f3b177597a296",
+      "path": "package.json",
+      "rule": "manifest.framework"
+    },
+    "ev_466005c88f436b9ec8df6ba6": {
+      "commit": null,
+      "content_digest": "e6b0a1839bbe2e4b2d0f38d8bce3c16418818511fd3a74c55dbb8dc375a98d79",
+      "detector": "package-relations",
+      "excerpt_digest": "c2d04383b4d9f9bec9c3503ea0096b9a08b7850a6969a916a852c49ad6ed034c",
+      "id": "ev_466005c88f436b9ec8df6ba6",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/name"
+      },
+      "object_id": "e97ba77df84a59de08fff85e641f3b177597a296",
+      "path": "package.json",
+      "rule": "packages.produced"
+    },
+    "ev_553e92c9f1407da6ee911feb": {
+      "commit": null,
+      "content_digest": "e6b0a1839bbe2e4b2d0f38d8bce3c16418818511fd3a74c55dbb8dc375a98d79",
+      "detector": "package-metadata",
+      "excerpt_digest": "39fe4a40977d0585fd5704359e3685b0ada5cf5ee061e5d97385601d120cd0ec",
+      "id": "ev_553e92c9f1407da6ee911feb",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/@acme~1analytics"
+      },
+      "object_id": "e97ba77df84a59de08fff85e641f3b177597a296",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_5bb7d5d59bbc1d41da497d4b": {
+      "commit": null,
+      "content_digest": "b4dfddeb954bfd479a021ac68d821d87082816b56be45dae41357f2a05e030ba",
+      "detector": "service-dependencies",
+      "excerpt_digest": "f555371688d068b5674d642edb97c17083fd760499c482347e1010eb974d1dcc",
+      "id": "ev_5bb7d5d59bbc1d41da497d4b",
+      "location": {
+        "end": 4,
+        "kind": "lines",
+        "start": 4
+      },
+      "object_id": "1f181b60cfc8594f9480d8f9beed327b274c9179",
+      "path": "src/useAnalytics.ts",
+      "rule": "services.packaged.configure"
+    },
+    "ev_95a0bfe9e3037806c78f2d6d": {
+      "commit": null,
+      "content_digest": "e6b0a1839bbe2e4b2d0f38d8bce3c16418818511fd3a74c55dbb8dc375a98d79",
+      "detector": "package-metadata",
+      "excerpt_digest": "39fe4a40977d0585fd5704359e3685b0ada5cf5ee061e5d97385601d120cd0ec",
+      "id": "ev_95a0bfe9e3037806c78f2d6d",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/version"
+      },
+      "object_id": "e97ba77df84a59de08fff85e641f3b177597a296",
+      "path": "package.json",
+      "rule": "manifest.identity"
+    },
+    "ev_9775c96c35f8af94f8bb772d": {
+      "commit": null,
+      "content_digest": "f1635bbac994219f49a860e7f87484520c88bb1c890235460cd42b051b0ece21",
+      "detector": "inventory",
+      "excerpt_digest": "f1635bbac994219f49a860e7f87484520c88bb1c890235460cd42b051b0ece21",
+      "id": "ev_9775c96c35f8af94f8bb772d",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "e97ba77df84a59de08fff85e641f3b177597a296",
+      "path": "package.json",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_a084a2bb95ef74487f2994ca": {
+      "commit": null,
+      "content_digest": "e6b0a1839bbe2e4b2d0f38d8bce3c16418818511fd3a74c55dbb8dc375a98d79",
+      "detector": "package-metadata",
+      "excerpt_digest": "c2d04383b4d9f9bec9c3503ea0096b9a08b7850a6969a916a852c49ad6ed034c",
+      "id": "ev_a084a2bb95ef74487f2994ca",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/name"
+      },
+      "object_id": "e97ba77df84a59de08fff85e641f3b177597a296",
+      "path": "package.json",
+      "rule": "manifest.identity"
+    },
+    "ev_a9a48ae0de3de61fd0f7f76a": {
+      "commit": null,
+      "content_digest": "e6b0a1839bbe2e4b2d0f38d8bce3c16418818511fd3a74c55dbb8dc375a98d79",
+      "detector": "package-relations",
+      "excerpt_digest": "4432fe1325bcd7918b7ce08a089e63116c6bef0a37173a57b89ab7a038b5f484",
+      "id": "ev_a9a48ae0de3de61fd0f7f76a",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/react"
+      },
+      "object_id": "e97ba77df84a59de08fff85e641f3b177597a296",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
+    "ev_ac6c9a0c96f7addd193d2e21": {
+      "commit": null,
+      "content_digest": "e6b0a1839bbe2e4b2d0f38d8bce3c16418818511fd3a74c55dbb8dc375a98d79",
+      "detector": "package-metadata",
+      "excerpt_digest": "4432fe1325bcd7918b7ce08a089e63116c6bef0a37173a57b89ab7a038b5f484",
+      "id": "ev_ac6c9a0c96f7addd193d2e21",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/react"
+      },
+      "object_id": "e97ba77df84a59de08fff85e641f3b177597a296",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_b0ae893fc65c7aae637975ec": {
+      "commit": null,
+      "content_digest": "e6b0a1839bbe2e4b2d0f38d8bce3c16418818511fd3a74c55dbb8dc375a98d79",
+      "detector": "package-relations",
+      "excerpt_digest": "39fe4a40977d0585fd5704359e3685b0ada5cf5ee061e5d97385601d120cd0ec",
+      "id": "ev_b0ae893fc65c7aae637975ec",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/@acme~1analytics"
+      },
+      "object_id": "e97ba77df84a59de08fff85e641f3b177597a296",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
+    "ev_c53a31b8b80371b590369c78": {
+      "commit": null,
+      "content_digest": "e6b0a1839bbe2e4b2d0f38d8bce3c16418818511fd3a74c55dbb8dc375a98d79",
+      "detector": "package-relations",
+      "excerpt_digest": "39fe4a40977d0585fd5704359e3685b0ada5cf5ee061e5d97385601d120cd0ec",
+      "id": "ev_c53a31b8b80371b590369c78",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/version"
+      },
+      "object_id": "e97ba77df84a59de08fff85e641f3b177597a296",
+      "path": "package.json",
+      "rule": "packages.produced"
+    },
+    "ev_fbda281b238d3b29fa9beb50": {
+      "commit": null,
+      "content_digest": "9ee536ac9f1adce4ec7682592291eec5f09fe404750d149de4ffb60f3f352861",
+      "detector": "inventory",
+      "excerpt_digest": "9ee536ac9f1adce4ec7682592291eec5f09fe404750d149de4ffb60f3f352861",
+      "id": "ev_fbda281b238d3b29fa9beb50",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "1f181b60cfc8594f9480d8f9beed327b274c9179",
+      "path": "src/useAnalytics.ts",
+      "rule": "inventory.language-by-extension"
+    }
+  },
+  "extensions": [],
+  "inventory": {
+    "bytes": 402,
+    "bytes_read": 402,
+    "entries": 3,
+    "executables": 0,
+    "files": 2,
+    "files_read": 2,
+    "gitlinks": 0,
+    "symlinks": 0
+  },
+  "relationship_references": [
+    {
+      "basis": "inferred",
+      "evidence": [
+        "ev_5bb7d5d59bbc1d41da497d4b"
+      ],
+      "id": "ref_495553b31b50fa4c8e5d44fa",
+      "identifier": {
+        "key": "package:@acme/analytics"
+      },
+      "role": "caller",
+      "rule": "services.packaged.configure",
+      "type": "service"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_a9a48ae0de3de61fd0f7f76a"
+      ],
+      "id": "ref_7feb1042963b1be60c179f1d",
+      "identifier": {
+        "name": "react"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_466005c88f436b9ec8df6ba6"
+      ],
+      "id": "ref_81dc34df60cadd2f4210c645",
+      "identifier": {
+        "name": "mf-admin"
+      },
+      "role": "producer",
+      "rule": "packages.produced",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_b0ae893fc65c7aae637975ec"
+      ],
+      "id": "ref_b78e13c3d5c1d5e7b91ae0c8",
+      "identifier": {
+        "name": "@acme/analytics"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    }
+  ],
+  "schema": "repo_facts.fact_document",
+  "schema_version": 1,
+  "service_dependencies": [
+    {
+      "access": {
+        "reason": "Static discovery cannot establish entitlement, credentials, or reachability; no connectivity check is performed.",
+        "state": "unknown"
+      },
+      "authentication": {
+        "evidence": [
+          "ev_5bb7d5d59bbc1d41da497d4b"
+        ],
+        "rule": "services.packaged.configure",
+        "state": "unknown",
+        "value": {
+          "reason": "No authentication is stated at the call site"
+        }
+      },
+      "call_sites": [
+        "ev_5bb7d5d59bbc1d41da497d4b"
+      ],
+      "characterizable": false,
+      "client": {
+        "kind": "packaged",
+        "package": "@acme/analytics"
+      },
+      "consumed_response_fields": {
+        "evidence": [
+          "ev_5bb7d5d59bbc1d41da497d4b"
+        ],
+        "rule": "services.packaged.configure",
+        "state": "unknown",
+        "value": {
+          "known": []
+        }
+      },
+      "contracts": {
+        "evidence": [],
+        "rule": "not-established",
+        "state": "unknown",
+        "value": null
+      },
+      "endpoint": {
+        "evidence": [
+          "ev_5bb7d5d59bbc1d41da497d4b"
+        ],
+        "rule": "services.packaged.configure",
+        "state": "observed",
+        "value": {
+          "base_path": "/__analytics",
+          "derivation": "relative"
+        }
+      },
+      "id": "svc_2426d9de0ef2afaabeee8073",
+      "identity": {
+        "evidence": [
+          "ev_5bb7d5d59bbc1d41da497d4b"
+        ],
+        "reasoning": "The call configures a client exported by a package with an endpoint, which is how packaged service clients are pointed at their service.",
+        "rule": "services.packaged.configure",
+        "state": "inferred",
+        "value": {
+          "kind": "package",
+          "value": "@acme/analytics"
+        }
+      },
+      "key": "package:@acme/analytics",
+      "missing_evidence": [
+        "operations",
+        "request_shape",
+        "consumed_response_fields",
+        "authentication",
+        "timeout",
+        "retry",
+        "proxy",
+        "contracts",
+        "substitutes"
+      ],
+      "operations": {
+        "evidence": [
+          "ev_5bb7d5d59bbc1d41da497d4b"
+        ],
+        "rule": "services.packaged.configure",
+        "state": "unknown",
+        "value": {
+          "known": []
+        }
+      },
+      "protocol": {
+        "evidence": [
+          "ev_5bb7d5d59bbc1d41da497d4b"
+        ],
+        "rule": "services.packaged.configure",
+        "state": "observed",
+        "value": "http"
+      },
+      "proxy": {
+        "evidence": [],
+        "rule": "not-established",
+        "state": "unknown",
+        "value": null
+      },
+      "request_shape": {
+        "evidence": [
+          "ev_5bb7d5d59bbc1d41da497d4b"
+        ],
+        "rule": "services.packaged.configure",
+        "state": "unknown",
+        "value": null
+      },
+      "retry": {
+        "evidence": [
+          "ev_5bb7d5d59bbc1d41da497d4b"
+        ],
+        "rule": "services.packaged.configure",
+        "state": "unknown",
+        "value": {
+          "reason": "Retries could be added outside the call site"
+        }
+      },
+      "substitutes": {
+        "evidence": [],
+        "rule": "not-established",
+        "state": "unknown",
+        "value": null
+      },
+      "timeout": {
+        "evidence": [
+          "ev_5bb7d5d59bbc1d41da497d4b"
+        ],
+        "rule": "services.packaged.configure",
+        "state": "unknown",
+        "value": {
+          "reason": "This client's timeout is not stated at the call site"
+        }
+      }
+    }
+  ]
+}

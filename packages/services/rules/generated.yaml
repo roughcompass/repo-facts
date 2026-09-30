@@ -1,0 +1,20 @@
+format: 1
+rules:
+  - id: services.generated.openapi-fetch
+    version: 1
+    description: A client generated from an OpenAPI document with openapi-fetch
+    match: { call: { module: [openapi-fetch, "@hey-api/client-fetch"] } }
+    capture:
+      config: { argument: 0 }
+      baseURL: { argument: 0, property: [baseUrl] }
+    where: [{ capture: config, is: object }]
+    emit: { signal: { kind: generated-client } }
+
+  - id: services.generated.openapi-fetch-request
+    version: 1
+    description: A request made through an openapi-fetch client
+    match: { call: { instanceOf: services.generated.openapi-fetch, method: [GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS] } }
+    capture:
+      url: { argument: 0 }
+      data: { argument: 1, property: [body] }
+    emit: { service: { client: generated, facts: { protocol: { literal: http } } } }

@@ -1,0 +1,45 @@
+format: 1
+rules:
+  - id: services.graphql.apollo
+    version: 1
+    description: An Apollo GraphQL client or link with its endpoint
+    match: { new: { module: "@apollo/client", method: [ApolloClient, HttpLink] } }
+    capture:
+      url: { argument: 0, property: [uri] }
+      headers: { argument: 0, property: [headers] }
+    where: [{ capture: url, is: [string, template, configured, unresolved] }]
+    emit: { service: { client: graphql, facts: { protocol: { literal: graphql } } } }
+
+  - id: services.graphql.request-client
+    version: 1
+    description: A graphql-request client
+    match: { new: { module: graphql-request, members: [GraphQLClient] } }
+    capture:
+      url: { argument: 0 }
+      headers: { argument: 1, property: [headers] }
+    emit: { service: { client: graphql, facts: { protocol: { literal: graphql } } } }
+
+  - id: services.graphql.request
+    version: 1
+    description: A single graphql-request request
+    match: { call: { module: graphql-request, members: [request] } }
+    capture:
+      url: { argument: 0 }
+      document: { argument: 1 }
+    emit: { service: { client: graphql, facts: { protocol: { literal: graphql } } } }
+
+  - id: services.graphql.document-tag
+    version: 1
+    description: A GraphQL document written with graphql-tag
+    match: { tagged: { module: graphql-tag } }
+    capture:
+      document: { template: true }
+    emit: { signal: { kind: graphql-document } }
+
+  - id: services.graphql.document-apollo
+    version: 1
+    description: A GraphQL document written with Apollo's gql
+    match: { tagged: { module: ["@apollo/client", "@apollo/client/core"], members: [gql] } }
+    capture:
+      document: { template: true }
+    emit: { signal: { kind: graphql-document } }

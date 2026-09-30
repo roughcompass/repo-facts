@@ -211,9 +211,9 @@ describe("rule matching", () => {
   it("tracks const instances created by another rule, but not reassignable ones", () => {
     const text = 'import axios from "axios";\nconst api = axios.create({ baseURL: "https://api.example.test" });\napi.get("/orders");\nlet other = axios.create();\nother.get("/nope");\n';
     expect(matches(text)).toEqual([
-      ["services.axios-create", 2, { baseURL: { kind: "literal", value: "https://api.example.test" }, method: { kind: "literal", value: "create" } }],
+      ["services.axios-create", 2, { baseURL: { kind: "literal", value: "https://api.example.test" }, method: { kind: "literal", value: "create" }, calleeModule: { kind: "literal", value: "axios" } }],
       ["services.axios-instance-call", 3, { path: { kind: "literal", value: "/orders" }, method: { kind: "literal", value: "get" } }],
-      ["services.axios-create", 4, { baseURL: { kind: "absent" }, method: { kind: "literal", value: "create" } }],
+      ["services.axios-create", 4, { baseURL: { kind: "absent" }, method: { kind: "literal", value: "create" }, calleeModule: { kind: "literal", value: "axios" } }],
     ]);
   });
 
@@ -246,8 +246,18 @@ describe("rule matching", () => {
     expect(matches(text)).toEqual([
       ["services.msw", 2, { module: { kind: "literal", value: "msw" } }],
       ["architecture.iframe", 4, { src: { kind: "literal", value: "http://127.0.0.1:9103" } }],
-      ["services.graphql", 5, { document: { kind: "literal", value: "query Orders { orders { id } }" } }],
+      ["services.graphql", 5, { document: { kind: "literal", value: "query Orders { orders { id } }" }, calleeModule: { kind: "literal", value: "graphql-tag" } }],
       ["architecture.message-listener", 6, { event: { kind: "literal", value: "message" }, method: { kind: "literal", value: "addEventListener" } }],
+    ]);
+  });
+
+  it("matches any package's export, captures the first present property, and accepts several kinds", () => {
+    const result = compileRules([{ path: "any.yaml", text: "format: 1\nrules:\n  - id: t.packaged\n    version: 1\n    description: x\n    match: { call: { anyModule: true } }\n    capture: { endpoint: { argument: 0, firstOf: [endpoint, baseURL, url] } }\n    where: [{ capture: endpoint, is: [string, template, configured] }]\n    emit: { signal: { kind: packaged } }\n" }]);
+    if (!result.ok) throw new Error(result.problems.join("\n"));
+    const text = 'import { init } from "@acme/analytics";\nimport { connect } from "./local";\ninit({ appId: "a", endpoint: "/__analytics" });\ninit({ baseURL: process.env.API });\ninit({ appId: "no-endpoint" });\nconnect({ url: "/x" });\n';
+    expect(matchRules(tree(text), result.rules).map((match) => [captureValue(match.captures.endpoint!), captureValue(match.captures.calleeModule!)])).toEqual([
+      [{ kind: "literal", value: "/__analytics" }, { kind: "literal", value: "@acme/analytics" }],
+      [{ kind: "configured", source: "process.env", key: "API" }, { kind: "literal", value: "@acme/analytics" }],
     ]);
   });
 

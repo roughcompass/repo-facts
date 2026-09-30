@@ -40,7 +40,7 @@ export function compileRules(sources: readonly RuleSource[]): CompileResult {
   for (const rule of rules) {
     const callee = "call" in rule.match ? rule.match.call : "new" in rule.match ? rule.match.new : "tagged" in rule.match ? rule.match.tagged : undefined;
     if (callee?.instanceOf && !ids.has(callee.instanceOf)) problems.push(`rule ${rule.id} is an instance of unknown rule ${callee.instanceOf}`);
-    for (const condition of rule.where ?? []) if (!rule.capture?.[condition.capture] && condition.capture !== "method") problems.push(`rule ${rule.id} tests capture ${condition.capture}, which it does not define`);
+    for (const condition of rule.where ?? []) if (!rule.capture?.[condition.capture] && condition.capture !== "method" && condition.capture !== "calleeModule") problems.push(`rule ${rule.id} tests capture ${condition.capture}, which it does not define`);
   }
   if (problems.length) return { ok: false, problems };
 

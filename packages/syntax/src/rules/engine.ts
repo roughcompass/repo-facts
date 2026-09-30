@@ -17,7 +17,7 @@ import type { CalleeSpec, CaptureSpec, Rule } from "./schema.js";
 export interface RuleMatch {
   rule: Rule;
   node: ts.Node;
-  /** Captured values, plus `method` when the callee matched a method list. */
+  /** Captured values, plus `method` when the callee matched a method list and `calleeModule` when it was imported. */
   captures: Record<string, StaticValue>;
 }
 
@@ -50,10 +50,12 @@ export function matchRules(tree: SyntaxTree, rules: readonly Rule[]): RuleMatch[
       const [callee, nodes] = "call" in spec ? [spec.call, collected.calls] : "new" in spec ? [spec.new, collected.news] : [spec.tagged, collected.tagged];
       for (const node of nodes as readonly (ts.CallExpression | ts.NewExpression | ts.TaggedTemplateExpression)[]) {
         const expression = ts.isTaggedTemplateExpression(node) ? node.tag : node.expression;
-        const matched = matchCallee(callee, resolveTarget(tree, expression, matchedBy));
+        const target = resolveTarget(tree, expression, matchedBy);
+        const matched = matchCallee(callee, target);
         if (!matched) continue;
         const captures = captureAll(tree, rule, node);
         if (matched.method !== undefined) captures.method = { kind: "string", value: matched.method, node: expression };
+        if (target?.kind === "module") captures.calleeModule = { kind: "string", value: target.module!, node: expression };
         if (satisfies(rule, captures)) record({ rule, node, captures });
       }
     } else if ("jsx" in spec) {
@@ -195,6 +197,13 @@ function matchCallee(spec: CalleeSpec, target: Target | null): { method?: string
   };
   if (spec.global !== undefined) return target.kind === "global" && target.chain[0] === spec.global ? tail(target.chain.slice(1)) : null;
   if (spec.module !== undefined) return target.kind === "module" && spec.module.includes(target.module!) ? tail(target.chain) : null;
+  if (spec.anyModule !== undefined) {
+    // Any export of any package: the chain names the export, so it is unconstrained unless a method list narrows it.
+    if (target.kind !== "module" || target.module!.startsWith(".") || target.module!.startsWith("/")) return null;
+    if (!spec.method) return {};
+    const method = target.chain[target.chain.length - 1];
+    return method !== undefined && spec.method.includes(method) ? { method } : null;
+  }
   if (spec.instanceOf !== undefined) return target.kind === "instance" && target.rules!.has(spec.instanceOf) ? tail(target.chain) : null;
   const method = target.chain[target.chain.length - 1];
   return target.hasReceiver && method !== undefined && spec.method!.includes(method) ? { method } : null;
@@ -215,6 +224,12 @@ function capture(tree: SyntaxTree, spec: CaptureSpec, node: ts.Node, module?: st
     const argument = args[spec.argument];
     if (!argument) return { kind: "undefined", node };
     let value = resolveValue(tree, argument);
+    if ("firstOf" in spec) {
+      if (value.kind !== "object") return value.kind === "unresolved" ? value : { kind: "unresolved", reason: "unsupported", detail: `Reading ${spec.firstOf.join(" or ")} from a ${value.kind} value`, node: value.node };
+      const present = spec.firstOf.find((key) => value.kind === "object" && value.properties.has(key));
+      if (present !== undefined) return value.properties.get(present)!;
+      return value.complete ? { kind: "undefined", node: value.node } : { kind: "unresolved", reason: "computed", detail: `${spec.firstOf.join(" or ")} may come from a spread`, node: value.node };
+    }
     for (const key of spec.property ?? []) {
       if (value.kind === "object") value = propertyOf(value, key) ?? (value.complete ? { kind: "undefined", node: value.node } : { kind: "unresolved", reason: "computed", detail: `${key} may come from a spread`, node: value.node });
       else if (value.kind !== "unresolved") value = { kind: "unresolved", reason: "unsupported", detail: `Reading ${key} from a ${value.kind} value`, node: value.node };
@@ -240,7 +255,7 @@ function satisfies(rule: Rule, captures: Record<string, StaticValue>): boolean {
   return (rule.where ?? []).every((condition) => {
     const value = captures[condition.capture];
     if (value === undefined) return false;
-    if ("is" in condition) return (value.kind === "undefined" ? "absent" : value.kind) === condition.is;
+    if ("is" in condition) return condition.is.includes(value.kind === "undefined" ? "absent" : value.kind);
     return (value.kind === "string" || value.kind === "number" || value.kind === "boolean") && value.value === condition.equals;
   });
 }

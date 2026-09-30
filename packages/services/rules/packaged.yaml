@@ -1,0 +1,10 @@
+format: 1
+rules:
+  - id: services.packaged.configure
+    version: 1
+    description: A packaged service client configured with an endpoint by a call to its export
+    match: { call: { anyModule: true } }
+    capture:
+      url: { argument: 0, firstOf: [endpoint, baseURL, baseUrl, apiUrl, apiBaseUrl, uri, url] }
+    where: [{ capture: url, is: [string, template, configured] }]
+    emit: { service: { client: packaged, facts: { protocol: { literal: http } } } }

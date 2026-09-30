@@ -1,0 +1,94 @@
+format: 1
+rules:
+  - id: services.fetch
+    version: 1
+    description: A request made with fetch
+    match: { call: { global: fetch } }
+    capture:
+      url: { argument: 0 }
+      init: { argument: 1 }
+      requestMethod: { argument: 1, property: [method] }
+      headers: { argument: 1, property: [headers] }
+      credentials: { argument: 1, property: [credentials] }
+    emit: { service: { client: fetch, facts: { protocol: { literal: http } } } }
+
+  - id: services.axios.create
+    version: 1
+    description: A configured axios instance
+    match: { call: { module: axios, method: [create] } }
+    capture:
+      config: { argument: 0 }
+      baseURL: { argument: 0, property: [baseURL] }
+      timeout: { argument: 0, property: [timeout] }
+      headers: { argument: 0, property: [headers] }
+    emit: { signal: { kind: axios-instance } }
+
+  - id: services.axios.request
+    version: 1
+    description: A request without a body made with axios
+    match: { call: { module: axios, method: [get, delete, head, options] } }
+    capture:
+      url: { argument: 0 }
+      config: { argument: 1 }
+      timeout: { argument: 1, property: [timeout] }
+      headers: { argument: 1, property: [headers] }
+    emit: { service: { client: axios, facts: { protocol: { literal: http } } } }
+
+  - id: services.axios.request-with-data
+    version: 1
+    description: A request with a body made with axios
+    match: { call: { module: axios, method: [post, put, patch] } }
+    capture:
+      url: { argument: 0 }
+      data: { argument: 1 }
+      config: { argument: 2 }
+      timeout: { argument: 2, property: [timeout] }
+      headers: { argument: 2, property: [headers] }
+    emit: { service: { client: axios, facts: { protocol: { literal: http } } } }
+
+  - id: services.axios.config-call
+    version: 1
+    description: A request made by calling axios with a configuration object
+    match: { call: { module: axios } }
+    capture:
+      config: { argument: 0 }
+      url: { argument: 0, property: [url] }
+      baseURL: { argument: 0, property: [baseURL] }
+      requestMethod: { argument: 0, property: [method] }
+      data: { argument: 0, property: [data] }
+      timeout: { argument: 0, property: [timeout] }
+      headers: { argument: 0, property: [headers] }
+    where: [{ capture: config, is: object }]
+    emit: { service: { client: axios, facts: { protocol: { literal: http } } } }
+
+  - id: services.axios.instance-request
+    version: 1
+    description: A request without a body made through a configured axios instance
+    match: { call: { instanceOf: services.axios.create, method: [get, delete, head, options] } }
+    capture:
+      url: { argument: 0 }
+      config: { argument: 1 }
+      timeout: { argument: 1, property: [timeout] }
+      headers: { argument: 1, property: [headers] }
+    emit: { service: { client: axios, facts: { protocol: { literal: http } } } }
+
+  - id: services.axios.instance-request-with-data
+    version: 1
+    description: A request with a body made through a configured axios instance
+    match: { call: { instanceOf: services.axios.create, method: [post, put, patch] } }
+    capture:
+      url: { argument: 0 }
+      data: { argument: 1 }
+      config: { argument: 2 }
+      timeout: { argument: 2, property: [timeout] }
+      headers: { argument: 2, property: [headers] }
+    emit: { service: { client: axios, facts: { protocol: { literal: http } } } }
+
+  - id: services.axios-retry
+    version: 1
+    description: Retries configured for an axios instance with axios-retry
+    match: { call: { module: axios-retry } }
+    capture:
+      options: { argument: 1 }
+      retries: { argument: 1, property: [retries] }
+    emit: { signal: { kind: axios-retry } }
