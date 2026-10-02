@@ -1,5 +1,5 @@
 {
-  "description": "A hostile repository: lifecycle scripts, configuration modules with side effects, dynamic imports and eval, prototype-pollution keys, trap URLs, a YAML alias bomb, deep nesting, a symbolic link out of the tree, and a submodule. Every executable path writes a sentinel into REPO_FACTS_SENTINEL_DIR if it ever runs.",
+  "description": "A hostile repository: lifecycle scripts, configuration modules with side effects, dynamic imports and eval, prototype-pollution keys, trap URLs, a YAML alias bomb, deep nesting in source and stylesheets, stylesheet imports of remote files, a symbolic link out of the tree, and a submodule. Every executable path writes a sentinel into REPO_FACTS_SENTINEL_DIR if it ever runs.",
   "gitlinks": {
     "vendor/trap": "1111111111111111111111111111111111111111"
   }

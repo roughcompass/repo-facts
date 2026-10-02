@@ -1,7 +1,10 @@
 import fs from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
-import { type CategoryDefinition, type Detector, MemoryReader, dump, factDocumentProblems, parseCanonical, runDetectors } from "@repo-facts/contract";
+import { type CategoryDefinition, type Detector, MemoryReader, SHARED_CATEGORIES, dump, factDocumentProblems, parseCanonical, runDetectors } from "@repo-facts/contract";
+import { adapterCatalogSchema, catalogSchema } from "@repo-facts/design-system";
+import * as syntax from "@repo-facts/syntax";
+import type { z } from "zod";
 import { compileRules, ruleDetector } from "@repo-facts/syntax";
 
 const ROOT = path.resolve(import.meta.dirname, "../..");
@@ -85,4 +88,73 @@ describe("documentation", () => {
     const facts = document.categories.composition!.facts.map((fact) => ({ key: fact.key, value: fact.value }));
     expect(facts).toEqual(JSON.parse(block("<!-- example-facts -->", "json")));
   });
+
+  it("names only real syntax-layer exports in the tags and stylesheets section", () => {
+    const doc = fs.readFileSync(path.join(DOCS, "syntax-rules.md"), "utf8");
+    const section = doc.slice(doc.indexOf("## Beyond rules: tags and stylesheets"));
+    const functions = [...section.matchAll(/`([a-zA-Z]+)\(/g)].map((match) => match[1]!).filter((name) => !["styled", "var", "url", "require"].includes(name));
+    const constants = [...section.matchAll(/`([A-Z][A-Z_]+)`/g)].map((match) => match[1]!);
+    expect(new Set(functions)).toEqual(new Set(["resolveTag", "resolveReference", "styledWrapperOf", "parseStylesheet", "tokenize", "walkStylesheet"]));
+    const exports = syntax as Record<string, unknown>;
+    for (const name of functions) expect(typeof exports[name], name).toBe("function");
+    for (const name of constants) expect(exports[name], name).toBeDefined();
+    expect(constants.length).toBeGreaterThanOrEqual(4);
+  });
+
+  it("documents exactly the catalog and adapter fields the schemas accept", () => {
+    const doc = fs.readFileSync(path.join(DOCS, "design-system-catalogs.md"), "utf8");
+    const documented = (marker: string) => {
+      const table = doc.slice(doc.indexOf(marker)).split("\n\n")[0]!.split("\n").slice(3);
+      return table.map((row) => /^\| `([^`]+)` \|/.exec(row)![1]!);
+    };
+    expect(documented("<!-- catalog-fields -->")).toEqual(fieldsOf(catalogSchema));
+    expect(documented("<!-- adapter-fields -->")).toEqual(fieldsOf(adapterCatalogSchema));
+  });
 });
+
+describe("documented names", () => {
+  it("lists exactly the packages the repository has, in the README", () => {
+    const readme = fs.readFileSync(path.join(ROOT, "README.md"), "utf8");
+    const listed = [...readme.matchAll(/^\| `@repo-facts\/([a-z-]+)` \|/gm)].map((match) => match[1]!);
+    const packages = fs.readdirSync(path.join(ROOT, "packages")).filter((name) => fs.existsSync(path.join(ROOT, "packages", name, "package.json")));
+    expect([...listed].sort()).toEqual(packages.sort());
+  });
+
+  it("lists exactly the shared categories, by group, in the detector contract", () => {
+    const doc = fs.readFileSync(path.join(DOCS, "detector-contract.md"), "utf8");
+    const rows = [...doc.matchAll(/^\| ([A-Z][A-Za-z]+) \| (`[a-z_]+`(?:, `[a-z_]+`)*) \|$/gm)].map((match) => [match[1]!, [...match[2]!.matchAll(/`([a-z_]+)`/g)].map((name) => name[1]!)] as const);
+    const groups = new Map<string, string[]>();
+    for (const definition of SHARED_CATEGORIES) groups.set(definition.group, [...(groups.get(definition.group) ?? []), definition.id]);
+    expect(rows).toEqual([...groups.entries()]);
+    expect(doc).toContain(`The contract owns ${SHARED_CATEGORIES.length} shared categories`);
+  });
+
+  it("links only to files that exist", () => {
+    const documents = [path.join(ROOT, "README.md"), ...fs.readdirSync(DOCS).filter((name) => name.endsWith(".md")).map((name) => path.join(DOCS, name))];
+    for (const document of documents) {
+      const text = fs.readFileSync(document, "utf8");
+      for (const [, target] of text.matchAll(/\]\(([^)#\s]+)(?:#[^)]*)?\)/g)) {
+        if (/^[a-z]+:/.test(target!)) continue;
+        expect(fs.existsSync(path.resolve(path.dirname(document), target!)), `${path.relative(ROOT, document)} links to ${target}`).toBe(true);
+      }
+    }
+  });
+});
+
+/** Every field of an object schema, with nested object fields as `parent[].child`, in declaration order. */
+function fieldsOf(schema: z.ZodType, prefix = ""): string[] {
+  const unwrap = (type: z.ZodType): z.ZodType => {
+    const def = (type as unknown as { def: { type: string; innerType?: z.ZodType; element?: z.ZodType } }).def;
+    if (def.type === "optional" && def.innerType) return unwrap(def.innerType);
+    return type;
+  };
+  const shape = (unwrap(schema) as unknown as { shape?: Record<string, z.ZodType> }).shape;
+  if (!shape) return [];
+  return Object.entries(shape).flatMap(([name, field]) => {
+    const inner = unwrap(field);
+    const def = (inner as unknown as { def: { type: string; element?: z.ZodType } }).def;
+    const nested = def.type === "array" && def.element ? fieldsOf(def.element, `${prefix}${name}[].`) : [];
+    return [`${prefix}${name}`, ...nested];
+  });
+}
+

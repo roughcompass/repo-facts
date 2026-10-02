@@ -1,0 +1,13 @@
+.row {
+  display: flex;
+  gap: var(--app-gap);
+}
+
+.toggle {
+  block-size: 2.75rem;
+  padding: var(--salt-spacing-100);
+}
+
+.active {
+  color: var(--salt-palette-accent) !important;
+}

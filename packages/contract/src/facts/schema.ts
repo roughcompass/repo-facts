@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 /**
- * The fact document contract, version 1: what one detector run over one
+ * The fact document contract, version 2: what one detector run over one
  * snapshot or working tree established about a repository.
  *
  * Every shared category, and every extension category the consumer
@@ -14,7 +14,7 @@ import { z } from "zod";
  */
 
 export const FACT_DOCUMENT_SCHEMA = "repo_facts.fact_document";
-export const FACT_DOCUMENT_VERSION = 1;
+export const FACT_DOCUMENT_VERSION = 2;
 
 export const FACT_STATES = ["observed", "inferred", "conflicting", "unknown"] as const;
 export type FactState = (typeof FACT_STATES)[number];
@@ -64,6 +64,9 @@ export const SHARED_CATEGORIES: readonly CategoryDefinition[] = [
   category("egress_routes", "Proxies and gateways", "Services", true, "Proxy variables, reverse-proxy rules, and gateway configuration"),
   category("api_contracts", "API contracts", "Services", true, "Committed OpenAPI, GraphQL, and generated-client contracts"),
   category("test_substitutes", "Test substitutes", "Services", true, "Existing interceptors, mock servers, and fixtures (never generated)"),
+  category("design_systems", "Design systems", "Interface", true, "Design systems recognized from catalogs, with their declared packages, theme stylesheet, and provider"),
+  category("ui_elements", "UI elements", "Interface", true, "JSX elements by design-system component, intrinsic tag, and customization"),
+  category("style_values", "Style values", "Interface", true, "Style declarations by value kind, and design-system adherence findings"),
 ];
 
 export const SHARED_CATEGORY_IDS = SHARED_CATEGORIES.map((definition) => definition.id);

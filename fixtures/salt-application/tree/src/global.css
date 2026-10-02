@@ -1,0 +1,20 @@
+/* .decoy { color: red } is a comment, never a rule. */
+:root {
+  --salt-palette-accent: #c00;
+  --app-gap: var(--salt-spacing-200);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+.saltButton-primary span {
+  letter-spacing: 0.02em;
+}
+
+.tone {
+  color: #0a6;
+}

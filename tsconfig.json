@@ -17,6 +17,9 @@
       "path": "packages/services"
     },
     {
+      "path": "packages/design-system"
+    },
+    {
       "path": "packages/bundle"
     }
   ]

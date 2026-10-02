@@ -1,8 +1,9 @@
 import { type Budgets, type CategoryDefinition, type Detector, type DetectorRunOptions, FACT_DOCUMENT_SCHEMA, FACT_DOCUMENT_VERSION, type FactDocument, type JsonObject, type SourceReader, digestOf, runDetectors } from "@repo-facts/contract";
 import { ARCHITECTURE_DETECTORS, RULES_DIGEST as ARCHITECTURE_RULES_DIGEST } from "@repo-facts/architecture";
 import { CORE_DETECTORS } from "@repo-facts/core";
+import { CATALOGS_DIGEST, DESIGN_SYSTEM_DETECTORS } from "@repo-facts/design-system";
 import { SERVICE_DETECTORS, RULES_DIGEST as SERVICE_RULES_DIGEST } from "@repo-facts/services";
-import { SYNTAX_DEPTH_LIMIT, SYNTAX_NODE_LIMIT, SYNTAX_PARSER } from "@repo-facts/syntax";
+import { STYLESHEET_DEPTH_LIMIT, STYLESHEET_NODE_LIMIT, STYLESHEET_PARSER, SYNTAX_DEPTH_LIMIT, SYNTAX_NODE_LIMIT, SYNTAX_PARSER } from "@repo-facts/syntax";
 import { DETECTOR_RELEASE } from "./release.js";
 
 /**
@@ -15,7 +16,7 @@ import { DETECTOR_RELEASE } from "./release.js";
 export { DETECTOR_RELEASE };
 
 /** Every detector in the release, in the order they run within each stage. */
-export const DETECTORS: readonly Detector[] = [...CORE_DETECTORS, ...ARCHITECTURE_DETECTORS, ...SERVICE_DETECTORS];
+export const DETECTORS: readonly Detector[] = [...CORE_DETECTORS, ...ARCHITECTURE_DETECTORS, ...DESIGN_SYSTEM_DETECTORS, ...SERVICE_DETECTORS];
 
 export const DETECTOR_CONFIGURATION_SCHEMA = "repo_facts.detector_configuration";
 
@@ -23,22 +24,27 @@ export interface ConfigurationParts {
   release: string;
   detectors: readonly Pick<Detector, "id" | "version" | "stage">[];
   parser: { name: string; version: string; maxNodes: number; maxDepth: number };
+  stylesheetParser: { name: string; version: string; maxNodes: number; maxDepth: number };
   limits: Budgets;
   /** Digest of the compiled syntax rules shipped with the release. */
   rulesDigest: string;
+  /** Digest of the compiled design-system and adapter catalogs shipped with the release. */
+  catalogsDigest: string;
 }
 
 /** The canonical detector configuration for +parts+. */
 export function configurationFor(parts: ConfigurationParts): JsonObject {
   return {
     schema: DETECTOR_CONFIGURATION_SCHEMA,
-    schema_version: 1,
+    schema_version: 2,
     release: parts.release,
     fact_document: { schema: FACT_DOCUMENT_SCHEMA, schema_version: FACT_DOCUMENT_VERSION },
     detectors: parts.detectors.map((detector) => ({ id: detector.id, version: detector.version, stage: detector.stage })),
     syntax: { parser: parts.parser.name, parser_version: parts.parser.version, max_nodes: parts.parser.maxNodes, max_depth: parts.parser.maxDepth },
+    stylesheets: { parser: parts.stylesheetParser.name, parser_version: parts.stylesheetParser.version, max_nodes: parts.stylesheetParser.maxNodes, max_depth: parts.stylesheetParser.maxDepth },
     limits: { max_blob_bytes: parts.limits.maxBlobBytes, max_files: parts.limits.maxFiles, max_total_bytes: parts.limits.maxTotalBytes },
     rules: { digest: parts.rulesDigest },
+    catalogs: { digest: parts.catalogsDigest },
   };
 }
 
@@ -51,8 +57,10 @@ export function detectorConfiguration(limits: Budgets): { configuration: JsonObj
     release: DETECTOR_RELEASE,
     detectors: DETECTORS,
     parser: { name: SYNTAX_PARSER.name, version: SYNTAX_PARSER.version, maxNodes: SYNTAX_NODE_LIMIT, maxDepth: SYNTAX_DEPTH_LIMIT },
+    stylesheetParser: { name: STYLESHEET_PARSER.name, version: STYLESHEET_PARSER.version, maxNodes: STYLESHEET_NODE_LIMIT, maxDepth: STYLESHEET_DEPTH_LIMIT },
     limits,
     rulesDigest: RULES_DIGEST,
+    catalogsDigest: CATALOGS_DIGEST,
   });
   return { configuration, digest: digestOf(configuration).digest };
 }

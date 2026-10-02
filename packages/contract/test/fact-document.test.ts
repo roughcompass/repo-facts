@@ -7,6 +7,7 @@ import {
   type Findings,
   MemoryReader,
   SERVICE_FACTS,
+  SHARED_CATEGORIES,
   SHARED_CATEGORY_IDS,
   type ServiceCandidate,
   categoryState,
@@ -106,7 +107,7 @@ describe("fact document contract", () => {
     const document = profile();
     expect(factDocumentProblems(document)).toEqual([]);
     expect(Object.keys(document.categories)).toEqual(SHARED_CATEGORY_IDS);
-    expect(document).toMatchObject({ schema: "repo_facts.fact_document", schema_version: 1, detector_release: "0.1.0", commit: "a".repeat(40), extensions: [] });
+    expect(document).toMatchObject({ schema: "repo_facts.fact_document", schema_version: 2, detector_release: "0.1.0", commit: "a".repeat(40), extensions: [] });
     expect(document.categories.package_managers!.state).toBe("observed");
     expect(document.categories.runtime_requirements!.state).toBe("conflicting");
     expect(document.categories.frameworks!.state).toBe("inferred");
@@ -133,8 +134,21 @@ describe("fact document contract", () => {
     ["a misreported boundary", (document) => void (document.service_dependencies[0]!.characterizable = true), "misreports whether its boundary is characterizable"],
     ["a fractional value", (document) => void (document.categories.package_managers!.facts[0]!.value = 1.5), "value"],
     ["an unexpected field", (document) => void ((document as unknown as Record<string, unknown>).access_granted = true), "access_granted"],
+    ["a version 1 document", (document) => void ((document as { schema_version: number }).schema_version = 1), "schema_version"],
+    ["a version 1 document without the Interface categories", (document) => void ((document as { schema_version: number }).schema_version = 1, delete document.categories.ui_elements), "schema_version"],
   ])("rejects %s", (_name, change, message) => {
     expect(mutated(change)).toContainEqual(expect.stringContaining(message));
+  });
+
+  it("groups the design-system categories under Interface, each allowing a bounded negative", () => {
+    const interfaceCategories = SHARED_CATEGORIES.filter((definition) => definition.group === "Interface");
+    expect(interfaceCategories.map((definition) => [definition.id, definition.boundedNegative])).toEqual([
+      ["design_systems", true],
+      ["ui_elements", true],
+      ["style_values", true],
+    ]);
+    const document = profile();
+    for (const definition of interfaceCategories) expect(document.categories[definition.id]!.state, definition.id).toBe("unknown");
   });
 
   it("derives category states from facts and search coverage", () => {

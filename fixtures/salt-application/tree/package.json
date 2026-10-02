@@ -1,0 +1,11 @@
+{
+  "name": "orders-ui",
+  "private": true,
+  "dependencies": {
+    "@salt-ds/core": "^1.50.0",
+    "@salt-ds/theme": "^1.33.0",
+    "clsx": "^2.1.1",
+    "react": "18.3.1",
+    "styled-components": "^6.1.13"
+  }
+}

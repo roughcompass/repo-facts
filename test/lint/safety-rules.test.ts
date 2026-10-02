@@ -10,7 +10,7 @@ async function violations(code: string, filePath = "packages/core/src/example.ts
   return (result?.messages ?? []).map((message) => `${message.line}:${message.ruleId}`);
 }
 
-const PACKAGES = ["contract", "syntax", "core", "architecture", "services", "bundle"];
+const PACKAGES = ["contract", "syntax", "core", "architecture", "services", "design-system", "bundle"];
 
 describe("safety lint rules", () => {
   it.each([

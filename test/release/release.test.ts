@@ -6,7 +6,7 @@ import { afterAll, beforeAll, describe, expect, it } from "vitest";
 // @ts-expect-error The helpers are plain ESM scripts without type declarations.
 import { ROOT, createToken, freePort, startRegistry } from "../../scripts/lib/registry.mjs";
 
-const PACKAGES = ["contract", "syntax", "core", "architecture", "services", "bundle"];
+const PACKAGES = ["contract", "syntax", "core", "architecture", "services", "design-system", "bundle"];
 const IDENTITY = ["-c", "user.name=repo-facts release test", "-c", "user.email=release-test@repo-facts.invalid"];
 
 /**
@@ -90,8 +90,8 @@ describe("lockstep releases", () => {
     // The gates ran in the clean checkout before anything was published.
     expect(result.stdout).toMatch(/> [^\n]*verify\n/);
     expect(result.stdout.indexOf("Publishing")).toBeGreaterThan(result.stdout.search(/Tests +\d+ passed/));
-    const order = [...result.stdout.matchAll(/Publishing (@repo-facts\/[a-z]+)@/g)].map((match) => match[1]);
-    expect(order).toEqual(["@repo-facts/contract", "@repo-facts/core", "@repo-facts/syntax", "@repo-facts/architecture", "@repo-facts/services", "@repo-facts/bundle"]);
+    const order = [...result.stdout.matchAll(/Publishing (@repo-facts\/[a-z-]+)@/g)].map((match) => match[1]);
+    expect(order).toEqual(["@repo-facts/contract", "@repo-facts/core", "@repo-facts/syntax", "@repo-facts/architecture", "@repo-facts/design-system", "@repo-facts/services", "@repo-facts/bundle"]);
 
     const consumer = path.join(workspace, "consumer");
     fs.mkdirSync(consumer);
@@ -125,7 +125,7 @@ describe("lockstep releases", () => {
     const result = spawnSync("npm", ["run", "release:dry-run"], { cwd: root, encoding: "utf8", env: environment });
     expect(result.status, `${result.stdout}\n${result.stderr}`).toBe(0);
     expect(result.stdout).toContain("Dry run of the uncommitted working tree.");
-    expect([...result.stdout.matchAll(/Would publish (@repo-facts\/[a-z]+)@\S+ from/g)].map((match) => match[1])).toHaveLength(PACKAGES.length);
+    expect([...result.stdout.matchAll(/Would publish (@repo-facts\/[a-z-]+)@\S+ from/g)].map((match) => match[1])).toHaveLength(PACKAGES.length);
     expect(result.stdout).not.toContain("Publishing");
     expect(Date.now() - started).toBeLessThan(120_000);
   });

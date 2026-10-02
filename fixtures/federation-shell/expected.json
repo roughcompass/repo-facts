@@ -214,6 +214,22 @@
       },
       "state": "observed"
     },
+    "design_systems": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "design-system.recognize"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json",
+          "src/App.tsx",
+          "webpack.config.cjs"
+        ]
+      },
+      "state": "absent"
+    },
     "egress_routes": {
       "facts": [],
       "search": {
@@ -528,6 +544,21 @@
       },
       "state": "unknown"
     },
+    "style_values": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "design-system.usage"
+        ],
+        "skipped": [],
+        "surface": [
+          "src/App.tsx",
+          "webpack.config.cjs"
+        ]
+      },
+      "state": "absent"
+    },
     "submodules": {
       "facts": [],
       "search": {
@@ -569,6 +600,49 @@
         ]
       },
       "state": "absent"
+    },
+    "ui_elements": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_b4a7a7902813d90904d5b064"
+          ],
+          "key": "intrinsic:iframe",
+          "rule": "design-system.elements",
+          "state": "observed",
+          "value": {
+            "app": {
+              "sites": 1,
+              "styled": 0,
+              "unstyled": 1
+            },
+            "equivalent": null,
+            "group": "other",
+            "stories": {
+              "sites": 0,
+              "styled": 0,
+              "unstyled": 0
+            },
+            "tests": {
+              "sites": 0,
+              "styled": 0,
+              "unstyled": 0
+            }
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "design-system.usage"
+        ],
+        "skipped": [],
+        "surface": [
+          "src/App.tsx",
+          "webpack.config.cjs"
+        ]
+      },
+      "state": "observed"
     },
     "verification_commands": {
       "facts": [],
@@ -855,6 +929,21 @@
       "path": "package.json",
       "rule": "manifest.dependencies"
     },
+    "ev_b4a7a7902813d90904d5b064": {
+      "commit": null,
+      "content_digest": "97f4eb1599416259bd2d800fa94009017cecb2db0de995f63cd75cf58b78fda3",
+      "detector": "design-system.usage",
+      "excerpt_digest": "e03e9cbc78ee10f0db2ebd00cbb52621e42d2107922a7822ee7ef7167678d289",
+      "id": "ev_b4a7a7902813d90904d5b064",
+      "location": {
+        "end": 9,
+        "kind": "lines",
+        "start": 9
+      },
+      "object_id": "c2d7edc5120fc6e942baaa5af565240f528fc0ba",
+      "path": "src/App.tsx",
+      "rule": "design-system.elements"
+    },
     "ev_b7c14f65a921005d29134643": {
       "commit": null,
       "content_digest": "c6451bd79d775c3afcb9984fcb17ae7100b4f8ec2f9203ce2659359b25e6f561",
@@ -1031,6 +1120,6 @@
     }
   ],
   "schema": "repo_facts.fact_document",
-  "schema_version": 1,
+  "schema_version": 2,
   "service_dependencies": []
 }

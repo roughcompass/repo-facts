@@ -60,6 +60,16 @@
       },
       "state": "unknown"
     },
+    "design_systems": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
     "egress_routes": {
       "facts": [],
       "search": {
@@ -222,6 +232,16 @@
       },
       "state": "unknown"
     },
+    "style_values": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
     "submodules": {
       "facts": [],
       "search": {
@@ -247,6 +267,16 @@
       "state": "absent"
     },
     "test_substitutes": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "ui_elements": {
       "facts": [],
       "search": {
         "complete": false,
@@ -325,6 +355,6 @@
   },
   "relationship_references": [],
   "schema": "repo_facts.fact_document",
-  "schema_version": 1,
+  "schema_version": 2,
   "service_dependencies": []
 }

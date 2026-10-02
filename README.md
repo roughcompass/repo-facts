@@ -9,10 +9,11 @@ All packages are published together at one version. That version is the detector
 | Package | Contents |
 | --- | --- |
 | `@repo-facts/contract` | Fact document, reconciliation, runner, reader interface, read policy, evidence, and canonical JSON |
-| `@repo-facts/syntax` | Parse-only JavaScript and TypeScript syntax, static values, and syntax rules |
+| `@repo-facts/syntax` | Parse-only JavaScript, TypeScript, and CSS syntax, static values, JSX tag resolution, and syntax rules |
 | `@repo-facts/core` | Inventory, manifest, tooling, runtime, lockfile, and CI detectors |
 | `@repo-facts/architecture` | Composition and package-relationship detectors |
 | `@repo-facts/services` | Service Dependency, access, and testability detectors |
+| `@repo-facts/design-system` | Design-system recognition and usage detectors, with the Salt and styling-adapter catalogs |
 | `@repo-facts/bundle` | One tested set of detectors: the detector release |
 
 Consumers depend on `@repo-facts/bundle` at an exact version. It depends on every other package at that same version.
@@ -70,7 +71,7 @@ ignore-scripts=true
 Then pin an exact release:
 
 ```sh
-npm install --save-exact @repo-facts/bundle@0.1.0
+npm install --save-exact @repo-facts/bundle@0.2.0
 ```
 
 - **The scope resolves only to the internal registry.** If `REPO_FACTS_NPM_REGISTRY` is unset, the URL stays unexpanded and the install fails instead of falling back to a public registry.

@@ -1,0 +1,1107 @@
+{
+  "categories": {
+    "access_signals": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "access.search"
+        ],
+        "skipped": [],
+        "surface": [
+          "src/Page.tsx"
+        ]
+      },
+      "state": "absent"
+    },
+    "api_contracts": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "contracts.search"
+        ],
+        "skipped": [],
+        "surface": [
+          "src/Page.tsx"
+        ]
+      },
+      "state": "absent"
+    },
+    "build_tools": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "config.tool-file",
+          "manifest.tool-dependency"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "ci_systems": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "ci.definition"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    },
+    "composition": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "architecture.import-map",
+          "composition"
+        ],
+        "skipped": [],
+        "surface": [
+          "src/Page.tsx"
+        ]
+      },
+      "state": "unknown"
+    },
+    "dependencies": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_c79a25e7a0570bbe9afe970e"
+          ],
+          "key": "package.json#dependencies/@salt-ds/core",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "dependencies",
+            "manifest": "package.json",
+            "name": "@salt-ds/core",
+            "specifier": "^1.50.0"
+          }
+        },
+        {
+          "evidence": [
+            "ev_1063ed0efe9c0751b1b2f1ae"
+          ],
+          "key": "package.json#dependencies/react",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "dependencies",
+            "manifest": "package.json",
+            "name": "react",
+            "specifier": "18.3.1"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.dependencies"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "design_systems": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_2e5a07aeea18d414645ee8ce",
+            "ev_3ec2d18a49558063e6aeddcd"
+          ],
+          "key": "salt",
+          "rule": "design-system.recognize",
+          "state": "observed",
+          "value": {
+            "catalog": "salt",
+            "catalog_version": "1.0.0",
+            "imported": true,
+            "name": "Salt",
+            "packages": [
+              {
+                "field": "dependencies",
+                "manifest": "package.json",
+                "name": "@salt-ds/core",
+                "range": "^1.50.0"
+              }
+            ],
+            "provider": false,
+            "theme_stylesheet": false
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "design-system.recognize"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json",
+          "src/Page.tsx",
+          "src/app.css"
+        ]
+      },
+      "state": "observed"
+    },
+    "egress_routes": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "egress.search"
+        ],
+        "skipped": [],
+        "surface": [
+          "src/Page.tsx"
+        ]
+      },
+      "state": "absent"
+    },
+    "frameworks": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_5167560a1e4a6afa3d5ca6ef"
+          ],
+          "key": "package.json#react",
+          "rule": "manifest.framework",
+          "state": "observed",
+          "value": {
+            "id": "react",
+            "label": "React",
+            "manifest": "package.json",
+            "package": "react",
+            "specifiers": {
+              "dependencies": "18.3.1"
+            }
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.framework"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "languages": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_0cb46b757016923b7e43a8f7"
+          ],
+          "key": "CSS",
+          "rule": "inventory.language-by-extension",
+          "state": "observed",
+          "value": {
+            "bytes": 61,
+            "files": 1
+          }
+        },
+        {
+          "evidence": [
+            "ev_0fc41e2af987dfb9f350eaba"
+          ],
+          "key": "JSON",
+          "rule": "inventory.language-by-extension",
+          "state": "observed",
+          "value": {
+            "bytes": 124,
+            "files": 1
+          }
+        },
+        {
+          "evidence": [
+            "ev_dcacf7cf3f280e134fcaf4e8"
+          ],
+          "key": "Sass",
+          "rule": "inventory.language-by-extension",
+          "state": "observed",
+          "value": {
+            "bytes": 44,
+            "files": 1
+          }
+        },
+        {
+          "evidence": [
+            "ev_76eb56b917c1fb97e8b955e8"
+          ],
+          "key": "TypeScript",
+          "rule": "inventory.language-by-extension",
+          "state": "observed",
+          "value": {
+            "bytes": 172,
+            "files": 1
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.language-by-extension"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "observed"
+    },
+    "package_identity": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_74ec4aa0b0e8038e3be8bf99"
+          ],
+          "key": "package.json",
+          "rule": "manifest.identity",
+          "state": "observed",
+          "value": {
+            "manifest": "package.json",
+            "name": "scss-site",
+            "private": true,
+            "version": null
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.identity"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "package_managers": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "lockfile.package-manager",
+          "manifest.package-manager"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "packages_consumed": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_8cf60e4c20394124253274c5"
+          ],
+          "key": "@salt-ds/core",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "@salt-ds/core"
+          }
+        },
+        {
+          "evidence": [
+            "ev_36dae1b811aa138dd20e59c8"
+          ],
+          "key": "react",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "react"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "packages.consumed"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "packages_produced": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_a7643230ca414b8354710afd"
+          ],
+          "key": "scss-site",
+          "rule": "packages.produced",
+          "state": "observed",
+          "value": {
+            "manifest": "package.json",
+            "name": "scss-site",
+            "published": false,
+            "version": null
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "packages.produced"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "resolved_dependencies": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "npm-lock.resolved-version",
+          "pnpm-lock.resolved-version",
+          "yarn-lock.resolved-version"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "runtime_integrations": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "composition"
+        ],
+        "skipped": [],
+        "surface": [
+          "src/Page.tsx"
+        ]
+      },
+      "state": "unknown"
+    },
+    "runtime_requirements": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "runtime.declarations"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "scripts": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.scripts"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "served_origins": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "style_values": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_4bbf75775904a5ff5d91d854"
+          ],
+          "key": "declarations:color",
+          "rule": "design-system.declarations",
+          "state": "observed",
+          "value": {
+            "app": {
+              "neutral": 0,
+              "other_custom_property": 0,
+              "raw": 1,
+              "token": 0,
+              "unparsed": 0,
+              "unresolved": 0
+            },
+            "stories": {
+              "neutral": 0,
+              "other_custom_property": 0,
+              "raw": 0,
+              "token": 0,
+              "unparsed": 0,
+              "unresolved": 0
+            },
+            "tests": {
+              "neutral": 0,
+              "other_custom_property": 0,
+              "raw": 0,
+              "token": 0,
+              "unparsed": 0,
+              "unresolved": 0
+            }
+          }
+        },
+        {
+          "evidence": [
+            "ev_051c510a4aa174511a7f12a4"
+          ],
+          "key": "declarations:spacing",
+          "rule": "design-system.declarations",
+          "state": "observed",
+          "value": {
+            "app": {
+              "neutral": 0,
+              "other_custom_property": 0,
+              "raw": 0,
+              "token": 1,
+              "unparsed": 0,
+              "unresolved": 0
+            },
+            "stories": {
+              "neutral": 0,
+              "other_custom_property": 0,
+              "raw": 0,
+              "token": 0,
+              "unparsed": 0,
+              "unresolved": 0
+            },
+            "tests": {
+              "neutral": 0,
+              "other_custom_property": 0,
+              "raw": 0,
+              "token": 0,
+              "unparsed": 0,
+              "unresolved": 0
+            }
+          }
+        },
+        {
+          "evidence": [
+            "ev_e490b1f75e62bcdf8fada552"
+          ],
+          "key": "summary:salt",
+          "rule": "design-system.summary",
+          "state": "observed",
+          "value": {
+            "app": {
+              "token_capable": 2,
+              "token_share": 50,
+              "tokenized": 1
+            },
+            "stories": {
+              "token_capable": 0,
+              "tokenized": 0
+            },
+            "tests": {
+              "token_capable": 0,
+              "tokenized": 0
+            }
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "design-system.usage"
+        ],
+        "skipped": [
+          "src/theme.scss"
+        ],
+        "surface": [
+          "src/Page.tsx",
+          "src/app.css",
+          "src/theme.scss"
+        ]
+      },
+      "state": "observed"
+    },
+    "submodules": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.gitlink"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    },
+    "test_frameworks": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "config.tool-file",
+          "manifest.tool-dependency"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "test_substitutes": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "substitutes.search"
+        ],
+        "skipped": [],
+        "surface": [
+          "src/Page.tsx"
+        ]
+      },
+      "state": "absent"
+    },
+    "ui_elements": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_6cef031432973b8a80b43a01"
+          ],
+          "key": "component:salt:Text",
+          "rule": "design-system.elements",
+          "state": "observed",
+          "value": {
+            "app": {
+              "as_is": 1,
+              "customized": 0,
+              "mechanisms": {
+                "class_name": 0,
+                "css": 0,
+                "style": 0,
+                "styled": 0,
+                "sx": 0
+              },
+              "sites": 1,
+              "styles": {
+                "partial": 0,
+                "resolved": 0,
+                "unresolved": 0
+              },
+              "unknown": 0
+            },
+            "package": "@salt-ds/core",
+            "stories": {
+              "as_is": 0,
+              "customized": 0,
+              "mechanisms": {
+                "class_name": 0,
+                "css": 0,
+                "style": 0,
+                "styled": 0,
+                "sx": 0
+              },
+              "sites": 0,
+              "styles": {
+                "partial": 0,
+                "resolved": 0,
+                "unresolved": 0
+              },
+              "unknown": 0
+            },
+            "tests": {
+              "as_is": 0,
+              "customized": 0,
+              "mechanisms": {
+                "class_name": 0,
+                "css": 0,
+                "style": 0,
+                "styled": 0,
+                "sx": 0
+              },
+              "sites": 0,
+              "styles": {
+                "partial": 0,
+                "resolved": 0,
+                "unresolved": 0
+              },
+              "unknown": 0
+            }
+          }
+        },
+        {
+          "evidence": [
+            "ev_fd2a48b71b02cae7d83ea02b"
+          ],
+          "key": "intrinsic:main",
+          "rule": "design-system.elements",
+          "state": "observed",
+          "value": {
+            "app": {
+              "custom_styled": 1,
+              "sites": 1,
+              "styled": 1,
+              "styled_unresolved": 0,
+              "unstyled": 0
+            },
+            "equivalent": null,
+            "group": "neutral",
+            "stories": {
+              "custom_styled": 0,
+              "sites": 0,
+              "styled": 0,
+              "styled_unresolved": 0,
+              "unstyled": 0
+            },
+            "tests": {
+              "custom_styled": 0,
+              "sites": 0,
+              "styled": 0,
+              "styled_unresolved": 0,
+              "unstyled": 0
+            }
+          }
+        },
+        {
+          "evidence": [
+            "ev_69f567b26569e7bb7436e661"
+          ],
+          "key": "summary:salt",
+          "rule": "design-system.summary",
+          "state": "observed",
+          "value": {
+            "app": {
+              "adoption_share": 100,
+              "customized_share": 0,
+              "design_system": 1,
+              "elements": 2
+            },
+            "stories": {
+              "design_system": 0,
+              "elements": 0
+            },
+            "tests": {
+              "design_system": 0,
+              "elements": 0
+            }
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "design-system.usage"
+        ],
+        "skipped": [
+          "src/theme.scss"
+        ],
+        "surface": [
+          "src/Page.tsx",
+          "src/app.css",
+          "src/theme.scss"
+        ]
+      },
+      "state": "observed"
+    },
+    "verification_commands": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "ci.verification-commands"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "workspaces": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.workspaces",
+          "pnpm-workspace.packages"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    }
+  },
+  "commit": null,
+  "detector_release": "golden",
+  "diagnostics": [
+    {
+      "detail": "SCSS stylesheet is recognized but not analyzed by this detector release",
+      "detector": "inventory",
+      "path": "src/theme.scss",
+      "reason": "unsupported_input"
+    }
+  ],
+  "evidence": {
+    "ev_051c510a4aa174511a7f12a4": {
+      "commit": null,
+      "content_digest": "a16c81f9a1a4cde97bd82d12251114d497faad8cfa79cf1126ed29b62e84d99f",
+      "detector": "design-system.usage",
+      "excerpt_digest": "f607d3adbcbf93d3588ce32977aac42099523c59a35c19fc14314bdfbcfa98ce",
+      "id": "ev_051c510a4aa174511a7f12a4",
+      "location": {
+        "end": 2,
+        "kind": "lines",
+        "start": 2
+      },
+      "object_id": "81d9ccece868009cc3bc5d5b7b4d60543f993e01",
+      "path": "src/app.css",
+      "rule": "design-system.declarations"
+    },
+    "ev_0cb46b757016923b7e43a8f7": {
+      "commit": null,
+      "content_digest": "8e51a3a22b37497a462990e9a2a3ca9fd1407ff1731ea9ffbda78f273e13874b",
+      "detector": "inventory",
+      "excerpt_digest": "8e51a3a22b37497a462990e9a2a3ca9fd1407ff1731ea9ffbda78f273e13874b",
+      "id": "ev_0cb46b757016923b7e43a8f7",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "81d9ccece868009cc3bc5d5b7b4d60543f993e01",
+      "path": "src/app.css",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_0fc41e2af987dfb9f350eaba": {
+      "commit": null,
+      "content_digest": "f3f4fcfacd4814437bebb7ec3c00541cefa45ec18141a19215680434dce303f6",
+      "detector": "inventory",
+      "excerpt_digest": "f3f4fcfacd4814437bebb7ec3c00541cefa45ec18141a19215680434dce303f6",
+      "id": "ev_0fc41e2af987dfb9f350eaba",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "99ffbb5902e99201a4eefb264ba90241b94dcbbc",
+      "path": "package.json",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_1063ed0efe9c0751b1b2f1ae": {
+      "commit": null,
+      "content_digest": "62b5c646a458b0b5c3ecc5007ef7267e95e4e68c0b4cbf28ca1782f394998be2",
+      "detector": "package-metadata",
+      "excerpt_digest": "4432fe1325bcd7918b7ce08a089e63116c6bef0a37173a57b89ab7a038b5f484",
+      "id": "ev_1063ed0efe9c0751b1b2f1ae",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/react"
+      },
+      "object_id": "99ffbb5902e99201a4eefb264ba90241b94dcbbc",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_2e5a07aeea18d414645ee8ce": {
+      "commit": null,
+      "content_digest": "62b5c646a458b0b5c3ecc5007ef7267e95e4e68c0b4cbf28ca1782f394998be2",
+      "detector": "design-system.recognize",
+      "excerpt_digest": "0ff8c980bd6fbd5d1f2953705e71c535d4ba4e4bac6722886d2b1ebca1b19aba",
+      "id": "ev_2e5a07aeea18d414645ee8ce",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/@salt-ds~1core"
+      },
+      "object_id": "99ffbb5902e99201a4eefb264ba90241b94dcbbc",
+      "path": "package.json",
+      "rule": "design-system.recognize"
+    },
+    "ev_36dae1b811aa138dd20e59c8": {
+      "commit": null,
+      "content_digest": "62b5c646a458b0b5c3ecc5007ef7267e95e4e68c0b4cbf28ca1782f394998be2",
+      "detector": "package-relations",
+      "excerpt_digest": "4432fe1325bcd7918b7ce08a089e63116c6bef0a37173a57b89ab7a038b5f484",
+      "id": "ev_36dae1b811aa138dd20e59c8",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/react"
+      },
+      "object_id": "99ffbb5902e99201a4eefb264ba90241b94dcbbc",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
+    "ev_3ec2d18a49558063e6aeddcd": {
+      "commit": null,
+      "content_digest": "c08822aef94410b8022c52a8202cb94c4e1e676cd1ea1178b4b5962d0fb08a57",
+      "detector": "design-system.recognize",
+      "excerpt_digest": "81a4d93079408e5bafe33e4973d6407a31c09ec17bf3397d4ef51a11007c3967",
+      "id": "ev_3ec2d18a49558063e6aeddcd",
+      "location": {
+        "end": 1,
+        "kind": "lines",
+        "start": 1
+      },
+      "object_id": "1926f42d9997d8ea12dde7659c399ae14ddcb801",
+      "path": "src/Page.tsx",
+      "rule": "design-system.recognize"
+    },
+    "ev_4bbf75775904a5ff5d91d854": {
+      "commit": null,
+      "content_digest": "a16c81f9a1a4cde97bd82d12251114d497faad8cfa79cf1126ed29b62e84d99f",
+      "detector": "design-system.usage",
+      "excerpt_digest": "edbd6fcdedbd0b0e078964827780e46571c3a65dc46ceee69f8cedbd6b4a480e",
+      "id": "ev_4bbf75775904a5ff5d91d854",
+      "location": {
+        "end": 3,
+        "kind": "lines",
+        "start": 3
+      },
+      "object_id": "81d9ccece868009cc3bc5d5b7b4d60543f993e01",
+      "path": "src/app.css",
+      "rule": "design-system.declarations"
+    },
+    "ev_5167560a1e4a6afa3d5ca6ef": {
+      "commit": null,
+      "content_digest": "62b5c646a458b0b5c3ecc5007ef7267e95e4e68c0b4cbf28ca1782f394998be2",
+      "detector": "tooling",
+      "excerpt_digest": "4432fe1325bcd7918b7ce08a089e63116c6bef0a37173a57b89ab7a038b5f484",
+      "id": "ev_5167560a1e4a6afa3d5ca6ef",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/react"
+      },
+      "object_id": "99ffbb5902e99201a4eefb264ba90241b94dcbbc",
+      "path": "package.json",
+      "rule": "manifest.framework"
+    },
+    "ev_69f567b26569e7bb7436e661": {
+      "commit": null,
+      "content_digest": "c08822aef94410b8022c52a8202cb94c4e1e676cd1ea1178b4b5962d0fb08a57",
+      "detector": "design-system.usage",
+      "excerpt_digest": "de3525e9bdab1d9aba28edeca7065870f5c4fafdd8f4ff869ebe82f437f82c3b",
+      "id": "ev_69f567b26569e7bb7436e661",
+      "location": {
+        "end": 7,
+        "kind": "lines",
+        "start": 7
+      },
+      "object_id": "1926f42d9997d8ea12dde7659c399ae14ddcb801",
+      "path": "src/Page.tsx",
+      "rule": "design-system.summary"
+    },
+    "ev_6cef031432973b8a80b43a01": {
+      "commit": null,
+      "content_digest": "c08822aef94410b8022c52a8202cb94c4e1e676cd1ea1178b4b5962d0fb08a57",
+      "detector": "design-system.usage",
+      "excerpt_digest": "de3525e9bdab1d9aba28edeca7065870f5c4fafdd8f4ff869ebe82f437f82c3b",
+      "id": "ev_6cef031432973b8a80b43a01",
+      "location": {
+        "end": 7,
+        "kind": "lines",
+        "start": 7
+      },
+      "object_id": "1926f42d9997d8ea12dde7659c399ae14ddcb801",
+      "path": "src/Page.tsx",
+      "rule": "design-system.elements"
+    },
+    "ev_74ec4aa0b0e8038e3be8bf99": {
+      "commit": null,
+      "content_digest": "62b5c646a458b0b5c3ecc5007ef7267e95e4e68c0b4cbf28ca1782f394998be2",
+      "detector": "package-metadata",
+      "excerpt_digest": "4c2394f604c4964abe05bb7153ca39390135d6a0b7057c15f5bb8d2c77611bb7",
+      "id": "ev_74ec4aa0b0e8038e3be8bf99",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/name"
+      },
+      "object_id": "99ffbb5902e99201a4eefb264ba90241b94dcbbc",
+      "path": "package.json",
+      "rule": "manifest.identity"
+    },
+    "ev_76eb56b917c1fb97e8b955e8": {
+      "commit": null,
+      "content_digest": "d97c33269bd71ca7f23749943bb42f389ebf4a0c15cb0358c81f23fefaaf6b93",
+      "detector": "inventory",
+      "excerpt_digest": "d97c33269bd71ca7f23749943bb42f389ebf4a0c15cb0358c81f23fefaaf6b93",
+      "id": "ev_76eb56b917c1fb97e8b955e8",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "1926f42d9997d8ea12dde7659c399ae14ddcb801",
+      "path": "src/Page.tsx",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_8cf60e4c20394124253274c5": {
+      "commit": null,
+      "content_digest": "62b5c646a458b0b5c3ecc5007ef7267e95e4e68c0b4cbf28ca1782f394998be2",
+      "detector": "package-relations",
+      "excerpt_digest": "0ff8c980bd6fbd5d1f2953705e71c535d4ba4e4bac6722886d2b1ebca1b19aba",
+      "id": "ev_8cf60e4c20394124253274c5",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/@salt-ds~1core"
+      },
+      "object_id": "99ffbb5902e99201a4eefb264ba90241b94dcbbc",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
+    "ev_a7643230ca414b8354710afd": {
+      "commit": null,
+      "content_digest": "62b5c646a458b0b5c3ecc5007ef7267e95e4e68c0b4cbf28ca1782f394998be2",
+      "detector": "package-relations",
+      "excerpt_digest": "4c2394f604c4964abe05bb7153ca39390135d6a0b7057c15f5bb8d2c77611bb7",
+      "id": "ev_a7643230ca414b8354710afd",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/name"
+      },
+      "object_id": "99ffbb5902e99201a4eefb264ba90241b94dcbbc",
+      "path": "package.json",
+      "rule": "packages.produced"
+    },
+    "ev_c79a25e7a0570bbe9afe970e": {
+      "commit": null,
+      "content_digest": "62b5c646a458b0b5c3ecc5007ef7267e95e4e68c0b4cbf28ca1782f394998be2",
+      "detector": "package-metadata",
+      "excerpt_digest": "0ff8c980bd6fbd5d1f2953705e71c535d4ba4e4bac6722886d2b1ebca1b19aba",
+      "id": "ev_c79a25e7a0570bbe9afe970e",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/@salt-ds~1core"
+      },
+      "object_id": "99ffbb5902e99201a4eefb264ba90241b94dcbbc",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_dcacf7cf3f280e134fcaf4e8": {
+      "commit": null,
+      "content_digest": "40c2f0bd1aea605478903900402d816781bc9e53969441e5b3d28f0f537d79a8",
+      "detector": "inventory",
+      "excerpt_digest": "40c2f0bd1aea605478903900402d816781bc9e53969441e5b3d28f0f537d79a8",
+      "id": "ev_dcacf7cf3f280e134fcaf4e8",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "d8bfe59baff1c6f286050ab5a5a806a6032355a5",
+      "path": "src/theme.scss",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_e490b1f75e62bcdf8fada552": {
+      "commit": null,
+      "content_digest": "a16c81f9a1a4cde97bd82d12251114d497faad8cfa79cf1126ed29b62e84d99f",
+      "detector": "design-system.usage",
+      "excerpt_digest": "f607d3adbcbf93d3588ce32977aac42099523c59a35c19fc14314bdfbcfa98ce",
+      "id": "ev_e490b1f75e62bcdf8fada552",
+      "location": {
+        "end": 2,
+        "kind": "lines",
+        "start": 2
+      },
+      "object_id": "81d9ccece868009cc3bc5d5b7b4d60543f993e01",
+      "path": "src/app.css",
+      "rule": "design-system.summary"
+    },
+    "ev_fd2a48b71b02cae7d83ea02b": {
+      "commit": null,
+      "content_digest": "c08822aef94410b8022c52a8202cb94c4e1e676cd1ea1178b4b5962d0fb08a57",
+      "detector": "design-system.usage",
+      "excerpt_digest": "feceeb7177b6ee1e7a546c59a9f24223a126491b830510051602182c3239a5a2",
+      "id": "ev_fd2a48b71b02cae7d83ea02b",
+      "location": {
+        "end": 6,
+        "kind": "lines",
+        "start": 6
+      },
+      "object_id": "1926f42d9997d8ea12dde7659c399ae14ddcb801",
+      "path": "src/Page.tsx",
+      "rule": "design-system.elements"
+    }
+  },
+  "extensions": [],
+  "inventory": {
+    "bytes": 401,
+    "bytes_read": 357,
+    "entries": 5,
+    "executables": 0,
+    "files": 4,
+    "files_read": 3,
+    "gitlinks": 0,
+    "symlinks": 0
+  },
+  "relationship_references": [
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_36dae1b811aa138dd20e59c8"
+      ],
+      "id": "ref_7feb1042963b1be60c179f1d",
+      "identifier": {
+        "name": "react"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_8cf60e4c20394124253274c5"
+      ],
+      "id": "ref_a3f226f9896a1f57b04e6e9d",
+      "identifier": {
+        "name": "@salt-ds/core"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_a7643230ca414b8354710afd"
+      ],
+      "id": "ref_dc52e971248dd7c954c46f19",
+      "identifier": {
+        "name": "scss-site"
+      },
+      "role": "producer",
+      "rule": "packages.produced",
+      "type": "package"
+    }
+  ],
+  "schema": "repo_facts.fact_document",
+  "schema_version": 2,
+  "service_dependencies": []
+}

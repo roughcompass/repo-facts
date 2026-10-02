@@ -13,6 +13,7 @@
     "packages/core",
     "packages/architecture",
     "packages/services",
+    "packages/design-system",
     "packages/bundle"
   ],
   "scripts": {

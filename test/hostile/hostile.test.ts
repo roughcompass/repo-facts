@@ -12,6 +12,7 @@ import vm from "node:vm";
 import worker_threads from "node:worker_threads";
 import { analyze } from "@repo-facts/bundle";
 import { type FactDocument, factDocumentProblems } from "@repo-facts/contract";
+import { type StylesheetResult, parseStylesheet } from "@repo-facts/syntax";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { loadFixture, readerFor } from "../golden/harness.js";
 
@@ -106,6 +107,40 @@ describe("hostile-suite traps", () => {
   });
 });
 
+describe("hostile stylesheets", () => {
+  // Parsed in path order under the traps, so the deep stylesheet comes first and the next one must still parse.
+  const fixture = loadFixture("hostile-repository");
+  const stylesheets = Object.keys(fixture.files).filter((file) => file.endsWith(".css"));
+  const parsed = new Map<string, StylesheetResult>();
+  let attempts: string[] = [];
+
+  beforeAll(() => {
+    const traps = installTraps();
+    try {
+      for (const file of stylesheets) parsed.set(file, parseStylesheet((fixture.files[file] as Buffer).toString("utf8")));
+    } finally {
+      traps.restore();
+    }
+    attempts = traps.attempts;
+  });
+
+  it("skips the stylesheet nested past the depth limit whole, and parses the next", () => {
+    expect(stylesheets).toEqual(["src/styles/deep.css", "src/styles/remote.css"]);
+    const deep = parsed.get("src/styles/deep.css")!;
+    expect(deep.ok).toBe(false);
+    expect(!deep.ok && deep.failure.reason).toBe("stylesheet_depth_limit");
+    expect(parsed.get("src/styles/remote.css")!.ok).toBe(true);
+  });
+
+  it("reads imports and url() targets as data, making no request and loading nothing", () => {
+    const remote = parsed.get("src/styles/remote.css")!;
+    if (!remote.ok) throw new Error(remote.failure.reason);
+    expect(remote.stylesheet.imports.map((entry) => entry.url)).toEqual(["https://example.invalid/theme.css", "../payload.js"]);
+    expect(remote.stylesheet.unparsed).toEqual([]);
+    expect(attempts).toEqual([]);
+  });
+});
+
 const prototypes = [Object.prototype, Array.prototype, Function.prototype, String.prototype];
 const shapeOf = () => prototypes.map((prototype) => Object.getOwnPropertyNames(prototype).sort());
 
@@ -192,6 +227,10 @@ describe("hostile repository", () => {
 
   it("bounds hostile inputs with diagnostics instead of hanging or guessing", () => {
     const reasons = document.diagnostics.map((diagnostic) => `${diagnostic.path}: ${diagnostic.reason}`);
-    expect(reasons).toEqual(expect.arrayContaining(["src/deep.ts: syntax_depth_limit", expect.stringMatching(/^\.github\/workflows\/bomb\.yml: parse_failed$/), expect.stringMatching(/^public\/deep\.importmap\.json: /)]));
+    expect(reasons).toEqual(expect.arrayContaining(["src/deep.ts: syntax_depth_limit", "src/styles/deep.css: stylesheet_depth_limit", expect.stringMatching(/^\.github\/workflows\/bomb\.yml: parse_failed$/), expect.stringMatching(/^public\/deep\.importmap\.json: /)]));
+    // The deep stylesheet is a skipped input; the next one is parsed and counted.
+    for (const category of ["ui_elements", "style_values"]) expect(document.categories[category]!.search.skipped).toContain("src/styles/deep.css");
+    expect(document.categories.style_values!.search.skipped).not.toContain("src/styles/remote.css");
+    expect(document.categories.style_values!.facts.map((fact) => fact.key)).toEqual(expect.arrayContaining(["declarations:color"]));
   });
 });

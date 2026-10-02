@@ -1,0 +1,27 @@
+{
+  "name": "@repo-facts/design-system",
+  "version": "0.2.0",
+  "description": "Design-system recognition and usage detectors",
+  "license": "UNLICENSED",
+  "type": "module",
+  "engines": {
+    "node": ">=24.0.0"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "dependencies": {
+    "@repo-facts/contract": "0.2.0",
+    "@repo-facts/core": "0.2.0",
+    "@repo-facts/syntax": "0.2.0",
+    "typescript": "6.0.3",
+    "zod": "4.6.5"
+  }
+}

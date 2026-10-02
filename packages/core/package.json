@@ -1,6 +1,6 @@
 {
   "name": "@repo-facts/core",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Inventory, manifest, tooling, runtime, lockfile, and CI detectors",
   "license": "UNLICENSED",
   "type": "module",
@@ -18,7 +18,7 @@
   ],
   "sideEffects": false,
   "dependencies": {
-    "@repo-facts/contract": "0.1.0",
+    "@repo-facts/contract": "0.2.0",
     "semver": "7.8.5"
   }
 }

@@ -1,0 +1,17 @@
+/*
+ * Every reference here is data. Following an import, fetching a url(), loading
+ * a font, or evaluating an expression would make a request or load the
+ * sentinel payload beside this file.
+ */
+@import url("https://example.invalid/theme.css");
+@import "../payload.js";
+@font-face {
+  font-family: Trap;
+  src: url("https://example.invalid/trap.woff2") format("woff2");
+}
+.trap {
+  background: url(http://trap.invalid/pixel.png);
+  behavior: url(../payload.js);
+  -moz-binding: url("http://trap.invalid/binding.xml#trap");
+  width: expression(fetch("http://trap.invalid/expression"));
+}

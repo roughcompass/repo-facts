@@ -116,6 +116,22 @@
       },
       "state": "observed"
     },
+    "design_systems": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "design-system.recognize"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json",
+          "src/App.js",
+          "src/runtime.js"
+        ]
+      },
+      "state": "absent"
+    },
     "egress_routes": {
       "facts": [],
       "search": {
@@ -431,6 +447,21 @@
       },
       "state": "unknown"
     },
+    "style_values": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "design-system.usage"
+        ],
+        "skipped": [],
+        "surface": [
+          "src/App.js",
+          "src/runtime.js"
+        ]
+      },
+      "state": "absent"
+    },
     "submodules": {
       "facts": [],
       "search": {
@@ -464,6 +495,21 @@
         "complete": true,
         "rules": [
           "substitutes.search"
+        ],
+        "skipped": [],
+        "surface": [
+          "src/App.js",
+          "src/runtime.js"
+        ]
+      },
+      "state": "absent"
+    },
+    "ui_elements": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "design-system.usage"
         ],
         "skipped": [],
         "surface": [
@@ -792,6 +838,6 @@
     }
   ],
   "schema": "repo_facts.fact_document",
-  "schema_version": 1,
+  "schema_version": 2,
   "service_dependencies": []
 }

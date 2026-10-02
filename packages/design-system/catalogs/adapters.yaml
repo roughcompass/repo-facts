@@ -1,0 +1,61 @@
+# Styling-library adapters, and other UI libraries. See docs/design-system-catalogs.md.
+#
+# Roles:
+# - class_composer: a call whose arguments are class names, such as clsx("a", on && "b")
+# - styled_factory: makes a component from another one, such as styled(Button)`...`
+# - style_factory: a tagged template or object of styles, such as css`...`
+# `default` names the default export.
+format: 1
+version: 1.0.0
+adapters:
+  - module: "@emotion/css"
+    exports:
+      - { name: css, role: style_factory }
+      - { name: cx, role: class_composer }
+  - module: "@emotion/react"
+    exports:
+      - { name: css, role: style_factory }
+  - module: "@emotion/styled"
+    exports:
+      - { name: default, role: styled_factory }
+  - module: class-variance-authority
+    exports:
+      - { name: cva, role: class_composer }
+      - { name: cx, role: class_composer }
+  - module: classnames
+    exports:
+      - { name: default, role: class_composer }
+  - module: clsx
+    exports:
+      - { name: clsx, role: class_composer }
+      - { name: default, role: class_composer }
+  - module: styled-components
+    exports:
+      - { name: css, role: style_factory }
+      - { name: default, role: styled_factory }
+      - { name: styled, role: styled_factory }
+  - module: tailwind-merge
+    exports:
+      - { name: twJoin, role: class_composer }
+      - { name: twMerge, role: class_composer }
+# Component libraries other than the cataloged design systems. A tag imported
+# from one of these packages, or a subpath of one, is counted by package.
+ui_libraries:
+  - "@ariakit/react"
+  - "@blueprintjs/core"
+  - "@carbon/react"
+  - "@chakra-ui/react"
+  - "@fluentui/react"
+  - "@fluentui/react-components"
+  - "@headlessui/react"
+  - "@mantine/core"
+  - "@mui/joy"
+  - "@mui/material"
+  - "@radix-ui/themes"
+  - "@react-spectrum/provider"
+  - antd
+  - primereact
+  - react-aria-components
+  - react-bootstrap
+  - reactstrap
+  - semantic-ui-react

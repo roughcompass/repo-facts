@@ -111,6 +111,8 @@ export const SKIPPED_INPUT_REASONS: ReadonlySet<string> = new Set([
   "syntax_error",
   "syntax_node_limit",
   "syntax_depth_limit",
+  "stylesheet_node_limit",
+  "stylesheet_depth_limit",
   "unsupported_shape",
   "unsupported_input",
   "unsupported_version",

@@ -117,3 +117,38 @@ Rules are data. Identifiers must be plain names, module names must be package na
 - undefined captures in conditions
 - duplicate rule ids
 - unknown or cyclic `instanceOf` targets
+
+## Beyond rules: tags and stylesheets
+
+Counting JSX elements and reading stylesheets aren't declarative patterns, so detector code does them, using these syntax-layer functions. They follow the engine's conservative rules: bindings are tracked per file, nothing is followed into another file, and anything uncertain is reported as unresolved rather than guessed.
+
+### Tag resolution
+
+`resolveTag(tree, tagName)` says what a JSX tag refers to, within its file:
+
+| Kind | When |
+| --- | --- |
+| `intrinsic` | The tag is lowercase, dashed, or namespaced, such as `div`, `my-element`, or `svg:path`. JSX treats these as strings, so a binding with the same name doesn't change them. |
+| `module` | The tag is bound by an import or `require()`. It carries the module and the member path inside it. |
+| `local` | The tag is bound in the file another way, such as by a function or a `const`. It carries the binding. |
+| `unbound` | The tag isn't bound in the file. |
+| `unresolved` | The name is bound more than once, or the tag is computed, such as `this.Slot`. |
+
+`resolveReference(tree, expression)` resolves any identifier or member access the same way, as a value rather than a tag, so a lowercase callee such as `clsx` resolves through its import. Imports and `require()` resolve exactly as a rule's `module` callee does, through the same code. `<SaltButton>` after `import { Button as SaltButton } from "@salt-ds/core"` and `<Salt.Button>` after `import * as Salt from "@salt-ds/core"` both resolve to the module `@salt-ds/core` with the member path `Button`. A default import has an empty member path. A component imported from another file of the repository resolves to its relative specifier and is never opened.
+
+`styledWrapperOf(tree, binding, factories)` says when a binding is a styled wrapper: bound once, by `const`, to a call of one of the given factories. The factories are data, each a module and an export's member path, so the function names no library. It recognizes ``styled(Button)`...` ``, `styled(Button)({...})`, ``styled.div`...` ``, and `styled("div")({...})`, and looks through `.attrs()` and `.withConfig()`. It returns the factory, the target, and the body:
+- The target is `intrinsic` for `styled.div` and `styled("div")`. Otherwise it's the wrapped reference, resolved like a tag.
+- The body is the tagged template, or the arguments of the object call.
+
+### Stylesheets
+
+`parseStylesheet(text, options)` parses CSS only, following CSS Syntax Level 3. `tokenize(text)` is its tokenizer. The result holds:
+- rules and at-rules, including native nesting
+- declarations, each with its property, its value as component values, its text, and its `!important` flag
+- selectors, split into compound selectors with their type, classes, ids, attributes, pseudo-classes, pseudo-elements, and the classes inside arguments such as `:is()` and `:not()`
+- `imports`, the `@import` URLs as written
+- `unparsed`, the declarations the CSS syntax rules discard as invalid, counted rather than guessed
+
+A `var()` reference is a function value named `var`. The `declarations` mode parses a declaration list, such as a styled-components template body. `walkStylesheet(nodes, visit)` visits every rule and at-rule without recursion, with its ancestors.
+
+`@import` and `url()` are recorded as data and never followed, so nothing is fetched, loaded, or evaluated. A stylesheet with more than `STYLESHEET_NODE_LIMIT` tokens and nodes, or nested deeper than `STYLESHEET_DEPTH_LIMIT` blocks, fails whole with `stylesheet_node_limit` or `stylesheet_depth_limit`. It is never partly read. `STYLESHEET_PARSER` names the parser and its version for the detector configuration, as `SYNTAX_PARSER` does for the TypeScript parser.

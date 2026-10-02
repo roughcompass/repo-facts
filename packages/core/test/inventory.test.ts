@@ -28,17 +28,22 @@ const REPOSITORY: FileTree = {
   "src/util.ts": "export {};\n",
   "src/legacy.js": "module.exports = {};\n",
   "src/styles.css": "body {}\n",
+  "src/App.module.css": ".app {}\n",
   "README.md": "# Orders\n",
   // Recognized, but not analyzed by this release.
   "bun.lockb": Buffer.from([0x00, 0x01, 0x02]),
   ".circleci/config.yml": "version: 2.1\n",
   "azure-pipelines.yml": "trigger: [main]\n",
+  "src/theme.scss": "$accent: red;\n",
+  "src/legacy.sass": "body\n  margin: 0\n",
+  "src/old.less": "@accent: red;\n",
   // Never read.
   ".npmrc": "//registry.example.test/:_authToken=secret-value\n",
   ".env.production": "API_TOKEN=secret-value\n",
   // Vendored code is not the repository's own input.
   "node_modules/left-pad/package.json": '{ "name": "left-pad" }\n',
   "node_modules/left-pad/index.js": "module.exports = 1;\n",
+  "node_modules/@salt-ds/theme/index.css": ":root {}\n",
 };
 
 describe("inventory", () => {
@@ -86,8 +91,13 @@ describe("inventory", () => {
       "pnpm-lock.yaml": ["lockfile", "pnpm-lock", true, true],
       "pnpm-workspace.yaml": ["workspace", "pnpm-workspace", true, true],
       "scripts/verify.sh": ["verification", "shell", true, null],
+      "src/App.module.css": ["stylesheet", "css-module", true, null],
       "src/api/openapi.yaml": ["contract", "openapi", true, true],
+      "src/legacy.sass": ["stylesheet", "sass", false, null],
+      "src/old.less": ["stylesheet", "less", false, null],
       "src/schema.graphql": ["contract", "graphql-schema", true, true],
+      "src/styles.css": ["stylesheet", "css", true, null],
+      "src/theme.scss": ["stylesheet", "scss", false, null],
       "tsconfig.json": ["config", "tsconfig", true, true],
       "vite.config.ts": ["config", "vite-config", true, true],
       "yarn.lock": ["lockfile", "yarn-lock", true, true],
@@ -99,12 +109,32 @@ describe("inventory", () => {
   it("reports unsupported inputs so dependent categories stay unknown, and never reads sensitive ones", async () => {
     const { document, reader, readable, unanalyzed } = await inventoryRun(REPOSITORY);
     const unsupported = document.diagnostics.filter((diagnostic) => diagnostic.reason === "unsupported_input").map((diagnostic) => diagnostic.path);
-    expect(unsupported).toEqual([".circleci/config.yml", "azure-pipelines.yml", "bun.lockb"]);
+    expect(unsupported).toEqual([".circleci/config.yml", "azure-pipelines.yml", "bun.lockb", "src/legacy.sass", "src/old.less", "src/theme.scss"]);
     expect(unanalyzed).toEqual([".circleci/config.yml", "bun.lockb"]);
     expect(readable).toEqual([".github/workflows/ci.yml", "package-lock.json", "package.json", "packages/ui/package.json", "pnpm-lock.yaml", "yarn.lock"]);
     expect(document.diagnostics.map((diagnostic) => diagnostic.path)).not.toContain(".npmrc");
     expect(reader.diagnostics().map((diagnostic) => diagnostic.path)).not.toContain(".npmrc");
     expect(JSON.stringify(document)).not.toContain("secret-value");
+  });
+
+  it("exposes CSS and CSS modules as stylesheets, and reports SCSS, Sass, and Less as unsupported", async () => {
+    const { document, inventory } = await inventoryRun(REPOSITORY);
+    const stylesheets = inventory.inputs.filter((input) => input.kind === "stylesheet").map((input) => [input.path, input.format, input.supported]);
+    expect(stylesheets).toEqual([
+      ["src/App.module.css", "css-module", true],
+      ["src/legacy.sass", "sass", false],
+      ["src/old.less", "less", false],
+      ["src/styles.css", "css", true],
+      ["src/theme.scss", "scss", false],
+    ]);
+    const diagnostics = document.diagnostics.filter((diagnostic) => diagnostic.path.startsWith("src/") && diagnostic.reason === "unsupported_input");
+    expect(diagnostics.map(({ path, detail }) => [path, detail])).toEqual([
+      ["src/legacy.sass", "Sass stylesheet is recognized but not analyzed by this detector release"],
+      ["src/old.less", "Less stylesheet is recognized but not analyzed by this detector release"],
+      ["src/theme.scss", "SCSS stylesheet is recognized but not analyzed by this detector release"],
+    ]);
+    // Vendored stylesheets, such as an installed theme, are not the repository's own.
+    expect(inventory.inputs.map((input) => input.path)).not.toContain("node_modules/@salt-ds/theme/index.css");
   });
 
   it("reports language distribution from the tree listing, excluding vendored code", async () => {
@@ -113,11 +143,13 @@ describe("inventory", () => {
     expect(languages.state).toBe("observed");
     const tally = (...paths: string[]) => ({ files: paths.length, bytes: paths.reduce((sum, path) => sum + sizeOf(REPOSITORY[path]!), 0) });
     expect(Object.fromEntries(languages.facts.map((fact) => [fact.key, fact.value]))).toEqual({
-      CSS: tally("src/styles.css"),
+      CSS: tally("src/styles.css", "src/App.module.css"),
       GraphQL: tally("src/schema.graphql"),
       JSON: tally("package.json", "package-lock.json", "packages/ui/package.json", "tsconfig.json"),
       JavaScript: tally("src/legacy.js"),
+      Less: tally("src/old.less"),
       Markdown: tally("README.md"),
+      Sass: tally("src/theme.scss", "src/legacy.sass"),
       Shell: tally("scripts/verify.sh"),
       TypeScript: tally("src/index.tsx", "src/util.ts", "vite.config.ts"),
       YAML: tally("pnpm-workspace.yaml", "pnpm-lock.yaml", ".github/workflows/ci.yml", ".gitlab-ci.yml", "src/api/openapi.yaml", ".circleci/config.yml", "azure-pipelines.yml"),
@@ -203,6 +235,16 @@ describe("path classification", () => {
     ["src/env.ts", null],
     ["certs/ca.pem", "sensitive"],
     [".pem", null],
+    ["src/global.css", "css"],
+    ["src/Theme.CSS", "css"],
+    ["src/Button.module.css", "css-module"],
+    ["src/module.css", "css"],
+    ["src/theme.scss", "scss"],
+    ["src/_mixins.sass", "sass"],
+    ["src/theme.less", "less"],
+    [".css", null],
+    ["node_modules/@salt-ds/theme/index.css", null],
+    ["web/bower_components/legacy/site.scss", null],
   ])("%s is %s", (path, format) => {
     expect(classifyPath(path)?.format ?? null).toBe(format);
   });

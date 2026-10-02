@@ -1,0 +1,3 @@
+{
+  "description": "A Salt application: the theme stylesheet and SaltProvider, CSS modules, styled-components, clsx, a raw <button>, layout-only and custom-styled <div> elements, a token redefinition and alias, a selector into Salt internals, global element rules, a story, and a test. Comments and strings hold JSX and CSS decoys that must not be counted."
+}

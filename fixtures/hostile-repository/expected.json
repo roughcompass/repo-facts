@@ -386,6 +386,37 @@
       },
       "state": "observed"
     },
+    "design_systems": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "design-system.recognize"
+        ],
+        "skipped": [
+          "src/deep.ts",
+          "src/styles/deep.css"
+        ],
+        "surface": [
+          "babel.config.cjs",
+          "eslint.config.js",
+          "jest.config.mjs",
+          "package.json",
+          "packages/plugin/index.js",
+          "packages/plugin/package.json",
+          "src/api.ts",
+          "src/deep.ts",
+          "src/index.ts",
+          "src/payload.cjs",
+          "src/payload.js",
+          "src/styles/deep.css",
+          "src/styles/remote.css",
+          "vite.config.ts",
+          "webpack.config.js"
+        ]
+      },
+      "state": "unknown"
+    },
     "egress_routes": {
       "facts": [
         {
@@ -447,6 +478,19 @@
     },
     "languages": {
       "facts": [
+        {
+          "evidence": [
+            "ev_1420e7a736566ff9199878f7",
+            "ev_5fcbe996dbe3f56381f413cc"
+          ],
+          "key": "CSS",
+          "rule": "inventory.language-by-extension",
+          "state": "observed",
+          "value": {
+            "bytes": 11571,
+            "files": 2
+          }
+        },
         {
           "evidence": [
             "ev_c70efe72f2ae970c3ffab13f"
@@ -952,6 +996,139 @@
       },
       "state": "unknown"
     },
+    "style_values": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_c88d01d744b133c41fe3b879"
+          ],
+          "key": "declarations:color",
+          "rule": "design-system.declarations",
+          "state": "observed",
+          "value": {
+            "app": {
+              "neutral": 1,
+              "other_custom_property": 0,
+              "raw": 0,
+              "token": 0,
+              "unparsed": 0,
+              "unresolved": 0
+            },
+            "stories": {
+              "neutral": 0,
+              "other_custom_property": 0,
+              "raw": 0,
+              "token": 0,
+              "unparsed": 0,
+              "unresolved": 0
+            },
+            "tests": {
+              "neutral": 0,
+              "other_custom_property": 0,
+              "raw": 0,
+              "token": 0,
+              "unparsed": 0,
+              "unresolved": 0
+            }
+          }
+        },
+        {
+          "evidence": [
+            "ev_2388b131011499c54eb3cf03",
+            "ev_a8b1f1fbc29e57afb2dd37a7"
+          ],
+          "key": "declarations:other",
+          "rule": "design-system.declarations",
+          "state": "observed",
+          "value": {
+            "app": {
+              "neutral": 2,
+              "other_custom_property": 0,
+              "raw": 0,
+              "token": 0,
+              "unparsed": 0,
+              "unresolved": 0
+            },
+            "stories": {
+              "neutral": 0,
+              "other_custom_property": 0,
+              "raw": 0,
+              "token": 0,
+              "unparsed": 0,
+              "unresolved": 0
+            },
+            "tests": {
+              "neutral": 0,
+              "other_custom_property": 0,
+              "raw": 0,
+              "token": 0,
+              "unparsed": 0,
+              "unresolved": 0
+            }
+          }
+        },
+        {
+          "evidence": [
+            "ev_7feff742ea67f60d3641e622"
+          ],
+          "key": "declarations:sizing",
+          "rule": "design-system.declarations",
+          "state": "observed",
+          "value": {
+            "app": {
+              "neutral": 1,
+              "other_custom_property": 0,
+              "raw": 0,
+              "token": 0,
+              "unparsed": 0,
+              "unresolved": 0
+            },
+            "stories": {
+              "neutral": 0,
+              "other_custom_property": 0,
+              "raw": 0,
+              "token": 0,
+              "unparsed": 0,
+              "unresolved": 0
+            },
+            "tests": {
+              "neutral": 0,
+              "other_custom_property": 0,
+              "raw": 0,
+              "token": 0,
+              "unparsed": 0,
+              "unresolved": 0
+            }
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "design-system.usage"
+        ],
+        "skipped": [
+          "src/deep.ts",
+          "src/styles/deep.css"
+        ],
+        "surface": [
+          "babel.config.cjs",
+          "eslint.config.js",
+          "jest.config.mjs",
+          "packages/plugin/index.js",
+          "src/api.ts",
+          "src/deep.ts",
+          "src/index.ts",
+          "src/payload.cjs",
+          "src/payload.js",
+          "src/styles/deep.css",
+          "src/styles/remote.css",
+          "vite.config.ts",
+          "webpack.config.js"
+        ]
+      },
+      "state": "observed"
+    },
     "submodules": {
       "facts": [
         {
@@ -1026,6 +1203,35 @@
           "src/index.ts",
           "src/payload.cjs",
           "src/payload.js",
+          "vite.config.ts",
+          "webpack.config.js"
+        ]
+      },
+      "state": "unknown"
+    },
+    "ui_elements": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "design-system.usage"
+        ],
+        "skipped": [
+          "src/deep.ts",
+          "src/styles/deep.css"
+        ],
+        "surface": [
+          "babel.config.cjs",
+          "eslint.config.js",
+          "jest.config.mjs",
+          "packages/plugin/index.js",
+          "src/api.ts",
+          "src/deep.ts",
+          "src/index.ts",
+          "src/payload.cjs",
+          "src/payload.js",
+          "src/styles/deep.css",
+          "src/styles/remote.css",
           "vite.config.ts",
           "webpack.config.js"
         ]
@@ -1191,6 +1397,12 @@
       "detector": "syntax",
       "path": "src/deep.ts",
       "reason": "syntax_depth_limit"
+    },
+    {
+      "detail": "The stylesheet nests more than 64 levels deep",
+      "detector": "syntax",
+      "path": "src/styles/deep.css",
+      "reason": "stylesheet_depth_limit"
     }
   ],
   "evidence": {
@@ -1264,6 +1476,19 @@
       "object_id": "defa51622cb49c4e11f703dcfccb09df864a5399",
       "path": "src/api.ts",
       "rule": "services.fetch"
+    },
+    "ev_1420e7a736566ff9199878f7": {
+      "commit": null,
+      "content_digest": "c1416855e2eb54adc3798091a3eeef79cdd2d4d80e5d334e4a547ba6d39edb66",
+      "detector": "inventory",
+      "excerpt_digest": "c1416855e2eb54adc3798091a3eeef79cdd2d4d80e5d334e4a547ba6d39edb66",
+      "id": "ev_1420e7a736566ff9199878f7",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "2f412fa06caed06b2595b9cfe9edc0a92e78f646",
+      "path": "src/styles/remote.css",
+      "rule": "inventory.language-by-extension"
     },
     "ev_14cf3b03a296a593e9e967bb": {
       "commit": null,
@@ -1367,6 +1592,21 @@
       "object_id": "1ec517ff2f7733f165b0f9b76a7222d108f6370c",
       "path": "package.json",
       "rule": "packages.produced"
+    },
+    "ev_2388b131011499c54eb3cf03": {
+      "commit": null,
+      "content_digest": "190fe672f66c8d4a749496410b753a2cfd12ed0ffb5a352919350fbc3db8f8cd",
+      "detector": "design-system.usage",
+      "excerpt_digest": "b714952046b5dafdb85d19608ead904cfc0e1f465d66348383254e4595879294",
+      "id": "ev_2388b131011499c54eb3cf03",
+      "location": {
+        "end": 14,
+        "kind": "lines",
+        "start": 14
+      },
+      "object_id": "2f412fa06caed06b2595b9cfe9edc0a92e78f646",
+      "path": "src/styles/remote.css",
+      "rule": "design-system.declarations"
     },
     "ev_2aa41e230f18b6b3647e6e17": {
       "commit": null,
@@ -1626,6 +1866,19 @@
       "path": "package.json",
       "rule": "manifest.scripts"
     },
+    "ev_5fcbe996dbe3f56381f413cc": {
+      "commit": null,
+      "content_digest": "99fdd02184cd6d672064538b759e52a88c6d604ee5508e1342714062a8b2619f",
+      "detector": "inventory",
+      "excerpt_digest": "99fdd02184cd6d672064538b759e52a88c6d604ee5508e1342714062a8b2619f",
+      "id": "ev_5fcbe996dbe3f56381f413cc",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "970d37da76cff052654cd2729d048818dee58f32",
+      "path": "src/styles/deep.css",
+      "rule": "inventory.language-by-extension"
+    },
     "ev_62d4c89f6cff3fd1129bd660": {
       "commit": null,
       "content_digest": "f6258f1ce69506a136d3037e8c5be4134cbd2c59da3320e6fc83a4b4db91c209",
@@ -1765,6 +2018,21 @@
       "object_id": "c6a1f74fa18a2436eb0c519b9ecf2af8f8de4f02",
       "path": "scripts/postinstall.sh",
       "rule": "inventory.language-by-extension"
+    },
+    "ev_7feff742ea67f60d3641e622": {
+      "commit": null,
+      "content_digest": "190fe672f66c8d4a749496410b753a2cfd12ed0ffb5a352919350fbc3db8f8cd",
+      "detector": "design-system.usage",
+      "excerpt_digest": "33bd8fdf57f4f099b0b22178d962502d3ccc0e61111cf9392e08a0f18bf4463d",
+      "id": "ev_7feff742ea67f60d3641e622",
+      "location": {
+        "end": 16,
+        "kind": "lines",
+        "start": 16
+      },
+      "object_id": "2f412fa06caed06b2595b9cfe9edc0a92e78f646",
+      "path": "src/styles/remote.css",
+      "rule": "design-system.declarations"
     },
     "ev_83fef8ed583ece40ecaf6f73": {
       "commit": null,
@@ -1940,6 +2208,21 @@
       "path": "openapi.yaml",
       "rule": "inventory.language-by-extension"
     },
+    "ev_a8b1f1fbc29e57afb2dd37a7": {
+      "commit": null,
+      "content_digest": "190fe672f66c8d4a749496410b753a2cfd12ed0ffb5a352919350fbc3db8f8cd",
+      "detector": "design-system.usage",
+      "excerpt_digest": "ad660dd3defda5ff8273b2d74883f9c668b5985f3b1ac41d5a24e0d1b276872b",
+      "id": "ev_a8b1f1fbc29e57afb2dd37a7",
+      "location": {
+        "end": 15,
+        "kind": "lines",
+        "start": 15
+      },
+      "object_id": "2f412fa06caed06b2595b9cfe9edc0a92e78f646",
+      "path": "src/styles/remote.css",
+      "rule": "design-system.declarations"
+    },
     "ev_a8db2747a5693a8c433b52d8": {
       "commit": null,
       "content_digest": "f109013b0f83e23db4ec3a1f6bb07bb4908669e843adeb04b0738ca6c7a6486b",
@@ -2055,6 +2338,21 @@
       "object_id": "455beb60a94c63149126cb266e0dcb5e6f98dbdb",
       "path": "public/index.html",
       "rule": "inventory.language-by-extension"
+    },
+    "ev_c88d01d744b133c41fe3b879": {
+      "commit": null,
+      "content_digest": "190fe672f66c8d4a749496410b753a2cfd12ed0ffb5a352919350fbc3db8f8cd",
+      "detector": "design-system.usage",
+      "excerpt_digest": "5e45bdf4787cbd6f2e3fc13a2a1088e8c5504e7e4c1ba42a44e04a0c937c9e06",
+      "id": "ev_c88d01d744b133c41fe3b879",
+      "location": {
+        "end": 13,
+        "kind": "lines",
+        "start": 13
+      },
+      "object_id": "2f412fa06caed06b2595b9cfe9edc0a92e78f646",
+      "path": "src/styles/remote.css",
+      "rule": "design-system.declarations"
     },
     "ev_d0f2f7bfaf9505ffdd8ebe4f": {
       "commit": null,
@@ -2201,12 +2499,12 @@
   },
   "extensions": [],
   "inventory": {
-    "bytes": 22185,
-    "bytes_read": 21889,
-    "entries": 36,
+    "bytes": 33756,
+    "bytes_read": 33460,
+    "entries": 39,
     "executables": 1,
-    "files": 26,
-    "files_read": 22,
+    "files": 28,
+    "files_read": 24,
     "gitlinks": 1,
     "symlinks": 1
   },
@@ -2413,7 +2711,7 @@
     }
   ],
   "schema": "repo_facts.fact_document",
-  "schema_version": 1,
+  "schema_version": 2,
   "service_dependencies": [
     {
       "access": {

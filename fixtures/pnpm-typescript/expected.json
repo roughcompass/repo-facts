@@ -180,6 +180,26 @@
       },
       "state": "observed"
     },
+    "design_systems": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "design-system.recognize"
+        ],
+        "skipped": [],
+        "surface": [
+          "apps/web/package.json",
+          "apps/web/src/main.ts",
+          "libs/deprecated/package.json",
+          "libs/ui/core/package.json",
+          "package.json",
+          "vite.config.ts",
+          "vitest.config.ts"
+        ]
+      },
+      "state": "absent"
+    },
     "egress_routes": {
       "facts": [],
       "search": {
@@ -715,6 +735,22 @@
       },
       "state": "unknown"
     },
+    "style_values": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "design-system.usage"
+        ],
+        "skipped": [],
+        "surface": [
+          "apps/web/src/main.ts",
+          "vite.config.ts",
+          "vitest.config.ts"
+        ]
+      },
+      "state": "absent"
+    },
     "submodules": {
       "facts": [],
       "search": {
@@ -765,6 +801,22 @@
         "complete": true,
         "rules": [
           "substitutes.search"
+        ],
+        "skipped": [],
+        "surface": [
+          "apps/web/src/main.ts",
+          "vite.config.ts",
+          "vitest.config.ts"
+        ]
+      },
+      "state": "absent"
+    },
+    "ui_elements": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "design-system.usage"
         ],
         "skipped": [],
         "surface": [
@@ -1693,6 +1745,6 @@
     }
   ],
   "schema": "repo_facts.fact_document",
-  "schema_version": 1,
+  "schema_version": 2,
   "service_dependencies": []
 }

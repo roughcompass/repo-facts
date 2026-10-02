@@ -1,6 +1,6 @@
 # Detector Contract
 
-This contract governs how detectors turn one snapshot or working tree into a fact document. It is version 1 of the contract and of the fact document schema, `repo_facts.fact_document`. The types live in [`packages/contract/src/detectors/contract.ts`](../packages/contract/src/detectors/contract.ts), and the schema lives in [`packages/contract/src/facts/schema.ts`](../packages/contract/src/facts/schema.ts). Detectors read content only through a reader; see [source-reader.md](source-reader.md).
+This contract governs how detectors turn one snapshot or working tree into a fact document. It is version 1 of the detector contract and version 2 of the fact document schema, `repo_facts.fact_document`. The types live in [`packages/contract/src/detectors/contract.ts`](../packages/contract/src/detectors/contract.ts), and the schema lives in [`packages/contract/src/facts/schema.ts`](../packages/contract/src/facts/schema.ts). Detectors read content only through a reader; see [source-reader.md](source-reader.md).
 
 ## What a detector is
 
@@ -22,9 +22,9 @@ Patterns use a closed syntax: an exact path, `**/name` for that file name at any
 `runDetectors` ([`packages/contract/src/detectors/run.ts`](../packages/contract/src/detectors/run.ts)) runs the stages in order. Detectors within a stage run in bundle order.
 
 1. `inventory`: manifests, lockfiles, CI files, runtime declarations, configuration names, and language distribution
-2. `parse`: JSON, YAML, lockfiles, and parse-only JavaScript and TypeScript syntax trees
+2. `parse`: JSON, YAML, lockfiles, and parse-only JavaScript and TypeScript syntax trees and stylesheets
 3. `convention`: package manager, build and test tools, CI system, verification commands, runtime requirements, frameworks, and resolved dependencies
-4. `architecture`: package production and consumption, composition, iframes, and runtime contracts
+4. `architecture`: package production and consumption, composition, iframes, runtime contracts, and then design-system recognition and usage
 5. `services`: Service Dependencies, plus access and testability signals
 
 Service Dependencies run as their own stage so that service detectors can use architecture results. Reconciliation follows the last stage.
@@ -88,7 +88,22 @@ A `ReferenceCandidate` is a typed, evidence-backed pointer to another repository
 
 ## Categories and extensions
 
-The contract owns 23 shared categories (`SHARED_CATEGORIES`), each with a flag saying whether a complete search may conclude it's absent. A product registers extra categories when it runs the bundle, with ids namespaced as `<namespace>.<name>`, such as `web-doctor.routes`. `categoriesFor(extensions)` rejects an un-namespaced id, a duplicate, or an id that collides with a shared one.
+The contract owns 26 shared categories (`SHARED_CATEGORIES`), each with a flag saying whether a complete search may conclude it's absent:
+
+| Group | Categories |
+| --- | --- |
+| Inventory | `languages`, `submodules` |
+| Packages | `package_identity`, `workspaces` |
+| Tooling | `package_managers`, `build_tools`, `test_frameworks` |
+| Verification | `ci_systems`, `scripts`, `verification_commands` |
+| Runtime | `runtime_requirements` |
+| Dependencies | `dependencies`, `resolved_dependencies` |
+| Architecture | `frameworks`, `composition`, `packages_produced`, `packages_consumed`, `served_origins`, `runtime_integrations` |
+| Services | `access_signals`, `egress_routes`, `api_contracts`, `test_substitutes` |
+| Interface | `design_systems`, `ui_elements`, `style_values` |
+
+The Interface categories come from the design-system detectors in `@repo-facts/design-system`, which recognize design systems only through catalogs; see [design-system-catalogs.md](design-system-catalogs.md). `design_systems` reports each design system a repository declares or imports. `ui_elements` counts JSX elements where they're written, by design-system component, intrinsic tag, and customization. `style_values` classifies style declarations by property family and value kind and reports adherence findings. Their counts are split into the `app`, `stories`, and `tests` scopes. Unsupported stylesheets, such as SCSS, are skipped inputs on the surfaces of `ui_elements` and `style_values`.
+ A product registers extra categories when it runs the bundle, with ids namespaced as `<namespace>.<name>`, such as `web-doctor.routes`. `categoriesFor(extensions)` rejects an un-namespaced id, a duplicate, or an id that collides with a shared one.
 
 Every document contains every shared category plus every registered extension, and nothing else. It also lists the extensions it was produced with, including their bounded-negative flags, so any validator can check it without knowing which product produced it. Extension detectors follow this same contract and live in the product that registers them.
 
@@ -125,5 +140,14 @@ A product embeds the fact document unchanged inside its own document and adds on
 ## Determinism and versioning
 
 The fact document is serialized as canonical JSON, with sorted keys and no whitespace, and digested with SHA-256. Reconciliation sorts every list it emits, so neither candidate order nor object key insertion order changes the document. `packages/contract/test/fact-document.test.ts` verifies both properties.
+
+The fact document's `schema_version` changes whenever a document valid under the new version could fail validation under the old one, such as when a shared category is added:
+
+| Version | Change |
+| --- | --- |
+| 1 | The first fact document schema |
+| 2 | Adds the Interface categories `design_systems`, `ui_elements`, and `style_values` |
+
+A consumer validates that a document has exactly the shared categories it knows, so a version 1 consumer rejects a version 2 document cleanly by its version rather than by its unregistered categories.
 
 Change a detector's `version`, and publish a new release, whenever its output could change for the same content. That includes parser upgrades. The release version is recorded in every document's `detector_release`, and earlier documents keep the release that produced them.
