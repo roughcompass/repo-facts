@@ -61,6 +61,19 @@ describe("element facts", () => {
     expect(fact(document, "ui_elements", "intrinsic:div")!.state).toBe("observed");
   });
 
+  it("counts an element a design-system component renders through its render prop as that component, not a raw element", async () => {
+    const document = await profile({
+      "package.json": SALT,
+      "src/Nav.tsx":
+        'import { Link, VerticalNavigationItemTrigger } from "@salt-ds/core";\nexport const N = ({ href }) => (\n  <nav>\n    <VerticalNavigationItemTrigger render={<a href={href} />} />\n    <VerticalNavigationItemTrigger render={(\n      <a href="#b">B</a>\n    )} />\n    <Local render={<a href="#c" />} />\n    <a href="#d">D</a>\n  </nav>\n);\n',
+    });
+    const elements = values(document, "ui_elements");
+    expect(elements["rendered:a"]).toEqual({ components: ["salt:VerticalNavigationItemTrigger"], app: { sites: 2 }, stories: { sites: 0 }, tests: { sites: 0 } });
+    // Only the anchor under a component outside the design system, and the bare one, are raw.
+    expect(elements["intrinsic:a"]).toMatchObject({ group: "equivalent", equivalent: "salt:Link", app: { sites: 2 } });
+    expect(fact(document, "ui_elements", "summary:salt")!.value).toMatchObject({ app: { design_system: 2, adoption_share: 50 } });
+  });
+
   it("reports customized and adoption shares, rounded down, and omits a share with nothing to divide", async () => {
     const buttons = Array.from({ length: 9 }, (_, index) => (index < 3 ? '<Button className="x" />' : "<Button />")).join("");
     const document = await profile({
@@ -103,8 +116,8 @@ describe("style value facts", () => {
     const aliases = fact(document, "style_values", "token-aliases:spacing")!;
     expect(aliases).toMatchObject({ state: "inferred", value: { app: { declarations: 1, aliases: 1 } } });
     expect(aliases.reasoning).toContain("--app-gap, defined as var(--salt-spacing-200) (src/theme.css:3)");
-    // padding (token), margin (alias), color twice (raw), and font (neutral) are token-capable; gap is layout.
-    expect(fact(document, "style_values", "summary:salt")).toMatchObject({ state: "inferred", value: { app: { token_capable: 5, tokenized: 2, token_share: 40 } } });
+    // padding (token), margin (alias), and color twice (raw) are token-capable. font (neutral) needs no token, so it's left out; gap is layout.
+    expect(fact(document, "style_values", "summary:salt")).toMatchObject({ state: "inferred", value: { app: { token_capable: 4, tokenized: 2, token_share: 50 } } });
   });
 
   it("reads inline style objects and styled templates as declarations, with interpolations unresolved", async () => {

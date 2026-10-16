@@ -23,6 +23,8 @@ export const MECHANISMS = ["class_name", "style", "css", "sx", "styled"] as cons
 export type Mechanism = (typeof MECHANISMS)[number];
 
 const ATTRIBUTE_MECHANISMS: Readonly<Record<string, Mechanism>> = { className: "class_name", style: "style", css: "css", sx: "sx" };
+/** The prop through which a design-system component renders a caller's element as its own root, such as Salt's `render`. */
+const RENDER_PROP = "render";
 
 /** A declaration an element applies, as written. */
 export interface AppliedDeclaration {
@@ -52,6 +54,12 @@ export interface ElementRecord {
   classes: readonly AppliedClass[];
   /** Every style source the element applies; empty when it applies none. */
   parts: readonly StylePart[];
+  /**
+   * The design-system component, as `system:Name`, whose `render` prop this
+   * intrinsic element is: the component renders it as its own root, so it is
+   * the component in use rather than a raw element. Null otherwise.
+   */
+  renderedBy: string | null;
 }
 
 export interface WrapperRecord {
@@ -223,7 +231,21 @@ class FileAnalyzer {
         parts.push(expression ? this.inlineStyles(expression, mechanism) : null);
       }
     }
-    this.analysis.elements.push({ element, site: this.site(node), scope: this.scope, mechanisms, spread, classes, parts });
+    const renderedBy = element.kind === "intrinsic" ? this.renderedBy(node) : null;
+    this.analysis.elements.push({ element, site: this.site(node), scope: this.scope, mechanisms, spread, classes, parts, renderedBy });
+  }
+
+  /** The design-system component whose `render` prop +node+ is, such as the `<a>` in `<NavigationItem render={<a href="#" />} />`. */
+  private renderedBy(node: ts.JsxOpeningElement | ts.JsxSelfClosingElement): string | null {
+    let parent: ts.Node = ts.isJsxOpeningElement(node) ? node.parent.parent : node.parent;
+    while (ts.isParenthesizedExpression(parent)) parent = parent.parent;
+    if (!ts.isJsxExpression(parent)) return null;
+    const attribute = parent.parent;
+    if (!ts.isJsxAttribute(attribute) || !ts.isIdentifier(attribute.name) || attribute.name.text !== RENDER_PROP) return null;
+    const owner = attribute.parent.parent;
+    const reference = resolveTag(this.tree, owner.tagName);
+    const component = reference.kind === "module" || (reference.kind === "local" && reference.members.length === 0) ? this.componentOf(reference, 0) : null;
+    return component ? `${component.system}:${component.name}` : null;
   }
 
   private classPart(applied: AppliedClass): StylePart {

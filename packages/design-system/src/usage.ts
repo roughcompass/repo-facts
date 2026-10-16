@@ -125,6 +125,7 @@ function reportElements(context: DetectorContext, files: readonly FileAnalysis[]
   const intrinsic = new Map<string, { group: string; equivalent: string | null; tally: Tally<IntrinsicCounts> }>();
   const layoutOnly = new Map<string, { tally: Tally<{ sites: number }>; declarations: AppliedDeclaration[] }>();
   const libraries = new Map<string, Tally<{ sites: number }>>();
+  const rendered = new Map<string, { components: Set<string>; tally: Tally<{ sites: number }> }>();
   const other = new Tally(counts(["sites"]));
   const summaries = new Map(used.map((catalog) => [catalog.id, new Tally<SummaryCounts>(counts(["elements", "design_system", "customized", "adoptable"]))]));
   const elementsByScope = perScope(() => 0);
@@ -170,6 +171,13 @@ function reportElements(context: DetectorContext, files: readonly FileAnalysis[]
           if (customized) summary.scopes[record.scope].customized++;
           summary.sites.push(record.site);
         }
+      } else if (element.kind === "intrinsic" && record.renderedBy) {
+        // The component renders it as its own root, so it's that component in use, not a raw element.
+        const entry = rendered.get(element.tag) ?? { components: new Set<string>(), tally: new Tally(counts(["sites"])) };
+        rendered.set(element.tag, entry);
+        entry.components.add(record.renderedBy);
+        entry.tally.scopes[record.scope].sites++;
+        entry.tally.sites.push(record.site);
       } else if (element.kind === "intrinsic") {
         const equivalent = equivalentOf(element.tag);
         const group = equivalent ? "equivalent" : primary.neutral_tags.includes(element.tag) ? "neutral" : "other";
@@ -228,6 +236,7 @@ function reportElements(context: DetectorContext, files: readonly FileAnalysis[]
       reasoning: `Each of these <${tag}> elements is styled only with layout declarations, which ${systems.length ? `a ${systems.join(" or ")} layout component` : "a design-system layout component"} could apply instead: ${declarationList(entry.declarations)}.`,
     });
   }
+  for (const [tag, entry] of byKey(rendered)) fact(`rendered:${tag}`, { components: [...entry.components].sort(compareCodeUnits), ...perScopeValue(entry.tally) }, entry.tally.samples());
   for (const [name, tally] of byKey(libraries)) fact(`library:${name}`, perScopeValue(tally), tally.samples());
   if (SCOPES.some((scope) => other.scopes[scope].sites > 0)) fact("other", perScopeValue(other), other.samples());
 
@@ -305,7 +314,8 @@ function reportValues(context: DetectorContext, index: StyleIndex, files: readon
         entry.all.add(name);
       }
     }
-    if (!classifier.isTokenCapable(result.family)) return;
+    // A neutral value, such as `0`, `none`, or `inherit`, needs no token, so it neither raises nor lowers a token share.
+    if (!classifier.isTokenCapable(result.family) || result.resolved === "neutral") return;
     tokenCapable[scope]++;
     capableSites.push(site);
     for (const [system, summary] of summaries) {

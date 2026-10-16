@@ -36,7 +36,7 @@ Facts derived from a catalog name it and its `version`. Change the version whene
 
 Keywords other than color keywords, such as `flex` or `center`, are neutral without being listed. `neutral_values` lists the values that would otherwise count as raw.
 
-The families `color`, `spacing`, `typography`, `border`, and `shadow` are token-capable: their declarations count toward a token share. The `layout` family holds what the design system's layout components apply. A container whose styles are all in `layout` is reported as layout-only, because a layout component could replace it. In the Salt catalog, `gap` is a layout property, since Salt's layouts set gaps.
+The families `color`, `spacing`, `typography`, `border`, and `shadow` are token-capable: their declarations count toward a token share. A declaration whose value is entirely neutral, such as `margin: 0` or `font: inherit`, needs no token, so it's left out of the share. The `layout` family holds what the design system's layout components apply. A container whose styles are all in `layout` is reported as layout-only, because a layout component could replace it. In the Salt catalog, `gap` is a layout property, since Salt's layouts set gaps.
 
 ## Adapter format
 

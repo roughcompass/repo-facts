@@ -913,8 +913,8 @@
           "state": "observed",
           "value": {
             "app": {
-              "token_capable": 8,
-              "token_share": 37,
+              "token_capable": 7,
+              "token_share": 42,
               "tokenized": 3
             },
             "stories": {
