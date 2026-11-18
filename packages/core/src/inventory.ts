@@ -1,10 +1,18 @@
-import { compareCodeUnits, type Detector, type DetectorContext } from "@repo-facts/contract";
+import { compareCodeUnits, type Detector, type DetectorContext, type ReadResult } from "@repo-facts/contract";
 import { type InputKind, classifyPath, goVendorDirectories, isVendored, languageOf } from "./inputs.js";
 
 /**
  * The inventory stage: classifies every committed path, reads the supported
- * inputs later stages parse (so budget use and skips are decided once, in
- * path order), and reports language distribution and submodules.
+ * inputs later stages parse (so budget use and skips are decided once), and
+ * reports language distribution and submodules.
+ *
+ * Inputs are read most decisive first, so a file budget that runs out on a
+ * large repository is spent where it matters: package manifests, workspace
+ * files, and lockfiles; then CI, runtime files, and Makefiles; then tool
+ * configuration and API contracts; then sources and stylesheets, application
+ * code before tests, stories, fixtures, and examples. Within each tier,
+ * shallower paths come first, and each group is read in path order, so the
+ * same tree and budgets always skip the same inputs.
  *
  * Nothing in the inventory is executed or followed. Symbolic links and
  * submodules are recorded as metadata; sensitive inputs are never read.
@@ -37,9 +45,24 @@ export interface Inventory {
   gitlinks: readonly string[];
 }
 
-/** Kinds read during inventory; scripts are read only when a later detector needs them. */
-const PRE_READ: ReadonlySet<InputKind> = new Set(["manifest", "lockfile", "workspace", "ci", "runtime", "config", "contract"]);
+/** The reading tier of each kind read during inventory. Shell scripts are read only when a CI command runs one. */
+const TIERS: ReadonlyMap<InputKind, number> = new Map([
+  ["manifest", 0],
+  ["workspace", 0],
+  ["lockfile", 0],
+  ["ci", 1],
+  ["runtime", 1],
+  ["config", 2],
+  ["contract", 2],
+  ["stylesheet", 3],
+]);
+const MAKEFILE_TIER = 1;
+const SOURCE_TIER = 3;
 const SOURCE_EXTENSIONS = /\.(?:[cm]?[jt]s|[jt]sx)$/;
+/** Directories whose sources support the application rather than being it. */
+const SUPPORTING_DIRECTORIES = new Set(["__tests__", "test", "tests", "spec", "specs", "e2e", "cypress", "playwright", "__mocks__", "mocks", "__fixtures__", "fixtures", "fixture", "stories", "storybook", ".storybook", "examples", "example", "docs", "benchmarks", "bench", "coverage", "dist"]);
+const SUPPORTING_MARKERS = new Set(["test", "spec", "stories", "story", "d"]);
+const ENTRY_STEMS = new Set(["index", "main", "app", "server", "entry", "bootstrap", "root"]);
 const LANGUAGE_SAMPLES = 3;
 
 export const inventoryDetector: Detector = {
@@ -57,8 +80,16 @@ export const inventoryDetector: Detector = {
       return rule ? [{ entry, rule }] : [];
     });
 
-    const toRead = classified.filter(({ entry, rule }) => rule.supported && PRE_READ.has(rule.kind) && entry.type !== "symlink").map(({ entry }) => entry.path);
-    const results = await context.reader.readMany(toRead);
+    const own = entries.filter((entry) => !isVendored(entry.path, vendorDirectories));
+    const sources = own.filter((entry) => (entry.type === "file" || entry.type === "executable") && SOURCE_EXTENSIONS.test(entry.path)).map((entry) => entry.path);
+    const order = new Map<string, number[]>();
+    for (const { entry, rule } of classified) {
+      const tier = rule.format === "makefile" ? MAKEFILE_TIER : TIERS.get(rule.kind);
+      if (!rule.supported || tier === undefined || entry.type === "symlink") continue;
+      order.set(entry.path, tier === SOURCE_TIER ? [tier, ...sourceRank(entry.path)] : [tier, depthOf(entry.path)]);
+    }
+    for (const path of sources) if (!order.has(path)) order.set(path, [SOURCE_TIER, ...sourceRank(path)]);
+    const results = await readInOrder(context, order);
 
     const inputs: InventoryInput[] = classified.map(({ entry, rule }) => {
       const result = results.get(entry.path);
@@ -73,10 +104,9 @@ export const inventoryDetector: Detector = {
       else if (context.reader.entry(input.path)?.type === "symlink") context.diagnostic(input.path, "symlink", `${input.label} is a symbolic link, which is recorded but never followed`);
     }
 
-    const own = entries.filter((entry) => !isVendored(entry.path, vendorDirectories));
     const inventory: Inventory = {
       inputs,
-      sources: own.filter((entry) => (entry.type === "file" || entry.type === "executable") && SOURCE_EXTENSIONS.test(entry.path)).map((entry) => entry.path),
+      sources,
       vendorDirectories,
       executables: entries.filter((entry) => entry.type === "executable").map((entry) => entry.path),
       symlinks: entries.filter((entry) => entry.type === "symlink").map((entry) => entry.path),
@@ -88,6 +118,46 @@ export const inventoryDetector: Detector = {
     reportSubmodules(context);
   },
 };
+
+/**
+ * Reads +order+'s paths in batches, by their keys compared element by element.
+ * The reader spends budgets in path order within a batch, so each batch holds
+ * the paths that share one key.
+ */
+async function readInOrder(context: DetectorContext, order: ReadonlyMap<string, readonly number[]>): Promise<Map<string, ReadResult>> {
+  const batches = new Map<string, { key: readonly number[]; paths: string[] }>();
+  for (const [path, key] of order) {
+    const batch = batches.get(key.join()) ?? { key, paths: [] };
+    batch.paths.push(path);
+    batches.set(key.join(), batch);
+  }
+  const results = new Map<string, ReadResult>();
+  for (const { paths } of [...batches.values()].sort((a, b) => compareKeys(a.key, b.key))) {
+    for (const [path, result] of await context.reader.readMany(paths)) results.set(path, result);
+  }
+  return results;
+}
+
+function compareKeys(a: readonly number[], b: readonly number[]): number {
+  for (let index = 0; index < Math.max(a.length, b.length); index++) {
+    const difference = (a[index] ?? -1) - (b[index] ?? -1);
+    if (difference !== 0) return difference;
+  }
+  return 0;
+}
+
+function depthOf(path: string): number {
+  return path.split("/").length - 1;
+}
+
+/** A source's reading rank: application code before supporting code, then shallower paths, then entry points such as index or main. */
+function sourceRank(path: string): number[] {
+  const segments = path.split("/");
+  const name = segments[segments.length - 1]!;
+  const parts = name.split(".");
+  const supporting = segments.slice(0, -1).some((segment) => SUPPORTING_DIRECTORIES.has(segment)) || parts.slice(1, -1).some((marker) => SUPPORTING_MARKERS.has(marker));
+  return [supporting ? 1 : 0, segments.length - 1, ENTRY_STEMS.has(parts[0]!.toLowerCase()) ? 0 : 1];
+}
 
 export function inventoryOf(context: DetectorContext): Inventory {
   const inventory = context.shared.get(INVENTORY) as Inventory | undefined;

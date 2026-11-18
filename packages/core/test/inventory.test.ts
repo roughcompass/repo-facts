@@ -82,7 +82,7 @@ describe("inventory", () => {
       ".nvmrc": ["runtime", "nvmrc", true, true],
       Dockerfile: ["runtime", "dockerfile", true, true],
       Jenkinsfile: ["ci", "jenkinsfile", true, true],
-      Makefile: ["verification", "makefile", true, null],
+      Makefile: ["verification", "makefile", true, true],
       "azure-pipelines.yml": ["ci", "azure-pipelines", false, null],
       "bun.lockb": ["lockfile", "bun-lock", false, null],
       "package-lock.json": ["lockfile", "npm-lock", true, true],
@@ -91,12 +91,12 @@ describe("inventory", () => {
       "pnpm-lock.yaml": ["lockfile", "pnpm-lock", true, true],
       "pnpm-workspace.yaml": ["workspace", "pnpm-workspace", true, true],
       "scripts/verify.sh": ["verification", "shell", true, null],
-      "src/App.module.css": ["stylesheet", "css-module", true, null],
+      "src/App.module.css": ["stylesheet", "css-module", true, true],
       "src/api/openapi.yaml": ["contract", "openapi", true, true],
       "src/legacy.sass": ["stylesheet", "sass", false, null],
       "src/old.less": ["stylesheet", "less", false, null],
       "src/schema.graphql": ["contract", "graphql-schema", true, true],
-      "src/styles.css": ["stylesheet", "css", true, null],
+      "src/styles.css": ["stylesheet", "css", true, true],
       "src/theme.scss": ["stylesheet", "scss", false, null],
       "tsconfig.json": ["config", "tsconfig", true, true],
       "vite.config.ts": ["config", "vite-config", true, true],
@@ -254,6 +254,47 @@ describe("inventory", () => {
       ["package-lock.json", "blob_too_large"],
       ["package.json", "binary"],
       ["yarn.lock", "symlink"],
+    ]);
+  });
+
+  it("reads the most decisive inputs first when the file budget runs out", async () => {
+    const files: FileTree = {
+      // Sources and configuration sort before the manifests in path order.
+      "a/src/index.ts": "export {};\n",
+      "a/src/App.test.ts": "export {};\n",
+      "a/tsconfig.json": "{}\n",
+      "a/vite.config.ts": "export default {};\n",
+      "app/main.ts": "export {};\n",
+      "app/deep/nested/feature/widget.ts": "export {};\n",
+      "app/__tests__/main.test.ts": "export {};\n",
+      ".github/workflows/ci.yml": "on: push\njobs: {}\n",
+      "eslint.config.js": "export default [];\n",
+      "package.json": '{ "name": "root", "workspaces": ["packages/*"] }\n',
+      "package-lock.json": '{ "lockfileVersion": 3, "packages": {} }\n',
+      "packages/ui/package.json": '{ "name": "ui" }\n',
+      "packages/ui/src/deep/package.json": '{ "name": "fixture" }\n',
+      "zz/package.json": '{ "name": "zz" }\n',
+    };
+    const readOrder = async (maxFiles: number) => {
+      const { reader } = await inventoryRun(files, { ...GENEROUS, maxFiles });
+      return Object.keys(files)
+        .filter((path) => !reader.diagnostics().some((skip) => skip.path === path))
+        .sort();
+    };
+
+    // Manifests and lockfiles, shallowest first, before anything else.
+    expect(await readOrder(4)).toEqual(["package-lock.json", "package.json", "packages/ui/package.json", "zz/package.json"]);
+    expect(await readOrder(5)).toEqual(["package-lock.json", "package.json", "packages/ui/package.json", "packages/ui/src/deep/package.json", "zz/package.json"]);
+    // Then CI, then configuration, shallowest first.
+    expect(await readOrder(7)).toEqual([".github/workflows/ci.yml", "eslint.config.js", "package-lock.json", "package.json", "packages/ui/package.json", "packages/ui/src/deep/package.json", "zz/package.json"]);
+    // Then sources: shallow application code and entry points before tests and deep paths.
+    const withSources = await readOrder(11);
+    expect(withSources.filter((path) => path.endsWith(".ts") && !path.includes("config"))).toEqual(["a/src/index.ts", "app/main.ts"]);
+    const { reader } = await inventoryRun(files, { ...GENEROUS, maxFiles: 11 });
+    expect(reader.diagnostics().map(({ path, reason }) => [path, reason])).toEqual([
+      ["a/src/App.test.ts", "file_budget_exhausted"],
+      ["app/__tests__/main.test.ts", "file_budget_exhausted"],
+      ["app/deep/nested/feature/widget.ts", "file_budget_exhausted"],
     ]);
   });
 

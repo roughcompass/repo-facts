@@ -46,6 +46,15 @@ A lockfile records every installed package, so a large repository's lockfile rou
 
 Rejected and protected paths never appear in `entries`. Sensitive files do appear, so detectors can tell that one exists, but their bytes are never read. Budgets are spent in path order within each batch, and a repeated read returns the cached result without spending budget again. The same tree and the same sequence of reads therefore always skip the same inputs.
 
+The inventory detector makes the reads that spend the budgets, most decisive first, so a budget that runs out on a large repository is spent where it matters:
+
+1. Package manifests, workspace files, and lockfiles
+2. CI definitions, runtime files, and Makefiles
+3. Tool configuration and API contracts
+4. Sources and stylesheets: application code before tests, stories, fixtures, examples, docs, and type declarations, and entry points such as `index` or `main` before other files at the same depth
+
+Within each tier, shallower paths come first, and each group of equal rank is one batch, read in path order. Later detectors read only what the inventory already admitted or skipped, plus shell scripts that a CI command runs and HTML files. Inputs the budget skipped are recorded as skips and land in the `skipped` list of every search whose surface includes them.
+
 ## Evidence identity
 
 Evidence records ([`packages/contract/src/evidence.ts`](../packages/contract/src/evidence.ts)) carry the reader's `commit`, or null for a working tree. They also carry the path and the object id computed from the bytes. They also carry the content digest, the detector and rule, a location (lines, a JSON or YAML pointer, or a tree entry), and a digest of the cited excerpt. `resolveEvidence(reader, evidence)` re-reads the content and refuses a record whose commit, content, or excerpt no longer matches.
