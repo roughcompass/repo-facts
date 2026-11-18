@@ -1,6 +1,6 @@
 import type { Detector } from "@repo-facts/contract";
 import { ciDetector } from "./ci.js";
-import { inventoryDetector } from "./inventory.js";
+import { inventoryDetector, sourceReadsDetector } from "./inventory.js";
 import { npmLockDetector } from "./lockfiles/npm.js";
 import { pnpmLockDetector } from "./lockfiles/pnpm.js";
 import { yarnLockDetector } from "./lockfiles/yarn.js";
@@ -28,4 +28,4 @@ export * from "./unsupported.js";
 export * from "./versions.js";
 
 /** The core detectors, in the order they run within each stage. */
-export const CORE_DETECTORS: readonly Detector[] = [inventoryDetector, manifestsDetector, runtimeFilesDetector, ciDetector, packageMetadataDetector, toolingDetector, runtimeDetector, npmLockDetector, pnpmLockDetector, yarnLockDetector, unsupportedInputsDetector];
+export const CORE_DETECTORS: readonly Detector[] = [inventoryDetector, manifestsDetector, runtimeFilesDetector, ciDetector, packageMetadataDetector, toolingDetector, runtimeDetector, npmLockDetector, pnpmLockDetector, yarnLockDetector, unsupportedInputsDetector, sourceReadsDetector];

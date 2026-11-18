@@ -9,10 +9,12 @@ import { type InputKind, classifyPath, goVendorDirectories, isVendored, language
  * Inputs are read most decisive first, so a file budget that runs out on a
  * large repository is spent where it matters: package manifests, workspace
  * files, and lockfiles; then CI, runtime files, and Makefiles; then tool
- * configuration and API contracts; then sources and stylesheets, application
- * code before tests, stories, fixtures, and examples. Within each tier,
- * shallower paths come first, and each group is read in path order, so the
- * same tree and budgets always skip the same inputs.
+ * configuration and API contracts. The shell scripts CI commands run are read
+ * next, by the CI detector, and then sources and stylesheets, by the
+ * source-reads detector at the end of the convention stage: application code
+ * before tests, stories, fixtures, and examples. Within each tier, shallower
+ * paths come first, and each group is read in path order, so the same tree
+ * and budgets always skip the same inputs.
  *
  * Nothing in the inventory is executed or followed. Symbolic links and
  * submodules are recorded as metadata; sensitive inputs are never read.
@@ -54,10 +56,8 @@ const TIERS: ReadonlyMap<InputKind, number> = new Map([
   ["runtime", 1],
   ["config", 2],
   ["contract", 2],
-  ["stylesheet", 3],
 ]);
 const MAKEFILE_TIER = 1;
-const SOURCE_TIER = 3;
 const SOURCE_EXTENSIONS = /\.(?:[cm]?[jt]s|[jt]sx)$/;
 /** Directories whose sources support the application rather than being it. */
 const SUPPORTING_DIRECTORIES = new Set(["__tests__", "test", "tests", "spec", "specs", "e2e", "cypress", "playwright", "__mocks__", "mocks", "__fixtures__", "fixtures", "fixture", "stories", "storybook", ".storybook", "examples", "example", "docs", "benchmarks", "bench", "coverage", "dist"]);
@@ -86,9 +86,8 @@ export const inventoryDetector: Detector = {
     for (const { entry, rule } of classified) {
       const tier = rule.format === "makefile" ? MAKEFILE_TIER : TIERS.get(rule.kind);
       if (!rule.supported || tier === undefined || entry.type === "symlink") continue;
-      order.set(entry.path, tier === SOURCE_TIER ? [tier, ...sourceRank(entry.path)] : [tier, depthOf(entry.path)]);
+      order.set(entry.path, [tier, depthOf(entry.path)]);
     }
-    for (const path of sources) if (!order.has(path)) order.set(path, [SOURCE_TIER, ...sourceRank(path)]);
     const results = await readInOrder(context, order);
 
     const inputs: InventoryInput[] = classified.map(({ entry, rule }) => {
@@ -158,6 +157,27 @@ function sourceRank(path: string): number[] {
   const supporting = segments.slice(0, -1).some((segment) => SUPPORTING_DIRECTORIES.has(segment)) || parts.slice(1, -1).some((marker) => SUPPORTING_MARKERS.has(marker));
   return [supporting ? 1 : 0, segments.length - 1, ENTRY_STEMS.has(parts[0]!.toLowerCase()) ? 0 : 1];
 }
+
+/**
+ * Reads sources and supported stylesheets in priority order, after the
+ * inventory and the CI detector have read theirs. It reports nothing: the
+ * detectors that parse these files later find them already admitted or
+ * skipped.
+ */
+export const sourceReadsDetector: Detector = {
+  id: "source-reads",
+  version: "1",
+  stage: "convention",
+  inputs: ["**/*.js", "**/*.jsx", "**/*.mjs", "**/*.cjs", "**/*.ts", "**/*.tsx", "**/*.mts", "**/*.cts", "**/*.css", "**/*.scss", "**/*.less"],
+  categories: [],
+  async run(context) {
+    const inventory = inventoryOf(context);
+    const order = new Map<string, number[]>();
+    for (const input of inventory.inputs) if (input.kind === "stylesheet" && input.supported && context.reader.entry(input.path)?.type !== "symlink") order.set(input.path, sourceRank(input.path));
+    for (const path of inventory.sources) order.set(path, sourceRank(path));
+    await readInOrder(context, order);
+  },
+};
 
 export function inventoryOf(context: DetectorContext): Inventory {
   const inventory = context.shared.get(INVENTORY) as Inventory | undefined;

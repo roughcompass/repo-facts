@@ -1,7 +1,7 @@
 import { type Budgets, type Detector, runDetectors } from "@repo-facts/contract";
 import { describe, expect, it } from "vitest";
-import { INVENTORY, type Inventory, classifyPath, inventoryDetector, languageOf, readableInputs, unanalyzedInputs } from "../src/index.js";
-import { type FileTree, snapshotOf } from "./support.js";
+import { CORE_DETECTORS, INVENTORY, type Inventory, classifyPath, inventoryDetector, languageOf, readableInputs, unanalyzedInputs } from "../src/index.js";
+import { type FileTree, profile, snapshotOf } from "./support.js";
 
 const GENEROUS: Budgets = { maxBlobBytes: 1_000_000, maxLockfileBytes: 1_000_000, maxFiles: 1_000, maxTotalBytes: 10_000_000 };
 
@@ -91,13 +91,13 @@ describe("inventory", () => {
       "pnpm-lock.yaml": ["lockfile", "pnpm-lock", true, true],
       "pnpm-workspace.yaml": ["workspace", "pnpm-workspace", true, true],
       "scripts/verify.sh": ["verification", "shell", true, null],
-      "src/App.module.css": ["stylesheet", "css-module", true, true],
+      "src/App.module.css": ["stylesheet", "css-module", true, null],
       "src/api/openapi.yaml": ["contract", "openapi", true, true],
       "src/legacy.sass": ["stylesheet", "sass", false, null],
-      "src/old.less": ["stylesheet", "less", true, true],
+      "src/old.less": ["stylesheet", "less", true, null],
       "src/schema.graphql": ["contract", "graphql-schema", true, true],
-      "src/styles.css": ["stylesheet", "css", true, true],
-      "src/theme.scss": ["stylesheet", "scss", true, true],
+      "src/styles.css": ["stylesheet", "css", true, null],
+      "src/theme.scss": ["stylesheet", "scss", true, null],
       "tsconfig.json": ["config", "tsconfig", true, true],
       "vite.config.ts": ["config", "vite-config", true, true],
       "yarn.lock": ["lockfile", "yarn-lock", true, true],
@@ -267,35 +267,47 @@ describe("inventory", () => {
       "app/main.ts": "export {};\n",
       "app/deep/nested/feature/widget.ts": "export {};\n",
       "app/__tests__/main.test.ts": "export {};\n",
-      ".github/workflows/ci.yml": "on: push\njobs: {}\n",
+      ".github/workflows/ci.yml": "on: push\njobs:\n  test:\n    steps:\n      - run: ./scripts/check.sh\n",
       "eslint.config.js": "export default [];\n",
       "package.json": '{ "name": "root", "workspaces": ["packages/*"] }\n',
       "package-lock.json": '{ "lockfileVersion": 3, "packages": {} }\n',
       "packages/ui/package.json": '{ "name": "ui" }\n',
       "packages/ui/src/deep/package.json": '{ "name": "fixture" }\n',
+      "scripts/check.sh": "#!/bin/sh\nnpm test\n",
+      "scripts/unused.sh": "#!/bin/sh\nexit 0\n",
       "zz/package.json": '{ "name": "zz" }\n',
     };
-    const readOrder = async (maxFiles: number) => {
-      const { reader } = await inventoryRun(files, { ...GENEROUS, maxFiles });
-      return Object.keys(files)
-        .filter((path) => !reader.diagnostics().some((skip) => skip.path === path))
-        .sort();
+    // The paths the core detectors read, whichever detector read them.
+    const readWith = async (maxFiles: number) => {
+      const reader = snapshotOf(files, { ...GENEROUS, maxFiles });
+      const read = new Set<string>();
+      const readMany = reader.readMany.bind(reader);
+      reader.readMany = async (paths) => {
+        const results = await readMany(paths);
+        for (const [path, result] of results) if (result.ok) read.add(path);
+        return results;
+      };
+      await runDetectors({ reader, detectorRelease: "0.1.0", detectors: CORE_DETECTORS });
+      return [...read].sort();
     };
 
     // Manifests and lockfiles, shallowest first, before anything else.
-    expect(await readOrder(4)).toEqual(["package-lock.json", "package.json", "packages/ui/package.json", "zz/package.json"]);
-    expect(await readOrder(5)).toEqual(["package-lock.json", "package.json", "packages/ui/package.json", "packages/ui/src/deep/package.json", "zz/package.json"]);
+    expect(await readWith(4)).toEqual(["package-lock.json", "package.json", "packages/ui/package.json", "zz/package.json"]);
+    expect(await readWith(5)).toEqual(["package-lock.json", "package.json", "packages/ui/package.json", "packages/ui/src/deep/package.json", "zz/package.json"]);
     // Then CI, then configuration, shallowest first.
-    expect(await readOrder(7)).toEqual([".github/workflows/ci.yml", "eslint.config.js", "package-lock.json", "package.json", "packages/ui/package.json", "packages/ui/src/deep/package.json", "zz/package.json"]);
-    // Then sources: shallow application code and entry points before tests and deep paths.
-    const withSources = await readOrder(11);
+    expect(await readWith(7)).toEqual([".github/workflows/ci.yml", "eslint.config.js", "package-lock.json", "package.json", "packages/ui/package.json", "packages/ui/src/deep/package.json", "zz/package.json"]);
+    // Then the shell script a CI command runs, and then sources: shallow application code and entry points before tests and deep paths.
+    const withSources = await readWith(12);
+    expect(withSources).toContain("scripts/check.sh");
     expect(withSources.filter((path) => path.endsWith(".ts") && !path.includes("config"))).toEqual(["a/src/index.ts", "app/main.ts"]);
-    const { reader } = await inventoryRun(files, { ...GENEROUS, maxFiles: 11 });
+    const { reader, document } = await profile(files, { budgets: { ...GENEROUS, maxFiles: 12 } });
     expect(reader.diagnostics().map(({ path, reason }) => [path, reason])).toEqual([
       ["a/src/App.test.ts", "file_budget_exhausted"],
       ["app/__tests__/main.test.ts", "file_budget_exhausted"],
       ["app/deep/nested/feature/widget.ts", "file_budget_exhausted"],
     ]);
+    expect(reader.usage().files).toBe(12);
+    expect(document.inventory.files_read).toBe(12);
   });
 
   it("spends the file budget in path order, so the same tree always skips the same inputs", async () => {

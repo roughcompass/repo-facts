@@ -46,14 +46,15 @@ A lockfile records every installed package, so a large repository's lockfile rou
 
 Rejected and protected paths never appear in `entries`. Sensitive files do appear, so detectors can tell that one exists, but their bytes are never read. Budgets are spent in path order within each batch, and a repeated read returns the cached result without spending budget again. The same tree and the same sequence of reads therefore always skip the same inputs.
 
-The inventory detector makes the reads that spend the budgets, most decisive first, so a budget that runs out on a large repository is spent where it matters:
+The core detectors spend the budgets on the most decisive inputs first, so a budget that runs out on a large repository is spent where it matters:
 
-1. Package manifests, workspace files, and lockfiles
-2. CI definitions, runtime files, and Makefiles
-3. Tool configuration and API contracts
-4. Sources and stylesheets: application code before tests, stories, fixtures, examples, docs, and type declarations, and entry points such as `index` or `main` before other files at the same depth
+1. Package manifests, workspace files, and lockfiles, read by the inventory
+2. CI definitions, runtime files, and Makefiles, read by the inventory
+3. Tool configuration and API contracts, read by the inventory
+4. Shell scripts that a CI command runs, read by the CI detector
+5. Sources and stylesheets, read by the `source-reads` detector at the end of the convention stage: application code before tests, stories, fixtures, examples, docs, and type declarations, and entry points such as `index` or `main` before other files at the same depth
 
-Within each tier, shallower paths come first, and each group of equal rank is one batch, read in path order. Later detectors read only what the inventory already admitted or skipped, plus shell scripts that a CI command runs and HTML files. Inputs the budget skipped are recorded as skips and land in the `skipped` list of every search whose surface includes them.
+Within each tier, shallower paths come first, and each group of equal rank is one batch, read in path order. Later detectors read what was already admitted or skipped, plus HTML files. Inputs the budget skipped are recorded as skips and land in the `skipped` list of every search whose surface includes them.
 
 ## Evidence identity
 
