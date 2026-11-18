@@ -8,6 +8,12 @@ import YAML, { isMap, isPair, isScalar, isSeq, type Node as YamlNode } from "yam
  * to an inherited function. YAML is loaded with the core schema only: custom
  * tags resolve to plain strings, merge keys are off, and alias expansion is
  * bounded. Nothing in a document is ever evaluated.
+ *
+ * A YAML stream's data is its last document with content. pnpm 9 and later
+ * can write its own environment lockfile as a first document before the
+ * project lockfile, and a GitLab CI component puts its `spec` header before
+ * the pipeline. Parsing and pointers agree on that document, so a pointer
+ * always names a node in the data a detector read.
  */
 
 export type Value = null | boolean | number | string | Value[] | { [key: string]: Value };
@@ -31,22 +37,39 @@ export function parseJson(text: string): Value {
   return normalize(parsed, 0);
 }
 
-/** Parses the first YAML document. */
+/** Parses a YAML stream's data: its last document with content, or null when none has any. */
 export function parseYaml(text: string): Value {
-  return parseYamlAll(text)[0] ?? null;
+  const document = dataDocument(yamlDocuments(text));
+  return document ? toValue(document) : null;
 }
 
+/** Parses every document in a YAML stream, in order. */
 export function parseYamlAll(text: string): Value[] {
+  return yamlDocuments(text).map(toValue);
+}
+
+function yamlDocuments(text: string): YAML.Document.Parsed[] {
   const documents = YAML.parseAllDocuments(text, YAML_OPTIONS);
   const list = Array.isArray(documents) ? documents : [documents];
-  return list.map((document) => {
-    if (document.errors.length) throw new StructuredParseError(`Invalid YAML: ${document.errors[0]!.message.split("\n")[0]}`);
-    try {
-      return normalize(document.toJS({ maxAliasCount: YAML_OPTIONS.maxAliasCount }), 0);
-    } catch (error) {
-      throw new StructuredParseError(`Invalid YAML: ${(error as Error).message}`);
-    }
-  });
+  for (const document of list) if (document.errors.length) throw new StructuredParseError(`Invalid YAML: ${document.errors[0]!.message.split("\n")[0]}`);
+  return list as YAML.Document.Parsed[];
+}
+
+/** The document a YAML stream's data comes from: the last one with content. An empty document, such as one after a trailing `---`, has a zero-width scalar. */
+function dataDocument(documents: readonly YAML.Document.Parsed[]): YAML.Document.Parsed | null {
+  for (let index = documents.length - 1; index >= 0; index--) {
+    const contents = documents[index]!.contents;
+    if (contents && !(isScalar(contents) && contents.range && contents.range[0] === contents.range[1])) return documents[index]!;
+  }
+  return null;
+}
+
+function toValue(document: YAML.Document.Parsed): Value {
+  try {
+    return normalize(document.toJS({ maxAliasCount: YAML_OPTIONS.maxAliasCount }), 0);
+  } catch (error) {
+    throw new StructuredParseError(`Invalid YAML: ${(error as Error).message}`);
+  }
 }
 
 export function parse(text: string, format: Format): Value {
@@ -98,12 +121,17 @@ export function stableStringify(value: Value): string {
   return JSON.stringify(value);
 }
 
-/** The 1-based line range of the node a pointer names, for showing an excerpt. */
+/** The 1-based line range of the node a pointer names, for showing an excerpt. JSON is read as YAML. */
 export function pointerLines(text: string, pointer: string): { start: number; end: number } | null {
   const segments = pointerSegments(pointer);
   if (!segments) return null;
-  const document = YAML.parseDocument(text, YAML_OPTIONS);
-  if (document.errors.length) return null;
+  let document: YAML.Document.Parsed | null;
+  try {
+    document = dataDocument(yamlDocuments(text));
+  } catch {
+    return null;
+  }
+  if (!document) return null;
 
   let node: unknown = document.contents;
   let range: [number, number] | null = node && (node as YamlNode).range ? [(node as YamlNode).range![0], (node as YamlNode).range![1]] : null;

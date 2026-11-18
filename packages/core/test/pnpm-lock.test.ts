@@ -59,6 +59,20 @@ describe("pnpm lockfiles", () => {
     expect(await resolveEvidence(reader, document.evidence[id!]!)).toMatchObject({ ok: true, excerpt: '"5.9.3"', lines: { start: 9, end: 9 } });
   });
 
+  it("reads the project lockfile after pnpm's own environment document, with evidence in that document", async () => {
+    const environment = ["---", "lockfileVersion: '9.0'", "", "importers:", "", "  .:", "    configDependencies: {}", "    packageManagerDependencies:", "      pnpm:", "        specifier: 10.18.0", "        version: 10.18.0", "", "packages:", "", "  pnpm@10.18.0:", "    resolution: {integrity: sha512-x}", "", ""].join("\n");
+    const { document, reader } = await profile({ ...FORMAT_9, "pnpm-lock.yaml": `${environment}---\n${FORMAT_9["pnpm-lock.yaml"] as string}` });
+    expect(resolved(document)).toEqual({
+      "apps/web/package.json#@catalog/ui": "0.7.0",
+      "apps/web/package.json#react": "18.3.1",
+      "apps/web/package.json#react-dom": "18.3.1",
+      "package.json#typescript": "5.9.3",
+    });
+    expect(document.diagnostics.filter((diagnostic) => diagnostic.reason === "unlocked_dependency").map((diagnostic) => diagnostic.detail)).toEqual(["apps/web/package.json declares 1 dependency this lockfile does not lock: lodash"]);
+    const [id] = document.categories.resolved_dependencies!.facts.find((fact) => fact.key === "package.json#typescript")!.evidence;
+    expect(await resolveEvidence(reader, document.evidence[id!]!)).toMatchObject({ ok: true, excerpt: '"5.9.3"', lines: { start: 27, end: 27 } });
+  });
+
   it("notes dependencies the lockfile does not lock", async () => {
     const { document } = await profile(FORMAT_9);
     expect(document.diagnostics).toContainEqual({ path: "pnpm-lock.yaml", reason: "unlocked_dependency", detail: "apps/web/package.json declares 1 dependency this lockfile does not lock: lodash", detector: "pnpm-lock" });

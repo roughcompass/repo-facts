@@ -98,7 +98,7 @@ interface Route {
 
 export const serviceSignalsDetector: Detector = {
   id: "service-signals",
-  version: "1",
+  version: "2",
   stage: "services",
   inputs: ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx", "**/*.mjs", "**/*.cjs", "**/Dockerfile", "**/*.graphql", "**/*.gql", "**/openapi.yaml", "**/openapi.json"],
   categories: ["access_signals", "egress_routes", "api_contracts", "test_substitutes"],

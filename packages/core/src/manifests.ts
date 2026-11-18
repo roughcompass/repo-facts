@@ -36,7 +36,7 @@ export interface ParsedManifests {
 
 export const manifestsDetector: Detector = {
   id: MANIFESTS,
-  version: "1",
+  version: "2",
   stage: "parse",
   inputs: ["**/package.json", "**/pnpm-workspace.yaml"],
   categories: [],

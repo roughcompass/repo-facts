@@ -1,0 +1,56 @@
+---
+lockfileVersion: '9.0'
+
+importers:
+
+  .:
+    configDependencies: {}
+    packageManagerDependencies:
+      pnpm:
+        specifier: 10.18.0
+        version: 10.18.0
+
+packages:
+
+  pnpm@10.18.0:
+    resolution: {integrity: sha512-gqCk7r6S8i3TIsEYM9xJELW2RgwlL5HLsH5uUQ7O4mZRsGJ0R1MUXHn3hGOmVyITtR+tsI5eq4ewn0xqxx4F1g==}
+    engines: {node: '>=18.12'}
+    hasBin: true
+
+snapshots:
+
+  pnpm@10.18.0: {}
+
+---
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    devDependencies:
+      '@changesets/cli':
+        specifier: 2.29.7
+        version: 2.29.7
+      prettier:
+        specifier: 3.6.2
+        version: 3.6.2
+      typescript:
+        specifier: 5.9.3
+        version: 5.9.3
+
+  api:
+    dependencies:
+      express:
+        specifier: 4.21.2
+        version: 4.21.2
+      knex:
+        specifier: 3.1.0
+        version: 3.1.0(pg@8.16.3)
+    devDependencies:
+      vitest:
+        specifier: 3.2.4
+        version: 3.2.4(@types/node@22.18.6)

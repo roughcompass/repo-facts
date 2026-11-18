@@ -10,6 +10,11 @@ import { RESOLVED_CATEGORY, type Resolution, relativeDirectory, reportResolution
  * supported. Each workspace project is an importer keyed by its directory.
  * Peer-dependency suffixes are removed from versions, and `link:` versions
  * resolve to the linked workspace package's declared version.
+ *
+ * pnpm 9 and later can write its own environment lockfile (pnpm's version,
+ * under `packageManagerDependencies`) as a first YAML document before the
+ * project lockfile. Structured parsing reads a stream's last document, so the
+ * project lockfile is the one read, and evidence points into it.
  */
 
 export const PNPM_LOCK_RULE = "pnpm-lock.resolved-version";
@@ -18,7 +23,7 @@ const IMPORTER_FIELDS = ["dependencies", "devDependencies", "optionalDependencie
 
 export const pnpmLockDetector: Detector = {
   id: "pnpm-lock",
-  version: "1",
+  version: "2",
   stage: "convention",
   inputs: ["**/pnpm-lock.yaml"],
   categories: [RESOLVED_CATEGORY],

@@ -40,7 +40,7 @@ A detector sees the tree only through its `DetectorContext`:
 - `reader` is the `SourceReader`, and `commit` is its commit, or null for a working tree.
 - `entries(pattern)` lists tree entries, including their mode, type, size, and object id.
 - `text(path)` reads a blob as UTF-8 text. It returns `null` for binary, oversized, over-budget, protected, sensitive, or missing input, and the reader records why.
-- `parsed(path, format)` reads and parses JSON or YAML. A parse failure returns `null` and records a `parse_failed` diagnostic.
+- `parsed(path, format)` reads and parses JSON or YAML. A parse failure returns `null` and records a `parse_failed` diagnostic. A YAML stream's data is its last document with content: pnpm 9 and later can write its own environment lockfile as a first document before the project lockfile, and a GitLab CI component puts its `spec` header before the pipeline. A YAML pointer resolves in that same document.
 - `lines`, `pointer`, and `entry` create evidence records for a line range, a structured-data pointer, or a tree entry.
 - `fact`, `search`, `service`, and `reference` report candidates.
 - `diagnostic` reports a skipped or unsupported input. A shared layer, such as the syntax parser, passes `{ detector }` to put its own name on the diagnostic. Details pass through credential redaction before they're recorded.

@@ -1,0 +1,3 @@
+{
+  "description": "A pnpm 10 lockfile that starts with pnpm's own environment document: resolved versions come from the project lockfile that follows it, and evidence points into that second document."
+}

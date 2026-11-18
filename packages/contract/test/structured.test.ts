@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { StructuredParseError, parseJson, parseYaml, pointerLines, pointerOf, valueAt } from "../src/structured.js";
+import { StructuredParseError, parseJson, parseYaml, parseYamlAll, pointerLines, pointerOf, valueAt } from "../src/structured.js";
 
 describe("structured data", () => {
   it("keeps hostile keys inert and never resolves inherited properties", () => {
@@ -30,5 +30,16 @@ describe("structured data", () => {
     expect(valueAt(value, "/a~1b/~0c/01")).toBeUndefined();
     expect(valueAt(value, "no-leading-slash")).toBeUndefined();
     expect(pointerLines('{\n  "a": {\n    "b": 1\n  }\n}\n', "/a/b")).toEqual({ start: 3, end: 3 });
+  });
+
+  it("reads a YAML stream's last document with content, and points into that document", () => {
+    const stream = "---\nimporters:\n  .:\n    packageManagerDependencies: {}\n---\nimporters:\n  .:\n    dependencies:\n      react: 18.3.1\n---\n";
+
+    expect(parseYaml(stream)).toEqual({ importers: { ".": { dependencies: { react: "18.3.1" } } } });
+    expect(parseYamlAll(stream)).toHaveLength(3);
+    expect(pointerLines(stream, "/importers/./dependencies/react")).toEqual({ start: 9, end: 9 });
+    expect(pointerLines(stream, "/importers/./packageManagerDependencies")).toBeNull();
+    expect(parseYaml("# only a comment\n")).toBeNull();
+    expect(() => parseYaml("a: 1\n---\nb: [\n")).toThrow(StructuredParseError);
   });
 });

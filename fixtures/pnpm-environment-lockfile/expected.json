@@ -1,0 +1,1453 @@
+{
+  "categories": {
+    "access_signals": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "access.search"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    },
+    "api_contracts": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "contracts.search"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    },
+    "build_tools": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_bbf03961c3af363357023ec0"
+          ],
+          "key": "typescript",
+          "rule": "manifest.tool-dependency",
+          "state": "observed",
+          "value": {
+            "id": "typescript",
+            "label": "TypeScript compiler"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "config.tool-file",
+          "manifest.tool-dependency"
+        ],
+        "skipped": [],
+        "surface": [
+          "api/package.json",
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "ci_systems": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "ci.definition"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    },
+    "composition": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "architecture.import-map",
+          "composition"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "dependencies": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_98657b11473282f1b18432f2"
+          ],
+          "key": "api/package.json#dependencies/express",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "dependencies",
+            "manifest": "api/package.json",
+            "name": "express",
+            "specifier": "4.21.2"
+          }
+        },
+        {
+          "evidence": [
+            "ev_79a3f7c903c1eb9d8b0a9ee3"
+          ],
+          "key": "api/package.json#dependencies/knex",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "dependencies",
+            "manifest": "api/package.json",
+            "name": "knex",
+            "specifier": "3.1.0"
+          }
+        },
+        {
+          "evidence": [
+            "ev_eb454539bf1f38edf96be417"
+          ],
+          "key": "api/package.json#devDependencies/vitest",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "devDependencies",
+            "manifest": "api/package.json",
+            "name": "vitest",
+            "specifier": "3.2.4"
+          }
+        },
+        {
+          "evidence": [
+            "ev_f2c08ae6d51f2451f9adb116"
+          ],
+          "key": "package.json#devDependencies/@changesets/cli",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "devDependencies",
+            "manifest": "package.json",
+            "name": "@changesets/cli",
+            "specifier": "2.29.7"
+          }
+        },
+        {
+          "evidence": [
+            "ev_401f670383c3164e48155dc4"
+          ],
+          "key": "package.json#devDependencies/prettier",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "devDependencies",
+            "manifest": "package.json",
+            "name": "prettier",
+            "specifier": "3.6.2"
+          }
+        },
+        {
+          "evidence": [
+            "ev_de821eee5d7e60ab460ebd44"
+          ],
+          "key": "package.json#devDependencies/typescript",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "devDependencies",
+            "manifest": "package.json",
+            "name": "typescript",
+            "specifier": "5.9.3"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.dependencies"
+        ],
+        "skipped": [],
+        "surface": [
+          "api/package.json",
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "design_systems": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "design-system.recognize"
+        ],
+        "skipped": [],
+        "surface": [
+          "api/package.json",
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "egress_routes": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "egress.search"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    },
+    "frameworks": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_5310375659fcb5b3d4ce54fb"
+          ],
+          "key": "api/package.json#express",
+          "rule": "manifest.framework",
+          "state": "observed",
+          "value": {
+            "id": "express",
+            "label": "Express",
+            "manifest": "api/package.json",
+            "package": "express",
+            "specifiers": {
+              "dependencies": "4.21.2"
+            }
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.framework"
+        ],
+        "skipped": [],
+        "surface": [
+          "api/package.json",
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "languages": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_067730d864d6a2f6d0bdc867",
+            "ev_e7a81cd7241ec665a11f62d6"
+          ],
+          "key": "JSON",
+          "rule": "inventory.language-by-extension",
+          "state": "observed",
+          "value": {
+            "bytes": 412,
+            "files": 2
+          }
+        },
+        {
+          "evidence": [
+            "ev_07e9b33e91ad1193ae5cc063",
+            "ev_15630b39acb9b7abf6ee7233"
+          ],
+          "key": "YAML",
+          "rule": "inventory.language-by-extension",
+          "state": "observed",
+          "value": {
+            "bytes": 1027,
+            "files": 2
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.language-by-extension"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "observed"
+    },
+    "package_identity": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_86a179b8475737ec899ccb64",
+            "ev_fc4903a2d725e9d9124aa388"
+          ],
+          "key": "api/package.json",
+          "rule": "manifest.identity",
+          "state": "observed",
+          "value": {
+            "manifest": "api/package.json",
+            "name": "@directus/api",
+            "private": false,
+            "version": "31.0.0"
+          }
+        },
+        {
+          "evidence": [
+            "ev_aef14e0e74498353882f7a4a"
+          ],
+          "key": "package.json",
+          "rule": "manifest.identity",
+          "state": "observed",
+          "value": {
+            "manifest": "package.json",
+            "name": "@directus/monorepo",
+            "private": true,
+            "version": null
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.identity"
+        ],
+        "skipped": [],
+        "surface": [
+          "api/package.json",
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "package_managers": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_95e1afec241fb71ebcc87de5",
+            "ev_9649dbff4d3e6748c32c2fac"
+          ],
+          "key": ".",
+          "rule": "manifest.package-manager",
+          "state": "observed",
+          "value": "pnpm"
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "lockfile.package-manager",
+          "manifest.package-manager"
+        ],
+        "skipped": [],
+        "surface": [
+          "api/package.json",
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "packages_consumed": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_8b678442decf399948594bd4"
+          ],
+          "key": "@changesets/cli",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "@changesets/cli"
+          }
+        },
+        {
+          "evidence": [
+            "ev_11a612fe7c706c4d7a72a1db"
+          ],
+          "key": "express",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "express"
+          }
+        },
+        {
+          "evidence": [
+            "ev_4e92fb4e6d834023f5b2dd0c"
+          ],
+          "key": "knex",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "knex"
+          }
+        },
+        {
+          "evidence": [
+            "ev_8b62030d81b9c5475a53a23d"
+          ],
+          "key": "prettier",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "prettier"
+          }
+        },
+        {
+          "evidence": [
+            "ev_38e27ded8f7ab7ad5526182a"
+          ],
+          "key": "typescript",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "typescript"
+          }
+        },
+        {
+          "evidence": [
+            "ev_6309e9bc9c57cc2ed1a561a6"
+          ],
+          "key": "vitest",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "vitest"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "packages.consumed"
+        ],
+        "skipped": [],
+        "surface": [
+          "api/package.json",
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "packages_produced": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_17089d4fdc3ac2841e843cac",
+            "ev_27c1b314dba3e741b2f7162b"
+          ],
+          "key": "@directus/api",
+          "rule": "packages.produced",
+          "state": "observed",
+          "value": {
+            "manifest": "api/package.json",
+            "name": "@directus/api",
+            "published": true,
+            "version": "31.0.0"
+          }
+        },
+        {
+          "evidence": [
+            "ev_e58fe8c0b526960f5bcf1818"
+          ],
+          "key": "@directus/monorepo",
+          "rule": "packages.produced",
+          "state": "observed",
+          "value": {
+            "manifest": "package.json",
+            "name": "@directus/monorepo",
+            "published": false,
+            "version": null
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "packages.produced"
+        ],
+        "skipped": [],
+        "surface": [
+          "api/package.json",
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "resolved_dependencies": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_c13195210bfbdc91ffae4d0d"
+          ],
+          "key": "api/package.json#express",
+          "rule": "pnpm-lock.resolved-version",
+          "state": "observed",
+          "value": {
+            "manifest": "api/package.json",
+            "name": "express",
+            "version": "4.21.2"
+          }
+        },
+        {
+          "evidence": [
+            "ev_a6bb2307934d56f53d90e553"
+          ],
+          "key": "api/package.json#knex",
+          "rule": "pnpm-lock.resolved-version",
+          "state": "observed",
+          "value": {
+            "manifest": "api/package.json",
+            "name": "knex",
+            "version": "3.1.0"
+          }
+        },
+        {
+          "evidence": [
+            "ev_07ee9ccdef21f327a8ee2f36"
+          ],
+          "key": "api/package.json#vitest",
+          "rule": "pnpm-lock.resolved-version",
+          "state": "observed",
+          "value": {
+            "manifest": "api/package.json",
+            "name": "vitest",
+            "version": "3.2.4"
+          }
+        },
+        {
+          "evidence": [
+            "ev_19bd8e68bae33fad571b142f"
+          ],
+          "key": "package.json#@changesets/cli",
+          "rule": "pnpm-lock.resolved-version",
+          "state": "observed",
+          "value": {
+            "manifest": "package.json",
+            "name": "@changesets/cli",
+            "version": "2.29.7"
+          }
+        },
+        {
+          "evidence": [
+            "ev_12b402285cdaa4308160f1d1"
+          ],
+          "key": "package.json#prettier",
+          "rule": "pnpm-lock.resolved-version",
+          "state": "observed",
+          "value": {
+            "manifest": "package.json",
+            "name": "prettier",
+            "version": "3.6.2"
+          }
+        },
+        {
+          "evidence": [
+            "ev_6aeb46d652ef160d59eb77d7"
+          ],
+          "key": "package.json#typescript",
+          "rule": "pnpm-lock.resolved-version",
+          "state": "observed",
+          "value": {
+            "manifest": "package.json",
+            "name": "typescript",
+            "version": "5.9.3"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "npm-lock.resolved-version",
+          "pnpm-lock.resolved-version",
+          "yarn-lock.resolved-version"
+        ],
+        "skipped": [],
+        "surface": [
+          "pnpm-lock.yaml"
+        ]
+      },
+      "state": "observed"
+    },
+    "runtime_integrations": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "composition"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "runtime_requirements": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_21d24e6da603f5416c3b430e"
+          ],
+          "key": "node",
+          "rule": "manifest.engines",
+          "state": "observed",
+          "value": {
+            "declared": [
+              "22"
+            ],
+            "range": ">=22.0.0 <23.0.0-0"
+          }
+        },
+        {
+          "evidence": [
+            "ev_72d219693ed1a768bc454d23"
+          ],
+          "key": "pnpm",
+          "rule": "manifest.package-manager-version",
+          "state": "observed",
+          "value": {
+            "declared": [
+              "10.18.0"
+            ],
+            "range": "10.18.0"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "runtime.declarations"
+        ],
+        "skipped": [],
+        "surface": [
+          "api/package.json",
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "scripts": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.scripts"
+        ],
+        "skipped": [],
+        "surface": [
+          "api/package.json",
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "served_origins": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "style_values": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "design-system.usage"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    },
+    "submodules": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.gitlink"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    },
+    "test_frameworks": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_5ca75361be73b86ec2813407"
+          ],
+          "key": "vitest",
+          "rule": "manifest.tool-dependency",
+          "state": "observed",
+          "value": {
+            "id": "vitest",
+            "label": "Vitest"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "config.tool-file",
+          "manifest.tool-dependency"
+        ],
+        "skipped": [],
+        "surface": [
+          "api/package.json",
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "test_substitutes": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "substitutes.search"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    },
+    "ui_elements": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "design-system.usage"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    },
+    "verification_commands": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "ci.verification-commands"
+        ],
+        "skipped": [],
+        "surface": [
+          "api/package.json",
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "workspaces": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_1c718a2cfd882f0369c436cb",
+            "ev_6553c2a0959f960c829964f4"
+          ],
+          "key": "api",
+          "rule": "pnpm-workspace.packages",
+          "state": "observed",
+          "value": {
+            "directory": "api",
+            "package": "@directus/api"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.workspaces",
+          "pnpm-workspace.packages"
+        ],
+        "skipped": [],
+        "surface": [
+          "pnpm-workspace.yaml"
+        ]
+      },
+      "state": "observed"
+    }
+  },
+  "commit": null,
+  "detector_release": "golden",
+  "diagnostics": [],
+  "evidence": {
+    "ev_067730d864d6a2f6d0bdc867": {
+      "commit": null,
+      "content_digest": "8fb7c600cfa988680ad5f3b08627e78a8314920f71ae8c71f4fe389282bd18b5",
+      "detector": "inventory",
+      "excerpt_digest": "8fb7c600cfa988680ad5f3b08627e78a8314920f71ae8c71f4fe389282bd18b5",
+      "id": "ev_067730d864d6a2f6d0bdc867",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "04eb3a0b5d84e1f710dc252d5dfd4fb119ebab48",
+      "path": "package.json",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_07e9b33e91ad1193ae5cc063": {
+      "commit": null,
+      "content_digest": "bb44cc1e96ce620db724230f45c32423c9b5839f2fa24a61911a96bdbc6071b8",
+      "detector": "inventory",
+      "excerpt_digest": "bb44cc1e96ce620db724230f45c32423c9b5839f2fa24a61911a96bdbc6071b8",
+      "id": "ev_07e9b33e91ad1193ae5cc063",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "e8221467d2191688b107506086ea5b48e6e961dd",
+      "path": "pnpm-workspace.yaml",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_07ee9ccdef21f327a8ee2f36": {
+      "commit": null,
+      "content_digest": "1de685f183cd682896ea3f4561c8f47f7684023d5c7a6ae9bded89a043d7aa91",
+      "detector": "pnpm-lock",
+      "excerpt_digest": "fe1fe887ebf4bed5f9b9b8667a6a881c7cd4e20a397a15aa9e38bf45f47c568e",
+      "id": "ev_07ee9ccdef21f327a8ee2f36",
+      "location": {
+        "format": "yaml",
+        "kind": "pointer",
+        "pointer": "/importers/api/devDependencies/vitest/version"
+      },
+      "object_id": "6bec862347e4248b96606d734da351cec75c75a5",
+      "path": "pnpm-lock.yaml",
+      "rule": "pnpm-lock.resolved-version"
+    },
+    "ev_11a612fe7c706c4d7a72a1db": {
+      "commit": null,
+      "content_digest": "af70368e8d901834ed9803dda945d24e66582f60840bec7068e9a22cf2d582e1",
+      "detector": "package-relations",
+      "excerpt_digest": "9b967e7dadda00050f8431e9254d873bfba1448d9efaa48480902364c072e88b",
+      "id": "ev_11a612fe7c706c4d7a72a1db",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/express"
+      },
+      "object_id": "9f65b836c216931486dcf15fcadf34a33bd4f770",
+      "path": "api/package.json",
+      "rule": "packages.consumed"
+    },
+    "ev_12b402285cdaa4308160f1d1": {
+      "commit": null,
+      "content_digest": "1de685f183cd682896ea3f4561c8f47f7684023d5c7a6ae9bded89a043d7aa91",
+      "detector": "pnpm-lock",
+      "excerpt_digest": "86aaf425421e7d3df9b0a0ba87d734325ed537d9cdb7c6ad6c5823b829657044",
+      "id": "ev_12b402285cdaa4308160f1d1",
+      "location": {
+        "format": "yaml",
+        "kind": "pointer",
+        "pointer": "/importers/./devDependencies/prettier/version"
+      },
+      "object_id": "6bec862347e4248b96606d734da351cec75c75a5",
+      "path": "pnpm-lock.yaml",
+      "rule": "pnpm-lock.resolved-version"
+    },
+    "ev_15630b39acb9b7abf6ee7233": {
+      "commit": null,
+      "content_digest": "9ba80dd4a22396e0e54dcfbbf1439bf91069753e450cbe7be1a41abe14fc8600",
+      "detector": "inventory",
+      "excerpt_digest": "9ba80dd4a22396e0e54dcfbbf1439bf91069753e450cbe7be1a41abe14fc8600",
+      "id": "ev_15630b39acb9b7abf6ee7233",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "6bec862347e4248b96606d734da351cec75c75a5",
+      "path": "pnpm-lock.yaml",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_17089d4fdc3ac2841e843cac": {
+      "commit": null,
+      "content_digest": "af70368e8d901834ed9803dda945d24e66582f60840bec7068e9a22cf2d582e1",
+      "detector": "package-relations",
+      "excerpt_digest": "737e022a794fee550f05cf2e7b2381868ae5008e8f2aaca30b7b6ec5bc415ce9",
+      "id": "ev_17089d4fdc3ac2841e843cac",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/name"
+      },
+      "object_id": "9f65b836c216931486dcf15fcadf34a33bd4f770",
+      "path": "api/package.json",
+      "rule": "packages.produced"
+    },
+    "ev_19bd8e68bae33fad571b142f": {
+      "commit": null,
+      "content_digest": "1de685f183cd682896ea3f4561c8f47f7684023d5c7a6ae9bded89a043d7aa91",
+      "detector": "pnpm-lock",
+      "excerpt_digest": "62db796f3ed4b5155a921af47c41addaa7a5ca0ff832afb94a8bb7256f186df9",
+      "id": "ev_19bd8e68bae33fad571b142f",
+      "location": {
+        "format": "yaml",
+        "kind": "pointer",
+        "pointer": "/importers/./devDependencies/@changesets~1cli/version"
+      },
+      "object_id": "6bec862347e4248b96606d734da351cec75c75a5",
+      "path": "pnpm-lock.yaml",
+      "rule": "pnpm-lock.resolved-version"
+    },
+    "ev_1c718a2cfd882f0369c436cb": {
+      "commit": null,
+      "content_digest": "1e1fad647b829908e2f3ce6afae0d2346fdf2d70b07b0fbcfdcd64fc0471bc1b",
+      "detector": "package-metadata",
+      "excerpt_digest": "63e3a42fcd0c2bc3820823b61f131b485a5d862055faad68bd11e4d7ee5ad107",
+      "id": "ev_1c718a2cfd882f0369c436cb",
+      "location": {
+        "format": "yaml",
+        "kind": "pointer",
+        "pointer": "/packages/0"
+      },
+      "object_id": "e8221467d2191688b107506086ea5b48e6e961dd",
+      "path": "pnpm-workspace.yaml",
+      "rule": "pnpm-workspace.packages"
+    },
+    "ev_21d24e6da603f5416c3b430e": {
+      "commit": null,
+      "content_digest": "77e253d26d7bf3657059df030cf78e9388cd83603520aea2156473e642ab4d81",
+      "detector": "runtime",
+      "excerpt_digest": "b16781f85251cf7a5bab973eb0927776b89a75f8def28c649ae65e01b3db5e28",
+      "id": "ev_21d24e6da603f5416c3b430e",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/engines/node"
+      },
+      "object_id": "04eb3a0b5d84e1f710dc252d5dfd4fb119ebab48",
+      "path": "package.json",
+      "rule": "manifest.engines"
+    },
+    "ev_27c1b314dba3e741b2f7162b": {
+      "commit": null,
+      "content_digest": "af70368e8d901834ed9803dda945d24e66582f60840bec7068e9a22cf2d582e1",
+      "detector": "package-relations",
+      "excerpt_digest": "67e63ed88c8310f04b78ef5c525bc4a26d74df93af48a4b1a27bb4c41f5cf760",
+      "id": "ev_27c1b314dba3e741b2f7162b",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/version"
+      },
+      "object_id": "9f65b836c216931486dcf15fcadf34a33bd4f770",
+      "path": "api/package.json",
+      "rule": "packages.produced"
+    },
+    "ev_38e27ded8f7ab7ad5526182a": {
+      "commit": null,
+      "content_digest": "77e253d26d7bf3657059df030cf78e9388cd83603520aea2156473e642ab4d81",
+      "detector": "package-relations",
+      "excerpt_digest": "fa4b3ccaab62849bf58af9a41e4d3df128e98909bbbbff64367fc28137e071a3",
+      "id": "ev_38e27ded8f7ab7ad5526182a",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/typescript"
+      },
+      "object_id": "04eb3a0b5d84e1f710dc252d5dfd4fb119ebab48",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
+    "ev_401f670383c3164e48155dc4": {
+      "commit": null,
+      "content_digest": "77e253d26d7bf3657059df030cf78e9388cd83603520aea2156473e642ab4d81",
+      "detector": "package-metadata",
+      "excerpt_digest": "86aaf425421e7d3df9b0a0ba87d734325ed537d9cdb7c6ad6c5823b829657044",
+      "id": "ev_401f670383c3164e48155dc4",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/prettier"
+      },
+      "object_id": "04eb3a0b5d84e1f710dc252d5dfd4fb119ebab48",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_4e92fb4e6d834023f5b2dd0c": {
+      "commit": null,
+      "content_digest": "af70368e8d901834ed9803dda945d24e66582f60840bec7068e9a22cf2d582e1",
+      "detector": "package-relations",
+      "excerpt_digest": "536c8d78e8a0acbef96c0881c0b313c1dc7090176417df5982b2c7c82423ca16",
+      "id": "ev_4e92fb4e6d834023f5b2dd0c",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/knex"
+      },
+      "object_id": "9f65b836c216931486dcf15fcadf34a33bd4f770",
+      "path": "api/package.json",
+      "rule": "packages.consumed"
+    },
+    "ev_5310375659fcb5b3d4ce54fb": {
+      "commit": null,
+      "content_digest": "af70368e8d901834ed9803dda945d24e66582f60840bec7068e9a22cf2d582e1",
+      "detector": "tooling",
+      "excerpt_digest": "9b967e7dadda00050f8431e9254d873bfba1448d9efaa48480902364c072e88b",
+      "id": "ev_5310375659fcb5b3d4ce54fb",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/express"
+      },
+      "object_id": "9f65b836c216931486dcf15fcadf34a33bd4f770",
+      "path": "api/package.json",
+      "rule": "manifest.framework"
+    },
+    "ev_5ca75361be73b86ec2813407": {
+      "commit": null,
+      "content_digest": "af70368e8d901834ed9803dda945d24e66582f60840bec7068e9a22cf2d582e1",
+      "detector": "tooling",
+      "excerpt_digest": "cb38356703f35d970058cb26ce297b4e48149b4e14cc9c93983e4ff1adaa6045",
+      "id": "ev_5ca75361be73b86ec2813407",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/vitest"
+      },
+      "object_id": "9f65b836c216931486dcf15fcadf34a33bd4f770",
+      "path": "api/package.json",
+      "rule": "manifest.tool-dependency"
+    },
+    "ev_6309e9bc9c57cc2ed1a561a6": {
+      "commit": null,
+      "content_digest": "af70368e8d901834ed9803dda945d24e66582f60840bec7068e9a22cf2d582e1",
+      "detector": "package-relations",
+      "excerpt_digest": "cb38356703f35d970058cb26ce297b4e48149b4e14cc9c93983e4ff1adaa6045",
+      "id": "ev_6309e9bc9c57cc2ed1a561a6",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/vitest"
+      },
+      "object_id": "9f65b836c216931486dcf15fcadf34a33bd4f770",
+      "path": "api/package.json",
+      "rule": "packages.consumed"
+    },
+    "ev_6553c2a0959f960c829964f4": {
+      "commit": null,
+      "content_digest": "af70368e8d901834ed9803dda945d24e66582f60840bec7068e9a22cf2d582e1",
+      "detector": "package-metadata",
+      "excerpt_digest": "737e022a794fee550f05cf2e7b2381868ae5008e8f2aaca30b7b6ec5bc415ce9",
+      "id": "ev_6553c2a0959f960c829964f4",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/name"
+      },
+      "object_id": "9f65b836c216931486dcf15fcadf34a33bd4f770",
+      "path": "api/package.json",
+      "rule": "pnpm-workspace.packages"
+    },
+    "ev_6aeb46d652ef160d59eb77d7": {
+      "commit": null,
+      "content_digest": "1de685f183cd682896ea3f4561c8f47f7684023d5c7a6ae9bded89a043d7aa91",
+      "detector": "pnpm-lock",
+      "excerpt_digest": "fa4b3ccaab62849bf58af9a41e4d3df128e98909bbbbff64367fc28137e071a3",
+      "id": "ev_6aeb46d652ef160d59eb77d7",
+      "location": {
+        "format": "yaml",
+        "kind": "pointer",
+        "pointer": "/importers/./devDependencies/typescript/version"
+      },
+      "object_id": "6bec862347e4248b96606d734da351cec75c75a5",
+      "path": "pnpm-lock.yaml",
+      "rule": "pnpm-lock.resolved-version"
+    },
+    "ev_72d219693ed1a768bc454d23": {
+      "commit": null,
+      "content_digest": "77e253d26d7bf3657059df030cf78e9388cd83603520aea2156473e642ab4d81",
+      "detector": "runtime",
+      "excerpt_digest": "285915b3fdf7706c4c5ecab8ba2eac79824d2cad1a9ef6c6e07c17112abf5f01",
+      "id": "ev_72d219693ed1a768bc454d23",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/packageManager"
+      },
+      "object_id": "04eb3a0b5d84e1f710dc252d5dfd4fb119ebab48",
+      "path": "package.json",
+      "rule": "manifest.package-manager-version"
+    },
+    "ev_79a3f7c903c1eb9d8b0a9ee3": {
+      "commit": null,
+      "content_digest": "af70368e8d901834ed9803dda945d24e66582f60840bec7068e9a22cf2d582e1",
+      "detector": "package-metadata",
+      "excerpt_digest": "536c8d78e8a0acbef96c0881c0b313c1dc7090176417df5982b2c7c82423ca16",
+      "id": "ev_79a3f7c903c1eb9d8b0a9ee3",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/knex"
+      },
+      "object_id": "9f65b836c216931486dcf15fcadf34a33bd4f770",
+      "path": "api/package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_86a179b8475737ec899ccb64": {
+      "commit": null,
+      "content_digest": "af70368e8d901834ed9803dda945d24e66582f60840bec7068e9a22cf2d582e1",
+      "detector": "package-metadata",
+      "excerpt_digest": "67e63ed88c8310f04b78ef5c525bc4a26d74df93af48a4b1a27bb4c41f5cf760",
+      "id": "ev_86a179b8475737ec899ccb64",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/version"
+      },
+      "object_id": "9f65b836c216931486dcf15fcadf34a33bd4f770",
+      "path": "api/package.json",
+      "rule": "manifest.identity"
+    },
+    "ev_8b62030d81b9c5475a53a23d": {
+      "commit": null,
+      "content_digest": "77e253d26d7bf3657059df030cf78e9388cd83603520aea2156473e642ab4d81",
+      "detector": "package-relations",
+      "excerpt_digest": "86aaf425421e7d3df9b0a0ba87d734325ed537d9cdb7c6ad6c5823b829657044",
+      "id": "ev_8b62030d81b9c5475a53a23d",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/prettier"
+      },
+      "object_id": "04eb3a0b5d84e1f710dc252d5dfd4fb119ebab48",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
+    "ev_8b678442decf399948594bd4": {
+      "commit": null,
+      "content_digest": "77e253d26d7bf3657059df030cf78e9388cd83603520aea2156473e642ab4d81",
+      "detector": "package-relations",
+      "excerpt_digest": "62db796f3ed4b5155a921af47c41addaa7a5ca0ff832afb94a8bb7256f186df9",
+      "id": "ev_8b678442decf399948594bd4",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/@changesets~1cli"
+      },
+      "object_id": "04eb3a0b5d84e1f710dc252d5dfd4fb119ebab48",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
+    "ev_95e1afec241fb71ebcc87de5": {
+      "commit": null,
+      "content_digest": "9ba80dd4a22396e0e54dcfbbf1439bf91069753e450cbe7be1a41abe14fc8600",
+      "detector": "tooling",
+      "excerpt_digest": "9ba80dd4a22396e0e54dcfbbf1439bf91069753e450cbe7be1a41abe14fc8600",
+      "id": "ev_95e1afec241fb71ebcc87de5",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "6bec862347e4248b96606d734da351cec75c75a5",
+      "path": "pnpm-lock.yaml",
+      "rule": "lockfile.package-manager"
+    },
+    "ev_9649dbff4d3e6748c32c2fac": {
+      "commit": null,
+      "content_digest": "77e253d26d7bf3657059df030cf78e9388cd83603520aea2156473e642ab4d81",
+      "detector": "tooling",
+      "excerpt_digest": "285915b3fdf7706c4c5ecab8ba2eac79824d2cad1a9ef6c6e07c17112abf5f01",
+      "id": "ev_9649dbff4d3e6748c32c2fac",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/packageManager"
+      },
+      "object_id": "04eb3a0b5d84e1f710dc252d5dfd4fb119ebab48",
+      "path": "package.json",
+      "rule": "manifest.package-manager"
+    },
+    "ev_98657b11473282f1b18432f2": {
+      "commit": null,
+      "content_digest": "af70368e8d901834ed9803dda945d24e66582f60840bec7068e9a22cf2d582e1",
+      "detector": "package-metadata",
+      "excerpt_digest": "9b967e7dadda00050f8431e9254d873bfba1448d9efaa48480902364c072e88b",
+      "id": "ev_98657b11473282f1b18432f2",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/express"
+      },
+      "object_id": "9f65b836c216931486dcf15fcadf34a33bd4f770",
+      "path": "api/package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_a6bb2307934d56f53d90e553": {
+      "commit": null,
+      "content_digest": "1de685f183cd682896ea3f4561c8f47f7684023d5c7a6ae9bded89a043d7aa91",
+      "detector": "pnpm-lock",
+      "excerpt_digest": "a9b12a8a6136cd10ba01380c7ff1fd7da2976bad1706021f1aac5739f25fd20b",
+      "id": "ev_a6bb2307934d56f53d90e553",
+      "location": {
+        "format": "yaml",
+        "kind": "pointer",
+        "pointer": "/importers/api/dependencies/knex/version"
+      },
+      "object_id": "6bec862347e4248b96606d734da351cec75c75a5",
+      "path": "pnpm-lock.yaml",
+      "rule": "pnpm-lock.resolved-version"
+    },
+    "ev_aef14e0e74498353882f7a4a": {
+      "commit": null,
+      "content_digest": "77e253d26d7bf3657059df030cf78e9388cd83603520aea2156473e642ab4d81",
+      "detector": "package-metadata",
+      "excerpt_digest": "ab7d846fb206b809f791663adc209cb8e81a88a7e5997272298e214c44e4a5b1",
+      "id": "ev_aef14e0e74498353882f7a4a",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/name"
+      },
+      "object_id": "04eb3a0b5d84e1f710dc252d5dfd4fb119ebab48",
+      "path": "package.json",
+      "rule": "manifest.identity"
+    },
+    "ev_bbf03961c3af363357023ec0": {
+      "commit": null,
+      "content_digest": "77e253d26d7bf3657059df030cf78e9388cd83603520aea2156473e642ab4d81",
+      "detector": "tooling",
+      "excerpt_digest": "fa4b3ccaab62849bf58af9a41e4d3df128e98909bbbbff64367fc28137e071a3",
+      "id": "ev_bbf03961c3af363357023ec0",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/typescript"
+      },
+      "object_id": "04eb3a0b5d84e1f710dc252d5dfd4fb119ebab48",
+      "path": "package.json",
+      "rule": "manifest.tool-dependency"
+    },
+    "ev_c13195210bfbdc91ffae4d0d": {
+      "commit": null,
+      "content_digest": "1de685f183cd682896ea3f4561c8f47f7684023d5c7a6ae9bded89a043d7aa91",
+      "detector": "pnpm-lock",
+      "excerpt_digest": "9b967e7dadda00050f8431e9254d873bfba1448d9efaa48480902364c072e88b",
+      "id": "ev_c13195210bfbdc91ffae4d0d",
+      "location": {
+        "format": "yaml",
+        "kind": "pointer",
+        "pointer": "/importers/api/dependencies/express/version"
+      },
+      "object_id": "6bec862347e4248b96606d734da351cec75c75a5",
+      "path": "pnpm-lock.yaml",
+      "rule": "pnpm-lock.resolved-version"
+    },
+    "ev_de821eee5d7e60ab460ebd44": {
+      "commit": null,
+      "content_digest": "77e253d26d7bf3657059df030cf78e9388cd83603520aea2156473e642ab4d81",
+      "detector": "package-metadata",
+      "excerpt_digest": "fa4b3ccaab62849bf58af9a41e4d3df128e98909bbbbff64367fc28137e071a3",
+      "id": "ev_de821eee5d7e60ab460ebd44",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/typescript"
+      },
+      "object_id": "04eb3a0b5d84e1f710dc252d5dfd4fb119ebab48",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_e58fe8c0b526960f5bcf1818": {
+      "commit": null,
+      "content_digest": "77e253d26d7bf3657059df030cf78e9388cd83603520aea2156473e642ab4d81",
+      "detector": "package-relations",
+      "excerpt_digest": "ab7d846fb206b809f791663adc209cb8e81a88a7e5997272298e214c44e4a5b1",
+      "id": "ev_e58fe8c0b526960f5bcf1818",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/name"
+      },
+      "object_id": "04eb3a0b5d84e1f710dc252d5dfd4fb119ebab48",
+      "path": "package.json",
+      "rule": "packages.produced"
+    },
+    "ev_e7a81cd7241ec665a11f62d6": {
+      "commit": null,
+      "content_digest": "0cff13234a447430e0a83464e2db2e07dbf34528a62b7ce748f162880f5644ba",
+      "detector": "inventory",
+      "excerpt_digest": "0cff13234a447430e0a83464e2db2e07dbf34528a62b7ce748f162880f5644ba",
+      "id": "ev_e7a81cd7241ec665a11f62d6",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "9f65b836c216931486dcf15fcadf34a33bd4f770",
+      "path": "api/package.json",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_eb454539bf1f38edf96be417": {
+      "commit": null,
+      "content_digest": "af70368e8d901834ed9803dda945d24e66582f60840bec7068e9a22cf2d582e1",
+      "detector": "package-metadata",
+      "excerpt_digest": "cb38356703f35d970058cb26ce297b4e48149b4e14cc9c93983e4ff1adaa6045",
+      "id": "ev_eb454539bf1f38edf96be417",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/vitest"
+      },
+      "object_id": "9f65b836c216931486dcf15fcadf34a33bd4f770",
+      "path": "api/package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_f2c08ae6d51f2451f9adb116": {
+      "commit": null,
+      "content_digest": "77e253d26d7bf3657059df030cf78e9388cd83603520aea2156473e642ab4d81",
+      "detector": "package-metadata",
+      "excerpt_digest": "62db796f3ed4b5155a921af47c41addaa7a5ca0ff832afb94a8bb7256f186df9",
+      "id": "ev_f2c08ae6d51f2451f9adb116",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/@changesets~1cli"
+      },
+      "object_id": "04eb3a0b5d84e1f710dc252d5dfd4fb119ebab48",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_fc4903a2d725e9d9124aa388": {
+      "commit": null,
+      "content_digest": "af70368e8d901834ed9803dda945d24e66582f60840bec7068e9a22cf2d582e1",
+      "detector": "package-metadata",
+      "excerpt_digest": "737e022a794fee550f05cf2e7b2381868ae5008e8f2aaca30b7b6ec5bc415ce9",
+      "id": "ev_fc4903a2d725e9d9124aa388",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/name"
+      },
+      "object_id": "9f65b836c216931486dcf15fcadf34a33bd4f770",
+      "path": "api/package.json",
+      "rule": "manifest.identity"
+    }
+  },
+  "extensions": [],
+  "inventory": {
+    "bytes": 1439,
+    "bytes_read": 1439,
+    "entries": 5,
+    "executables": 0,
+    "files": 4,
+    "files_read": 4,
+    "gitlinks": 0,
+    "symlinks": 0
+  },
+  "relationship_references": [
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_e58fe8c0b526960f5bcf1818"
+      ],
+      "id": "ref_1090fcbd8cf53dca39b4e8ab",
+      "identifier": {
+        "name": "@directus/monorepo"
+      },
+      "role": "producer",
+      "rule": "packages.produced",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_6309e9bc9c57cc2ed1a561a6"
+      ],
+      "id": "ref_475ad5b6b788a2d605d4615b",
+      "identifier": {
+        "name": "vitest"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_4e92fb4e6d834023f5b2dd0c"
+      ],
+      "id": "ref_6a54cbba490a8f104b085e10",
+      "identifier": {
+        "name": "knex"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_8b62030d81b9c5475a53a23d"
+      ],
+      "id": "ref_74ca2f341e0b062f6acfcea5",
+      "identifier": {
+        "name": "prettier"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_8b678442decf399948594bd4"
+      ],
+      "id": "ref_a296e97070d025d933e9bd24",
+      "identifier": {
+        "name": "@changesets/cli"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_38e27ded8f7ab7ad5526182a"
+      ],
+      "id": "ref_c6bc68a14967b299d238faf9",
+      "identifier": {
+        "name": "typescript"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_11a612fe7c706c4d7a72a1db"
+      ],
+      "id": "ref_f9632237bba97d9ad636bb3b",
+      "identifier": {
+        "name": "express"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_17089d4fdc3ac2841e843cac"
+      ],
+      "id": "ref_fbc04d6b5ca6d3455486dc1f",
+      "identifier": {
+        "name": "@directus/api"
+      },
+      "role": "producer",
+      "rule": "packages.produced",
+      "type": "package"
+    }
+  ],
+  "schema": "repo_facts.fact_document",
+  "schema_version": 2,
+  "service_dependencies": []
+}

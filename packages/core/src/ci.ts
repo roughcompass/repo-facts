@@ -70,7 +70,7 @@ interface Search {
 
 export const ciDetector: Detector = {
   id: "ci",
-  version: "1",
+  version: "2",
   stage: "parse",
   inputs: [".github/workflows/*", ".gitlab-ci.yml", "**/Jenkinsfile", "**/Makefile", "**/*.sh", "**/package.json"],
   categories: ["ci_systems", "verification_commands"],
