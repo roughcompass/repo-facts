@@ -69,62 +69,6 @@
       },
       "state": "observed"
     },
-    "accessibility": {
-      "facts": [
-        {
-          "evidence": [
-            "ev_edf4e714fad08467cc74b63f"
-          ],
-          "key": "check:html-lang",
-          "rule": "accessibility.checks",
-          "state": "observed",
-          "value": {
-            "app": {
-              "checked": 1,
-              "failing": 1,
-              "unknown": 0
-            },
-            "stories": {
-              "checked": 0,
-              "failing": 0,
-              "unknown": 0
-            },
-            "tests": {
-              "checked": 0,
-              "failing": 0,
-              "unknown": 0
-            }
-          }
-        }
-      ],
-      "search": {
-        "complete": true,
-        "rules": [
-          "accessibility.checks",
-          "accessibility.tooling"
-        ],
-        "skipped": [
-          "src/deep.ts"
-        ],
-        "surface": [
-          "babel.config.cjs",
-          "eslint.config.js",
-          "jest.config.mjs",
-          "package.json",
-          "packages/plugin/index.js",
-          "packages/plugin/package.json",
-          "public/index.html",
-          "src/api.ts",
-          "src/deep.ts",
-          "src/index.ts",
-          "src/payload.cjs",
-          "src/payload.js",
-          "vite.config.ts",
-          "webpack.config.js"
-        ]
-      },
-      "state": "observed"
-    },
     "api_contracts": {
       "facts": [
         {
@@ -2566,21 +2510,6 @@
       "path": "packages/plugin/package.json",
       "rule": "manifest.identity"
     },
-    "ev_edf4e714fad08467cc74b63f": {
-      "commit": null,
-      "content_digest": "09b08019e2e157dfbc9d342b21f5b9ba7d7d89bc2c8c346e20672c3883e65c5e",
-      "detector": "accessibility",
-      "excerpt_digest": "b7d082ee12e91b756ea22e8513b8594eebcf5d39fab813da3cb55794dc888ad7",
-      "id": "ev_edf4e714fad08467cc74b63f",
-      "location": {
-        "end": 2,
-        "kind": "lines",
-        "start": 2
-      },
-      "object_id": "455beb60a94c63149126cb266e0dcb5e6f98dbdb",
-      "path": "public/index.html",
-      "rule": "accessibility.checks"
-    },
     "ev_fff26b833f737eaa9015ea4f": {
       "commit": null,
       "content_digest": "6459eb53f7e62dd05f53245dc433bfcf924e49d277d6f5f4f6638172e1841d02",
@@ -2796,7 +2725,7 @@
     }
   ],
   "schema": "repo_facts.fact_document",
-  "schema_version": 3,
+  "schema_version": 2,
   "service_dependencies": [
     {
       "access": {

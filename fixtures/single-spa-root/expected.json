@@ -14,49 +14,6 @@
       },
       "state": "absent"
     },
-    "accessibility": {
-      "facts": [
-        {
-          "evidence": [
-            "ev_85dbe82a0e70a2864c812deb"
-          ],
-          "key": "check:html-lang",
-          "rule": "accessibility.checks",
-          "state": "observed",
-          "value": {
-            "app": {
-              "checked": 1,
-              "failing": 1,
-              "unknown": 0
-            },
-            "stories": {
-              "checked": 0,
-              "failing": 0,
-              "unknown": 0
-            },
-            "tests": {
-              "checked": 0,
-              "failing": 0,
-              "unknown": 0
-            }
-          }
-        }
-      ],
-      "search": {
-        "complete": true,
-        "rules": [
-          "accessibility.checks",
-          "accessibility.tooling"
-        ],
-        "skipped": [],
-        "surface": [
-          "package.json",
-          "src/index.html",
-          "src/root-config.ts"
-        ]
-      },
-      "state": "observed"
-    },
     "api_contracts": {
       "facts": [],
       "search": {
@@ -883,21 +840,6 @@
       "path": "src/root-config.ts",
       "rule": "architecture.single-spa.register"
     },
-    "ev_85dbe82a0e70a2864c812deb": {
-      "commit": null,
-      "content_digest": "a643bd9cb9479b0cfb4df5ce531f00e12dce7cf1be0ae695965a784ab7d24962",
-      "detector": "accessibility",
-      "excerpt_digest": "b7d082ee12e91b756ea22e8513b8594eebcf5d39fab813da3cb55794dc888ad7",
-      "id": "ev_85dbe82a0e70a2864c812deb",
-      "location": {
-        "end": 2,
-        "kind": "lines",
-        "start": 2
-      },
-      "object_id": "0ca676a371c88da2edf6fa279ce61b7158708634",
-      "path": "src/index.html",
-      "rule": "accessibility.checks"
-    },
     "ev_8914f4a9d8fdfc14aaeb1569": {
       "commit": null,
       "content_digest": "a7b1a21780dae4cb8051e4eba44ff636408412f097d2f3d8c9d40a433d651573",
@@ -1228,6 +1170,6 @@
     }
   ],
   "schema": "repo_facts.fact_document",
-  "schema_version": 3,
+  "schema_version": 2,
   "service_dependencies": []
 }

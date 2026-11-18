@@ -14,22 +14,6 @@
       },
       "state": "absent"
     },
-    "accessibility": {
-      "facts": [],
-      "search": {
-        "complete": true,
-        "rules": [
-          "accessibility.checks",
-          "accessibility.tooling"
-        ],
-        "skipped": [],
-        "surface": [
-          "package.json",
-          "src/useAnalytics.ts"
-        ]
-      },
-      "state": "absent"
-    },
     "api_contracts": {
       "facts": [],
       "search": {
@@ -738,7 +722,7 @@
     }
   ],
   "schema": "repo_facts.fact_document",
-  "schema_version": 3,
+  "schema_version": 2,
   "service_dependencies": [
     {
       "access": {

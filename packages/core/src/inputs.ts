@@ -191,7 +191,7 @@ export const INPUT_RULES: readonly InputRule[] = [
       ["erb", "ERB template", hasExtension("erb")],
       ["razor", "Razor view", hasExtension("cshtml", "razor")],
     ] as const
-  ).map(([format, label, matches]): InputRule => ({ ...rule(format, "template", label, matches, false), feeds: ["ui_elements", "style_values", "accessibility"] })),
+  ).map(([format, label, matches]): InputRule => ({ ...rule(format, "template", label, matches, false), feeds: ["ui_elements", "style_values"] })),
 ];
 
 /**

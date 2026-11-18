@@ -107,7 +107,7 @@ describe("fact document contract", () => {
     const document = profile();
     expect(factDocumentProblems(document)).toEqual([]);
     expect(Object.keys(document.categories)).toEqual(SHARED_CATEGORY_IDS);
-    expect(document).toMatchObject({ schema: "repo_facts.fact_document", schema_version: 3, detector_release: "0.1.0", commit: "a".repeat(40), extensions: [] });
+    expect(document).toMatchObject({ schema: "repo_facts.fact_document", schema_version: 2, detector_release: "0.1.0", commit: "a".repeat(40), extensions: [] });
     expect(document.categories.package_managers!.state).toBe("observed");
     expect(document.categories.runtime_requirements!.state).toBe("conflicting");
     expect(document.categories.frameworks!.state).toBe("inferred");
@@ -140,13 +140,12 @@ describe("fact document contract", () => {
     expect(mutated(change)).toContainEqual(expect.stringContaining(message));
   });
 
-  it("groups the design-system and accessibility categories under Interface, each allowing a bounded negative", () => {
+  it("groups the design-system categories under Interface, each allowing a bounded negative", () => {
     const interfaceCategories = SHARED_CATEGORIES.filter((definition) => definition.group === "Interface");
     expect(interfaceCategories.map((definition) => [definition.id, definition.boundedNegative])).toEqual([
       ["design_systems", true],
       ["ui_elements", true],
       ["style_values", true],
-      ["accessibility", true],
     ]);
     const document = profile();
     for (const definition of interfaceCategories) expect(document.categories[definition.id]!.state, definition.id).toBe("unknown");

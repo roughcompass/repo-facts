@@ -16,27 +16,6 @@
       },
       "state": "absent"
     },
-    "accessibility": {
-      "facts": [],
-      "search": {
-        "complete": true,
-        "rules": [
-          "accessibility.checks",
-          "accessibility.tooling"
-        ],
-        "skipped": [],
-        "surface": [
-          "apps/web/package.json",
-          "apps/web/src/main.ts",
-          "libs/deprecated/package.json",
-          "libs/ui/core/package.json",
-          "package.json",
-          "vite.config.ts",
-          "vitest.config.ts"
-        ]
-      },
-      "state": "absent"
-    },
     "api_contracts": {
       "facts": [],
       "search": {
@@ -1766,6 +1745,6 @@
     }
   ],
   "schema": "repo_facts.fact_document",
-  "schema_version": 3,
+  "schema_version": 2,
   "service_dependencies": []
 }

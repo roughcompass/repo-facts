@@ -1,9 +1,8 @@
 import { z } from "zod";
 
 /**
- * The fact document contract, version 3: what one detector run over one
- * snapshot or working tree established about a repository. Version 3 adds
- * the accessibility category to version 2's.
+ * The fact document contract, version 2: what one detector run over one
+ * snapshot or working tree established about a repository.
  *
  * Every shared category, and every extension category the consumer
  * registered, appears in every document. A category with no defensible
@@ -15,7 +14,7 @@ import { z } from "zod";
  */
 
 export const FACT_DOCUMENT_SCHEMA = "repo_facts.fact_document";
-export const FACT_DOCUMENT_VERSION = 3;
+export const FACT_DOCUMENT_VERSION = 2;
 
 export const FACT_STATES = ["observed", "inferred", "conflicting", "unknown"] as const;
 export type FactState = (typeof FACT_STATES)[number];
@@ -68,7 +67,6 @@ export const SHARED_CATEGORIES: readonly CategoryDefinition[] = [
   category("design_systems", "Design systems", "Interface", true, "Design systems recognized from catalogs, with their declared packages, theme stylesheet, and provider"),
   category("ui_elements", "UI elements", "Interface", true, "JSX elements by design-system component, intrinsic tag, and customization"),
   category("style_values", "Style values", "Interface", true, "Style declarations by value kind, and design-system adherence findings"),
-  category("accessibility", "Accessibility", "Interface", true, "Accessibility tooling declared by manifests, and static accessibility checks of JSX and HTML documents (never run)"),
 ];
 
 export const SHARED_CATEGORY_IDS = SHARED_CATEGORIES.map((definition) => definition.id);

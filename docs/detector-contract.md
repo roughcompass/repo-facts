@@ -1,6 +1,6 @@
 # Detector Contract
 
-This contract governs how detectors turn one snapshot or working tree into a fact document. It is version 1 of the detector contract and version 3 of the fact document schema, `repo_facts.fact_document`. The types live in [`packages/contract/src/detectors/contract.ts`](../packages/contract/src/detectors/contract.ts), and the schema lives in [`packages/contract/src/facts/schema.ts`](../packages/contract/src/facts/schema.ts). Detectors read content only through a reader; see [source-reader.md](source-reader.md).
+This contract governs how detectors turn one snapshot or working tree into a fact document. It is version 1 of the detector contract and version 2 of the fact document schema, `repo_facts.fact_document`. The types live in [`packages/contract/src/detectors/contract.ts`](../packages/contract/src/detectors/contract.ts), and the schema lives in [`packages/contract/src/facts/schema.ts`](../packages/contract/src/facts/schema.ts). Detectors read content only through a reader; see [source-reader.md](source-reader.md).
 
 ## What a detector is
 
@@ -88,7 +88,7 @@ A `ReferenceCandidate` is a typed, evidence-backed pointer to another repository
 
 ## Categories and extensions
 
-The contract owns 27 shared categories (`SHARED_CATEGORIES`), each with a flag saying whether a complete search may conclude it's absent:
+The contract owns 26 shared categories (`SHARED_CATEGORIES`), each with a flag saying whether a complete search may conclude it's absent:
 
 | Group | Categories |
 | --- | --- |
@@ -100,11 +100,9 @@ The contract owns 27 shared categories (`SHARED_CATEGORIES`), each with a flag s
 | Dependencies | `dependencies`, `resolved_dependencies` |
 | Architecture | `frameworks`, `composition`, `packages_produced`, `packages_consumed`, `served_origins`, `runtime_integrations` |
 | Services | `access_signals`, `egress_routes`, `api_contracts`, `test_substitutes` |
-| Interface | `design_systems`, `ui_elements`, `style_values`, `accessibility` |
+| Interface | `design_systems`, `ui_elements`, `style_values` |
 
 The Interface categories come from the design-system detectors in `@repo-facts/design-system`, which recognize design systems only through catalogs; see [design-system-catalogs.md](design-system-catalogs.md). `design_systems` reports each design system a repository declares or imports. `ui_elements` counts JSX elements where they're written, by design-system component, intrinsic tag, and customization. An intrinsic element passed as a design-system component's `render` prop, such as `<VerticalNavigationItemTrigger render={<a href="#orders" />} />`, is the root that component renders: it's reported under `rendered:<tag>`, with the components that render it, and not as a raw element. `style_values` classifies style declarations by property family and value kind and reports adherence findings. Their counts are split into the `app`, `stories`, and `tests` scopes.
-
-`accessibility`, from the same package, reports what a repository declares and writes for accessibility, never whether it conforms. Its `tool:<id>` facts name the accessibility tooling its manifests declare, such as `eslint-plugin-jsx-a11y`, `jest-axe`, or `@storybook/addon-a11y`, each with its kind (`lint`, `test`, `storybook`, `runtime`, `audit`, or `engine`). Its `check:<id>` facts count, per scope, the intrinsic elements each static check examines and how many fail it: `img-alt` (an `<img>` without `alt`), `iframe-title` (an `<iframe>` without `title`), `anchor-href` (an `<a>` without `href`), `click-role` (a `div`, `span`, or other static element with an `onClick` handler and no `role`), `tabindex-positive` (a `tabIndex` greater than 0), and `html-lang` (an HTML document's `<html>` without `lang`). An element that spreads its props can't be checked, so it counts as `unknown`, never as failing. A check cites its first failing sites, or its first checked sites when none fails. Component and view templates are skipped inputs on its surface too.
 
 Stylesheets are read in three dialects: CSS, SCSS, and Less, each with its modules (`*.module.css`, `*.module.scss`, `*.module.less`). SCSS and Less are read as data, never compiled:
 - Nested rules are flattened for selector findings, as native CSS nesting is. A parent suffix, such as `&__header` inside `.card`, resolves to the class `card__header`, which CSS-module class lookups use, and its rule isn't associated with the parent's class.
@@ -113,7 +111,7 @@ Stylesheets are read in three dialects: CSS, SCSS, and Less, each with its modul
 - An interpolated selector, or a parent suffix whose parent doesn't end in a class, is noted as `unresolved_selector`, and the classes it would define aren't indexed. An interpolated property is counted as `unparsed`. Neither is guessed.
 - A CSS module's `:export` and `:import` blocks hand values to and from JavaScript, so their declarations aren't styles.
 
-`@import`, `@use`, and `@forward` are recorded as data and never followed. Sass's indented syntax (`*.sass`) isn't parsed, and neither are component and view templates: Vue (`*.vue`), Svelte (`*.svelte`), Astro (`*.astro`), Angular (`*.component.html`), Handlebars (`*.hbs`), Play Twirl (`*.scala.html`), ERB (`*.erb`), and Razor (`*.cshtml`, `*.razor`). Each is a skipped input on the surfaces of `ui_elements`, `style_values`, and `accessibility`, so a Vue application's elements are unknown rather than absent. A template is skipped only there: it has no `unsupported_input` diagnostic, because other searches read some templates, such as an Angular template's HTML for import maps.
+`@import`, `@use`, and `@forward` are recorded as data and never followed. Sass's indented syntax (`*.sass`) isn't parsed, and neither are component and view templates: Vue (`*.vue`), Svelte (`*.svelte`), Astro (`*.astro`), Angular (`*.component.html`), Handlebars (`*.hbs`), Play Twirl (`*.scala.html`), ERB (`*.erb`), and Razor (`*.cshtml`, `*.razor`). Each is a skipped input on the surfaces of `ui_elements` and `style_values`, so a Vue application's elements are unknown rather than absent. A template is skipped only there: it has no `unsupported_input` diagnostic, because other searches read some templates, such as an Angular template's HTML for import maps.
 
 The package, tooling, and dependency categories cover JavaScript and TypeScript packages. Other ecosystems' build inputs are recognized by name but not analyzed: Go (`go.mod`, `go.sum`, `go.work`), Rust (`Cargo.toml`, `Cargo.lock`), Maven (`pom.xml`, `mvnw`), Gradle (`build.gradle`, `settings.gradle`, `gradlew`, version catalogs, `gradle.lockfile`), sbt (`*.sbt`, `project/build.properties`), Python (`pyproject.toml`, `setup.py`, `setup.cfg`, `requirements*.txt`, `Pipfile`, and lockfiles), Ruby (`Gemfile`, `*.gemspec`, `Gemfile.lock`), PHP (`composer.json`, `composer.lock`), .NET (`*.csproj`, `*.fsproj`, `*.sln`, `Directory.Packages.props`, `packages.lock.json`), Clojure and ClojureScript (`deps.edn`, `project.clj`, `shadow-cljs.edn`), Elixir (`mix.exs`, `mix.lock`), Dart (`pubspec.yaml`), Swift (`Package.swift`, `Package.resolved`), and CocoaPods. Each one gets an `unsupported_input` diagnostic that names its ecosystem, and the `unsupported-inputs` detector puts it on the surface of every category it would feed: a manifest feeds `package_identity`, `dependencies`, `package_managers`, `build_tools`, `frameworks`, `test_frameworks`, `runtime_requirements`, `scripts`, `workspaces`, `packages_produced`, and `packages_consumed`, and a lockfile feeds `resolved_dependencies` and `package_managers`. A skipped input keeps a category with no facts `unknown` instead of `absent`, so a Scala or Go repository never reads as having no dependencies. A category with facts from inputs this release does analyze, such as a `package.json` beside a `docs/requirements.txt`, keeps its facts and lists the other ecosystem's input under `skipped`.
 
@@ -163,7 +161,6 @@ The fact document's `schema_version` changes whenever a document valid under the
 | --- | --- |
 | 1 | The first fact document schema |
 | 2 | Adds the Interface categories `design_systems`, `ui_elements`, and `style_values` |
-| 3 | Adds the Interface category `accessibility` |
 
 A consumer validates that a document has exactly the shared categories it knows, so a version 1 consumer rejects a version 2 document cleanly by its version rather than by its unregistered categories.
 

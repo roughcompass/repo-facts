@@ -28,7 +28,6 @@ export const UNSUPPORTED_INPUT_CATEGORIES = [
   "packages_consumed",
   "ui_elements",
   "style_values",
-  "accessibility",
 ] as const;
 
 export const unsupportedInputsDetector: Detector = {
