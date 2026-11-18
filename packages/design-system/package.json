@@ -1,6 +1,6 @@
 {
   "name": "@repo-facts/design-system",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "description": "Design-system recognition and usage detectors",
   "license": "UNLICENSED",
   "type": "module",
@@ -18,9 +18,9 @@
   ],
   "sideEffects": false,
   "dependencies": {
-    "@repo-facts/contract": "0.5.1",
-    "@repo-facts/core": "0.5.1",
-    "@repo-facts/syntax": "0.5.1",
+    "@repo-facts/contract": "0.6.0",
+    "@repo-facts/core": "0.6.0",
+    "@repo-facts/syntax": "0.6.0",
     "typescript": "6.0.3",
     "zod": "4.6.5"
   }
