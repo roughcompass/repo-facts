@@ -1,5 +1,24 @@
-$accent: #c00;
+@use "sass:math";
 
+$accent: #c00;
+$gutter: 8px;
+
+// Page chrome.
 .page {
   color: $accent;
+  padding: math.div($gutter, 2) var(--salt-spacing-300);
+
+  &--wide {
+    max-inline-size: none;
+  }
+
+  h1 {
+    font-weight: var(--salt-text-h1-fontWeight) !important;
+  }
+}
+
+@each $tone in (info, error) {
+  .banner-#{$tone} {
+    border-color: var(--salt-status-#{$tone}-borderColor);
+  }
 }

@@ -1,3 +1,3 @@
 {
-  "description": "Plain CSS beside SCSS: style facts come from the .css file, and the .scss file is an unsupported input that keeps the style categories from claiming a complete search."
+  "description": "CSS, SCSS, and Less beside Sass's indented syntax: SCSS and Less are parsed like CSS, with nested rules flattened, parent suffixes resolved into CSS-module classes, var(--salt-*) counted as tokens, and preprocessor variables unresolved; an interpolated selector is noted as unresolved, and the .sass file stays an unsupported input that keeps the style categories from claiming a complete search."
 }

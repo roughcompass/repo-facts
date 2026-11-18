@@ -1,0 +1,15 @@
+@import "./mixins";
+
+.card {
+  background: var(--salt-container-primary-background);
+  border-radius: 4px;
+
+  &__header {
+    display: flex;
+    gap: var(--salt-spacing-100);
+  }
+
+  &__footer {
+    @include stack(2);
+  }
+}

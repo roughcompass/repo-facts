@@ -1,6 +1,6 @@
 import type { BlobContent, DetectorContext, Evidence } from "@repo-facts/contract";
 import type ts from "typescript";
-import { type Stylesheet, parseStylesheet } from "./stylesheet.js";
+import { type Stylesheet, parseStylesheet, stylesheetDialectOf } from "./stylesheet.js";
 import { SyntaxTree, dialectOf } from "./syntax.js";
 
 /** Detector id recorded on diagnostics from the shared syntax layer. */
@@ -43,9 +43,11 @@ export interface ParsedStylesheet {
 }
 
 /**
- * The parsed stylesheet at +path+, parsed once per run and shared by every
- * detector. Limit cutoffs are recorded once, as skipped-input diagnostics
- * from the syntax layer, and return null; the stylesheet is never partly read.
+ * The parsed stylesheet at +path+, in the dialect its extension names (CSS,
+ * SCSS, or Less), parsed once per run and shared by every detector. Limit
+ * cutoffs are recorded once, as skipped-input diagnostics from the syntax
+ * layer, and return null; the stylesheet is never partly read. Selectors the
+ * dialect can't resolve statically are noted once, as `unresolved_selector`.
  */
 export function stylesheetOf(context: DetectorContext, path: string): Promise<ParsedStylesheet | null> {
   let sheets = context.shared.get(STYLESHEETS) as Map<string, Promise<ParsedStylesheet | null>> | undefined;
@@ -57,8 +59,15 @@ export function stylesheetOf(context: DetectorContext, path: string): Promise<Pa
   if (!sheet) {
     sheet = context.text(path).then((content) => {
       if (!content || content.text === null) return null;
-      const result = parseStylesheet(content.text);
-      if (result.ok) return { path, content, stylesheet: result.stylesheet };
+      const result = parseStylesheet(content.text, { dialect: stylesheetDialectOf(path) ?? "css" });
+      if (result.ok) {
+        const { unresolved } = result.stylesheet;
+        if (unresolved.length) {
+          const count = unresolved.length === 1 ? "1 selector uses" : `${unresolved.length} selectors use`;
+          context.diagnostic(path, "unresolved_selector", `${count} interpolation or a parent suffix that can't be resolved statically, first on line ${result.stylesheet.lineOf(unresolved[0]!.start)}; the classes they define aren't indexed`, { detector: SYNTAX_LAYER });
+        }
+        return { path, content, stylesheet: result.stylesheet };
+      }
       context.diagnostic(path, result.failure.reason, result.failure.detail, { detector: SYNTAX_LAYER });
       return null;
     });

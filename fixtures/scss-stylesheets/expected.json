@@ -118,7 +118,7 @@
         {
           "evidence": [
             "ev_2e5a07aeea18d414645ee8ce",
-            "ev_3ec2d18a49558063e6aeddcd"
+            "ev_32dcd7ec9d2f6809b963c3f0"
           ],
           "key": "salt",
           "rule": "design-system.recognize",
@@ -149,8 +149,11 @@
         "skipped": [],
         "surface": [
           "package.json",
+          "src/Card.module.scss",
           "src/Page.tsx",
-          "src/app.css"
+          "src/app.css",
+          "src/print.less",
+          "src/theme.scss"
         ]
       },
       "state": "observed"
@@ -229,25 +232,39 @@
         },
         {
           "evidence": [
-            "ev_dcacf7cf3f280e134fcaf4e8"
+            "ev_16c3474e5be4b64573e7a41d"
           ],
-          "key": "Sass",
+          "key": "Less",
           "rule": "inventory.language-by-extension",
           "state": "observed",
           "value": {
-            "bytes": 44,
+            "bytes": 71,
             "files": 1
           }
         },
         {
           "evidence": [
-            "ev_76eb56b917c1fb97e8b955e8"
+            "ev_00b09ec7b943bc1163eb8c14",
+            "ev_6f1ce4903e21f0eaec3d9cd1",
+            "ev_d0b1bd60c8397be10a2c04ad"
+          ],
+          "key": "Sass",
+          "rule": "inventory.language-by-extension",
+          "state": "observed",
+          "value": {
+            "bytes": 625,
+            "files": 3
+          }
+        },
+        {
+          "evidence": [
+            "ev_1794bf6c23ca28d6ed9c2e0d"
           ],
           "key": "TypeScript",
           "rule": "inventory.language-by-extension",
           "state": "observed",
           "value": {
-            "bytes": 172,
+            "bytes": 374,
             "files": 1
           }
         }
@@ -444,9 +461,9 @@
       "facts": [
         {
           "evidence": [
-            "ev_4bbf75775904a5ff5d91d854"
+            "ev_35e684888941016d6ef303d5"
           ],
-          "key": "declarations:color",
+          "key": "declarations:border",
           "rule": "design-system.declarations",
           "state": "observed",
           "value": {
@@ -478,9 +495,150 @@
         },
         {
           "evidence": [
-            "ev_051c510a4aa174511a7f12a4"
+            "ev_4bbf75775904a5ff5d91d854",
+            "ev_a990789c37b2f16910c24d60",
+            "ev_bbeacd85b5b44ae9ac82bd0e"
+          ],
+          "key": "declarations:color",
+          "rule": "design-system.declarations",
+          "state": "observed",
+          "value": {
+            "app": {
+              "neutral": 0,
+              "other_custom_property": 0,
+              "raw": 1,
+              "token": 1,
+              "unparsed": 0,
+              "unresolved": 3
+            },
+            "stories": {
+              "neutral": 0,
+              "other_custom_property": 0,
+              "raw": 0,
+              "token": 0,
+              "unparsed": 0,
+              "unresolved": 0
+            },
+            "tests": {
+              "neutral": 0,
+              "other_custom_property": 0,
+              "raw": 0,
+              "token": 0,
+              "unparsed": 0,
+              "unresolved": 0
+            }
+          }
+        },
+        {
+          "evidence": [
+            "ev_4b81459b286d1aea23fc9cac",
+            "ev_b5d07d0a226c1e0964411d97",
+            "ev_effb247951e96084618a0967"
+          ],
+          "key": "declarations:layout",
+          "rule": "design-system.declarations",
+          "state": "observed",
+          "value": {
+            "app": {
+              "neutral": 2,
+              "other_custom_property": 0,
+              "raw": 0,
+              "token": 1,
+              "unparsed": 0,
+              "unresolved": 0
+            },
+            "stories": {
+              "neutral": 0,
+              "other_custom_property": 0,
+              "raw": 0,
+              "token": 0,
+              "unparsed": 0,
+              "unresolved": 0
+            },
+            "tests": {
+              "neutral": 0,
+              "other_custom_property": 0,
+              "raw": 0,
+              "token": 0,
+              "unparsed": 0,
+              "unresolved": 0
+            }
+          }
+        },
+        {
+          "evidence": [
+            "ev_987844751125937ece71ec3d"
+          ],
+          "key": "declarations:sizing",
+          "rule": "design-system.declarations",
+          "state": "observed",
+          "value": {
+            "app": {
+              "neutral": 1,
+              "other_custom_property": 0,
+              "raw": 0,
+              "token": 0,
+              "unparsed": 0,
+              "unresolved": 0
+            },
+            "stories": {
+              "neutral": 0,
+              "other_custom_property": 0,
+              "raw": 0,
+              "token": 0,
+              "unparsed": 0,
+              "unresolved": 0
+            },
+            "tests": {
+              "neutral": 0,
+              "other_custom_property": 0,
+              "raw": 0,
+              "token": 0,
+              "unparsed": 0,
+              "unresolved": 0
+            }
+          }
+        },
+        {
+          "evidence": [
+            "ev_051c510a4aa174511a7f12a4",
+            "ev_f98289c7a90d68c9950f8a42"
           ],
           "key": "declarations:spacing",
+          "rule": "design-system.declarations",
+          "state": "observed",
+          "value": {
+            "app": {
+              "neutral": 0,
+              "other_custom_property": 0,
+              "raw": 0,
+              "token": 1,
+              "unparsed": 0,
+              "unresolved": 1
+            },
+            "stories": {
+              "neutral": 0,
+              "other_custom_property": 0,
+              "raw": 0,
+              "token": 0,
+              "unparsed": 0,
+              "unresolved": 0
+            },
+            "tests": {
+              "neutral": 0,
+              "other_custom_property": 0,
+              "raw": 0,
+              "token": 0,
+              "unparsed": 0,
+              "unresolved": 0
+            }
+          }
+        },
+        {
+          "evidence": [
+            "ev_b2587d6a0c9df260781e824c"
+          ],
+          "key": "declarations:typography",
           "rule": "design-system.declarations",
           "state": "observed",
           "value": {
@@ -512,6 +670,46 @@
         },
         {
           "evidence": [
+            "ev_677987ff504e2776ab23b41d"
+          ],
+          "key": "important",
+          "rule": "design-system.findings",
+          "state": "observed",
+          "value": {
+            "app": {
+              "count": 1
+            },
+            "stories": {
+              "count": 0
+            },
+            "tests": {
+              "count": 0
+            }
+          }
+        },
+        {
+          "evidence": [
+            "ev_f1048ec9a754e9928d98a941"
+          ],
+          "key": "internal-selector:salt",
+          "rule": "design-system.findings",
+          "state": "observed",
+          "value": {
+            "app": {
+              "count": 1
+            },
+            "stories": {
+              "count": 0
+            },
+            "tests": {
+              "count": 0
+            }
+          }
+        },
+        {
+          "evidence": [
+            "ev_1a63e828811a22c876eeb2f9",
+            "ev_bd52456038583035efb6d5ad",
             "ev_e490b1f75e62bcdf8fada552"
           ],
           "key": "summary:salt",
@@ -519,9 +717,9 @@
           "state": "observed",
           "value": {
             "app": {
-              "token_capable": 2,
-              "token_share": 50,
-              "tokenized": 1
+              "token_capable": 9,
+              "token_share": 33,
+              "tokenized": 3
             },
             "stories": {
               "token_capable": 0,
@@ -540,11 +738,14 @@
           "design-system.usage"
         ],
         "skipped": [
-          "src/theme.scss"
+          "src/legacy.sass"
         ],
         "surface": [
+          "src/Card.module.scss",
           "src/Page.tsx",
           "src/app.css",
+          "src/legacy.sass",
+          "src/print.less",
           "src/theme.scss"
         ]
       },
@@ -595,7 +796,7 @@
       "facts": [
         {
           "evidence": [
-            "ev_6cef031432973b8a80b43a01"
+            "ev_4a639f793dd5c76bbe5a1482"
           ],
           "key": "component:salt:Text",
           "rule": "design-system.elements",
@@ -660,7 +861,106 @@
         },
         {
           "evidence": [
-            "ev_fd2a48b71b02cae7d83ea02b"
+            "ev_e549ba92a5678d15b5633d3b"
+          ],
+          "key": "intrinsic:div",
+          "rule": "design-system.elements",
+          "state": "observed",
+          "value": {
+            "app": {
+              "custom_styled": 1,
+              "sites": 1,
+              "styled": 1,
+              "styled_unresolved": 0,
+              "unstyled": 0
+            },
+            "equivalent": null,
+            "group": "neutral",
+            "stories": {
+              "custom_styled": 0,
+              "sites": 0,
+              "styled": 0,
+              "styled_unresolved": 0,
+              "unstyled": 0
+            },
+            "tests": {
+              "custom_styled": 0,
+              "sites": 0,
+              "styled": 0,
+              "styled_unresolved": 0,
+              "unstyled": 0
+            }
+          }
+        },
+        {
+          "evidence": [
+            "ev_87672ae8d8c64dd591350b24"
+          ],
+          "key": "intrinsic:footer",
+          "rule": "design-system.elements",
+          "state": "observed",
+          "value": {
+            "app": {
+              "custom_styled": 0,
+              "sites": 1,
+              "styled": 1,
+              "styled_unresolved": 1,
+              "unstyled": 0
+            },
+            "equivalent": null,
+            "group": "neutral",
+            "stories": {
+              "custom_styled": 0,
+              "sites": 0,
+              "styled": 0,
+              "styled_unresolved": 0,
+              "unstyled": 0
+            },
+            "tests": {
+              "custom_styled": 0,
+              "sites": 0,
+              "styled": 0,
+              "styled_unresolved": 0,
+              "unstyled": 0
+            }
+          }
+        },
+        {
+          "evidence": [
+            "ev_31fd00235efb6f181d461c9f"
+          ],
+          "key": "intrinsic:header",
+          "rule": "design-system.elements",
+          "state": "observed",
+          "value": {
+            "app": {
+              "custom_styled": 0,
+              "sites": 1,
+              "styled": 1,
+              "styled_unresolved": 0,
+              "unstyled": 0
+            },
+            "equivalent": null,
+            "group": "neutral",
+            "stories": {
+              "custom_styled": 0,
+              "sites": 0,
+              "styled": 0,
+              "styled_unresolved": 0,
+              "unstyled": 0
+            },
+            "tests": {
+              "custom_styled": 0,
+              "sites": 0,
+              "styled": 0,
+              "styled_unresolved": 0,
+              "unstyled": 0
+            }
+          }
+        },
+        {
+          "evidence": [
+            "ev_9aece03e30e6c3bf6a0aa12e"
           ],
           "key": "intrinsic:main",
           "rule": "design-system.elements",
@@ -693,7 +993,27 @@
         },
         {
           "evidence": [
-            "ev_69f567b26569e7bb7436e661"
+            "ev_94ecbd577b2829af28cdc86a"
+          ],
+          "key": "layout-only:header",
+          "reasoning": "Each of these <header> elements is styled only with layout declarations, which a Salt layout component could apply instead: display: flex (src/Card.module.scss:8); gap: var(--salt-spacing-100) (src/Card.module.scss:9).",
+          "rule": "design-system.layout-only",
+          "state": "inferred",
+          "value": {
+            "app": {
+              "sites": 1
+            },
+            "stories": {
+              "sites": 0
+            },
+            "tests": {
+              "sites": 0
+            }
+          }
+        },
+        {
+          "evidence": [
+            "ev_ec5b249f0543be8fd61f0cfc"
           ],
           "key": "summary:salt",
           "rule": "design-system.summary",
@@ -703,7 +1023,7 @@
               "adoption_share": 100,
               "customized_share": 0,
               "design_system": 1,
-              "elements": 2
+              "elements": 5
             },
             "stories": {
               "design_system": 0,
@@ -722,15 +1042,18 @@
           "design-system.usage"
         ],
         "skipped": [
-          "src/theme.scss"
+          "src/legacy.sass"
         ],
         "surface": [
+          "src/Card.module.scss",
           "src/Page.tsx",
           "src/app.css",
+          "src/legacy.sass",
+          "src/print.less",
           "src/theme.scss"
         ]
       },
-      "state": "observed"
+      "state": "mixed"
     },
     "verification_commands": {
       "facts": [],
@@ -764,13 +1087,32 @@
   "detector_release": "golden",
   "diagnostics": [
     {
-      "detail": "SCSS stylesheet is recognized but not analyzed by this detector release",
+      "detail": "Sass stylesheet (indented syntax) is recognized but not analyzed by this detector release",
       "detector": "inventory",
-      "path": "src/theme.scss",
+      "path": "src/legacy.sass",
       "reason": "unsupported_input"
+    },
+    {
+      "detail": "1 selector uses interpolation or a parent suffix that can't be resolved statically, first on line 21; the classes they define aren't indexed",
+      "detector": "syntax",
+      "path": "src/theme.scss",
+      "reason": "unresolved_selector"
     }
   ],
   "evidence": {
+    "ev_00b09ec7b943bc1163eb8c14": {
+      "commit": null,
+      "content_digest": "0c50d24e1bcdf9502ae7f27d57c8f15397ed0de44db39aadb190db3f9117bc45",
+      "detector": "inventory",
+      "excerpt_digest": "0c50d24e1bcdf9502ae7f27d57c8f15397ed0de44db39aadb190db3f9117bc45",
+      "id": "ev_00b09ec7b943bc1163eb8c14",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "96f34932926b19d81641c86a11584b2830a17bd5",
+      "path": "src/legacy.sass",
+      "rule": "inventory.language-by-extension"
+    },
     "ev_051c510a4aa174511a7f12a4": {
       "commit": null,
       "content_digest": "a16c81f9a1a4cde97bd82d12251114d497faad8cfa79cf1126ed29b62e84d99f",
@@ -827,6 +1169,47 @@
       "path": "package.json",
       "rule": "manifest.dependencies"
     },
+    "ev_16c3474e5be4b64573e7a41d": {
+      "commit": null,
+      "content_digest": "4114e77d8b8aa19e4141aeb5ac332e3effbfb5ad8bf5c2abebbf997065fb72fe",
+      "detector": "inventory",
+      "excerpt_digest": "4114e77d8b8aa19e4141aeb5ac332e3effbfb5ad8bf5c2abebbf997065fb72fe",
+      "id": "ev_16c3474e5be4b64573e7a41d",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "48ecc3282c64bedad7600b651a0da25985e1cc87",
+      "path": "src/print.less",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_1794bf6c23ca28d6ed9c2e0d": {
+      "commit": null,
+      "content_digest": "533154fbe972df726ebdbb47ef6925a3b736b437c51f47902497e0cffd11f993",
+      "detector": "inventory",
+      "excerpt_digest": "533154fbe972df726ebdbb47ef6925a3b736b437c51f47902497e0cffd11f993",
+      "id": "ev_1794bf6c23ca28d6ed9c2e0d",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "4c9956abccda247f70b6c6f164966daa80c53784",
+      "path": "src/Page.tsx",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_1a63e828811a22c876eeb2f9": {
+      "commit": null,
+      "content_digest": "543be995390523217cb2193543d5cd8f108a2f5060b45380d0bf2ed4692a7d7d",
+      "detector": "design-system.usage",
+      "excerpt_digest": "cf085a36873dba974939c68fcf2687f62c3dd56d1913e1b47290511be3e87f6a",
+      "id": "ev_1a63e828811a22c876eeb2f9",
+      "location": {
+        "end": 4,
+        "kind": "lines",
+        "start": 4
+      },
+      "object_id": "aa3773c7d36e7dff6e718d5ee1d642146361a9dd",
+      "path": "src/Card.module.scss",
+      "rule": "design-system.summary"
+    },
     "ev_2e5a07aeea18d414645ee8ce": {
       "commit": null,
       "content_digest": "62b5c646a458b0b5c3ecc5007ef7267e95e4e68c0b4cbf28ca1782f394998be2",
@@ -841,6 +1224,51 @@
       "object_id": "99ffbb5902e99201a4eefb264ba90241b94dcbbc",
       "path": "package.json",
       "rule": "design-system.recognize"
+    },
+    "ev_31fd00235efb6f181d461c9f": {
+      "commit": null,
+      "content_digest": "29ed3ac172bedc1a320d2655dd41c36b3bf0651edc218b2a6ca78279946bb4e9",
+      "detector": "design-system.usage",
+      "excerpt_digest": "5267014ffde4f45917a92ecc5cfef142b450ef40990fd62bf194ca73e3af4c66",
+      "id": "ev_31fd00235efb6f181d461c9f",
+      "location": {
+        "end": 9,
+        "kind": "lines",
+        "start": 9
+      },
+      "object_id": "4c9956abccda247f70b6c6f164966daa80c53784",
+      "path": "src/Page.tsx",
+      "rule": "design-system.elements"
+    },
+    "ev_32dcd7ec9d2f6809b963c3f0": {
+      "commit": null,
+      "content_digest": "29ed3ac172bedc1a320d2655dd41c36b3bf0651edc218b2a6ca78279946bb4e9",
+      "detector": "design-system.recognize",
+      "excerpt_digest": "81a4d93079408e5bafe33e4973d6407a31c09ec17bf3397d4ef51a11007c3967",
+      "id": "ev_32dcd7ec9d2f6809b963c3f0",
+      "location": {
+        "end": 1,
+        "kind": "lines",
+        "start": 1
+      },
+      "object_id": "4c9956abccda247f70b6c6f164966daa80c53784",
+      "path": "src/Page.tsx",
+      "rule": "design-system.recognize"
+    },
+    "ev_35e684888941016d6ef303d5": {
+      "commit": null,
+      "content_digest": "543be995390523217cb2193543d5cd8f108a2f5060b45380d0bf2ed4692a7d7d",
+      "detector": "design-system.usage",
+      "excerpt_digest": "36750a215bef8a3a0ba79c64a1cf4621ceed73d142f0f321d415e1d849badb63",
+      "id": "ev_35e684888941016d6ef303d5",
+      "location": {
+        "end": 5,
+        "kind": "lines",
+        "start": 5
+      },
+      "object_id": "aa3773c7d36e7dff6e718d5ee1d642146361a9dd",
+      "path": "src/Card.module.scss",
+      "rule": "design-system.declarations"
     },
     "ev_36dae1b811aa138dd20e59c8": {
       "commit": null,
@@ -857,20 +1285,35 @@
       "path": "package.json",
       "rule": "packages.consumed"
     },
-    "ev_3ec2d18a49558063e6aeddcd": {
+    "ev_4a639f793dd5c76bbe5a1482": {
       "commit": null,
-      "content_digest": "c08822aef94410b8022c52a8202cb94c4e1e676cd1ea1178b4b5962d0fb08a57",
-      "detector": "design-system.recognize",
-      "excerpt_digest": "81a4d93079408e5bafe33e4973d6407a31c09ec17bf3397d4ef51a11007c3967",
-      "id": "ev_3ec2d18a49558063e6aeddcd",
+      "content_digest": "29ed3ac172bedc1a320d2655dd41c36b3bf0651edc218b2a6ca78279946bb4e9",
+      "detector": "design-system.usage",
+      "excerpt_digest": "10e83201dca5773dd797e18799a6f11c08ceda84d7f190061df8a90135b7e296",
+      "id": "ev_4a639f793dd5c76bbe5a1482",
       "location": {
-        "end": 1,
+        "end": 10,
         "kind": "lines",
-        "start": 1
+        "start": 10
       },
-      "object_id": "1926f42d9997d8ea12dde7659c399ae14ddcb801",
+      "object_id": "4c9956abccda247f70b6c6f164966daa80c53784",
       "path": "src/Page.tsx",
-      "rule": "design-system.recognize"
+      "rule": "design-system.elements"
+    },
+    "ev_4b81459b286d1aea23fc9cac": {
+      "commit": null,
+      "content_digest": "543be995390523217cb2193543d5cd8f108a2f5060b45380d0bf2ed4692a7d7d",
+      "detector": "design-system.usage",
+      "excerpt_digest": "7e1f28dfe998232fae7e620ce86829006d98d4bba9b96187bb33b9d1ff5a993d",
+      "id": "ev_4b81459b286d1aea23fc9cac",
+      "location": {
+        "end": 9,
+        "kind": "lines",
+        "start": 9
+      },
+      "object_id": "aa3773c7d36e7dff6e718d5ee1d642146361a9dd",
+      "path": "src/Card.module.scss",
+      "rule": "design-system.declarations"
     },
     "ev_4bbf75775904a5ff5d91d854": {
       "commit": null,
@@ -902,35 +1345,33 @@
       "path": "package.json",
       "rule": "manifest.framework"
     },
-    "ev_69f567b26569e7bb7436e661": {
+    "ev_677987ff504e2776ab23b41d": {
       "commit": null,
-      "content_digest": "c08822aef94410b8022c52a8202cb94c4e1e676cd1ea1178b4b5962d0fb08a57",
+      "content_digest": "9a114e5146d4f1685b876ae9bb4e475edb53e88ef995c5c6c658f32ae6bf3e8a",
       "detector": "design-system.usage",
-      "excerpt_digest": "de3525e9bdab1d9aba28edeca7065870f5c4fafdd8f4ff869ebe82f437f82c3b",
-      "id": "ev_69f567b26569e7bb7436e661",
+      "excerpt_digest": "6e6dd59b2b0f8df985d96b7d48ceeed1969f8405570887e0e09750d4c691a63b",
+      "id": "ev_677987ff504e2776ab23b41d",
       "location": {
-        "end": 7,
+        "end": 16,
         "kind": "lines",
-        "start": 7
+        "start": 16
       },
-      "object_id": "1926f42d9997d8ea12dde7659c399ae14ddcb801",
-      "path": "src/Page.tsx",
-      "rule": "design-system.summary"
+      "object_id": "083712f5834e0afa50debcd895937b9f422c18b5",
+      "path": "src/theme.scss",
+      "rule": "design-system.findings"
     },
-    "ev_6cef031432973b8a80b43a01": {
+    "ev_6f1ce4903e21f0eaec3d9cd1": {
       "commit": null,
-      "content_digest": "c08822aef94410b8022c52a8202cb94c4e1e676cd1ea1178b4b5962d0fb08a57",
-      "detector": "design-system.usage",
-      "excerpt_digest": "de3525e9bdab1d9aba28edeca7065870f5c4fafdd8f4ff869ebe82f437f82c3b",
-      "id": "ev_6cef031432973b8a80b43a01",
+      "content_digest": "aff0763f6529a65cf19d8a30de71556372795fed271ef75036ea82aa8830f0c7",
+      "detector": "inventory",
+      "excerpt_digest": "aff0763f6529a65cf19d8a30de71556372795fed271ef75036ea82aa8830f0c7",
+      "id": "ev_6f1ce4903e21f0eaec3d9cd1",
       "location": {
-        "end": 7,
-        "kind": "lines",
-        "start": 7
+        "kind": "entry"
       },
-      "object_id": "1926f42d9997d8ea12dde7659c399ae14ddcb801",
-      "path": "src/Page.tsx",
-      "rule": "design-system.elements"
+      "object_id": "083712f5834e0afa50debcd895937b9f422c18b5",
+      "path": "src/theme.scss",
+      "rule": "inventory.language-by-extension"
     },
     "ev_74ec4aa0b0e8038e3be8bf99": {
       "commit": null,
@@ -947,18 +1388,20 @@
       "path": "package.json",
       "rule": "manifest.identity"
     },
-    "ev_76eb56b917c1fb97e8b955e8": {
+    "ev_87672ae8d8c64dd591350b24": {
       "commit": null,
-      "content_digest": "d97c33269bd71ca7f23749943bb42f389ebf4a0c15cb0358c81f23fefaaf6b93",
-      "detector": "inventory",
-      "excerpt_digest": "d97c33269bd71ca7f23749943bb42f389ebf4a0c15cb0358c81f23fefaaf6b93",
-      "id": "ev_76eb56b917c1fb97e8b955e8",
+      "content_digest": "29ed3ac172bedc1a320d2655dd41c36b3bf0651edc218b2a6ca78279946bb4e9",
+      "detector": "design-system.usage",
+      "excerpt_digest": "cafff7c0d5d032c1df3df3fbec67e1037b53607fdb1e1b0720d82ae9063d6954",
+      "id": "ev_87672ae8d8c64dd591350b24",
       "location": {
-        "kind": "entry"
+        "end": 12,
+        "kind": "lines",
+        "start": 12
       },
-      "object_id": "1926f42d9997d8ea12dde7659c399ae14ddcb801",
+      "object_id": "4c9956abccda247f70b6c6f164966daa80c53784",
       "path": "src/Page.tsx",
-      "rule": "inventory.language-by-extension"
+      "rule": "design-system.elements"
     },
     "ev_8cf60e4c20394124253274c5": {
       "commit": null,
@@ -975,6 +1418,51 @@
       "path": "package.json",
       "rule": "packages.consumed"
     },
+    "ev_94ecbd577b2829af28cdc86a": {
+      "commit": null,
+      "content_digest": "29ed3ac172bedc1a320d2655dd41c36b3bf0651edc218b2a6ca78279946bb4e9",
+      "detector": "design-system.usage",
+      "excerpt_digest": "5267014ffde4f45917a92ecc5cfef142b450ef40990fd62bf194ca73e3af4c66",
+      "id": "ev_94ecbd577b2829af28cdc86a",
+      "location": {
+        "end": 9,
+        "kind": "lines",
+        "start": 9
+      },
+      "object_id": "4c9956abccda247f70b6c6f164966daa80c53784",
+      "path": "src/Page.tsx",
+      "rule": "design-system.layout-only"
+    },
+    "ev_987844751125937ece71ec3d": {
+      "commit": null,
+      "content_digest": "9a114e5146d4f1685b876ae9bb4e475edb53e88ef995c5c6c658f32ae6bf3e8a",
+      "detector": "design-system.usage",
+      "excerpt_digest": "b38204bc2af2cf159de540503d9379fea0bc33f15502efedb3151a5022ca9862",
+      "id": "ev_987844751125937ece71ec3d",
+      "location": {
+        "end": 12,
+        "kind": "lines",
+        "start": 12
+      },
+      "object_id": "083712f5834e0afa50debcd895937b9f422c18b5",
+      "path": "src/theme.scss",
+      "rule": "design-system.declarations"
+    },
+    "ev_9aece03e30e6c3bf6a0aa12e": {
+      "commit": null,
+      "content_digest": "29ed3ac172bedc1a320d2655dd41c36b3bf0651edc218b2a6ca78279946bb4e9",
+      "detector": "design-system.usage",
+      "excerpt_digest": "feceeb7177b6ee1e7a546c59a9f24223a126491b830510051602182c3239a5a2",
+      "id": "ev_9aece03e30e6c3bf6a0aa12e",
+      "location": {
+        "end": 7,
+        "kind": "lines",
+        "start": 7
+      },
+      "object_id": "4c9956abccda247f70b6c6f164966daa80c53784",
+      "path": "src/Page.tsx",
+      "rule": "design-system.elements"
+    },
     "ev_a7643230ca414b8354710afd": {
       "commit": null,
       "content_digest": "62b5c646a458b0b5c3ecc5007ef7267e95e4e68c0b4cbf28ca1782f394998be2",
@@ -989,6 +1477,81 @@
       "object_id": "99ffbb5902e99201a4eefb264ba90241b94dcbbc",
       "path": "package.json",
       "rule": "packages.produced"
+    },
+    "ev_a990789c37b2f16910c24d60": {
+      "commit": null,
+      "content_digest": "3e10baebff7bda3b575ac5995c941ed90cd2881534b8ce2e1fd7ba496a238416",
+      "detector": "design-system.usage",
+      "excerpt_digest": "29573b0774464095e78d9d5e4a375c2e0f831ece73d5e425fec0a3134f08a0c9",
+      "id": "ev_a990789c37b2f16910c24d60",
+      "location": {
+        "end": 4,
+        "kind": "lines",
+        "start": 4
+      },
+      "object_id": "48ecc3282c64bedad7600b651a0da25985e1cc87",
+      "path": "src/print.less",
+      "rule": "design-system.declarations"
+    },
+    "ev_b2587d6a0c9df260781e824c": {
+      "commit": null,
+      "content_digest": "9a114e5146d4f1685b876ae9bb4e475edb53e88ef995c5c6c658f32ae6bf3e8a",
+      "detector": "design-system.usage",
+      "excerpt_digest": "6e6dd59b2b0f8df985d96b7d48ceeed1969f8405570887e0e09750d4c691a63b",
+      "id": "ev_b2587d6a0c9df260781e824c",
+      "location": {
+        "end": 16,
+        "kind": "lines",
+        "start": 16
+      },
+      "object_id": "083712f5834e0afa50debcd895937b9f422c18b5",
+      "path": "src/theme.scss",
+      "rule": "design-system.declarations"
+    },
+    "ev_b5d07d0a226c1e0964411d97": {
+      "commit": null,
+      "content_digest": "3e10baebff7bda3b575ac5995c941ed90cd2881534b8ce2e1fd7ba496a238416",
+      "detector": "design-system.usage",
+      "excerpt_digest": "94a91291df1e239eca87cac47fe5d76ffba144d93eccc63cb4a0aabaea1934fb",
+      "id": "ev_b5d07d0a226c1e0964411d97",
+      "location": {
+        "end": 5,
+        "kind": "lines",
+        "start": 5
+      },
+      "object_id": "48ecc3282c64bedad7600b651a0da25985e1cc87",
+      "path": "src/print.less",
+      "rule": "design-system.declarations"
+    },
+    "ev_bbeacd85b5b44ae9ac82bd0e": {
+      "commit": null,
+      "content_digest": "543be995390523217cb2193543d5cd8f108a2f5060b45380d0bf2ed4692a7d7d",
+      "detector": "design-system.usage",
+      "excerpt_digest": "cf085a36873dba974939c68fcf2687f62c3dd56d1913e1b47290511be3e87f6a",
+      "id": "ev_bbeacd85b5b44ae9ac82bd0e",
+      "location": {
+        "end": 4,
+        "kind": "lines",
+        "start": 4
+      },
+      "object_id": "aa3773c7d36e7dff6e718d5ee1d642146361a9dd",
+      "path": "src/Card.module.scss",
+      "rule": "design-system.declarations"
+    },
+    "ev_bd52456038583035efb6d5ad": {
+      "commit": null,
+      "content_digest": "9a114e5146d4f1685b876ae9bb4e475edb53e88ef995c5c6c658f32ae6bf3e8a",
+      "detector": "design-system.usage",
+      "excerpt_digest": "6e6dd59b2b0f8df985d96b7d48ceeed1969f8405570887e0e09750d4c691a63b",
+      "id": "ev_bd52456038583035efb6d5ad",
+      "location": {
+        "end": 16,
+        "kind": "lines",
+        "start": 16
+      },
+      "object_id": "083712f5834e0afa50debcd895937b9f422c18b5",
+      "path": "src/theme.scss",
+      "rule": "design-system.summary"
     },
     "ev_c79a25e7a0570bbe9afe970e": {
       "commit": null,
@@ -1005,17 +1568,17 @@
       "path": "package.json",
       "rule": "manifest.dependencies"
     },
-    "ev_dcacf7cf3f280e134fcaf4e8": {
+    "ev_d0b1bd60c8397be10a2c04ad": {
       "commit": null,
-      "content_digest": "40c2f0bd1aea605478903900402d816781bc9e53969441e5b3d28f0f537d79a8",
+      "content_digest": "b49c80c967e888a55205ff8ac4a7a4d5b236cca314b7807e39f430038d8080cd",
       "detector": "inventory",
-      "excerpt_digest": "40c2f0bd1aea605478903900402d816781bc9e53969441e5b3d28f0f537d79a8",
-      "id": "ev_dcacf7cf3f280e134fcaf4e8",
+      "excerpt_digest": "b49c80c967e888a55205ff8ac4a7a4d5b236cca314b7807e39f430038d8080cd",
+      "id": "ev_d0b1bd60c8397be10a2c04ad",
       "location": {
         "kind": "entry"
       },
-      "object_id": "d8bfe59baff1c6f286050ab5a5a806a6032355a5",
-      "path": "src/theme.scss",
+      "object_id": "aa3773c7d36e7dff6e718d5ee1d642146361a9dd",
+      "path": "src/Card.module.scss",
       "rule": "inventory.language-by-extension"
     },
     "ev_e490b1f75e62bcdf8fada552": {
@@ -1033,30 +1596,90 @@
       "path": "src/app.css",
       "rule": "design-system.summary"
     },
-    "ev_fd2a48b71b02cae7d83ea02b": {
+    "ev_e549ba92a5678d15b5633d3b": {
       "commit": null,
-      "content_digest": "c08822aef94410b8022c52a8202cb94c4e1e676cd1ea1178b4b5962d0fb08a57",
+      "content_digest": "29ed3ac172bedc1a320d2655dd41c36b3bf0651edc218b2a6ca78279946bb4e9",
       "detector": "design-system.usage",
-      "excerpt_digest": "feceeb7177b6ee1e7a546c59a9f24223a126491b830510051602182c3239a5a2",
-      "id": "ev_fd2a48b71b02cae7d83ea02b",
+      "excerpt_digest": "1c7e952f75d83a39d4382168043f92370db771b06403cf1069c58b035fbd6a34",
+      "id": "ev_e549ba92a5678d15b5633d3b",
       "location": {
-        "end": 6,
+        "end": 8,
         "kind": "lines",
-        "start": 6
+        "start": 8
       },
-      "object_id": "1926f42d9997d8ea12dde7659c399ae14ddcb801",
+      "object_id": "4c9956abccda247f70b6c6f164966daa80c53784",
       "path": "src/Page.tsx",
       "rule": "design-system.elements"
+    },
+    "ev_ec5b249f0543be8fd61f0cfc": {
+      "commit": null,
+      "content_digest": "29ed3ac172bedc1a320d2655dd41c36b3bf0651edc218b2a6ca78279946bb4e9",
+      "detector": "design-system.usage",
+      "excerpt_digest": "10e83201dca5773dd797e18799a6f11c08ceda84d7f190061df8a90135b7e296",
+      "id": "ev_ec5b249f0543be8fd61f0cfc",
+      "location": {
+        "end": 10,
+        "kind": "lines",
+        "start": 10
+      },
+      "object_id": "4c9956abccda247f70b6c6f164966daa80c53784",
+      "path": "src/Page.tsx",
+      "rule": "design-system.summary"
+    },
+    "ev_effb247951e96084618a0967": {
+      "commit": null,
+      "content_digest": "543be995390523217cb2193543d5cd8f108a2f5060b45380d0bf2ed4692a7d7d",
+      "detector": "design-system.usage",
+      "excerpt_digest": "70b32c1d593913f6414e1929fc14e3de0efedb12d1ceb620c70091af64e22ca0",
+      "id": "ev_effb247951e96084618a0967",
+      "location": {
+        "end": 8,
+        "kind": "lines",
+        "start": 8
+      },
+      "object_id": "aa3773c7d36e7dff6e718d5ee1d642146361a9dd",
+      "path": "src/Card.module.scss",
+      "rule": "design-system.declarations"
+    },
+    "ev_f1048ec9a754e9928d98a941": {
+      "commit": null,
+      "content_digest": "3e10baebff7bda3b575ac5995c941ed90cd2881534b8ce2e1fd7ba496a238416",
+      "detector": "design-system.usage",
+      "excerpt_digest": "94a91291df1e239eca87cac47fe5d76ffba144d93eccc63cb4a0aabaea1934fb",
+      "id": "ev_f1048ec9a754e9928d98a941",
+      "location": {
+        "end": 5,
+        "kind": "lines",
+        "start": 5
+      },
+      "object_id": "48ecc3282c64bedad7600b651a0da25985e1cc87",
+      "path": "src/print.less",
+      "rule": "design-system.findings"
+    },
+    "ev_f98289c7a90d68c9950f8a42": {
+      "commit": null,
+      "content_digest": "9a114e5146d4f1685b876ae9bb4e475edb53e88ef995c5c6c658f32ae6bf3e8a",
+      "detector": "design-system.usage",
+      "excerpt_digest": "dd252780f14d3a738548432fec7e29478606598eddff5bce93ba88844c80bf47",
+      "id": "ev_f98289c7a90d68c9950f8a42",
+      "location": {
+        "end": 9,
+        "kind": "lines",
+        "start": 9
+      },
+      "object_id": "083712f5834e0afa50debcd895937b9f422c18b5",
+      "path": "src/theme.scss",
+      "rule": "design-system.declarations"
     }
   },
   "extensions": [],
   "inventory": {
-    "bytes": 401,
-    "bytes_read": 357,
-    "entries": 5,
+    "bytes": 1255,
+    "bytes_read": 1237,
+    "entries": 8,
     "executables": 0,
-    "files": 4,
-    "files_read": 3,
+    "files": 7,
+    "files_read": 6,
     "gitlinks": 0,
     "symlinks": 0
   },

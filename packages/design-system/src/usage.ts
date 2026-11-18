@@ -74,7 +74,7 @@ export function usageDetector(catalogs: Catalogs = SHIPPED): Detector {
           continue;
         }
         const { stylesheet } = sheet;
-        index.add({ path: input.path, scope: scopeOf(input.path), content: sheet.content, kind: input.format === "css-module" ? "module" : "global", stylesheet, base: 0, lineAt: (offset) => stylesheet.lineOf(offset), interpolations: [] });
+        index.add({ path: input.path, scope: scopeOf(input.path), content: sheet.content, kind: input.format.endsWith("-module") ? "module" : "global", stylesheet, base: 0, lineAt: (offset) => stylesheet.lineOf(offset), interpolations: [] });
       }
 
       const files: FileAnalysis[] = [];

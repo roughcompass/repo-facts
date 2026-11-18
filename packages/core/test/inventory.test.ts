@@ -30,13 +30,13 @@ const REPOSITORY: FileTree = {
   "src/styles.css": "body {}\n",
   "src/App.module.css": ".app {}\n",
   "README.md": "# Orders\n",
+  "src/theme.scss": "$accent: red;\n",
+  "src/old.less": "@accent: red;\n",
   // Recognized, but not analyzed by this release.
   "bun.lockb": Buffer.from([0x00, 0x01, 0x02]),
   ".circleci/config.yml": "version: 2.1\n",
   "azure-pipelines.yml": "trigger: [main]\n",
-  "src/theme.scss": "$accent: red;\n",
   "src/legacy.sass": "body\n  margin: 0\n",
-  "src/old.less": "@accent: red;\n",
   // Never read.
   ".npmrc": "//registry.example.test/:_authToken=secret-value\n",
   ".env.production": "API_TOKEN=secret-value\n",
@@ -94,10 +94,10 @@ describe("inventory", () => {
       "src/App.module.css": ["stylesheet", "css-module", true, true],
       "src/api/openapi.yaml": ["contract", "openapi", true, true],
       "src/legacy.sass": ["stylesheet", "sass", false, null],
-      "src/old.less": ["stylesheet", "less", false, null],
+      "src/old.less": ["stylesheet", "less", true, true],
       "src/schema.graphql": ["contract", "graphql-schema", true, true],
       "src/styles.css": ["stylesheet", "css", true, true],
-      "src/theme.scss": ["stylesheet", "scss", false, null],
+      "src/theme.scss": ["stylesheet", "scss", true, true],
       "tsconfig.json": ["config", "tsconfig", true, true],
       "vite.config.ts": ["config", "vite-config", true, true],
       "yarn.lock": ["lockfile", "yarn-lock", true, true],
@@ -109,7 +109,7 @@ describe("inventory", () => {
   it("reports unsupported inputs so dependent categories stay unknown, and never reads sensitive ones", async () => {
     const { document, reader, readable, unanalyzed } = await inventoryRun(REPOSITORY);
     const unsupported = document.diagnostics.filter((diagnostic) => diagnostic.reason === "unsupported_input").map((diagnostic) => diagnostic.path);
-    expect(unsupported).toEqual([".circleci/config.yml", "azure-pipelines.yml", "bun.lockb", "src/legacy.sass", "src/old.less", "src/theme.scss"]);
+    expect(unsupported).toEqual([".circleci/config.yml", "azure-pipelines.yml", "bun.lockb", "src/legacy.sass"]);
     expect(unanalyzed).toEqual([".circleci/config.yml", "bun.lockb"]);
     expect(readable).toEqual([".github/workflows/ci.yml", "package-lock.json", "package.json", "packages/ui/package.json", "pnpm-lock.yaml", "yarn.lock"]);
     expect(document.diagnostics.map((diagnostic) => diagnostic.path)).not.toContain(".npmrc");
@@ -117,21 +117,21 @@ describe("inventory", () => {
     expect(JSON.stringify(document)).not.toContain("secret-value");
   });
 
-  it("exposes CSS and CSS modules as stylesheets, and reports SCSS, Sass, and Less as unsupported", async () => {
-    const { document, inventory } = await inventoryRun(REPOSITORY);
+  it("exposes CSS, SCSS, Less, and their modules as stylesheets, and reports Sass's indented syntax as unsupported", async () => {
+    const { document, inventory } = await inventoryRun({ ...REPOSITORY, "src/Card.module.scss": ".card {}\n", "src/Nav.module.less": ".nav {}\n" });
     const stylesheets = inventory.inputs.filter((input) => input.kind === "stylesheet").map((input) => [input.path, input.format, input.supported]);
     expect(stylesheets).toEqual([
       ["src/App.module.css", "css-module", true],
+      ["src/Card.module.scss", "scss-module", true],
+      ["src/Nav.module.less", "less-module", true],
       ["src/legacy.sass", "sass", false],
-      ["src/old.less", "less", false],
+      ["src/old.less", "less", true],
       ["src/styles.css", "css", true],
-      ["src/theme.scss", "scss", false],
+      ["src/theme.scss", "scss", true],
     ]);
     const diagnostics = document.diagnostics.filter((diagnostic) => diagnostic.path.startsWith("src/") && diagnostic.reason === "unsupported_input");
     expect(diagnostics.map(({ path, detail }) => [path, detail])).toEqual([
-      ["src/legacy.sass", "Sass stylesheet is recognized but not analyzed by this detector release"],
-      ["src/old.less", "Less stylesheet is recognized but not analyzed by this detector release"],
-      ["src/theme.scss", "SCSS stylesheet is recognized but not analyzed by this detector release"],
+      ["src/legacy.sass", "Sass stylesheet (indented syntax) is recognized but not analyzed by this detector release"],
     ]);
     // Vendored stylesheets, such as an installed theme, are not the repository's own.
     expect(inventory.inputs.map((input) => input.path)).not.toContain("node_modules/@salt-ds/theme/index.css");

@@ -133,7 +133,7 @@ describe("parser", () => {
   });
 
   it("names its parser for the detector configuration", () => {
-    expect(STYLESHEET_PARSER).toEqual({ name: "repo-facts-css", version: "1.0.0" });
+    expect(STYLESHEET_PARSER).toEqual({ name: "repo-facts-css", version: "1.1.0" });
   });
 });
 

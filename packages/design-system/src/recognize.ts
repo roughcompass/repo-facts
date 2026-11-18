@@ -33,7 +33,7 @@ export function recognizeDetector(catalogs: Catalogs = SHIPPED): Detector {
     id: RECOGNIZE,
     version: "2",
     stage: "architecture",
-    inputs: ["**/package.json", "**/*.js", "**/*.jsx", "**/*.mjs", "**/*.cjs", "**/*.ts", "**/*.tsx", "**/*.mts", "**/*.cts", "**/*.css"],
+    inputs: ["**/package.json", "**/*.js", "**/*.jsx", "**/*.mjs", "**/*.cjs", "**/*.ts", "**/*.tsx", "**/*.mts", "**/*.cts", "**/*.css", "**/*.scss", "**/*.less"],
     categories: ["design_systems"],
     async run(context) {
       const sightings = new Map<string, Sighting>();

@@ -142,12 +142,14 @@ Counting JSX elements and reading stylesheets aren't declarative patterns, so de
 
 ### Stylesheets
 
-`parseStylesheet(text, options)` parses CSS only, following CSS Syntax Level 3. `tokenize(text)` is its tokenizer. The result holds:
+`parseStylesheet(text, options)` parses CSS following CSS Syntax Level 3, or SCSS or Less when `options.dialect` names one; `stylesheetDialectOf(path)` chooses the dialect by extension. `tokenize(text, limit, dialect)` is its tokenizer. The SCSS and Less dialects add `//` comments, `variable` tokens for `$name`, and `interpolation` tokens for `#{...}`, `@{...}`, and Less `~"..."` escapes, whose contents are never evaluated. Variable definitions and Less detached rulesets are skipped. SCSS nested properties, such as `font: { family: serif; }`, become declarations such as `font-family`. The result holds:
 - rules and at-rules, including native nesting
 - declarations, each with its property, its value as component values, its text, and its `!important` flag
 - selectors, split into compound selectors with their type, classes, ids, attributes, pseudo-classes, pseudo-elements, and the classes inside arguments such as `:is()` and `:not()`
-- `imports`, the `@import` URLs as written
-- `unparsed`, the declarations the CSS syntax rules discard as invalid, counted rather than guessed
+- `imports`, the `@import` URLs as written, and in SCSS the `@use` and `@forward` URLs
+- `unparsed`, the declarations the CSS syntax rules discard as invalid, and interpolated properties, counted rather than guessed
+- `includes` on each rule and at-rule: the SCSS `@include` and `@extend` and the Less mixin calls and `:extend` it applies, as written
+- `unresolved`, the selectors a preprocessor dialect can't resolve statically: interpolated ones, and parent suffixes such as `&-active` whose parent selector doesn't end in a class. A suffix whose parent does is resolved, and its class is added to the compound, which records the suffix
 
 A `var()` reference is a function value named `var`. The `declarations` mode parses a declaration list, such as a styled-components template body. `walkStylesheet(nodes, visit)` visits every rule and at-rule without recursion, with its ancestors.
 

@@ -170,12 +170,14 @@ export const INPUT_RULES: readonly InputRule[] = [
   rule("openapi", "contract", "OpenAPI document", (_path, name) => /^(openapi|swagger)(\.[\w-]+)?\.(json|ya?ml)$/.test(name) || /\.(openapi|swagger)\.(json|ya?ml)$/.test(name)),
   rule("graphql-schema", "contract", "GraphQL document", hasExtension("graphql", "gql")),
 
-  // Stylesheets are read by the detectors that parse them. Only plain CSS is parsed.
+  // Stylesheets are read by the detectors that parse them: CSS, SCSS, and Less. Sass's indented syntax isn't parsed.
   rule("css-module", "stylesheet", "CSS module", hasStylesheetExtension("module.css")),
   rule("css", "stylesheet", "CSS stylesheet", hasStylesheetExtension("css")),
-  rule("scss", "stylesheet", "SCSS stylesheet", hasStylesheetExtension("scss"), false),
-  rule("sass", "stylesheet", "Sass stylesheet", hasStylesheetExtension("sass"), false),
-  rule("less", "stylesheet", "Less stylesheet", hasStylesheetExtension("less"), false),
+  rule("scss-module", "stylesheet", "SCSS module", hasStylesheetExtension("module.scss")),
+  rule("scss", "stylesheet", "SCSS stylesheet", hasStylesheetExtension("scss")),
+  rule("less-module", "stylesheet", "Less module", hasStylesheetExtension("module.less")),
+  rule("less", "stylesheet", "Less stylesheet", hasStylesheetExtension("less")),
+  rule("sass", "stylesheet", "Sass stylesheet (indented syntax)", hasStylesheetExtension("sass"), false),
 ];
 
 /**

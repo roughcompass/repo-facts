@@ -89,6 +89,8 @@ export interface FileAnalysis {
 }
 
 const MAX_DEPTH = 4;
+/** Stylesheet imports whose classes a binding can name. A Sass import names a stylesheet that isn't parsed, so its classes stay unresolved. */
+const STYLESHEET_IMPORTS = [".css", ".scss", ".sass", ".less"];
 
 export function analyzeFile(tree: SyntaxTree, scope: Scope, catalogs: Catalogs, index: StyleIndex): FileAnalysis {
   return new FileAnalyzer(tree, scope, catalogs, index).run();
@@ -143,7 +145,7 @@ class FileAnalyzer {
   private recordImport(node: ts.ImportDeclaration) {
     if (!ts.isStringLiteral(node.moduleSpecifier)) return;
     const specifier = node.moduleSpecifier.text;
-    if (!specifier.toLowerCase().endsWith(".css") || !specifier.startsWith(".")) return;
+    if (!STYLESHEET_IMPORTS.some((extension) => specifier.toLowerCase().endsWith(extension)) || !specifier.startsWith(".")) return;
     const path = joinPath(this.tree.path, specifier);
     const clause = node.importClause;
     if (!clause || clause.isTypeOnly) return;
@@ -249,7 +251,7 @@ class FileAnalyzer {
   }
 
   private classPart(applied: AppliedClass): StylePart {
-    const declarations = applied.module === null ? this.index.globalClasses.get(applied.name) : this.index.isModule(applied.module) ? (this.index.moduleClass(applied.module, applied.name) ?? []) : undefined;
+    const declarations = applied.module === null ? this.index.globalClass(applied.name) : this.index.isModule(applied.module) ? this.index.moduleClass(applied.module, applied.name) : undefined;
     if (!declarations?.length) return null;
     return { declarations: declarations.map(({ declaration, site }) => ({ property: declaration.property, text: declaration.text, site })) };
   }

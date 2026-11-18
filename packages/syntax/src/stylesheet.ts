@@ -2,6 +2,15 @@
  * Parse-only stylesheets: a tokenizer that follows CSS Syntax Level 3 and a
  * parser for rules, at-rules, and declarations, including native nesting.
  *
+ * The SCSS and Less dialects add what their stylesheets need to be read as
+ * data: `//` comments, variables, interpolation, mixin uses, SCSS nested
+ * properties and placeholders, and parent-selector suffixes such as
+ * `&-active`, which resolve into classes when the parent rule's selector ends
+ * in one. Variables are skipped, never resolved, and nothing is compiled. An
+ * interpolated selector or property can't be read statically, so it is
+ * recorded as unresolved or unparsed rather than guessed. Sass's indented
+ * syntax is not parsed.
+ *
  * Nothing is fetched, imported, or evaluated: `@import` and `url()` are
  * recorded as data. Parsing stops at a node limit and a nesting-depth limit,
  * and a stylesheet that exceeds either is rejected whole, never half-read. A
@@ -13,9 +22,25 @@
  * it produces a new detector release.
  */
 
-export const STYLESHEET_PARSER = { name: "repo-facts-css", version: "1.0.0" } as const;
+export const STYLESHEET_PARSER = { name: "repo-facts-css", version: "1.1.0" } as const;
 export const STYLESHEET_NODE_LIMIT = 200_000;
 export const STYLESHEET_DEPTH_LIMIT = 64;
+
+export const STYLESHEET_DIALECTS = ["css", "scss", "less"] as const;
+export type StylesheetDialect = (typeof STYLESHEET_DIALECTS)[number];
+
+const DIALECT_EXTENSIONS: ReadonlyMap<string, StylesheetDialect> = new Map([
+  [".css", "css"],
+  [".scss", "scss"],
+  [".less", "less"],
+]);
+
+/** The dialect a path is parsed as, or null when it is not a stylesheet this parser reads. */
+export function stylesheetDialectOf(path: string): StylesheetDialect | null {
+  const name = path.slice(path.lastIndexOf("/") + 1);
+  const dot = name.lastIndexOf(".");
+  return dot > 0 ? (DIALECT_EXTENSIONS.get(name.slice(dot).toLowerCase()) ?? null) : null;
+}
 
 export interface StylesheetLimits {
   nodes: number;
@@ -27,7 +52,11 @@ export type CssToken =
   | { type: "hash"; value: string; id: boolean; start: number; end: number }
   | { type: "number" | "percentage"; value: string; start: number; end: number }
   | { type: "dimension"; value: string; unit: string; start: number; end: number }
-  | { type: "whitespace" | "bad-string" | "bad-url" | "cdo" | "cdc" | "colon" | "semicolon" | "comma" | "[" | "]" | "(" | ")" | "{" | "}"; start: number; end: number };
+  | { type: "whitespace" | "bad-string" | "bad-url" | "cdo" | "cdc" | "colon" | "semicolon" | "comma" | "[" | "]" | "(" | ")" | "{" | "}"; start: number; end: number }
+  /** A preprocessor variable reference, `$name` in SCSS or Less, by name. */
+  | { type: "variable"; value: string; start: number; end: number }
+  /** SCSS `#{...}`, Less `@{...}`, or a Less `~"..."` escape, with its contents as written. Never evaluated. */
+  | { type: "interpolation"; value: string; start: number; end: number };
 
 /** A token, a function with its arguments, or a parenthesized, bracketed, or braced block. */
 export type ComponentValue =
@@ -60,6 +89,12 @@ export interface CssCompoundSelector {
   pseudoElements: string[];
   /** Classes named inside pseudo-class arguments, such as `:is(.a)`. */
   argumentClasses: string[];
+  /** SCSS placeholder selectors, such as `%button`. */
+  placeholders: string[];
+  /** A parent-selector suffix, such as `-active` in `&-active`; resolved into classes when the parent's selector ends in one. */
+  suffix: string | null;
+  /** Part of the compound is interpolated, or its suffix can't be resolved, so what it selects isn't known. */
+  unresolved: boolean;
 }
 
 export interface CssComplexSelector {
@@ -75,6 +110,8 @@ export interface CssRule {
   selectors: CssComplexSelector[];
   declarations: CssDeclaration[];
   rules: CssNode[];
+  /** Mixins and extends the block applies, as written: SCSS `@include` and `@extend`, Less mixin calls and `:extend`. Their declarations aren't known here. */
+  includes: string[];
   start: number;
   end: number;
 }
@@ -89,6 +126,7 @@ export interface CssAtRule {
   block: boolean;
   declarations: CssDeclaration[];
   rules: CssNode[];
+  includes: string[];
   start: number;
   end: number;
 }
@@ -98,9 +136,16 @@ export type CssNode = CssRule | CssAtRule;
 export interface CssUnparsed {
   start: number;
   end: number;
-  reason: "invalid_declaration" | "bad_token";
+  reason: "invalid_declaration" | "bad_token" | "interpolated_property";
   /** The declared property, when the declaration names one before its value went bad. */
   property: string | null;
+}
+
+/** A selector that can't be read statically: interpolated, or a parent suffix whose parent doesn't end in a class. */
+export interface CssUnresolved {
+  start: number;
+  end: number;
+  reason: "interpolated_selector" | "parent_suffix";
 }
 
 export interface CssImport {
@@ -116,6 +161,8 @@ export interface Stylesheet {
   /** Top-level declarations, which only a declaration list has. */
   declarations: CssDeclaration[];
   unparsed: CssUnparsed[];
+  /** Selectors the preprocessor dialects can't resolve statically. */
+  unresolved: CssUnresolved[];
   imports: CssImport[];
   nodeCount: number;
   /** The 1-based line of an offset. */
@@ -129,6 +176,8 @@ export type StylesheetResult = { ok: true; stylesheet: Stylesheet } | { ok: fals
 export interface StylesheetOptions {
   /** `declarations` parses the body of a rule, as styled-components templates are written. */
   mode?: "stylesheet" | "declarations";
+  /** CSS by default; SCSS and Less add their own syntax. */
+  dialect?: StylesheetDialect;
   limits?: StylesheetLimits;
 }
 
@@ -142,8 +191,9 @@ class LimitExceeded extends Error {
 export function parseStylesheet(text: string, options: StylesheetOptions = {}): StylesheetResult {
   const limits = options.limits ?? { nodes: STYLESHEET_NODE_LIMIT, depth: STYLESHEET_DEPTH_LIMIT };
   try {
-    const tokens = tokenize(text, limits.nodes);
-    const parser = new Parser(text, tokens, limits);
+    const dialect = options.dialect ?? "css";
+    const tokens = tokenize(text, limits.nodes, dialect);
+    const parser = new Parser(text, tokens, limits, dialect);
     const stylesheet = parser.parse(options.mode ?? "stylesheet");
     return { ok: true, stylesheet };
   } catch (error) {
@@ -167,10 +217,11 @@ const isIdentStart = (c: number) => isLetter(c) || c >= 0x80 || c === 0x5f;
 const isIdentChar = (c: number) => isIdentStart(c) || isDigit(c) || c === 0x2d;
 const isNonPrintable = (c: number) => (c >= 0 && c <= 0x08) || c === 0x0b || (c >= 0x0e && c <= 0x1f) || c === 0x7f;
 
-/** Tokenizes CSS text (CSS Syntax Level 3, section 4). Comments are dropped. */
-export function tokenize(text: string, nodeLimit = STYLESHEET_NODE_LIMIT): CssToken[] {
+/** Tokenizes CSS text (CSS Syntax Level 3, section 4), with the SCSS or Less additions for those dialects. Comments are dropped. */
+export function tokenize(text: string, nodeLimit = STYLESHEET_NODE_LIMIT, dialect: StylesheetDialect = "css"): CssToken[] {
   const tokens: CssToken[] = [];
   const length = text.length;
+  const preprocessed = dialect !== "css";
   let i = 0;
   const at = (offset: number) => (offset < length ? text.charCodeAt(offset) : -1);
 
@@ -312,6 +363,15 @@ export function tokenize(text: string, nodeLimit = STYLESHEET_NODE_LIMIT): CssTo
     }
   };
 
+  /** Whether the `url(` contents from +from+ hold a variable, interpolation, or quote before the closing parenthesis. */
+  const urlExpression = (from: number): boolean => {
+    for (let index = from; index < length && at(index) !== 0x29 && !isNewline(at(index)); index++) {
+      const c = at(index);
+      if (c === 0x24 || c === 0x22 || c === 0x27 || (c === 0x23 && at(index + 1) === 0x7b) || (c === 0x40 && dialect === "less")) return true;
+    }
+    return false;
+  };
+
   const consumeIdentLike = (start: number): CssToken => {
     const name = consumeIdentSequence();
     if (name.toLowerCase() === "url" && at(i) === 0x28) {
@@ -320,6 +380,8 @@ export function tokenize(text: string, nodeLimit = STYLESHEET_NODE_LIMIT): CssTo
       while (isWhitespace(at(lookahead)) && isWhitespace(at(lookahead + 1))) lookahead++;
       const next = isWhitespace(at(lookahead)) ? at(lookahead + 1) : at(lookahead);
       if (next === 0x22 || next === 0x27) return { type: "function", value: name, start, end: i };
+      // In SCSS and Less, `url($base + "/a.png")` is a function of an expression, not an unquoted URL.
+      if (preprocessed && urlExpression(i)) return { type: "function", value: name, start, end: i };
       return consumeUrl(start);
     }
     if (at(i) === 0x28) {
@@ -327,6 +389,24 @@ export function tokenize(text: string, nodeLimit = STYLESHEET_NODE_LIMIT): CssTo
       return { type: "function", value: name, start, end: i };
     }
     return { type: "ident", value: name, start, end: i };
+  };
+
+  /** Consumes an interpolation's balanced braces from just after its opening brace; strings inside are skipped whole. */
+  const consumeInterpolation = (start: number): CssToken => {
+    const inner = i;
+    let level = 1;
+    while (i < length && level > 0) {
+      const c = at(i);
+      if (c === 0x22 || c === 0x27) {
+        i++;
+        consumeString(c, i - 1);
+        continue;
+      }
+      if (c === 0x7b) level++;
+      else if (c === 0x7d) level--;
+      i++;
+    }
+    return { type: "interpolation", value: text.slice(inner, level === 0 ? i - 1 : i), start, end: i };
   };
 
   const consumeNumeric = (start: number): CssToken => {
@@ -350,6 +430,27 @@ export function tokenize(text: string, nodeLimit = STYLESHEET_NODE_LIMIT): CssTo
     if (c === 0x2f && at(i + 1) === 0x2a) {
       const close = text.indexOf("*/", i + 2);
       i = close === -1 ? length : close + 2;
+      continue;
+    }
+    // SCSS and Less line comments.
+    if (preprocessed && c === 0x2f && at(i + 1) === 0x2f) {
+      while (i < length && !isNewline(at(i))) i++;
+      continue;
+    }
+    if (preprocessed && c === 0x24 && startsIdent(i + 1)) {
+      i++;
+      tokens.push({ type: "variable", value: consumeIdentSequence(), start, end: i });
+      continue;
+    }
+    if ((dialect === "scss" && c === 0x23 && at(i + 1) === 0x7b) || (dialect === "less" && c === 0x40 && at(i + 1) === 0x7b)) {
+      i += 2;
+      tokens.push(consumeInterpolation(start));
+      continue;
+    }
+    if (dialect === "less" && c === 0x7e && (at(i + 1) === 0x22 || at(i + 1) === 0x27)) {
+      i += 2;
+      const escaped = consumeString(at(start + 1), start + 1);
+      tokens.push({ type: "interpolation", value: escaped.type === "string" ? escaped.value : text.slice(start + 2, i), start, end: i });
       continue;
     }
     if (isWhitespace(c)) {
@@ -458,17 +559,27 @@ export function tokenize(text: string, nodeLimit = STYLESHEET_NODE_LIMIT): CssTo
 
 const CLOSER: Record<"(" | "[" | "{", ")" | "]" | "}"> = { "(": ")", "[": "]", "{": "}" };
 
+/** At-rules whose prelude names a stylesheet the rule loads, by dialect. */
+const IMPORT_AT_RULES: Record<StylesheetDialect, ReadonlySet<string>> = { css: new Set(["import"]), scss: new Set(["import", "use", "forward"]), less: new Set(["import"]) };
+/** SCSS at-rules that apply declarations defined elsewhere. */
+const SCSS_INCLUDES = new Set(["include", "extend"]);
+
 class Parser {
   private i = 0;
   private nodes = 0;
   private readonly unparsed: CssUnparsed[] = [];
+  private readonly unresolved: CssUnresolved[] = [];
   private readonly imports: CssImport[] = [];
+  private readonly preprocessed: boolean;
 
   constructor(
     private readonly text: string,
     private readonly tokens: CssToken[],
     private readonly limits: StylesheetLimits,
-  ) {}
+    private readonly dialect: StylesheetDialect,
+  ) {
+    this.preprocessed = dialect !== "css";
+  }
 
   parse(mode: "stylesheet" | "declarations"): Stylesheet {
     let rules: CssNode[] = [];
@@ -478,6 +589,7 @@ class Parser {
     } else {
       rules = this.ruleList(0);
     }
+    if (this.preprocessed) this.resolveSuffixes(rules);
     const lineStarts = [0];
     for (let index = 0; index < this.text.length; index++) {
       const code = this.text.charCodeAt(index);
@@ -488,6 +600,7 @@ class Parser {
       rules,
       declarations,
       unparsed: this.unparsed,
+      unresolved: this.unresolved.sort((a, b) => a.start - b.start),
       imports: this.imports,
       nodeCount: this.nodes + this.tokens.length,
       lineOf(offset: number) {
@@ -518,6 +631,8 @@ class Parser {
       const token = this.tokens[this.i]!;
       if (token.type === "whitespace" || token.type === "cdo" || token.type === "cdc" || token.type === "semicolon") {
         this.i++;
+      } else if (this.preprocessed && this.preprocessorStatement(this.tokens.length) !== null) {
+        continue;
       } else if (token.type === "at-keyword") {
         rules.push(this.atRule(depth, this.tokens.length));
       } else if (token.type === "}") {
@@ -562,7 +677,7 @@ class Parser {
     }
     const preludeValues = this.componentValues(preludeStart, index, depth);
     const prelude = this.slice(preludeStart, index);
-    if (name === "import") this.recordImport(preludeValues);
+    if (IMPORT_AT_RULES[this.dialect].has(name)) this.recordImport(preludeValues);
     const token = this.tokens[index];
     if (token?.type === "{") {
       const close = this.blockEnd(index + 1, end);
@@ -570,10 +685,10 @@ class Parser {
       this.i = index + 1;
       const contents = this.blockContents(close, depth + 1);
       this.i = Math.min(close + 1, end);
-      return { kind: "at-rule", name, prelude, preludeValues, block: true, declarations: contents.declarations, rules: contents.rules, start: keyword.start, end: this.endOf(close, end) };
+      return { kind: "at-rule", name, prelude, preludeValues, block: true, declarations: contents.declarations, rules: contents.rules, includes: contents.includes, start: keyword.start, end: this.endOf(close, end) };
     }
     this.i = token?.type === "semicolon" ? index + 1 : index;
-    return { kind: "at-rule", name, prelude, preludeValues, block: false, declarations: [], rules: [], start: keyword.start, end: this.endOf(index, end) };
+    return { kind: "at-rule", name, prelude, preludeValues, block: false, declarations: [], rules: [], includes: [], start: keyword.start, end: this.endOf(index, end) };
   }
 
   private qualifiedRule(depth: number, end: number): CssRule | null {
@@ -593,34 +708,50 @@ class Parser {
     }
     this.count();
     const preludeValues = this.componentValues(preludeStart, index, depth);
+    const selectors = parseSelectorList(preludeValues, this.text, depth, this.limits.depth, this.dialect);
+    const start = this.tokens[preludeStart]!.start;
+    if (selectors.some((selector) => selector.compounds.some((compound) => compound.unresolved))) this.unresolved.push({ start, end: this.tokens[index - 1]?.end ?? start, reason: "interpolated_selector" });
     const close = this.blockEnd(index + 1, end);
     this.checkDepth(depth + 1);
     this.i = index + 1;
     const contents = this.blockContents(close, depth + 1);
     this.i = Math.min(close + 1, end);
+    // A Less selector's :extend() applies another rule's declarations too.
+    const extend = this.dialect === "less" && selectors.some((selector) => selector.compounds.some((compound) => compound.pseudoClasses.includes("extend")));
     return {
       kind: "rule",
       prelude: this.slice(preludeStart, index),
-      selectors: parseSelectorList(preludeValues, this.text, depth, this.limits.depth),
+      selectors,
       declarations: contents.declarations,
       rules: contents.rules,
-      start: this.tokens[preludeStart]!.start,
+      includes: extend ? [...contents.includes, this.slice(preludeStart, index)] : contents.includes,
+      start,
       end: this.endOf(close, end),
     };
   }
 
   /** The contents of a block: declarations, nested rules, and at-rules (CSS Syntax and CSS Nesting). */
-  private blockContents(end: number, depth: number): { declarations: CssDeclaration[]; rules: CssNode[] } {
+  private blockContents(end: number, depth: number): { declarations: CssDeclaration[]; rules: CssNode[]; includes: string[] } {
     const declarations: CssDeclaration[] = [];
     const rules: CssNode[] = [];
+    const includes: string[] = [];
     while (this.i < end) {
       const token = this.tokens[this.i]!;
       if (token.type === "whitespace" || token.type === "semicolon") {
         this.i++;
         continue;
       }
+      if (this.preprocessed) {
+        const statement = this.preprocessorStatement(end);
+        if (statement !== null) {
+          if (statement.include) includes.push(statement.include);
+          continue;
+        }
+      }
       if (token.type === "at-keyword") {
-        rules.push(this.atRule(depth, end));
+        const rule = this.atRule(depth, end) as CssAtRule;
+        if (this.dialect === "scss" && SCSS_INCLUDES.has(rule.name)) includes.push(rule.prelude);
+        rules.push(rule);
         continue;
       }
       // A declaration runs to a top-level semicolon; a nested rule's prelude runs to a top-level brace.
@@ -641,6 +772,7 @@ class Parser {
         else if (type === ")" || type === "]") level = Math.max(0, level - 1);
       }
       const custom = token.type === "ident" && token.value.startsWith("--");
+      if (stop === "{" && !custom && this.dialect === "scss" && this.nestedProperty(index, end, depth, declarations, rules, includes)) continue;
       if (stop === "{" && !custom) {
         const rule = this.qualifiedRule(depth, end);
         if (rule) rules.push(rule);
@@ -655,7 +787,99 @@ class Parser {
       if (declaration) declarations.push(declaration);
       this.i = Math.min(declarationEnd + 1, end);
     }
-    return { declarations, rules };
+    return { declarations, rules, includes };
+  }
+
+  /**
+   * Skips a preprocessor statement at the current token, returning the mixin
+   * or extend it applies, if any: an SCSS or Less variable definition, a Less
+   * detached ruleset, or a Less mixin call such as `.button();` or
+   * `&:extend(.base);`. Returns null when the statement is something else.
+   */
+  private preprocessorStatement(end: number): { include: string | null } | null {
+    const token = this.tokens[this.i]!;
+    const next = this.nextSignificant(this.i + 1, end);
+    const variable = token.type === "variable" || (this.dialect === "less" && token.type === "at-keyword" && this.tokens[next]?.type === "colon");
+    const { index, stop } = this.statementEnd(this.i, end);
+    if (variable) {
+      // A Less detached ruleset, `@name: { ... }`, ends with its block.
+      this.i = stop === "{" ? Math.min(this.blockEnd(index + 1, end) + 1, end) : Math.min(index + 1, end);
+      return { include: null };
+    }
+    const mixinStart = token.type === "hash" || (token.type === "delim" && (token.value === "." || token.value === "#" || token.value === "&"));
+    if (this.dialect === "less" && mixinStart && stop !== "{") {
+      const include = this.slice(this.i, index);
+      this.i = Math.min(index + 1, end);
+      return { include };
+    }
+    return null;
+  }
+
+  /** The first top-level semicolon or opening brace from +from+, or the end. */
+  private statementEnd(from: number, end: number): { index: number; stop: "semicolon" | "{" | "end" } {
+    let level = 0;
+    for (let index = from; index < end; index++) {
+      const type = this.tokens[index]!.type;
+      if (level === 0 && type === "semicolon") return { index, stop: "semicolon" };
+      if (level === 0 && type === "{") return { index, stop: "{" };
+      if (type === "(" || type === "[" || type === "function") level++;
+      else if (type === ")" || type === "]") level = Math.max(0, level - 1);
+      else if (type === "}" && level === 0) return { index, stop: "end" };
+    }
+    return { index: end, stop: "end" };
+  }
+
+  private nextSignificant(from: number, end: number): number {
+    let index = from;
+    while (index < end && this.tokens[index]!.type === "whitespace") index++;
+    return index;
+  }
+
+  /** An SCSS nested property, `font: { family: serif; }`, read as `font-family: serif`. The brace is at +brace+. */
+  private nestedProperty(brace: number, end: number, depth: number, declarations: CssDeclaration[], rules: CssNode[], includes: string[]): boolean {
+    const first = this.tokens[this.i]!;
+    let last = brace - 1;
+    while (last > this.i && this.tokens[last]!.type === "whitespace") last--;
+    if (first.type !== "ident" || this.tokens[last]?.type !== "colon" || this.nextSignificant(this.i + 1, brace) !== last) return false;
+    const close = this.blockEnd(brace + 1, end);
+    this.checkDepth(depth + 1);
+    this.i = brace + 1;
+    const contents = this.blockContents(close, depth + 1);
+    for (const declaration of contents.declarations) declarations.push({ ...declaration, property: declaration.custom ? declaration.property : `${first.value.toLowerCase()}-${declaration.property}` });
+    rules.push(...contents.rules);
+    includes.push(...contents.includes);
+    this.i = Math.min(close + 1, end);
+    return true;
+  }
+
+  /**
+   * Resolves parent-selector suffixes, such as `&-active` inside `.button`,
+   * into classes, from the enclosing rule's selectors. A suffix whose parent
+   * selector doesn't end in a class is unresolved.
+   */
+  private resolveSuffixes(rules: readonly CssNode[]) {
+    const stack: { node: CssNode; parent: CssRule | null }[] = [...rules].reverse().map((node) => ({ node, parent: null }));
+    while (stack.length) {
+      const { node, parent } = stack.pop()!;
+      if (node.kind === "rule") {
+        for (const selector of node.selectors) {
+          for (const compound of selector.compounds) {
+            if (compound.suffix === null) continue;
+            const bases = parent ? parent.selectors.map((candidate) => trailingClasses(candidate.compounds[candidate.compounds.length - 1])) : [];
+            if (!bases.length || bases.some((names) => !names.length)) {
+              compound.unresolved = true;
+              this.unresolved.push({ start: node.start, end: node.start + node.prelude.length, reason: "parent_suffix" });
+              continue;
+            }
+            const names = [...new Set(bases.flat().map((base) => `${base}${compound.suffix}`))];
+            compound.classes.push(...names);
+            if (TRAILING.get(compound) === PENDING) TRAILING.set(compound, names);
+          }
+        }
+      }
+      const next = node.kind === "rule" ? node : parent;
+      for (let index = node.rules.length - 1; index >= 0; index--) stack.push({ node: node.rules[index]!, parent: next });
+    }
   }
 
   private customPropertyEnd(from: number, end: number): number {
@@ -674,14 +898,15 @@ class Parser {
     const start = first?.start ?? 0;
     const endOffset = to > from ? this.tokens[to - 1]!.end : start;
     let index = from;
+    const interpolated = (upTo: number) => this.tokens.slice(from, upTo).some((token) => token.type === "interpolation" || token.type === "variable");
     if (first?.type !== "ident") {
-      this.unparsed.push({ start, end: endOffset, reason: "invalid_declaration", property: null });
+      this.unparsed.push({ start, end: endOffset, reason: interpolated(to) ? "interpolated_property" : "invalid_declaration", property: null });
       return null;
     }
     index++;
     while (this.tokens[index]?.type === "whitespace" && index < to) index++;
     if (this.tokens[index]?.type !== "colon" || index >= to) {
-      this.unparsed.push({ start, end: endOffset, reason: "invalid_declaration", property: null });
+      this.unparsed.push({ start, end: endOffset, reason: interpolated(index + 1) ? "interpolated_property" : "invalid_declaration", property: null });
       return null;
     }
     index++;
@@ -777,12 +1002,23 @@ class Parser {
 
 // ---------------------------------------------------------------- selectors
 
-const emptyCompound = (): CssCompoundSelector => ({ type: null, universal: false, nesting: false, classes: [], ids: [], attributes: [], pseudoClasses: [], pseudoElements: [], argumentClasses: [] });
+const emptyCompound = (): CssCompoundSelector => ({ type: null, universal: false, nesting: false, classes: [], ids: [], attributes: [], pseudoClasses: [], pseudoElements: [], argumentClasses: [], placeholders: [], suffix: null, unresolved: false });
+
+/** The class each compound ends with, for resolving a nested parent suffix; PENDING until its own suffix resolves. */
+const PENDING = "pending";
+const TRAILING = new WeakMap<CssCompoundSelector, readonly string[] | typeof PENDING>();
+const trailingClasses = (compound: CssCompoundSelector | undefined): readonly string[] => {
+  const trailing = compound ? TRAILING.get(compound) : undefined;
+  return Array.isArray(trailing) ? trailing : [];
+};
+const SUFFIX_TOKENS = new Set(["ident", "number", "dimension", "percentage"]);
+const isInterpolated = (value: ComponentValue | undefined) => value?.kind === "token" && (value.token.type === "interpolation" || value.token.type === "variable");
 
 const SELECTOR_ARGUMENT_PSEUDOS = new Set(["is", "where", "not", "has", "matches", "nth-child", "nth-last-child", "host", "host-context", "slotted", "global", "local"]);
 
 /** Splits a selector list into complex selectors and their compounds. Unrecognized parts are ignored, never guessed. */
-export function parseSelectorList(values: ComponentValue[], text: string, depth = 0, depthLimit = STYLESHEET_DEPTH_LIMIT): CssComplexSelector[] {
+export function parseSelectorList(values: ComponentValue[], text: string, depth = 0, depthLimit = STYLESHEET_DEPTH_LIMIT, dialect: StylesheetDialect = "css"): CssComplexSelector[] {
+  const preprocessed = dialect !== "css";
   if (depth > depthLimit) throw new LimitExceeded("stylesheet_depth_limit");
   const groups: ComponentValue[][] = [[]];
   for (const value of values) {
@@ -798,14 +1034,25 @@ export function parseSelectorList(values: ComponentValue[], text: string, depth 
     let current = emptyCompound();
     let pendingCombinator: string | null = null;
     let started = false;
+    // What the compound ends with: a class, a parent suffix, or anything else.
+    let trailing: string | typeof PENDING | null = null;
     const flush = () => {
       if (started) {
         if (compounds.length) combinators.push(pendingCombinator ?? " ");
         compounds.push(current);
+        TRAILING.set(current, trailing === PENDING ? PENDING : trailing === null ? [] : [trailing]);
       }
       current = emptyCompound();
       pendingCombinator = null;
       started = false;
+      trailing = null;
+    };
+    // An adjacent interpolation makes a name partial: `.icon-#{$name}` or `#{$tag}-item`.
+    const touchesInterpolation = (index: number) => {
+      const part = parts[index]!;
+      const before = parts[index - 1];
+      const after = parts[index + 1];
+      return (isInterpolated(before) && before!.end === part.start) || (isInterpolated(after) && after!.start === part.end);
     };
     for (let index = 0; index < parts.length; index++) {
       const part = parts[index]!;
@@ -821,14 +1068,43 @@ export function parseSelectorList(values: ComponentValue[], text: string, depth 
           continue;
         }
         started = true;
-        if (token.type === "ident") {
-          current.type = token.value.toLowerCase();
+        trailing = null;
+        if (token.type === "interpolation" || token.type === "variable") {
+          current.unresolved = true;
+        } else if (token.type === "ident") {
+          if (preprocessed && touchesInterpolation(index)) current.unresolved = true;
+          else current.type = token.value.toLowerCase();
         } else if (token.type === "delim" && token.value === "*") {
           current.universal = true;
         } else if (token.type === "delim" && token.value === "&") {
           current.nesting = true;
+          // A parent suffix, `&-active` or `&__label`, continues the parent's last name.
+          let suffix = "";
+          let end = part.end;
+          while (preprocessed && parts[index + 1]?.kind === "token" && SUFFIX_TOKENS.has((parts[index + 1] as { token: CssToken }).token.type) && parts[index + 1]!.start === end) {
+            end = parts[++index]!.end;
+            suffix = text.slice(part.end, end);
+          }
+          if (suffix) {
+            if (isInterpolated(parts[index + 1]) && parts[index + 1]!.start === end) current.unresolved = true;
+            else {
+              current.suffix = suffix;
+              trailing = PENDING;
+            }
+          }
+        } else if (token.type === "delim" && token.value === "%" && preprocessed && parts[index + 1]?.kind === "token" && (parts[index + 1] as { token: CssToken }).token.type === "ident") {
+          current.placeholders.push(((parts[++index] as { token: CssToken }).token as { value: string }).value);
+        } else if (token.type === "delim" && token.value === "." && isInterpolated(parts[index + 1])) {
+          current.unresolved = true;
         } else if (token.type === "delim" && token.value === "." && parts[index + 1]?.kind === "token" && (parts[index + 1] as { token: CssToken }).token.type === "ident") {
-          current.classes.push(((parts[++index] as { token: CssToken }).token as { value: string }).value);
+          if (preprocessed && touchesInterpolation(index + 1)) {
+            current.unresolved = true;
+            index++;
+          } else {
+            const name = ((parts[++index] as { token: CssToken }).token as { value: string }).value;
+            current.classes.push(name);
+            trailing = name;
+          }
         } else if (token.type === "hash") {
           current.ids.push(token.value);
         } else if (token.type === "colon") {
@@ -842,7 +1118,7 @@ export function parseSelectorList(values: ComponentValue[], text: string, depth 
             index++;
             (elementPseudo ? current.pseudoElements : current.pseudoClasses).push(next.name);
             if (SELECTOR_ARGUMENT_PSEUDOS.has(next.name)) {
-              for (const inner of parseSelectorList(next.value, text, depth + 1, depthLimit)) {
+              for (const inner of parseSelectorList(next.value, text, depth + 1, depthLimit, dialect)) {
                 for (const compound of inner.compounds) current.argumentClasses.push(...compound.classes, ...compound.argumentClasses);
               }
             }
@@ -850,10 +1126,12 @@ export function parseSelectorList(values: ComponentValue[], text: string, depth 
         }
       } else if (part.kind === "block" && part.open === "[") {
         started = true;
+        trailing = null;
         const name = part.value.find((value) => value.kind === "token" && value.token.type === "ident");
         if (name && name.kind === "token") current.attributes.push((name.token as { value: string }).value.toLowerCase());
       } else {
         started = true;
+        trailing = null;
       }
     }
     flush();

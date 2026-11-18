@@ -131,11 +131,73 @@ describe("style value facts", () => {
     expect(styles["declarations:spacing"]).toMatchObject({ app: { token: 1 } });
   });
 
-  it("lists SCSS as a skipped input on both categories, while reporting facts from the CSS", async () => {
-    const document = await profile({ "package.json": SALT, "src/app.css": ".a { color: red }\n", "src/theme.scss": "$a: red;\n" });
-    for (const category of ["ui_elements", "style_values"]) expect(document.categories[category]!.search.skipped).toEqual(["src/theme.scss"]);
+  it("reads SCSS modules: nested rules, parent suffixes, and Salt tokens, but never SCSS variables as tokens", async () => {
+    const document = await profile({
+      "package.json": SALT,
+      "src/Card.module.scss": [
+        "@use \"./tokens\" as *;",
+        "$radius: 4px;",
+        "// a line comment { color: red }",
+        ".card {",
+        "  padding: var(--salt-spacing-100);",
+        "  border-radius: $radius;",
+        "  color: rgba($black, 0.5);",
+        "  &-title { color: var(--salt-content-primary-foreground) !important; }",
+        "  .saltButton { margin: 0; }",
+        "  &-icon-#{$size} { inline-size: 1rem; }",
+        "  #{$side}-width: 1px;",
+        "}",
+        "button { cursor: pointer; }",
+        ":export { accent: $accent; }",
+        "",
+      ].join("\n"),
+      "src/Card.tsx": 'import styles from "./Card.module.scss";\nexport const Card = () => (\n  <section className={styles.card}>\n    <h2 className={styles["card-title"]} />\n  </section>\n);\n',
+    });
+    const styles = values(document, "style_values");
+    expect(styles["declarations:spacing"]).toMatchObject({ app: { token: 1 } });
+    // `$radius` and `rgba($black, 0.5)` are unresolved, never raw or tokens.
+    expect(styles["declarations:border"]).toMatchObject({ app: { unresolved: 1, token: 0, raw: 0 } });
+    expect(styles["declarations:color"]).toMatchObject({ app: { token: 1, unresolved: 1, raw: 0 } });
+    expect(styles.important).toMatchObject({ app: { count: 1 } });
+    expect(styles["internal-selector:salt"]).toMatchObject({ app: { count: 1 } });
+    expect(styles["element-selector:button"]).toMatchObject({ app: { count: 1 } });
+    // The interpolated property is unparsed; the :export block is not a style.
+    expect(styles["declarations:other"]).toMatchObject({ app: { unparsed: 1, unresolved: 0 } });
+    expect(cited(document, "style_values", "important")).toEqual(["src/Card.module.scss:8"]);
+    // The h2's class comes from `&-title`, resolved to card-title.
+    expect(fact(document, "ui_elements", "intrinsic:h2")!.value).toMatchObject({ app: { sites: 1, styled: 1 } });
+    expect(fact(document, "ui_elements", "intrinsic:section")!.value).toMatchObject({ app: { sites: 1, styled: 1, custom_styled: 1 } });
+    expect(document.diagnostics).toContainEqual({ path: "src/Card.module.scss", reason: "unresolved_selector", detail: "1 selector uses interpolation or a parent suffix that can't be resolved statically, first on line 10; the classes they define aren't indexed", detector: "syntax" });
+    for (const category of ["ui_elements", "style_values"]) expect(document.categories[category]!.search).toMatchObject({ complete: true, skipped: [] });
+  });
+
+  it("leaves a class that applies a mixin unresolved, because its declarations are defined elsewhere", async () => {
+    const document = await profile({
+      "package.json": SALT,
+      "src/Row.module.scss": ".row { display: flex; }\n.stack { display: flex; @include gap(2); }\n",
+      "src/Nav.module.less": ".nav { display: flex; .gap(2); }\n.bar { display: flex; }\n",
+      "src/View.tsx": 'import row from "./Row.module.scss";\nimport nav from "./Nav.module.less";\nexport const V = () => (\n  <>\n    <div className={row.row} />\n    <div className={row.stack} />\n    <div className={nav.nav} />\n    <div className={nav.bar} />\n  </>\n);\n',
+    });
+    expect(fact(document, "ui_elements", "intrinsic:div")!.value).toMatchObject({ app: { sites: 4, styled: 4, styled_unresolved: 2 } });
+    expect(fact(document, "ui_elements", "layout-only:div")!.value).toMatchObject({ app: { sites: 2 } });
+  });
+
+  it("reads Less: variables are unresolved, var() tokens count, and nesting is flattened", async () => {
+    const document = await profile({
+      "package.json": SALT,
+      "src/theme.less": "@brand: #c00;\n.page {\n  color: @brand;\n  background: var(--salt-container-primary-background);\n  .saltInput { border: 0; }\n  width: ~\"calc(100% - @{gap})\";\n}\n",
+    });
+    const styles = values(document, "style_values");
+    expect(styles["declarations:color"]).toMatchObject({ app: { unresolved: 1, token: 1, raw: 0 } });
+    expect(styles["internal-selector:salt"]).toMatchObject({ app: { count: 1 } });
+    expect(styles["declarations:sizing"]).toMatchObject({ app: { unresolved: 1 } });
+  });
+
+  it("lists Sass's indented syntax as a skipped input on both categories, while reporting facts from the CSS", async () => {
+    const document = await profile({ "package.json": SALT, "src/app.css": ".a { color: red }\n", "src/theme.sass": "$a: red\n" });
+    for (const category of ["ui_elements", "style_values"]) expect(document.categories[category]!.search.skipped).toEqual(["src/theme.sass"]);
     expect(document.categories.style_values!.state).toBe("observed");
-    expect(document.diagnostics).toContainEqual(expect.objectContaining({ path: "src/theme.scss", reason: "unsupported_input" }));
+    expect(document.diagnostics).toContainEqual(expect.objectContaining({ path: "src/theme.sass", reason: "unsupported_input" }));
   });
 
   it("reports both categories absent for a repository with no UI, after a complete search", async () => {

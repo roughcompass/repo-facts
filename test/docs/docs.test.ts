@@ -94,7 +94,7 @@ describe("documentation", () => {
     const section = doc.slice(doc.indexOf("## Beyond rules: tags and stylesheets"));
     const functions = [...section.matchAll(/`([a-zA-Z]+)\(/g)].map((match) => match[1]!).filter((name) => !["styled", "var", "url", "require"].includes(name));
     const constants = [...section.matchAll(/`([A-Z][A-Z_]+)`/g)].map((match) => match[1]!);
-    expect(new Set(functions)).toEqual(new Set(["resolveTag", "resolveReference", "styledWrapperOf", "parseStylesheet", "tokenize", "walkStylesheet"]));
+    expect(new Set(functions)).toEqual(new Set(["resolveTag", "resolveReference", "styledWrapperOf", "parseStylesheet", "stylesheetDialectOf", "tokenize", "walkStylesheet"]));
     const exports = syntax as Record<string, unknown>;
     for (const name of functions) expect(typeof exports[name], name).toBe("function");
     for (const name of constants) expect(exports[name], name).toBeDefined();

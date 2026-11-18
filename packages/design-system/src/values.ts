@@ -132,15 +132,17 @@ export class ValueClassifier {
     if (name === "env" || name === "url" || name === "attr") return single("neutral");
     if (COLOR_FUNCTIONS.has(name)) {
       // A color built from literals is a literal color; one built from references is as strong as they are.
-      if (!containsVar(value.value)) return single("raw");
+      if (!containsReference(value.value)) return single("raw");
       return this.values(value.value, { ...context, inFunction: true });
     }
     return this.values(value.value, { ...context, inFunction: context.inFunction || MATH_FUNCTIONS.has(name) });
   }
 
   private reference(value: Extract<ComponentValue, { kind: "function" }>, context: ValueContext): Kinds {
-    const first = value.value.find((part) => !(part.kind === "token" && part.token.type === "whitespace"));
+    const [first, second] = value.value.filter((part) => !(part.kind === "token" && part.token.type === "whitespace"));
     if (!first || first.kind !== "token" || first.token.type !== "ident" || !first.token.value.startsWith("--")) return single("unresolved");
+    // A name continued by interpolation, as in `var(--salt-#{$name})`, isn't known.
+    if (second?.kind === "token" && isPreprocessorReference(second.token) && second.start === first.end) return single("unresolved");
     const name = first.token.value;
     const system = this.tokens.get(name);
     if (system) return { observed: "token", resolved: "token", systems: new Set([system]), aliases: new Set(), steps: 0 };
@@ -219,8 +221,14 @@ function single(kind: ValueKind): Kinds {
   return { observed: kind, resolved: kind, systems: new Set(), aliases: new Set(), steps: 0 };
 }
 
-function containsVar(values: readonly ComponentValue[]): boolean {
-  return values.some((value) => value.kind !== "token" && ((value.kind === "function" && value.name.toLowerCase() === "var") || containsVar(value.value)));
+/** Whether +values+ refer to anything: a `var()`, or an SCSS or Less variable or interpolation. */
+function containsReference(values: readonly ComponentValue[]): boolean {
+  return values.some((value) => (value.kind === "token" ? isPreprocessorReference(value.token) : (value.kind === "function" && value.name.toLowerCase() === "var") || containsReference(value.value)));
+}
+
+/** An SCSS or Less variable, a Less `@name` reference, or an interpolation: a value this release never resolves. */
+function isPreprocessorReference(token: CssToken): boolean {
+  return token.type === "variable" || token.type === "interpolation" || token.type === "at-keyword";
 }
 
 /** React's unitless style properties: a number on any other property is a pixel length. */
