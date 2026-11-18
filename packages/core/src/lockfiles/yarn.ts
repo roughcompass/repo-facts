@@ -27,7 +27,7 @@ export type YarnParse = { ok: true; entries: YarnEntry[] } | { ok: false; reason
 
 export const yarnLockDetector: Detector = {
   id: "yarn-lock",
-  version: "1",
+  version: "2",
   stage: "convention",
   inputs: ["**/yarn.lock"],
   categories: [RESOLVED_CATEGORY],

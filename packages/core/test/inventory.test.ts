@@ -161,6 +161,31 @@ describe("inventory", () => {
     expect(typescript.evidence.map((id) => document.evidence[id]!.location)).toEqual([{ kind: "entry" }, { kind: "entry" }, { kind: "entry" }]);
   });
 
+  it("leaves minified bundles, Yarn's committed release, and Go vendor directories out, like node_modules", async () => {
+    const { inventory, document } = await inventoryRun({
+      "package.json": '{ "name": "router" }\n',
+      "src/main.js": "export {};\n",
+      "public/js/jquery.min.js": "!function(){var i=1;var i=2}();\n",
+      "public/css/bootstrap.min.css": "body{margin:0}\n",
+      "lib/loader.min.mjs": "export{};\n",
+      ".yarn/releases/yarn-4.5.0.cjs": "module.exports={};\n",
+      ".yarn/sdks/typescript/package.json": '{ "name": "typescript" }\n',
+      ".pnp.cjs": "module.exports={};\n",
+      "go.mod": "module github.com/alphagov/router\n",
+      "vendor/modules.txt": "# github.com/prometheus/client_golang v1.20.5\n",
+      "vendor/github.com/prometheus/client_golang/prometheus/counter.go": "package prometheus\n",
+      "tools/vendor/modules.txt": "# example.com/tool v1.0.0\n",
+      "tools/vendor/example.com/tool/main.go": "package tool\n",
+      // A directory merely named vendor may hold the repository's own code.
+      "assets/vendor/handlebars.runtime.js": "export default {};\n",
+    });
+    expect(inventory.sources).toEqual(["assets/vendor/handlebars.runtime.js", "src/main.js"]);
+    expect(inventory.vendorDirectories).toEqual(["tools/vendor", "vendor"]);
+    expect(inventory.inputs.map((input) => input.path)).toEqual(["go.mod", "package.json"]);
+    expect(Object.fromEntries(document.categories.languages!.facts.map((fact) => [fact.key, (fact.value as { files: number }).files]))).toEqual({ JSON: 1, JavaScript: 2 });
+    expect(document.inventory.files).toBe(14);
+  });
+
   it("keys languages by extension, and files without one by name", () => {
     expect(
       Object.fromEntries(

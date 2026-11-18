@@ -28,7 +28,7 @@ const LIFECYCLES = ["bootstrap", "mount", "unmount"];
 
 export const compositionDetector: Detector = {
   id: "composition",
-  version: "1",
+  version: "2",
   stage: "architecture",
   inputs: ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx", "**/*.mjs", "**/*.cjs", "**/*.html", "**/importmap.json"],
   categories: ["composition", "runtime_integrations"],
@@ -39,7 +39,7 @@ export const compositionDetector: Detector = {
 
     const rules = ruleDetector({
       id: "composition",
-      version: "1",
+      version: "2",
       stage: "architecture",
       rules: RULES,
       sources: (inner) => inventoryOf(inner).sources,
@@ -171,7 +171,8 @@ function sharedNames(value: StaticValue | undefined): Value {
 async function importMaps(context: DetectorContext) {
   const surface: string[] = [];
   const skipped: string[] = unanalyzedInputs(context, "import-map").map((input) => input.path);
-  const html = context.reader.files().filter((entry) => entry.path.endsWith(".html") && !isVendored(entry.path) && !isSensitivePath(entry.path));
+  const { vendorDirectories } = inventoryOf(context);
+  const html = context.reader.files().filter((entry) => entry.path.endsWith(".html") && !isVendored(entry.path, vendorDirectories) && !isSensitivePath(entry.path));
   for (const entry of html) {
     const content = await context.text(entry.path);
     if (!content) {

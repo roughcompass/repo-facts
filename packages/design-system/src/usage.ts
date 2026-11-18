@@ -55,7 +55,7 @@ const byKey = <V>(map: ReadonlyMap<string, V>) => [...map.entries()].sort(([a], 
 export function usageDetector(catalogs: Catalogs = SHIPPED): Detector {
   return {
     id: USAGE,
-    version: "1",
+    version: "2",
     stage: "architecture",
     inputs: ["**/*.js", "**/*.jsx", "**/*.mjs", "**/*.cjs", "**/*.ts", "**/*.tsx", "**/*.mts", "**/*.cts", "**/*.css", "**/*.scss", "**/*.sass", "**/*.less"],
     categories: ["ui_elements", "style_values"],

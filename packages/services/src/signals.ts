@@ -310,9 +310,10 @@ function reportEgress(context: DetectorContext, signal: (kind: string) => Matche
   }
   for (const route of routes) context.fact({ category: "egress_routes", key: `dev-proxy:${route.path}:${route.route}`, value: { kind: "dev_proxy", route: route.route, target: route.target, configuration: route.path }, basis: "observed", evidence: [route.evidence], rule: route.rule });
 
+  const { vendorDirectories } = inventoryOf(context);
   for (const entry of context.reader.entries) {
     const name = entry.path.slice(entry.path.lastIndexOf("/") + 1);
-    const server = entry.type === "file" && !isVendored(entry.path) ? GATEWAY_FILES.find(([matches]) => matches(name))?.[1] : undefined;
+    const server = entry.type === "file" && !isVendored(entry.path, vendorDirectories) ? GATEWAY_FILES.find(([matches]) => matches(name))?.[1] : undefined;
     if (!server) continue;
     // Recognized from the listing only, so routes it defines stay unknown.
     context.fact({ category: "egress_routes", key: `gateway-file:${entry.path}`, value: { kind: "gateway_configuration_file", path: entry.path, server, rules: "not_analyzed" }, basis: "observed", evidence: [context.entry(entry, RULES.gatewayFile)], rule: RULES.gatewayFile });
@@ -488,7 +489,7 @@ function reportSubstitutes(context: DetectorContext, signal: (kind: string) => M
     });
   }
 
-  const fixtureDirectories = context.reader.entries.filter((entry) => entry.type === "tree" && !isVendored(entry.path) && FIXTURE_DIRECTORIES.has(entry.path.slice(entry.path.lastIndexOf("/") + 1)));
+  const fixtureDirectories = context.reader.entries.filter((entry) => entry.type === "tree" && !isVendored(entry.path, inventoryOf(context).vendorDirectories) && FIXTURE_DIRECTORIES.has(entry.path.slice(entry.path.lastIndexOf("/") + 1)));
   for (const entry of fixtureDirectories) context.fact({ category: "test_substitutes", key: `fixtures:${entry.path}`, value: { kind: "fixture_directory", path: entry.path }, basis: "observed", evidence: [context.entry(entry, RULES.fixture)], rule: RULES.fixture });
   // A fixture file is tied only through a test file whose own substitute is tied to the service.
   const inFixtures = (path: string) => fixtureDirectories.some((entry) => path.startsWith(`${entry.path}/`));

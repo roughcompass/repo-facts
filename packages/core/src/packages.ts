@@ -18,7 +18,7 @@ const RULES = {
 
 export const packageMetadataDetector: Detector = {
   id: "package-metadata",
-  version: "1",
+  version: "2",
   stage: "convention",
   inputs: ["**/package.json", "**/pnpm-workspace.yaml"],
   categories: ["package_identity", "scripts", "dependencies", "workspaces"],

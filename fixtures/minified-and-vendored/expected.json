@@ -1,0 +1,814 @@
+{
+  "categories": {
+    "access_signals": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_9dfde90014639190c81445b5"
+          ],
+          "key": "file:.yarnrc.yml",
+          "rule": "access.credential-file",
+          "state": "observed",
+          "value": {
+            "format": "yarnrc",
+            "kind": "credential_file",
+            "label": "Yarn configuration",
+            "path": ".yarnrc.yml"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "access.search"
+        ],
+        "skipped": [],
+        "surface": [
+          "web/src/main.js",
+          "web/src/vendor/strings.js"
+        ]
+      },
+      "state": "observed"
+    },
+    "api_contracts": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "contracts.search"
+        ],
+        "skipped": [],
+        "surface": [
+          "web/src/main.js",
+          "web/src/vendor/strings.js"
+        ]
+      },
+      "state": "absent"
+    },
+    "build_tools": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "config.tool-file",
+          "inventory.unsupported-input",
+          "manifest.tool-dependency"
+        ],
+        "skipped": [
+          "go.mod"
+        ],
+        "surface": [
+          "go.mod",
+          "web/package.json"
+        ]
+      },
+      "state": "unknown"
+    },
+    "ci_systems": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "ci.definition"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    },
+    "composition": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "architecture.import-map",
+          "composition"
+        ],
+        "skipped": [],
+        "surface": [
+          "web/src/main.js",
+          "web/src/vendor/strings.js"
+        ]
+      },
+      "state": "unknown"
+    },
+    "dependencies": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_30e81b33cd1bc1552d1b5ee5"
+          ],
+          "key": "web/package.json#dependencies/jquery",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "dependencies",
+            "manifest": "web/package.json",
+            "name": "jquery",
+            "specifier": "3.7.1"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.unsupported-input",
+          "manifest.dependencies"
+        ],
+        "skipped": [
+          "go.mod"
+        ],
+        "surface": [
+          "go.mod",
+          "web/package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "design_systems": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "design-system.recognize"
+        ],
+        "skipped": [],
+        "surface": [
+          "web/package.json",
+          "web/src/main.js",
+          "web/src/vendor/strings.js"
+        ]
+      },
+      "state": "absent"
+    },
+    "egress_routes": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "egress.search"
+        ],
+        "skipped": [],
+        "surface": [
+          "web/src/main.js",
+          "web/src/vendor/strings.js"
+        ]
+      },
+      "state": "absent"
+    },
+    "frameworks": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.unsupported-input",
+          "manifest.framework"
+        ],
+        "skipped": [
+          "go.mod"
+        ],
+        "surface": [
+          "go.mod",
+          "web/package.json"
+        ]
+      },
+      "state": "unknown"
+    },
+    "languages": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_0e47e70be9bccea893b34f02"
+          ],
+          "key": "Go",
+          "rule": "inventory.language-by-extension",
+          "state": "observed",
+          "value": {
+            "bytes": 29,
+            "files": 1
+          }
+        },
+        {
+          "evidence": [
+            "ev_8f064e74efd0d7dbec636a73"
+          ],
+          "key": "JSON",
+          "rule": "inventory.language-by-extension",
+          "state": "observed",
+          "value": {
+            "bytes": 129,
+            "files": 1
+          }
+        },
+        {
+          "evidence": [
+            "ev_95f7059b7a8e94314da072aa",
+            "ev_e875a30f0ce7e2b6fdf275eb"
+          ],
+          "key": "JavaScript",
+          "rule": "inventory.language-by-extension",
+          "state": "observed",
+          "value": {
+            "bytes": 263,
+            "files": 2
+          }
+        },
+        {
+          "evidence": [
+            "ev_c66366511f9009ffbb97758f"
+          ],
+          "key": "YAML",
+          "rule": "inventory.language-by-extension",
+          "state": "observed",
+          "value": {
+            "bytes": 40,
+            "files": 1
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.language-by-extension"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "observed"
+    },
+    "package_identity": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_ebedf9c93250f6a6a1393bd6"
+          ],
+          "key": "web/package.json",
+          "rule": "manifest.identity",
+          "state": "observed",
+          "value": {
+            "manifest": "web/package.json",
+            "name": "router-admin",
+            "private": true,
+            "version": null
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.unsupported-input",
+          "manifest.identity"
+        ],
+        "skipped": [
+          "go.mod"
+        ],
+        "surface": [
+          "go.mod",
+          "web/package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "package_managers": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_c7755f6c4769fd24c67f3a3f"
+          ],
+          "key": "web",
+          "rule": "manifest.package-manager",
+          "state": "observed",
+          "value": "yarn"
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.unsupported-input",
+          "lockfile.package-manager",
+          "manifest.package-manager"
+        ],
+        "skipped": [
+          "go.mod"
+        ],
+        "surface": [
+          "go.mod",
+          "web/package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "packages_consumed": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_4bf9cae0956207bc233f1239"
+          ],
+          "key": "jquery",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "jquery"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.unsupported-input",
+          "packages.consumed"
+        ],
+        "skipped": [
+          "go.mod"
+        ],
+        "surface": [
+          "go.mod",
+          "web/package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "packages_produced": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_231ad0f3e0ceaf0aa463f91c"
+          ],
+          "key": "router-admin",
+          "rule": "packages.produced",
+          "state": "observed",
+          "value": {
+            "manifest": "web/package.json",
+            "name": "router-admin",
+            "published": false,
+            "version": null
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.unsupported-input",
+          "packages.produced"
+        ],
+        "skipped": [
+          "go.mod"
+        ],
+        "surface": [
+          "go.mod",
+          "web/package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "resolved_dependencies": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "npm-lock.resolved-version",
+          "pnpm-lock.resolved-version",
+          "yarn-lock.resolved-version"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "runtime_integrations": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_d3e0d39e130fd36a749d3a34"
+          ],
+          "key": "postMessage:receive",
+          "rule": "architecture.post-message.receive",
+          "state": "observed",
+          "value": {
+            "contract": "postMessage",
+            "direction": "receive"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "composition"
+        ],
+        "skipped": [],
+        "surface": [
+          "web/src/main.js",
+          "web/src/vendor/strings.js"
+        ]
+      },
+      "state": "observed"
+    },
+    "runtime_requirements": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_55d63647e8281dccb8bdeb37"
+          ],
+          "key": "yarn",
+          "rule": "manifest.package-manager-version",
+          "state": "observed",
+          "value": {
+            "declared": [
+              "4.5.0"
+            ],
+            "range": "4.5.0"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.unsupported-input",
+          "runtime.declarations"
+        ],
+        "skipped": [
+          "go.mod"
+        ],
+        "surface": [
+          "go.mod",
+          "web/package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "scripts": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.unsupported-input",
+          "manifest.scripts"
+        ],
+        "skipped": [
+          "go.mod"
+        ],
+        "surface": [
+          "go.mod",
+          "web/package.json"
+        ]
+      },
+      "state": "unknown"
+    },
+    "served_origins": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "style_values": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "design-system.usage"
+        ],
+        "skipped": [],
+        "surface": [
+          "web/src/main.js",
+          "web/src/vendor/strings.js"
+        ]
+      },
+      "state": "absent"
+    },
+    "submodules": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.gitlink"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    },
+    "test_frameworks": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "config.tool-file",
+          "inventory.unsupported-input",
+          "manifest.tool-dependency"
+        ],
+        "skipped": [
+          "go.mod"
+        ],
+        "surface": [
+          "go.mod",
+          "web/package.json"
+        ]
+      },
+      "state": "unknown"
+    },
+    "test_substitutes": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "substitutes.search"
+        ],
+        "skipped": [],
+        "surface": [
+          "web/src/main.js",
+          "web/src/vendor/strings.js"
+        ]
+      },
+      "state": "absent"
+    },
+    "ui_elements": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "design-system.usage"
+        ],
+        "skipped": [],
+        "surface": [
+          "web/src/main.js",
+          "web/src/vendor/strings.js"
+        ]
+      },
+      "state": "absent"
+    },
+    "verification_commands": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "ci.verification-commands"
+        ],
+        "skipped": [],
+        "surface": [
+          "web/package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "workspaces": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.unsupported-input",
+          "manifest.workspaces",
+          "pnpm-workspace.packages"
+        ],
+        "skipped": [
+          "go.mod"
+        ],
+        "surface": [
+          "go.mod"
+        ]
+      },
+      "state": "unknown"
+    }
+  },
+  "commit": null,
+  "detector_release": "golden",
+  "diagnostics": [
+    {
+      "detail": "Go module (go.mod) is recognized but not analyzed: this detector release doesn't support the Go ecosystem",
+      "detector": "inventory",
+      "path": "go.mod",
+      "reason": "unsupported_input"
+    }
+  ],
+  "evidence": {
+    "ev_0e47e70be9bccea893b34f02": {
+      "commit": null,
+      "content_digest": "4cdd81e93bb1ed840df6c1d3be83c2d3b4c8dcd186dd84f26643405d8249a259",
+      "detector": "inventory",
+      "excerpt_digest": "4cdd81e93bb1ed840df6c1d3be83c2d3b4c8dcd186dd84f26643405d8249a259",
+      "id": "ev_0e47e70be9bccea893b34f02",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "38dd16da61accb1a8de6ac8709d2e65ef4a51a4a",
+      "path": "main.go",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_231ad0f3e0ceaf0aa463f91c": {
+      "commit": null,
+      "content_digest": "d71e927d64a3ebe5d53c4c290c1824467f9c766ed2e4bd04dc6c6e3a45236c57",
+      "detector": "package-relations",
+      "excerpt_digest": "135c256ed6f4ad52f560e188b0914b2f946e88082b93d9f418d11a971e4cd128",
+      "id": "ev_231ad0f3e0ceaf0aa463f91c",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/name"
+      },
+      "object_id": "914e8315fe0acbf03d13c1e8984b15eeff48b751",
+      "path": "web/package.json",
+      "rule": "packages.produced"
+    },
+    "ev_30e81b33cd1bc1552d1b5ee5": {
+      "commit": null,
+      "content_digest": "d71e927d64a3ebe5d53c4c290c1824467f9c766ed2e4bd04dc6c6e3a45236c57",
+      "detector": "package-metadata",
+      "excerpt_digest": "31d4c79abefdfdd3a4a62ce12285dd4443dde3a9e9ea10c763ed370aac0c3b5a",
+      "id": "ev_30e81b33cd1bc1552d1b5ee5",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/jquery"
+      },
+      "object_id": "914e8315fe0acbf03d13c1e8984b15eeff48b751",
+      "path": "web/package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_4bf9cae0956207bc233f1239": {
+      "commit": null,
+      "content_digest": "d71e927d64a3ebe5d53c4c290c1824467f9c766ed2e4bd04dc6c6e3a45236c57",
+      "detector": "package-relations",
+      "excerpt_digest": "31d4c79abefdfdd3a4a62ce12285dd4443dde3a9e9ea10c763ed370aac0c3b5a",
+      "id": "ev_4bf9cae0956207bc233f1239",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/jquery"
+      },
+      "object_id": "914e8315fe0acbf03d13c1e8984b15eeff48b751",
+      "path": "web/package.json",
+      "rule": "packages.consumed"
+    },
+    "ev_55d63647e8281dccb8bdeb37": {
+      "commit": null,
+      "content_digest": "d71e927d64a3ebe5d53c4c290c1824467f9c766ed2e4bd04dc6c6e3a45236c57",
+      "detector": "runtime",
+      "excerpt_digest": "d3e71c2ebbf864590a2306651b9dea2b90ccc7ea9368aa2db691b8d0b957b3a7",
+      "id": "ev_55d63647e8281dccb8bdeb37",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/packageManager"
+      },
+      "object_id": "914e8315fe0acbf03d13c1e8984b15eeff48b751",
+      "path": "web/package.json",
+      "rule": "manifest.package-manager-version"
+    },
+    "ev_8f064e74efd0d7dbec636a73": {
+      "commit": null,
+      "content_digest": "48715daead432619f69fd8d8aa77f7c1333929140f7d1fd99165ec530a64b3c2",
+      "detector": "inventory",
+      "excerpt_digest": "48715daead432619f69fd8d8aa77f7c1333929140f7d1fd99165ec530a64b3c2",
+      "id": "ev_8f064e74efd0d7dbec636a73",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "914e8315fe0acbf03d13c1e8984b15eeff48b751",
+      "path": "web/package.json",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_95f7059b7a8e94314da072aa": {
+      "commit": null,
+      "content_digest": "002ce8b8a2b96acc0e24ac4087f5417d2093b495d714a7fa4f886b0a7367d973",
+      "detector": "inventory",
+      "excerpt_digest": "002ce8b8a2b96acc0e24ac4087f5417d2093b495d714a7fa4f886b0a7367d973",
+      "id": "ev_95f7059b7a8e94314da072aa",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "8bc9f5919576186b2e1a1e57c2339ba50ccfdf37",
+      "path": "web/src/main.js",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_9dfde90014639190c81445b5": {
+      "commit": null,
+      "content_digest": "f9e7fcb391d67b2634eb66ccf6267543b8225b65477edd56f5e0da759019913c",
+      "detector": "service-signals",
+      "excerpt_digest": "f9e7fcb391d67b2634eb66ccf6267543b8225b65477edd56f5e0da759019913c",
+      "id": "ev_9dfde90014639190c81445b5",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "0bb85ab371d11347d2144568875bfc3019e2283b",
+      "path": ".yarnrc.yml",
+      "rule": "access.credential-file"
+    },
+    "ev_c66366511f9009ffbb97758f": {
+      "commit": null,
+      "content_digest": "f9e7fcb391d67b2634eb66ccf6267543b8225b65477edd56f5e0da759019913c",
+      "detector": "inventory",
+      "excerpt_digest": "f9e7fcb391d67b2634eb66ccf6267543b8225b65477edd56f5e0da759019913c",
+      "id": "ev_c66366511f9009ffbb97758f",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "0bb85ab371d11347d2144568875bfc3019e2283b",
+      "path": ".yarnrc.yml",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_c7755f6c4769fd24c67f3a3f": {
+      "commit": null,
+      "content_digest": "d71e927d64a3ebe5d53c4c290c1824467f9c766ed2e4bd04dc6c6e3a45236c57",
+      "detector": "tooling",
+      "excerpt_digest": "d3e71c2ebbf864590a2306651b9dea2b90ccc7ea9368aa2db691b8d0b957b3a7",
+      "id": "ev_c7755f6c4769fd24c67f3a3f",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/packageManager"
+      },
+      "object_id": "914e8315fe0acbf03d13c1e8984b15eeff48b751",
+      "path": "web/package.json",
+      "rule": "manifest.package-manager"
+    },
+    "ev_d3e0d39e130fd36a749d3a34": {
+      "commit": null,
+      "content_digest": "9f84d061b060a30c50e72ee8c05559e87b96fc0f2aede676a0510cdce8e681d2",
+      "detector": "composition",
+      "excerpt_digest": "f6641e780cb0b886b3866ef576053bcd69c9eb9558a59f5984d4bad6981ac33a",
+      "id": "ev_d3e0d39e130fd36a749d3a34",
+      "location": {
+        "end": 5,
+        "kind": "lines",
+        "start": 3
+      },
+      "object_id": "8bc9f5919576186b2e1a1e57c2339ba50ccfdf37",
+      "path": "web/src/main.js",
+      "rule": "architecture.post-message.receive"
+    },
+    "ev_e875a30f0ce7e2b6fdf275eb": {
+      "commit": null,
+      "content_digest": "18bf334fd2e3db76a8cb15c9f271bed86e4c808c9e2b1eead8623236936718b0",
+      "detector": "inventory",
+      "excerpt_digest": "18bf334fd2e3db76a8cb15c9f271bed86e4c808c9e2b1eead8623236936718b0",
+      "id": "ev_e875a30f0ce7e2b6fdf275eb",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "e13c8d9564aa77eca20fa00b42c145f747c9df8b",
+      "path": "web/src/vendor/strings.js",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_ebedf9c93250f6a6a1393bd6": {
+      "commit": null,
+      "content_digest": "d71e927d64a3ebe5d53c4c290c1824467f9c766ed2e4bd04dc6c6e3a45236c57",
+      "detector": "package-metadata",
+      "excerpt_digest": "135c256ed6f4ad52f560e188b0914b2f946e88082b93d9f418d11a971e4cd128",
+      "id": "ev_ebedf9c93250f6a6a1393bd6",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/name"
+      },
+      "object_id": "914e8315fe0acbf03d13c1e8984b15eeff48b751",
+      "path": "web/package.json",
+      "rule": "manifest.identity"
+    }
+  },
+  "extensions": [],
+  "inventory": {
+    "bytes": 1062,
+    "bytes_read": 392,
+    "entries": 22,
+    "executables": 0,
+    "files": 10,
+    "files_read": 3,
+    "gitlinks": 0,
+    "symlinks": 0
+  },
+  "relationship_references": [
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_231ad0f3e0ceaf0aa463f91c"
+      ],
+      "id": "ref_1192ee9b92316c1e78c43488",
+      "identifier": {
+        "name": "router-admin"
+      },
+      "role": "producer",
+      "rule": "packages.produced",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_4bf9cae0956207bc233f1239"
+      ],
+      "id": "ref_a564a63716f953b4a9148d4d",
+      "identifier": {
+        "name": "jquery"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    }
+  ],
+  "schema": "repo_facts.fact_document",
+  "schema_version": 2,
+  "service_dependencies": []
+}

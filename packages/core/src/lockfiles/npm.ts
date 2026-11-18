@@ -19,7 +19,7 @@ const SUPPORTED_VERSIONS = [1, 2, 3];
 
 export const npmLockDetector: Detector = {
   id: "npm-lock",
-  version: "1",
+  version: "2",
   stage: "convention",
   inputs: ["**/package-lock.json", "**/npm-shrinkwrap.json"],
   categories: [RESOLVED_CATEGORY],

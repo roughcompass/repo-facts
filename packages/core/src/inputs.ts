@@ -178,15 +178,52 @@ export const INPUT_RULES: readonly InputRule[] = [
   rule("less", "stylesheet", "Less stylesheet", hasStylesheetExtension("less"), false),
 ];
 
-/** Directory names whose contents are vendored third-party code, not the repository's own inputs. */
-export const VENDORED_DIRECTORIES = ["node_modules", "bower_components"] as const;
+/**
+ * Vendored and generated code is not the repository's own: installed
+ * packages, Yarn's committed release and plugins, minified bundles, and Go
+ * modules vendored with `go mod vendor`. It is left out of inputs, sources,
+ * and languages, the way node_modules is; the fact document's inventory
+ * counts still include it, because they describe the tree.
+ */
 
-export function isVendored(path: string): boolean {
-  return path.split("/").some((segment) => (VENDORED_DIRECTORIES as readonly string[]).includes(segment));
+/** Directory names whose contents are vendored third-party code, not the repository's own inputs. */
+export const VENDORED_DIRECTORIES = ["node_modules", "bower_components", ".yarn"] as const;
+
+/** File-name endings of minified bundles. */
+export const MINIFIED_SUFFIXES = [".min.js", ".min.mjs", ".min.cjs", ".min.css"] as const;
+
+/** Files Yarn Plug'n'Play generates. */
+const GENERATED_NAMES = new Set([".pnp.cjs", ".pnp.js", ".pnp.loader.mjs"]);
+
+/** Whether +path+ is vendored or generated code; +vendorDirectories+ are vendor roots found from the tree, such as Go's. */
+export function isVendored(path: string, vendorDirectories: readonly string[] = []): boolean {
+  const segments = path.split("/");
+  if (segments.some((segment) => (VENDORED_DIRECTORIES as readonly string[]).includes(segment))) return true;
+  const name = segments[segments.length - 1]!;
+  if (GENERATED_NAMES.has(name) || MINIFIED_SUFFIXES.some((suffix) => name.length > suffix.length && name.toLowerCase().endsWith(suffix))) return true;
+  return vendorDirectories.some((directory) => path === directory || path.startsWith(`${directory}/`));
 }
 
-export function classifyPath(path: string): InputRule | null {
-  if (isVendored(path)) return null;
+/**
+ * Go vendor directories: a `vendor` directory that holds `modules.txt`, which
+ * `go mod vendor` writes, or that sits beside a `go.mod`. Another directory
+ * named vendor may hold the repository's own code, so the name alone isn't enough.
+ */
+export function goVendorDirectories(paths: readonly string[]): string[] {
+  const all = new Set(paths);
+  const found = new Set<string>();
+  for (const path of paths) {
+    if (path === "vendor/modules.txt" || path.endsWith("/vendor/modules.txt")) found.add(path.slice(0, -"/modules.txt".length));
+    if (path === "go.mod" || path.endsWith("/go.mod")) {
+      const directory = `${path.slice(0, -"go.mod".length)}vendor`;
+      if (all.has(directory)) found.add(directory);
+    }
+  }
+  return [...found].sort();
+}
+
+export function classifyPath(path: string, vendorDirectories: readonly string[] = []): InputRule | null {
+  if (isVendored(path, vendorDirectories)) return null;
   const name = path.slice(path.lastIndexOf("/") + 1);
   return INPUT_RULES.find((candidate) => candidate.matches(path, name)) ?? null;
 }

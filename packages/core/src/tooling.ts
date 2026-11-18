@@ -20,7 +20,7 @@ const RULES = {
 
 export const toolingDetector: Detector = {
   id: "tooling",
-  version: "1",
+  version: "2",
   stage: "convention",
   inputs: ["**/package.json", "**/package-lock.json", "**/pnpm-lock.yaml", "**/yarn.lock", "**/*.config.*"],
   categories: ["package_managers", "build_tools", "test_frameworks", "frameworks"],

@@ -1,5 +1,5 @@
 import { compareCodeUnits, type Detector, type DetectorContext } from "@repo-facts/contract";
-import { type InputKind, classifyPath, isVendored, languageOf } from "./inputs.js";
+import { type InputKind, classifyPath, goVendorDirectories, isVendored, languageOf } from "./inputs.js";
 
 /**
  * The inventory stage: classifies every committed path, reads the supported
@@ -28,8 +28,10 @@ export interface InventoryInput {
 
 export interface Inventory {
   inputs: readonly InventoryInput[];
-  /** JavaScript and TypeScript sources, excluding vendored directories. */
+  /** JavaScript and TypeScript sources, excluding vendored and minified code. */
   sources: readonly string[];
+  /** Vendor directories found from the tree, such as Go's, whose contents are excluded like node_modules. */
+  vendorDirectories: readonly string[];
   executables: readonly string[];
   symlinks: readonly string[];
   gitlinks: readonly string[];
@@ -48,9 +50,10 @@ export const inventoryDetector: Detector = {
   categories: ["languages", "submodules"],
   async run(context) {
     const entries = context.reader.entries;
+    const vendorDirectories = goVendorDirectories(entries.map((entry) => entry.path));
     const classified = entries.flatMap((entry) => {
       if (entry.type !== "file" && entry.type !== "executable" && entry.type !== "symlink") return [];
-      const rule = classifyPath(entry.path);
+      const rule = classifyPath(entry.path, vendorDirectories);
       return rule ? [{ entry, rule }] : [];
     });
 
@@ -70,10 +73,11 @@ export const inventoryDetector: Detector = {
       else if (context.reader.entry(input.path)?.type === "symlink") context.diagnostic(input.path, "symlink", `${input.label} is a symbolic link, which is recorded but never followed`);
     }
 
-    const own = entries.filter((entry) => !isVendored(entry.path));
+    const own = entries.filter((entry) => !isVendored(entry.path, vendorDirectories));
     const inventory: Inventory = {
       inputs,
       sources: own.filter((entry) => (entry.type === "file" || entry.type === "executable") && SOURCE_EXTENSIONS.test(entry.path)).map((entry) => entry.path),
+      vendorDirectories,
       executables: entries.filter((entry) => entry.type === "executable").map((entry) => entry.path),
       symlinks: entries.filter((entry) => entry.type === "symlink").map((entry) => entry.path),
       gitlinks: entries.filter((entry) => entry.type === "gitlink").map((entry) => entry.path),

@@ -1,0 +1,3 @@
+{
+  "description": "A Go service with a small web UI: minified bundles, Yarn's committed release, and the Go vendor directory are left out like node_modules, so a minified library's reused bindings can't become runtime-integration conflicts, while a directory merely named vendor in the app still counts."
+}

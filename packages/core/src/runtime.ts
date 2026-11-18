@@ -55,7 +55,7 @@ const RULES = {
 
 export const runtimeDetector: Detector = {
   id: "runtime",
-  version: "1",
+  version: "2",
   stage: "convention",
   inputs: ["**/package.json"],
   categories: ["runtime_requirements"],

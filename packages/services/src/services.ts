@@ -75,13 +75,13 @@ const INTERPRETED_PACKAGES = new Set(["axios", "axios-retry", "openapi-fetch", "
 
 export const serviceDependencyDetector: Detector = {
   id: "service-dependencies",
-  version: "1",
+  version: "2",
   stage: "services",
   inputs: ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx", "**/*.mjs", "**/*.cjs"],
   categories: [],
   async run(context) {
     const matches: MatchedRule[] = [];
-    await ruleDetector({ id: "service-rules", version: "1", stage: "services", rules: RULES, sources: (inner) => inventoryOf(inner).sources, onMatch: (_inner, match) => void matches.push(match) }).run(context);
+    await ruleDetector({ id: "service-rules", version: "2", stage: "services", rules: RULES, sources: (inner) => inventoryOf(inner).sources, onMatch: (_inner, match) => void matches.push(match) }).run(context);
     context.shared.set(SERVICE_MATCHES, matches);
 
     // Instances are created by these rules only; other rules can match the same node (a packaged-client rule matches `axios.create({ baseURL })`).

@@ -31,7 +31,7 @@ interface Sighting {
 export function recognizeDetector(catalogs: Catalogs = SHIPPED): Detector {
   return {
     id: RECOGNIZE,
-    version: "1",
+    version: "2",
     stage: "architecture",
     inputs: ["**/package.json", "**/*.js", "**/*.jsx", "**/*.mjs", "**/*.cjs", "**/*.ts", "**/*.tsx", "**/*.mts", "**/*.cts", "**/*.css"],
     categories: ["design_systems"],

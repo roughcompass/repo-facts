@@ -38,7 +38,7 @@ const TOOL_VERSION_RUNTIMES: Readonly<Record<string, Runtime>> = { nodejs: "node
 
 export const runtimeFilesDetector: Detector = {
   id: "runtime-files",
-  version: "1",
+  version: "2",
   stage: "parse",
   inputs: ["**/.nvmrc", "**/.node-version", "**/.tool-versions", "**/Dockerfile", "**/*.Dockerfile"],
   categories: ["runtime_requirements"],

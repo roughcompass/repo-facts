@@ -15,7 +15,7 @@ const RULES = { produced: "packages.produced", consumed: "packages.consumed" } a
 
 export const packageRelationsDetector: Detector = {
   id: "package-relations",
-  version: "1",
+  version: "2",
   stage: "architecture",
   inputs: ["**/package.json"],
   categories: ["packages_produced", "packages_consumed"],
