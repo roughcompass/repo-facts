@@ -381,6 +381,18 @@
       "facts": [
         {
           "evidence": [
+            "ev_332177042f80b3516787e085"
+          ],
+          "key": "Dockerfile",
+          "rule": "inventory.language-by-extension",
+          "state": "observed",
+          "value": {
+            "bytes": 103,
+            "files": 1
+          }
+        },
+        {
+          "evidence": [
             "ev_e05a4f16bee643dafa992f5b",
             "ev_f96bb29f779f3f2fe8ad1a2b"
           ],
@@ -990,6 +1002,19 @@
       },
       "object_id": "c79511385ce24c88f48e6096491446d8002c2f93",
       "path": "src/billing.ts",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_332177042f80b3516787e085": {
+      "commit": null,
+      "content_digest": "16b4519e6ee5ea6b22143f207567163eea8c4d9549c8ef4e5467109b686846cf",
+      "detector": "inventory",
+      "excerpt_digest": "16b4519e6ee5ea6b22143f207567163eea8c4d9549c8ef4e5467109b686846cf",
+      "id": "ev_332177042f80b3516787e085",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "e3f664514d74cf148908ecee0f98afdcbaaea5a9",
+      "path": "Dockerfile",
       "rule": "inventory.language-by-extension"
     },
     "ev_3bd8b11a85cb39037cd80475": {

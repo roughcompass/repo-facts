@@ -6,9 +6,11 @@ import { isSensitivePath } from "@repo-facts/contract";
  *
  * Some inputs are recognized but unsupported by this detector release (for
  * example, CircleCI configuration). They are reported so the categories they
- * could affect stay unknown rather than absent. Sensitive inputs, such as
- * registry credentials and environment files, are recognized from the tree
- * listing; the SnapshotReader never reads them.
+ * could affect stay unknown rather than absent. Build manifests and lockfiles
+ * of other ecosystems, such as go.mod or pom.xml, are unsupported inputs that
+ * name their ecosystem and the categories they would feed. Sensitive inputs,
+ * such as registry credentials and environment files, are recognized from the
+ * tree listing; the SnapshotReader never reads them.
  */
 
 export type InputKind = "manifest" | "lockfile" | "workspace" | "ci" | "verification" | "runtime" | "config" | "contract" | "stylesheet" | "sensitive";
@@ -19,6 +21,10 @@ export interface InputRule {
   label: string;
   supported: boolean;
   matches: (path: string, name: string) => boolean;
+  /** The ecosystem of an unsupported build input, such as `Go` or `Maven`. */
+  ecosystem?: string;
+  /** Categories an unsupported input would feed; they stay unknown unless other inputs establish facts. */
+  feeds?: readonly string[];
 }
 
 const CODE_EXTENSIONS = ["js", "cjs", "mjs", "ts", "cts", "mts"];
@@ -30,6 +36,69 @@ const hasStylesheetExtension = (extension: string) => (_path: string, name: stri
 
 const rule = (format: string, kind: InputKind, label: string, matches: InputRule["matches"], supported = true): InputRule => ({ format, kind, label, supported, matches });
 
+/** What another ecosystem's build input declares, by the categories it would feed. */
+const FEEDS = {
+  manifest: ["package_identity", "dependencies", "package_managers", "build_tools", "frameworks", "test_frameworks", "runtime_requirements", "scripts", "workspaces", "packages_produced", "packages_consumed"],
+  dependencies: ["dependencies", "package_managers", "build_tools", "frameworks", "test_frameworks", "runtime_requirements", "packages_consumed"],
+  lockfile: ["resolved_dependencies", "package_managers"],
+  workspace: ["package_identity", "workspaces", "build_tools"],
+  wrapper: ["build_tools"],
+} as const;
+
+/** An unsupported build input of another ecosystem. */
+const foreign = (format: string, ecosystem: string, label: string, kind: keyof typeof FEEDS, matches: InputRule["matches"]): InputRule => ({
+  format,
+  kind: kind === "lockfile" ? "lockfile" : kind === "workspace" ? "workspace" : "manifest",
+  label,
+  supported: false,
+  matches,
+  ecosystem,
+  feeds: FEEDS[kind],
+});
+
+/** Build manifests, dependency lists, lockfiles, workspaces, and wrappers of ecosystems this release doesn't analyze. */
+const FOREIGN_RULES: readonly InputRule[] = [
+  foreign("go-mod", "Go", "Go module (go.mod)", "manifest", isNamed("go.mod")),
+  foreign("go-sum", "Go", "Go checksums (go.sum)", "lockfile", isNamed("go.sum")),
+  foreign("go-work", "Go", "Go workspace (go.work)", "workspace", isNamed("go.work")),
+  foreign("cargo-toml", "Rust", "Cargo manifest (Cargo.toml)", "manifest", isNamed("Cargo.toml")),
+  foreign("cargo-lock", "Rust", "Cargo lockfile (Cargo.lock)", "lockfile", isNamed("Cargo.lock")),
+  foreign("maven-pom", "Maven", "Maven project (pom.xml)", "manifest", isNamed("pom.xml")),
+  foreign("maven-wrapper", "Maven", "Maven wrapper", "wrapper", isNamed("mvnw", "mvnw.cmd")),
+  foreign("gradle-build", "Gradle", "Gradle build script", "manifest", isNamed("build.gradle", "build.gradle.kts")),
+  foreign("gradle-settings", "Gradle", "Gradle settings", "workspace", isNamed("settings.gradle", "settings.gradle.kts")),
+  foreign("gradle-wrapper", "Gradle", "Gradle wrapper", "wrapper", isNamed("gradlew", "gradlew.bat")),
+  foreign("gradle-catalog", "Gradle", "Gradle version catalog", "dependencies", hasExtension("versions.toml")),
+  foreign("gradle-lock", "Gradle", "Gradle lockfile", "lockfile", isNamed("gradle.lockfile")),
+  foreign("sbt-build", "sbt", "sbt build definition", "manifest", hasExtension("sbt")),
+  foreign("sbt-properties", "sbt", "sbt build properties", "wrapper", (path) => path === "project/build.properties" || path.endsWith("/project/build.properties")),
+  foreign("python-project", "Python", "Python project (pyproject.toml)", "manifest", isNamed("pyproject.toml")),
+  foreign("python-setup", "Python", "Python setup script or configuration", "manifest", isNamed("setup.py", "setup.cfg")),
+  foreign("python-requirements", "Python", "pip requirements file", "dependencies", (path, name) => name.endsWith(".txt") && (name.startsWith("requirements") || path.split("/").at(-2) === "requirements")),
+  foreign("pipfile", "Python", "Pipfile", "dependencies", isNamed("Pipfile")),
+  foreign("python-lock", "Python", "Python lockfile", "lockfile", isNamed("Pipfile.lock", "poetry.lock", "uv.lock", "pdm.lock")),
+  foreign("gemfile", "Ruby", "Gemfile", "dependencies", isNamed("Gemfile", "gems.rb")),
+  foreign("gemfile-lock", "Ruby", "Gemfile lockfile", "lockfile", isNamed("Gemfile.lock", "gems.locked")),
+  foreign("gemspec", "Ruby", "Ruby gem specification", "manifest", hasExtension("gemspec")),
+  foreign("composer-json", "PHP", "Composer manifest (composer.json)", "manifest", isNamed("composer.json")),
+  foreign("composer-lock", "PHP", "Composer lockfile (composer.lock)", "lockfile", isNamed("composer.lock")),
+  foreign("dotnet-project", ".NET", ".NET project file", "manifest", hasExtension("csproj", "fsproj", "vbproj")),
+  foreign("dotnet-solution", ".NET", ".NET solution", "workspace", hasExtension("sln", "slnx")),
+  foreign("dotnet-packages", ".NET", ".NET package declarations", "dependencies", isNamed("Directory.Packages.props", "Directory.Build.props", "packages.config")),
+  foreign("nuget-lock", ".NET", "NuGet lockfile (packages.lock.json)", "lockfile", isNamed("packages.lock.json")),
+  foreign("clojure-deps", "Clojure", "Clojure deps.edn", "manifest", isNamed("deps.edn")),
+  foreign("leiningen", "Clojure", "Leiningen project (project.clj)", "manifest", isNamed("project.clj")),
+  foreign("shadow-cljs", "ClojureScript", "shadow-cljs configuration", "manifest", isNamed("shadow-cljs.edn")),
+  foreign("mix-exs", "Elixir", "Mix project (mix.exs)", "manifest", isNamed("mix.exs")),
+  foreign("mix-lock", "Elixir", "Mix lockfile (mix.lock)", "lockfile", isNamed("mix.lock")),
+  foreign("pubspec", "Dart", "Dart pubspec (pubspec.yaml)", "manifest", isNamed("pubspec.yaml")),
+  foreign("pubspec-lock", "Dart", "Dart pubspec lockfile (pubspec.lock)", "lockfile", isNamed("pubspec.lock")),
+  foreign("swift-package", "Swift", "Swift package manifest (Package.swift)", "manifest", isNamed("Package.swift")),
+  foreign("swift-resolved", "Swift", "Swift package resolution (Package.resolved)", "lockfile", isNamed("Package.resolved")),
+  foreign("podfile", "CocoaPods", "CocoaPods Podfile", "dependencies", isNamed("Podfile")),
+  foreign("podfile-lock", "CocoaPods", "CocoaPods lockfile (Podfile.lock)", "lockfile", isNamed("Podfile.lock")),
+];
+
 /** Ordered: the first matching rule classifies a path. */
 export const INPUT_RULES: readonly InputRule[] = [
   // Never read (the SnapshotReader refuses them): these commonly hold credentials.
@@ -40,14 +109,16 @@ export const INPUT_RULES: readonly InputRule[] = [
   rule("npm-lock", "lockfile", "npm lockfile", isNamed("package-lock.json", "npm-shrinkwrap.json")),
   rule("pnpm-lock", "lockfile", "pnpm lockfile", isNamed("pnpm-lock.yaml")),
   rule("yarn-lock", "lockfile", "Yarn lockfile", isNamed("yarn.lock")),
-  rule("bun-lock", "lockfile", "Bun lockfile", isNamed("bun.lockb", "bun.lock"), false),
-  rule("deno-lock", "lockfile", "Deno lockfile", isNamed("deno.lock"), false),
+  { ...rule("bun-lock", "lockfile", "Bun lockfile", isNamed("bun.lockb", "bun.lock"), false), feeds: ["resolved_dependencies"] },
+  { ...rule("deno-lock", "lockfile", "Deno lockfile", isNamed("deno.lock"), false), feeds: ["resolved_dependencies"] },
 
   rule("pnpm-workspace", "workspace", "pnpm workspace", isNamed("pnpm-workspace.yaml")),
   rule("lerna", "workspace", "Lerna configuration", isNamed("lerna.json")),
   rule("nx", "workspace", "Nx configuration", isNamed("nx.json")),
   rule("turbo", "workspace", "Turborepo configuration", isNamed("turbo.json")),
-  rule("rush", "workspace", "Rush configuration", isNamed("rush.json"), false),
+  { ...rule("rush", "workspace", "Rush configuration", isNamed("rush.json"), false), feeds: ["workspaces"] },
+
+  ...FOREIGN_RULES,
 
   rule("github-actions", "ci", "GitHub Actions workflow", (path) => /^\.github\/workflows\/[^/]+\.ya?ml$/.test(path)),
   rule("gitlab-ci", "ci", "GitLab CI", (path) => path === ".gitlab-ci.yml"),
@@ -125,7 +196,7 @@ export interface Language {
   extensions: readonly string[];
 }
 
-/** Languages by file extension. Vendored paths are not counted. */
+/** Languages by file extension, or by file name for files that have none. Vendored paths are not counted. */
 export const LANGUAGES: readonly Language[] = [
   { name: "TypeScript", extensions: ["ts", "tsx", "mts", "cts"] },
   { name: "JavaScript", extensions: ["js", "jsx", "mjs", "cjs"] },
@@ -149,12 +220,49 @@ export const LANGUAGES: readonly Language[] = [
   { name: "Rust", extensions: ["rs"] },
   { name: "PHP", extensions: ["php"] },
   { name: "C#", extensions: ["cs"] },
+  { name: "F#", extensions: ["fs", "fsi", "fsx"] },
+  { name: "Scala", extensions: ["scala", "sc", "sbt"] },
+  { name: "Groovy", extensions: ["groovy", "gradle", "gvy"] },
+  { name: "Clojure", extensions: ["clj", "cljc", "edn"] },
+  { name: "ClojureScript", extensions: ["cljs"] },
+  { name: "Swift", extensions: ["swift"] },
+  { name: "Objective-C", extensions: ["m", "mm"] },
+  { name: "C", extensions: ["c", "h"] },
+  { name: "C++", extensions: ["cpp", "cc", "cxx", "c++", "hpp", "hh", "hxx", "h++"] },
+  { name: "Dart", extensions: ["dart"] },
+  { name: "Elixir", extensions: ["ex", "exs"] },
+  { name: "Erlang", extensions: ["erl", "hrl"] },
+  { name: "Haskell", extensions: ["hs", "lhs"] },
+  { name: "Elm", extensions: ["elm"] },
+  { name: "Perl", extensions: ["pl", "pm"] },
+  { name: "Lua", extensions: ["lua"] },
+  { name: "R", extensions: ["r"] },
+  { name: "SQL", extensions: ["sql"] },
+  { name: "CUE", extensions: ["cue"] },
+  { name: "Terraform", extensions: ["tf", "tfvars"] },
+  { name: "HCL", extensions: ["hcl"] },
+  { name: "Protocol Buffers", extensions: ["proto"] },
+  { name: "TOML", extensions: ["toml"] },
+  { name: "PowerShell", extensions: ["ps1", "psm1"] },
+  { name: "Dockerfile", extensions: ["dockerfile"] },
 ];
+
+/** Languages of files known by name alone. */
+const BY_NAME: ReadonlyMap<string, string> = new Map([
+  ["Dockerfile", "Dockerfile"],
+  ["Containerfile", "Dockerfile"],
+  ["Jenkinsfile", "Groovy"],
+  ["Gemfile", "Ruby"],
+  ["Rakefile", "Ruby"],
+  ["Podfile", "Ruby"],
+]);
 
 const BY_EXTENSION = new Map(LANGUAGES.flatMap((language) => language.extensions.map((extension) => [extension, language.name] as const)));
 
 export function languageOf(path: string): string | null {
   const name = path.slice(path.lastIndexOf("/") + 1);
+  const named = BY_NAME.get(name);
+  if (named) return named;
   const dot = name.lastIndexOf(".");
   return dot > 0 ? (BY_EXTENSION.get(name.slice(dot + 1).toLowerCase()) ?? null) : null;
 }

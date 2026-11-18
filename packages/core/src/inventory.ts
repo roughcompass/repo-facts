@@ -18,6 +18,10 @@ export interface InventoryInput {
   format: string;
   label: string;
   supported: boolean;
+  /** The ecosystem of an unsupported build input of another ecosystem. */
+  ecosystem?: string;
+  /** Categories an unsupported input would feed. */
+  feeds?: readonly string[];
   /** Whether the content was read as text; null when the inventory did not read it. */
   readable: boolean | null;
 }
@@ -38,7 +42,7 @@ const LANGUAGE_SAMPLES = 3;
 
 export const inventoryDetector: Detector = {
   id: INVENTORY,
-  version: "1",
+  version: "2",
   stage: "inventory",
   inputs: ["**/*"],
   categories: ["languages", "submodules"],
@@ -56,12 +60,13 @@ export const inventoryDetector: Detector = {
     const inputs: InventoryInput[] = classified.map(({ entry, rule }) => {
       const result = results.get(entry.path);
       const readable = entry.type === "symlink" ? false : result ? result.ok && result.content.text !== null : null;
-      return { path: entry.path, kind: rule.kind, format: rule.format, label: rule.label, supported: rule.supported, readable };
+      return { path: entry.path, kind: rule.kind, format: rule.format, label: rule.label, supported: rule.supported, ...(rule.ecosystem && { ecosystem: rule.ecosystem }), ...(rule.feeds && { feeds: rule.feeds }), readable };
     });
 
     for (const input of inputs) {
       if (input.kind === "sensitive") continue;
-      if (!input.supported) context.diagnostic(input.path, "unsupported_input", `${input.label} is recognized but not analyzed by this detector release`);
+      if (input.ecosystem) context.diagnostic(input.path, "unsupported_input", `${input.label} is recognized but not analyzed: this detector release doesn't support the ${input.ecosystem} ecosystem`);
+      else if (!input.supported) context.diagnostic(input.path, "unsupported_input", `${input.label} is recognized but not analyzed by this detector release`);
       else if (context.reader.entry(input.path)?.type === "symlink") context.diagnostic(input.path, "symlink", `${input.label} is a symbolic link, which is recorded but never followed`);
     }
 

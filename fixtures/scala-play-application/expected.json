@@ -1,0 +1,493 @@
+{
+  "categories": {
+    "access_signals": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "access.search"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    },
+    "api_contracts": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "contracts.search"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    },
+    "build_tools": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "config.tool-file",
+          "inventory.unsupported-input",
+          "manifest.tool-dependency"
+        ],
+        "skipped": [
+          "build.sbt",
+          "project/build.properties",
+          "project/plugins.sbt"
+        ],
+        "surface": [
+          "build.sbt",
+          "project/build.properties",
+          "project/plugins.sbt"
+        ]
+      },
+      "state": "unknown"
+    },
+    "ci_systems": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "ci.definition"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    },
+    "composition": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "architecture.import-map",
+          "composition"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "dependencies": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.unsupported-input",
+          "manifest.dependencies"
+        ],
+        "skipped": [
+          "build.sbt",
+          "project/plugins.sbt"
+        ],
+        "surface": [
+          "build.sbt",
+          "project/plugins.sbt"
+        ]
+      },
+      "state": "unknown"
+    },
+    "design_systems": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "design-system.recognize"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    },
+    "egress_routes": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "egress.search"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    },
+    "frameworks": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.unsupported-input",
+          "manifest.framework"
+        ],
+        "skipped": [
+          "build.sbt",
+          "project/plugins.sbt"
+        ],
+        "surface": [
+          "build.sbt",
+          "project/plugins.sbt"
+        ]
+      },
+      "state": "unknown"
+    },
+    "languages": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_5929be9a98790babc7a19250",
+            "ev_d7c4849ee1cc633d16d44e3a",
+            "ev_efa96c8cdcca12185e57f06a"
+          ],
+          "key": "Scala",
+          "rule": "inventory.language-by-extension",
+          "state": "observed",
+          "value": {
+            "bytes": 1234,
+            "files": 3
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.language-by-extension"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "observed"
+    },
+    "package_identity": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.unsupported-input",
+          "manifest.identity"
+        ],
+        "skipped": [
+          "build.sbt",
+          "project/plugins.sbt"
+        ],
+        "surface": [
+          "build.sbt",
+          "project/plugins.sbt"
+        ]
+      },
+      "state": "unknown"
+    },
+    "package_managers": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.unsupported-input",
+          "lockfile.package-manager",
+          "manifest.package-manager"
+        ],
+        "skipped": [
+          "build.sbt",
+          "project/plugins.sbt"
+        ],
+        "surface": [
+          "build.sbt",
+          "project/plugins.sbt"
+        ]
+      },
+      "state": "unknown"
+    },
+    "packages_consumed": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.unsupported-input",
+          "packages.consumed"
+        ],
+        "skipped": [
+          "build.sbt",
+          "project/plugins.sbt"
+        ],
+        "surface": [
+          "build.sbt",
+          "project/plugins.sbt"
+        ]
+      },
+      "state": "unknown"
+    },
+    "packages_produced": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.unsupported-input",
+          "packages.produced"
+        ],
+        "skipped": [
+          "build.sbt",
+          "project/plugins.sbt"
+        ],
+        "surface": [
+          "build.sbt",
+          "project/plugins.sbt"
+        ]
+      },
+      "state": "unknown"
+    },
+    "resolved_dependencies": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "npm-lock.resolved-version",
+          "pnpm-lock.resolved-version",
+          "yarn-lock.resolved-version"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "runtime_integrations": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "composition"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "runtime_requirements": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.unsupported-input",
+          "runtime.declarations"
+        ],
+        "skipped": [
+          "build.sbt",
+          "project/plugins.sbt"
+        ],
+        "surface": [
+          "build.sbt",
+          "project/plugins.sbt"
+        ]
+      },
+      "state": "unknown"
+    },
+    "scripts": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.unsupported-input",
+          "manifest.scripts"
+        ],
+        "skipped": [
+          "build.sbt",
+          "project/plugins.sbt"
+        ],
+        "surface": [
+          "build.sbt",
+          "project/plugins.sbt"
+        ]
+      },
+      "state": "unknown"
+    },
+    "served_origins": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "style_values": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "design-system.usage"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    },
+    "submodules": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.gitlink"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    },
+    "test_frameworks": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "config.tool-file",
+          "inventory.unsupported-input",
+          "manifest.tool-dependency"
+        ],
+        "skipped": [
+          "build.sbt",
+          "project/plugins.sbt"
+        ],
+        "surface": [
+          "build.sbt",
+          "project/plugins.sbt"
+        ]
+      },
+      "state": "unknown"
+    },
+    "test_substitutes": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "substitutes.search"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    },
+    "ui_elements": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "design-system.usage"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    },
+    "verification_commands": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "ci.verification-commands"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    },
+    "workspaces": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.unsupported-input",
+          "manifest.workspaces",
+          "pnpm-workspace.packages"
+        ],
+        "skipped": [
+          "build.sbt",
+          "project/plugins.sbt"
+        ],
+        "surface": [
+          "build.sbt",
+          "project/plugins.sbt"
+        ]
+      },
+      "state": "unknown"
+    }
+  },
+  "commit": null,
+  "detector_release": "golden",
+  "diagnostics": [
+    {
+      "detail": "sbt build definition is recognized but not analyzed: this detector release doesn't support the sbt ecosystem",
+      "detector": "inventory",
+      "path": "build.sbt",
+      "reason": "unsupported_input"
+    },
+    {
+      "detail": "sbt build properties is recognized but not analyzed: this detector release doesn't support the sbt ecosystem",
+      "detector": "inventory",
+      "path": "project/build.properties",
+      "reason": "unsupported_input"
+    },
+    {
+      "detail": "sbt build definition is recognized but not analyzed: this detector release doesn't support the sbt ecosystem",
+      "detector": "inventory",
+      "path": "project/plugins.sbt",
+      "reason": "unsupported_input"
+    }
+  ],
+  "evidence": {
+    "ev_5929be9a98790babc7a19250": {
+      "commit": null,
+      "content_digest": "e56f4b5219e13edf15d95ffbca7fed68e72e9a99805c65eb9365d308d14ce4d0",
+      "detector": "inventory",
+      "excerpt_digest": "e56f4b5219e13edf15d95ffbca7fed68e72e9a99805c65eb9365d308d14ce4d0",
+      "id": "ev_5929be9a98790babc7a19250",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "a42cd4b06786c657e3ba376791bf4018850f1226",
+      "path": "app/controllers/AssetsController.scala",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_d7c4849ee1cc633d16d44e3a": {
+      "commit": null,
+      "content_digest": "44cbb68d073a523f05b73f4fa401f080949573a061e1b095b9b1d0e19d0acad6",
+      "detector": "inventory",
+      "excerpt_digest": "44cbb68d073a523f05b73f4fa401f080949573a061e1b095b9b1d0e19d0acad6",
+      "id": "ev_d7c4849ee1cc633d16d44e3a",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "96b3e1d293800bbee6611787f2976446dd55581c",
+      "path": "project/plugins.sbt",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_efa96c8cdcca12185e57f06a": {
+      "commit": null,
+      "content_digest": "d31c2894d2768231339e6412f6b4e1d07f507a351aa49700bd5915b45cd34748",
+      "detector": "inventory",
+      "excerpt_digest": "d31c2894d2768231339e6412f6b4e1d07f507a351aa49700bd5915b45cd34748",
+      "id": "ev_efa96c8cdcca12185e57f06a",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "8fdc5071d8523b0780bacad02ef1faecbd641d3c",
+      "path": "build.sbt",
+      "rule": "inventory.language-by-extension"
+    }
+  },
+  "extensions": [],
+  "inventory": {
+    "bytes": 1253,
+    "bytes_read": 0,
+    "entries": 7,
+    "executables": 0,
+    "files": 4,
+    "files_read": 0,
+    "gitlinks": 0,
+    "symlinks": 0
+  },
+  "relationship_references": [],
+  "schema": "repo_facts.fact_document",
+  "schema_version": 2,
+  "service_dependencies": []
+}

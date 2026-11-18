@@ -1,0 +1,3 @@
+{
+  "description": "A Scala Play application built with sbt, modeled on hmrc-pertax-frontend: its build inputs are another ecosystem's, so the package, tooling, and dependency categories are unknown rather than absent, and the diagnostics name sbt."
+}

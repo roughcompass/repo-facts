@@ -493,6 +493,18 @@
         },
         {
           "evidence": [
+            "ev_656182218ddc43c0a639739a"
+          ],
+          "key": "Dockerfile",
+          "rule": "inventory.language-by-extension",
+          "state": "observed",
+          "value": {
+            "bytes": 114,
+            "files": 1
+          }
+        },
+        {
+          "evidence": [
             "ev_c70efe72f2ae970c3ffab13f"
           ],
           "key": "HTML",
@@ -1906,6 +1918,19 @@
       "object_id": "1ec517ff2f7733f165b0f9b76a7222d108f6370c",
       "path": "package.json",
       "rule": "manifest.dependencies"
+    },
+    "ev_656182218ddc43c0a639739a": {
+      "commit": null,
+      "content_digest": "5964dafc28c65b729e88fc49c5de171d12efb5d8c17119943c305fdc83a488a4",
+      "detector": "inventory",
+      "excerpt_digest": "5964dafc28c65b729e88fc49c5de171d12efb5d8c17119943c305fdc83a488a4",
+      "id": "ev_656182218ddc43c0a639739a",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "d40ce17fb6ec8fe96c637cf4b5cf839d834159f0",
+      "path": "Dockerfile",
+      "rule": "inventory.language-by-extension"
     },
     "ev_66d9222d5dfa8fbc8f7c1ac1": {
       "commit": null,

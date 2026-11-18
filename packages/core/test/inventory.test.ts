@@ -144,7 +144,9 @@ describe("inventory", () => {
     const tally = (...paths: string[]) => ({ files: paths.length, bytes: paths.reduce((sum, path) => sum + sizeOf(REPOSITORY[path]!), 0) });
     expect(Object.fromEntries(languages.facts.map((fact) => [fact.key, fact.value]))).toEqual({
       CSS: tally("src/styles.css", "src/App.module.css"),
+      Dockerfile: tally("Dockerfile"),
       GraphQL: tally("src/schema.graphql"),
+      Groovy: tally("Jenkinsfile"),
       JSON: tally("package.json", "package-lock.json", "packages/ui/package.json", "tsconfig.json"),
       JavaScript: tally("src/legacy.js"),
       Less: tally("src/old.less"),
@@ -157,6 +159,38 @@ describe("inventory", () => {
     const typescript = languages.facts.find((fact) => fact.key === "TypeScript")!;
     expect(typescript.evidence.map((id) => document.evidence[id]!.path).sort()).toEqual(["src/index.tsx", "src/util.ts", "vite.config.ts"]);
     expect(typescript.evidence.map((id) => document.evidence[id]!.location)).toEqual([{ kind: "entry" }, { kind: "entry" }, { kind: "entry" }]);
+  });
+
+  it("keys languages by extension, and files without one by name", () => {
+    expect(
+      Object.fromEntries(
+        ["app/Main.scala", "build.sbt", "src/core.cljs", "src/core.clj", "deps.edn", "db/schema.sql", "native/lib.h", "native/lib.hpp", "build.gradle", "Sources/App.swift", "lib/main.dart", "lib/app.ex", "script.pl", "init.lua", "analysis.R", "ios/AppDelegate.m", "schema.cue", "main.tf", "config.hcl", "Dockerfile", "web.Dockerfile", "Gemfile", "README"].map((path) => [path, languageOf(path)]),
+      ),
+    ).toEqual({
+      "app/Main.scala": "Scala",
+      "build.sbt": "Scala",
+      "src/core.cljs": "ClojureScript",
+      "src/core.clj": "Clojure",
+      "deps.edn": "Clojure",
+      "db/schema.sql": "SQL",
+      "native/lib.h": "C",
+      "native/lib.hpp": "C++",
+      "build.gradle": "Groovy",
+      "Sources/App.swift": "Swift",
+      "lib/main.dart": "Dart",
+      "lib/app.ex": "Elixir",
+      "script.pl": "Perl",
+      "init.lua": "Lua",
+      "analysis.R": "R",
+      "ios/AppDelegate.m": "Objective-C",
+      "schema.cue": "CUE",
+      "main.tf": "Terraform",
+      "config.hcl": "HCL",
+      Dockerfile: "Dockerfile",
+      "web.Dockerfile": "Dockerfile",
+      Gemfile: "Ruby",
+      README: null,
+    });
   });
 
   it("reports an empty repository's languages and submodules as absent after a complete listing", async () => {
