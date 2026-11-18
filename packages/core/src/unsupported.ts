@@ -3,8 +3,8 @@ import { inventoryOf } from "./inventory.js";
 
 /**
  * Inputs this release recognizes but doesn't analyze, such as another
- * ecosystem's build manifest or lockfile, put on the surface of every category
- * they would feed. The inventory records each as an `unsupported_input`, a
+ * ecosystem's build manifest or lockfile, or a Vue or Svelte component's
+ * template, put on the surface of every category they would feed. The inventory records each as an `unsupported_input`, a
  * skipped input, so a category with no facts stays unknown instead of being
  * reported absent. A category that has facts from inputs this release does
  * analyze keeps them, and its search lists what it skipped.
@@ -26,6 +26,8 @@ export const UNSUPPORTED_INPUT_CATEGORIES = [
   "workspaces",
   "packages_produced",
   "packages_consumed",
+  "ui_elements",
+  "style_values",
 ] as const;
 
 export const unsupportedInputsDetector: Detector = {

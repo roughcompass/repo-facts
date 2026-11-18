@@ -13,7 +13,7 @@ import { isSensitivePath } from "@repo-facts/contract";
  * tree listing; the SnapshotReader never reads them.
  */
 
-export type InputKind = "manifest" | "lockfile" | "workspace" | "ci" | "verification" | "runtime" | "config" | "contract" | "stylesheet" | "sensitive";
+export type InputKind = "manifest" | "lockfile" | "workspace" | "ci" | "verification" | "runtime" | "config" | "contract" | "stylesheet" | "template" | "sensitive";
 
 export interface InputRule {
   format: string;
@@ -178,6 +178,20 @@ export const INPUT_RULES: readonly InputRule[] = [
   rule("less-module", "stylesheet", "Less module", hasStylesheetExtension("module.less")),
   rule("less", "stylesheet", "Less stylesheet", hasStylesheetExtension("less")),
   rule("sass", "stylesheet", "Sass stylesheet (indented syntax)", hasStylesheetExtension("sass"), false),
+
+  // Component templates hold elements and styles that only JSX and stylesheets are read for.
+  ...(
+    [
+      ["vue", "Vue single-file component", hasExtension("vue")],
+      ["svelte", "Svelte component", hasExtension("svelte")],
+      ["astro", "Astro component", hasExtension("astro")],
+      ["angular-template", "Angular component template", hasExtension("component.html")],
+      ["handlebars", "Handlebars template", hasExtension("hbs", "handlebars")],
+      ["twirl", "Play Twirl template", hasExtension("scala.html")],
+      ["erb", "ERB template", hasExtension("erb")],
+      ["razor", "Razor view", hasExtension("cshtml", "razor")],
+    ] as const
+  ).map(([format, label, matches]): InputRule => ({ ...rule(format, "template", label, matches, false), feeds: ["ui_elements", "style_values"] })),
 ];
 
 /**

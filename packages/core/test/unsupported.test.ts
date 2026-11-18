@@ -76,6 +76,33 @@ describe("other ecosystems' build inputs", () => {
   });
 });
 
+describe("component templates", () => {
+  it.each([
+    ["app/components/order-list.hbs", "handlebars"],
+    ["app/views/HomeView.scala.html", "twirl"],
+    ["app/views/orders/index.html.erb", "erb"],
+    ["Views/Home/Index.cshtml", "razor"],
+    ["Components/Counter.razor", "razor"],
+  ])("classifies %s as an unsupported %s template", (path, format) => {
+    expect(classifyPath(path)).toMatchObject({ kind: "template", format, supported: false, feeds: ["ui_elements", "style_values"] });
+  });
+
+  it("keeps ui_elements and style_values unknown when Vue, Svelte, Astro, or Angular templates hold the elements", async () => {
+    const { document } = await profile({
+      "package.json": json({ name: "app", dependencies: { vue: "^3.5.0" } }),
+      "src/App.vue": "<template><button>Go</button></template>\n",
+      "src/Nav.svelte": "<nav></nav>\n",
+      "src/pages/index.astro": "<main></main>\n",
+      "src/app/orders.component.html": "<table></table>\n",
+      "public/index.html": "<!doctype html>\n",
+    });
+    for (const category of ["ui_elements", "style_values"]) {
+      expect(document.categories[category], category).toMatchObject({ state: "unknown", search: { skipped: ["src/App.vue", "src/Nav.svelte", "src/app/orders.component.html", "src/pages/index.astro"] } });
+    }
+    expect(document.diagnostics).toContainEqual({ path: "src/App.vue", reason: "unsupported_input", detail: "Vue single-file component is recognized but not analyzed by this detector release", detector: "inventory" });
+  });
+});
+
 describe("lockfile names", () => {
   it("classifies every name the read policy budgets as a lockfile as a lockfile input", () => {
     for (const name of LOCKFILE_NAMES) expect(classifyPath(`nested/${name}`)?.kind, name).toBe("lockfile");
