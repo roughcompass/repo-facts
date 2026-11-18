@@ -1,7 +1,7 @@
 import crypto from "node:crypto";
 import { dump } from "./canonical-json.js";
 import type { BlobContent, SourceReader, TreeEntry } from "./reader/types.js";
-import { type Format, StructuredParseError, parse, pointerLines, stableStringify, valueAt } from "./structured.js";
+import { type Format, StructuredParseError, type Value, parse, pointerLines, stableStringify, valueAt } from "./structured.js";
 
 /**
  * Evidence records tie every asserted fact to repository content.
@@ -128,14 +128,25 @@ function build(entry: TreeEntry, contentDigest: string, source: EvidenceSource, 
   return { id: evidenceId(fields), ...fields };
 }
 
+/**
+ * Each blob's parsed value, by format, so citing many pointers in one file,
+ * such as every resolved version in a lockfile, parses it once. Readers
+ * return the same BlobContent for repeated reads of a path, and the cache
+ * holds it only as long as the reader does.
+ */
+const PARSED = new WeakMap<BlobContent, Partial<Record<Format, Value>>>();
+
 function pointedValue(content: BlobContent, format: Format, pointer: string) {
   if (content.text === null) throw new EvidenceError(`${content.entry.path} is binary`);
+  const parsed = PARSED.get(content) ?? {};
   try {
-    return valueAt(parse(content.text, format), pointer);
+    parsed[format] ??= parse(content.text, format);
   } catch (error) {
     if (error instanceof StructuredParseError) throw new EvidenceError(`${content.entry.path} could not be parsed: ${error.message}`);
     throw error;
   }
+  PARSED.set(content, parsed);
+  return valueAt(parsed[format], pointer);
 }
 
 function linesOf(content: BlobContent): string[] {
