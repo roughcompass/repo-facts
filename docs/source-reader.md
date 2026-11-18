@@ -8,7 +8,7 @@ Detectors see repository content only through a `SourceReader` ([`packages/contr
 | --- | --- |
 | `commit` | The commit being read, or null for a working tree |
 | `entries` | Every readable entry, including directories, in code-unit path order |
-| `budgets` | The per-file, file-count, and total-byte budgets in force |
+| `budgets` | The per-file, per-lockfile, file-count, and total-byte budgets in force |
 | `files()` | Regular and executable files, in path order |
 | `entry(path)` | One entry's path, mode, type, size, and Git object id |
 | `read(path)`, `readMany(paths)` | Bytes, UTF-8 text, binary classification, and SHA-256 digest, or a skip with its reason |
@@ -29,9 +29,20 @@ Every reader applies one policy, `ReadPolicy` in [`packages/contract/src/reader/
 | `sensitive` | The file commonly holds credentials: npm and Yarn configuration, environment files, netrc files, credential files, and private keys |
 | `symlink`, `gitlink` | The entry is a symbolic link or a submodule, recorded as metadata only |
 | `not_a_file`, `missing` | The path is a directory or isn't in the tree |
-| `blob_too_large` | The file exceeds the per-file budget |
+| `blob_too_large` | The file exceeds the per-file budget, or a lockfile exceeds the per-lockfile budget |
 | `file_budget_exhausted`, `total_budget_exhausted` | Reading it would exceed the file-count or total-byte budget |
 | `binary` | The content is binary or not valid UTF-8; it's classified without being parsed |
+
+The budgets are `Budgets` fields, and a consumer sets every one:
+
+| Budget | Default | Limits |
+| --- | --- | --- |
+| `maxBlobBytes` | 1 MiB | Each file other than a lockfile |
+| `maxLockfileBytes` | 32 MiB | Each lockfile, by name at any depth (`LOCKFILE_NAMES`): `package-lock.json`, `npm-shrinkwrap.json`, `pnpm-lock.yaml`, `yarn.lock`, and the lockfiles of Bun, Deno, and the other ecosystems the inventory recognizes |
+| `maxFiles` | 4,000 | Files read |
+| `maxTotalBytes` | 64 MiB | Bytes read, lockfiles included |
+
+A lockfile records every installed package, so a large repository's lockfile routinely outgrows the per-file budget for source. Its own budget lets resolved versions be read, and it still counts against the total. `DEFAULT_BUDGETS` holds the defaults, and the detector configuration records the budgets in force, so changing one changes the configuration digest.
 
 Rejected and protected paths never appear in `entries`. Sensitive files do appear, so detectors can tell that one exists, but their bytes are never read. Budgets are spent in path order within each batch, and a repeated read returns the cached result without spending budget again. The same tree and the same sequence of reads therefore always skip the same inputs.
 

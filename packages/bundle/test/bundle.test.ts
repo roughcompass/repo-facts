@@ -41,7 +41,7 @@ describe("the detector bundle", () => {
       syntax: { parser: "typescript", parser_version: SYNTAX_PARSER.version },
       stylesheets: { parser: "repo-facts-css", parser_version: STYLESHEET_PARSER.version, max_nodes: 200_000, max_depth: 64 },
       catalogs: { digest: CATALOGS_DIGEST },
-      limits: { max_blob_bytes: DEFAULT_BUDGETS.maxBlobBytes, max_files: DEFAULT_BUDGETS.maxFiles, max_total_bytes: DEFAULT_BUDGETS.maxTotalBytes },
+      limits: { max_blob_bytes: DEFAULT_BUDGETS.maxBlobBytes, max_lockfile_bytes: DEFAULT_BUDGETS.maxLockfileBytes, max_files: DEFAULT_BUDGETS.maxFiles, max_total_bytes: DEFAULT_BUDGETS.maxTotalBytes },
     });
     expect((configuration.detectors as { id: string }[]).map((detector) => detector.id)).toEqual(DETECTORS.map((detector) => detector.id));
   });
@@ -57,6 +57,7 @@ describe("the detector bundle", () => {
     ["a detector version", { detectors: [PARTS.detectors[0]!, { ...PARTS.detectors[1]!, version: "2" }] }],
     ["the detector set", { detectors: [PARTS.detectors[0]!] }],
     ["a read limit", { limits: { ...DEFAULT_BUDGETS, maxBlobBytes: 2_000_000 } }],
+    ["the lockfile read limit", { limits: { ...DEFAULT_BUDGETS, maxLockfileBytes: 8_000_000 } }],
     ["the release", { release: "1.2.4" }],
     ["the rules", { rulesDigest: "1".repeat(64) }],
     ["the stylesheet parser version", { stylesheetParser: { ...PARTS.stylesheetParser, version: "1.1.0" } }],

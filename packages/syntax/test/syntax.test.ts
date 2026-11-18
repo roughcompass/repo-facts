@@ -292,7 +292,7 @@ describe("syntax in detector runs", () => {
         "src/oversized.js": `// ${"x".repeat(600_000)}\n`,
         "src/missing-parse.css": "body {}\n",
       },
-      { commit: "a".repeat(40), budgets: { maxBlobBytes: 500_000, maxFiles: 100, maxTotalBytes: 10_000_000 } },
+      { commit: "a".repeat(40), budgets: { maxBlobBytes: 500_000, maxLockfileBytes: 500_000, maxFiles: 100, maxTotalBytes: 10_000_000 } },
     );
     const seen: (SyntaxTree | null)[] = [];
     let cited: Evidence | undefined;

@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { type Budgets, MemoryReader, type SkipReason } from "../../src/index.js";
 
-const GENEROUS: Budgets = { maxBlobBytes: 1_000_000, maxFiles: 1_000, maxTotalBytes: 10_000_000 };
+const GENEROUS: Budgets = { maxBlobBytes: 1_000_000, maxLockfileBytes: 1_000_000, maxFiles: 1_000, maxTotalBytes: 10_000_000 };
 const reasons = (reader: MemoryReader) => reader.diagnostics().map(({ path, reason }) => [path, reason]);
 
 describe("the shared read policy", () => {

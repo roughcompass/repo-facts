@@ -36,13 +36,13 @@ export interface ConfigurationParts {
 export function configurationFor(parts: ConfigurationParts): JsonObject {
   return {
     schema: DETECTOR_CONFIGURATION_SCHEMA,
-    schema_version: 2,
+    schema_version: 3,
     release: parts.release,
     fact_document: { schema: FACT_DOCUMENT_SCHEMA, schema_version: FACT_DOCUMENT_VERSION },
     detectors: parts.detectors.map((detector) => ({ id: detector.id, version: detector.version, stage: detector.stage })),
     syntax: { parser: parts.parser.name, parser_version: parts.parser.version, max_nodes: parts.parser.maxNodes, max_depth: parts.parser.maxDepth },
     stylesheets: { parser: parts.stylesheetParser.name, parser_version: parts.stylesheetParser.version, max_nodes: parts.stylesheetParser.maxNodes, max_depth: parts.stylesheetParser.maxDepth },
-    limits: { max_blob_bytes: parts.limits.maxBlobBytes, max_files: parts.limits.maxFiles, max_total_bytes: parts.limits.maxTotalBytes },
+    limits: { max_blob_bytes: parts.limits.maxBlobBytes, max_lockfile_bytes: parts.limits.maxLockfileBytes, max_files: parts.limits.maxFiles, max_total_bytes: parts.limits.maxTotalBytes },
     rules: { digest: parts.rulesDigest },
     catalogs: { digest: parts.catalogsDigest },
   };

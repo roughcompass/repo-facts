@@ -224,7 +224,7 @@ describe("manifest detectors", () => {
     it("keeps categories unknown when a manifest cannot be parsed or is over budget", async () => {
       const { document } = await profile(
         { "package.json": json({ name: "root", workspaces: ["packages/*"] }), "packages/a/package.json": "{ not json", "packages/b/package.json": json({ name: "b", padding: "x".repeat(4_000) }) },
-        { budgets: { maxBlobBytes: 2_000, maxFiles: 100, maxTotalBytes: 1_000_000 } },
+        { budgets: { maxBlobBytes: 2_000, maxLockfileBytes: 2_000, maxFiles: 100, maxTotalBytes: 1_000_000 } },
       );
       for (const category of ["test_frameworks", "build_tools", "frameworks", "runtime_requirements", "dependencies"]) {
         expect(document.categories[category], category).toMatchObject({ state: "unknown", search: { skipped: ["packages/a/package.json", "packages/b/package.json"] } });

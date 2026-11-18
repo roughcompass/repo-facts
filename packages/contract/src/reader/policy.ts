@@ -1,4 +1,5 @@
 import crypto from "node:crypto";
+import { isLockfilePath } from "./lockfiles.js";
 import { isSensitivePath } from "./sensitive.js";
 import type { BlobContent, Budgets, EntryType, ReadResult, SkipDiagnostic, SourceReader, TreeEntry } from "./types.js";
 
@@ -9,11 +10,12 @@ import type { BlobContent, Budgets, EntryType, ReadResult, SkipDiagnostic, Sourc
  * read: it refuses traversal-shaped paths, `.git`, and consumer-protected
  * directories; never reads files that commonly hold credentials; records
  * symbolic links and submodules as metadata; classifies binary content; and
- * spends per-file, file-count, and total-byte budgets in path order. Every
- * refusal is recorded as a diagnostic.
+ * spends per-file, file-count, and total-byte budgets in path order. A
+ * lockfile has its own per-file budget, and still counts against the total.
+ * Every refusal is recorded as a diagnostic.
  */
 
-export const DEFAULT_BUDGETS: Budgets = { maxBlobBytes: 1_048_576, maxFiles: 4_000, maxTotalBytes: 67_108_864 };
+export const DEFAULT_BUDGETS: Budgets = { maxBlobBytes: 1_048_576, maxLockfileBytes: 33_554_432, maxFiles: 4_000, maxTotalBytes: 67_108_864 };
 export const MAX_LINK_BYTES = 4_096;
 const BINARY_SNIFF_BYTES = 8_000;
 const utf8 = new TextDecoder("utf-8", { fatal: true });
@@ -189,8 +191,10 @@ export abstract class PolicyReader implements SourceReader {
     if (entry.type === "tree") return { skip: { path, reason: "not_a_file", detail: "The path is a directory" } };
 
     const size = entry.size ?? 0;
-    const { maxBlobBytes, maxFiles, maxTotalBytes } = this.budgets;
-    if (size > maxBlobBytes) return { skip: { path, reason: "blob_too_large", detail: `${size} bytes exceeds the ${maxBlobBytes}-byte limit per file` } };
+    const { maxBlobBytes, maxLockfileBytes, maxFiles, maxTotalBytes } = this.budgets;
+    const lockfile = isLockfilePath(path);
+    const limit = lockfile ? maxLockfileBytes : maxBlobBytes;
+    if (size > limit) return { skip: { path, reason: "blob_too_large", detail: `${size} bytes exceeds the ${limit}-byte limit per ${lockfile ? "lockfile" : "file"}` } };
     if (this.filesRead >= maxFiles) return { skip: { path, reason: "file_budget_exhausted", detail: `The ${maxFiles}-file analysis budget was already used` } };
     if (this.bytesRead + size > maxTotalBytes) return { skip: { path, reason: "total_budget_exhausted", detail: `Reading ${size} more bytes would exceed the ${maxTotalBytes}-byte analysis budget` } };
 

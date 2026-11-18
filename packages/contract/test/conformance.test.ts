@@ -58,7 +58,7 @@ const broken: Record<string, ReaderFactory> = {
     return new BrokenReader(inner, { read: leak });
   },
   "ignores budgets": async (files, options) => {
-    const unlimited: Budgets = { maxBlobBytes: Number.MAX_SAFE_INTEGER, maxFiles: Number.MAX_SAFE_INTEGER, maxTotalBytes: Number.MAX_SAFE_INTEGER };
+    const unlimited: Budgets = { maxBlobBytes: Number.MAX_SAFE_INTEGER, maxLockfileBytes: Number.MAX_SAFE_INTEGER, maxFiles: Number.MAX_SAFE_INTEGER, maxTotalBytes: Number.MAX_SAFE_INTEGER };
     return MemoryReader.fromFiles(files, { commit: "c".repeat(40), ...options, budgets: unlimited });
   },
 };
@@ -95,6 +95,7 @@ describe("reader conformance suite", () => {
   it("fails a reader that ignores budgets", async () => {
     expect(await failures(broken["ignores budgets"]!)).toEqual([
       "enforces the per-file limit exactly at its boundary",
+      "gives lockfiles their own per-file limit, counted against the total",
       "spends file-count and total-byte budgets in path order and never twice for one path",
     ]);
   });

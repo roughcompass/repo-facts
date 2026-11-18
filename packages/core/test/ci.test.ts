@@ -182,7 +182,7 @@ describe("unsupported or unreadable CI", () => {
   });
 
   it("never reports CI facts absent when a workflow is over budget", async () => {
-    const { document } = await profile({ ".github/workflows/ci.yml": `on: push\n# ${"x".repeat(3_000)}\njobs: {}\n` }, { budgets: { maxBlobBytes: 1_000, maxFiles: 100, maxTotalBytes: 100_000 } });
+    const { document } = await profile({ ".github/workflows/ci.yml": `on: push\n# ${"x".repeat(3_000)}\njobs: {}\n` }, { budgets: { maxBlobBytes: 1_000, maxLockfileBytes: 1_000, maxFiles: 100, maxTotalBytes: 100_000 } });
     expect(document.categories.ci_systems).toMatchObject({ state: "unknown", search: { skipped: [".github/workflows/ci.yml"] } });
     expect(document.categories.verification_commands!.state).toBe("unknown");
     expect(document.diagnostics).toContainEqual(expect.objectContaining({ path: ".github/workflows/ci.yml", reason: "blob_too_large" }));

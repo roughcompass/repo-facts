@@ -48,8 +48,12 @@ export interface BlobContent {
 export type ReadResult = { ok: true; content: BlobContent } | { ok: false; skip: SkipDiagnostic };
 
 export interface Budgets {
+  /** The largest file read, in bytes, other than a lockfile. */
   maxBlobBytes: number;
+  /** The largest lockfile read, in bytes, such as package-lock.json or pnpm-lock.yaml. */
+  maxLockfileBytes: number;
   maxFiles: number;
+  /** Every byte read, lockfiles included. */
   maxTotalBytes: number;
 }
 

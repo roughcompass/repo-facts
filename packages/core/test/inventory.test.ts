@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import { INVENTORY, type Inventory, classifyPath, inventoryDetector, languageOf, readableInputs, unanalyzedInputs } from "../src/index.js";
 import { type FileTree, snapshotOf } from "./support.js";
 
-const GENEROUS: Budgets = { maxBlobBytes: 1_000_000, maxFiles: 1_000, maxTotalBytes: 10_000_000 };
+const GENEROUS: Budgets = { maxBlobBytes: 1_000_000, maxLockfileBytes: 1_000_000, maxFiles: 1_000, maxTotalBytes: 10_000_000 };
 
 const REPOSITORY: FileTree = {
   "package.json": '{ "name": "orders-ui" }\n',
@@ -215,7 +215,7 @@ describe("inventory", () => {
         "pnpm-lock.yaml": "lockfileVersion: '9.0'\n",
         "yarn.lock": { symlink: "../outside/yarn.lock" },
       },
-      { maxBlobBytes: 1_000, maxFiles: 100, maxTotalBytes: 100_000 },
+      { maxBlobBytes: 1_000, maxLockfileBytes: 1_000, maxFiles: 100, maxTotalBytes: 100_000 },
     );
     expect(Object.fromEntries(inventory.inputs.map((input) => [input.path, input.readable]))).toEqual({
       "package-lock.json": false,
@@ -234,7 +234,7 @@ describe("inventory", () => {
 
   it("spends the file budget in path order, so the same tree always skips the same inputs", async () => {
     const files: FileTree = { "a/package.json": "{}\n", "b/package.json": "{}\n", "c/package.json": "{}\n", "src/app.ts": "export {};\n" };
-    const first = await inventoryRun(files, { maxBlobBytes: 1_000, maxFiles: 2, maxTotalBytes: 100_000 });
+    const first = await inventoryRun(files, { maxBlobBytes: 1_000, maxLockfileBytes: 1_000, maxFiles: 2, maxTotalBytes: 100_000 });
     expect(first.readable).toEqual(["a/package.json", "b/package.json"]);
     expect(first.unanalyzed).toEqual(["c/package.json"]);
     expect(first.document.diagnostics).toContainEqual(expect.objectContaining({ path: "c/package.json", reason: "file_budget_exhausted" }));

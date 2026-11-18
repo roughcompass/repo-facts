@@ -1,3 +1,4 @@
+import { LOCKFILE_NAMES } from "@repo-facts/contract";
 import { describe, expect, it } from "vitest";
 import { UNSUPPORTED_INPUTS_RULE, classifyPath } from "../src/index.js";
 import { profile } from "./support.js";
@@ -72,5 +73,11 @@ describe("other ecosystems' build inputs", () => {
     const { document } = await profile({ "package.json": json({ name: "app", dependencies: { react: "^19.0.0" } }) });
     expect(document.categories.test_frameworks).toMatchObject({ state: "absent" });
     expect(document.categories.dependencies!.search.rules).not.toContain(UNSUPPORTED_INPUTS_RULE);
+  });
+});
+
+describe("lockfile names", () => {
+  it("classifies every name the read policy budgets as a lockfile as a lockfile input", () => {
+    for (const name of LOCKFILE_NAMES) expect(classifyPath(`nested/${name}`)?.kind, name).toBe("lockfile");
   });
 });

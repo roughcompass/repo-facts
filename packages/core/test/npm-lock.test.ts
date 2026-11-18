@@ -122,12 +122,22 @@ describe("npm lockfiles", () => {
     expect(document.diagnostics).toContainEqual(expect.objectContaining({ path: "package-lock.json", reason }));
   });
 
-  it("keeps versions unknown when the lockfile is over budget", async () => {
+  it("keeps versions unknown when the lockfile is over its budget", async () => {
     const { document } = await profile(
       { "package.json": MANIFEST, "package-lock.json": json({ lockfileVersion: 3, packages: { "": {}, "node_modules/react": { version: "18.3.1" }, padding: { note: "x".repeat(3_000) } } }) },
-      { budgets: { maxBlobBytes: 2_000, maxFiles: 100, maxTotalBytes: 1_000_000 } },
+      { budgets: { maxBlobBytes: 1_000_000, maxLockfileBytes: 2_000, maxFiles: 100, maxTotalBytes: 1_000_000 } },
     );
     expect(document.categories.resolved_dependencies).toMatchObject({ state: "unknown", search: { skipped: ["package-lock.json"] } });
+    expect(document.diagnostics).toContainEqual(expect.objectContaining({ path: "package-lock.json", reason: "blob_too_large", detail: expect.stringContaining("2000-byte limit per lockfile") }));
+  });
+
+  it("reads a lockfile larger than the per-file limit for source, within the lockfile limit", async () => {
+    const { document } = await profile(
+      { "package.json": MANIFEST, "package-lock.json": json({ lockfileVersion: 3, packages: { "": {}, "node_modules/react": { version: "18.3.1" }, padding: { note: "x".repeat(3_000) } } }) },
+      { budgets: { maxBlobBytes: 2_000, maxLockfileBytes: 10_000, maxFiles: 100, maxTotalBytes: 1_000_000 } },
+    );
+    expect(document.categories.resolved_dependencies!.facts.map((fact) => fact.key)).toContain("package.json#react");
+    expect(document.diagnostics.filter((diagnostic) => diagnostic.reason === "blob_too_large")).toEqual([]);
   });
 
   it("never stores credentials from git dependency versions", async () => {

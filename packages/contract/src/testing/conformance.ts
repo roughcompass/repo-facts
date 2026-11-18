@@ -30,7 +30,7 @@ export interface ConformanceCase {
   run(factory: ReaderFactory): Promise<void>;
 }
 
-const GENEROUS: Budgets = { maxBlobBytes: 1_000_000, maxFiles: 1_000, maxTotalBytes: 10_000_000 };
+const GENEROUS: Budgets = { maxBlobBytes: 1_000_000, maxLockfileBytes: 1_000_000, maxFiles: 1_000, maxTotalBytes: 10_000_000 };
 
 const TREE: Record<string, MemoryFile> = {
   "README.md": "# Orders\n",
@@ -116,6 +116,24 @@ export function readerConformanceCases(): ConformanceCase[] {
         assert.equal((await candidate.read("at.txt")).ok, true);
         const over = await candidate.read("over.txt");
         assert.equal(!over.ok && over.skip.reason, "blob_too_large");
+      },
+    },
+    {
+      name: "gives lockfiles their own per-file limit, counted against the total",
+      async run(factory) {
+        const files = { "package-lock.json": "x".repeat(150), "nested/yarn.lock": "x".repeat(201), "notes.json": "x".repeat(150) };
+        const { candidate, reference } = await pair(factory, files, { budgets: { ...GENEROUS, maxBlobBytes: 100, maxLockfileBytes: 200 } });
+        for (const reader of [candidate, reference]) await reader.readMany(Object.keys(files));
+        assert.equal((await candidate.read("package-lock.json")).ok, true);
+        assert.deepEqual(
+          candidate.diagnostics().map(({ path, reason }) => [path, reason]),
+          [
+            ["nested/yarn.lock", "blob_too_large"],
+            ["notes.json", "blob_too_large"],
+          ],
+        );
+        assert.deepEqual(candidate.usage(), { files: 1, bytes: 150 });
+        assert.deepEqual(candidate.diagnostics(), reference.diagnostics());
       },
     },
     {
