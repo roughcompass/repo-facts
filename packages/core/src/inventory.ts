@@ -101,7 +101,8 @@ export const inventoryDetector: Detector = {
     });
 
     for (const input of inputs) {
-      if (input.kind === "sensitive") continue;
+      // A template is skipped only for the UI categories, through their searches: other detectors read some, such as HTML for import maps.
+      if (input.kind === "sensitive" || input.kind === "template") continue;
       if (input.ecosystem) context.diagnostic(input.path, "unsupported_input", `${input.label} is recognized but not analyzed: this detector release doesn't support the ${input.ecosystem} ecosystem`);
       else if (!input.supported) context.diagnostic(input.path, "unsupported_input", `${input.label} is recognized but not analyzed by this detector release`);
       else if (context.reader.entry(input.path)?.type === "symlink") context.diagnostic(input.path, "symlink", `${input.label} is a symbolic link, which is recorded but never followed`);

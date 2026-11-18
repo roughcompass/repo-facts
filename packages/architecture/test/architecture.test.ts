@@ -118,6 +118,12 @@ describe("single-spa and import maps", () => {
     expect(references(document)).toContain('composition/host {"mechanism":"import-map","specifier":"spa-orders"}');
   });
 
+  it("reads an Angular component template for import maps, though the UI categories skip it", async () => {
+    const { document } = await profile({ "package.json": json({ name: "app" }), "src/app/orders.component.html": "<table></table>\n" });
+    expect(document.categories.composition!.search).toMatchObject({ surface: ["src/app/orders.component.html"], skipped: [] });
+    expect(document.categories.ui_elements!.search.skipped).toEqual(["src/app/orders.component.html"]);
+  });
+
   it("infers an application from single-spa lifecycles, whether from a helper or exported by hand", async () => {
     for (const files of [{ "src/lifecycles.tsx": LIFECYCLES }, { "src/lifecycles.js": "export async function bootstrap() {}\nexport async function mount() {}\nexport async function unmount() {}\n" }]) {
       const { document } = await profile(files);

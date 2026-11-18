@@ -99,7 +99,8 @@ describe("component templates", () => {
     for (const category of ["ui_elements", "style_values"]) {
       expect(document.categories[category], category).toMatchObject({ state: "unknown", search: { skipped: ["src/App.vue", "src/Nav.svelte", "src/app/orders.component.html", "src/pages/index.astro"] } });
     }
-    expect(document.diagnostics).toContainEqual({ path: "src/App.vue", reason: "unsupported_input", detail: "Vue single-file component is recognized but not analyzed by this detector release", detector: "inventory" });
+    // Skipped for the UI categories only, so no diagnostic marks them skipped everywhere.
+    expect(document.diagnostics.filter((diagnostic) => diagnostic.path.startsWith("src/"))).toEqual([]);
   });
 });
 
