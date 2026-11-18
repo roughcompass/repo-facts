@@ -50,7 +50,7 @@ The core detectors spend the budgets on the most decisive inputs first, so a bud
 
 1. Package manifests, workspace files, and lockfiles, read by the inventory
 2. CI definitions, runtime files, and Makefiles, read by the inventory
-3. Tool configuration and API contracts, read by the inventory
+3. Tool configuration that detectors parse (JavaScript and TypeScript configuration files and import maps) and API contracts, read by the inventory. Configuration that only its name reveals, such as `tsconfig.json` or `.eslintrc.json`, isn't read at all, because no detector parses it
 4. Shell scripts that a CI command runs, read by the CI detector
 5. Sources and stylesheets, read by the `source-reads` detector at the end of the convention stage: application code before tests, stories, fixtures, examples, docs, and type declarations, and entry points such as `index` or `main` before other files at the same depth
 

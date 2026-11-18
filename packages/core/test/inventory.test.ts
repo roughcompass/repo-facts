@@ -98,7 +98,8 @@ describe("inventory", () => {
       "src/schema.graphql": ["contract", "graphql-schema", true, true],
       "src/styles.css": ["stylesheet", "css", true, null],
       "src/theme.scss": ["stylesheet", "scss", true, null],
-      "tsconfig.json": ["config", "tsconfig", true, true],
+      // No detector parses tsconfig.json, so it isn't read.
+      "tsconfig.json": ["config", "tsconfig", true, null],
       "vite.config.ts": ["config", "vite-config", true, true],
       "yarn.lock": ["lockfile", "yarn-lock", true, true],
     });
@@ -294,20 +295,22 @@ describe("inventory", () => {
     // Manifests and lockfiles, shallowest first, before anything else.
     expect(await readWith(4)).toEqual(["package-lock.json", "package.json", "packages/ui/package.json", "zz/package.json"]);
     expect(await readWith(5)).toEqual(["package-lock.json", "package.json", "packages/ui/package.json", "packages/ui/src/deep/package.json", "zz/package.json"]);
-    // Then CI, then configuration, shallowest first.
+    // Then CI, then configuration that detectors parse, shallowest first.
     expect(await readWith(7)).toEqual([".github/workflows/ci.yml", "eslint.config.js", "package-lock.json", "package.json", "packages/ui/package.json", "packages/ui/src/deep/package.json", "zz/package.json"]);
     // Then the shell script a CI command runs, and then sources: shallow application code and entry points before tests and deep paths.
-    const withSources = await readWith(12);
+    const withSources = await readWith(11);
     expect(withSources).toContain("scripts/check.sh");
     expect(withSources.filter((path) => path.endsWith(".ts") && !path.includes("config"))).toEqual(["a/src/index.ts", "app/main.ts"]);
-    const { reader, document } = await profile(files, { budgets: { ...GENEROUS, maxFiles: 12 } });
+    // No detector parses tsconfig.json, so it never spends budget.
+    expect(await readWith(100)).not.toContain("a/tsconfig.json");
+    const { reader, document } = await profile(files, { budgets: { ...GENEROUS, maxFiles: 11 } });
     expect(reader.diagnostics().map(({ path, reason }) => [path, reason])).toEqual([
       ["a/src/App.test.ts", "file_budget_exhausted"],
       ["app/__tests__/main.test.ts", "file_budget_exhausted"],
       ["app/deep/nested/feature/widget.ts", "file_budget_exhausted"],
     ]);
-    expect(reader.usage().files).toBe(12);
-    expect(document.inventory.files_read).toBe(12);
+    expect(reader.usage().files).toBe(11);
+    expect(document.inventory.files_read).toBe(11);
   });
 
   it("spends the file budget in path order, so the same tree always skips the same inputs", async () => {

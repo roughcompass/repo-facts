@@ -1289,11 +1289,11 @@
   "extensions": [],
   "inventory": {
     "bytes": 868,
-    "bytes_read": 868,
+    "bytes_read": 865,
     "entries": 7,
     "executables": 0,
     "files": 6,
-    "files_read": 6,
+    "files_read": 5,
     "gitlinks": 0,
     "symlinks": 0
   },

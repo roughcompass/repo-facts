@@ -8,8 +8,11 @@ import { type InputKind, classifyPath, goVendorDirectories, isVendored, language
  *
  * Inputs are read most decisive first, so a file budget that runs out on a
  * large repository is spent where it matters: package manifests, workspace
- * files, and lockfiles; then CI, runtime files, and Makefiles; then tool
- * configuration and API contracts. The shell scripts CI commands run are read
+ * files, and lockfiles; then CI, runtime files, and Makefiles; then the tool
+ * configuration detectors parse (JavaScript and TypeScript configuration
+ * files and import maps) and API contracts. Configuration that only its name
+ * reveals, such as tsconfig.json or .eslintrc.json, isn't read, because no
+ * detector parses it. The shell scripts CI commands run are read
  * next, by the CI detector, and then sources and stylesheets, by the
  * source-reads detector at the end of the convention stage: application code
  * before tests, stories, fixtures, and examples. Within each tier, shallower
@@ -86,6 +89,7 @@ export const inventoryDetector: Detector = {
     for (const { entry, rule } of classified) {
       const tier = rule.format === "makefile" ? MAKEFILE_TIER : TIERS.get(rule.kind);
       if (!rule.supported || tier === undefined || entry.type === "symlink") continue;
+      if (rule.kind === "config" && rule.format !== "import-map" && !SOURCE_EXTENSIONS.test(entry.path)) continue;
       order.set(entry.path, [tier, depthOf(entry.path)]);
     }
     const results = await readInOrder(context, order);

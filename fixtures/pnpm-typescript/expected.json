@@ -1630,11 +1630,11 @@
   "extensions": [],
   "inventory": {
     "bytes": 959,
-    "bytes_read": 959,
+    "bytes_read": 956,
     "entries": 17,
     "executables": 0,
     "files": 10,
-    "files_read": 10,
+    "files_read": 9,
     "gitlinks": 0,
     "symlinks": 0
   },
