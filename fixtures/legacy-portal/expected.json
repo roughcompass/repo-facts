@@ -803,19 +803,6 @@
     {
       "basis": "observed",
       "evidence": [
-        "ev_f23f82a3ddf219a29d40fcaa"
-      ],
-      "id": "ref_0a1961ee05182ca6807fc5f0",
-      "identifier": {
-        "name": "legacy-portal"
-      },
-      "role": "producer",
-      "rule": "packages.produced",
-      "type": "package"
-    },
-    {
-      "basis": "observed",
-      "evidence": [
         "ev_6c359a207b5f4ab20c43602f"
       ],
       "id": "ref_7feb1042963b1be60c179f1d",

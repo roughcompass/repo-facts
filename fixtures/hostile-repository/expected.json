@@ -2793,19 +2793,6 @@
       "role": "consumer",
       "rule": "packages.consumed",
       "type": "package"
-    },
-    {
-      "basis": "observed",
-      "evidence": [
-        "ev_2293a793ed373b201fbf4fe6"
-      ],
-      "id": "ref_f53f1cd2acb1d8131b2b7cc0",
-      "identifier": {
-        "name": "hostile-repository"
-      },
-      "role": "producer",
-      "rule": "packages.produced",
-      "type": "package"
     }
   ],
   "schema": "repo_facts.fact_document",

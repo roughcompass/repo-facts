@@ -6,16 +6,18 @@ import { DEPENDENCY_FIELDS, isObject, manifestsOf } from "@repo-facts/core";
  *
  * Every named manifest produces a package, published unless it is private. A
  * consumed package is one any manifest depends on; it is internal when this
- * repository also produces it, as workspace packages are. Producer references,
- * and consumer references to external packages, let a Relationship Map
- * connect repositories.
+ * repository also produces it, as workspace packages are. Producer references
+ * to published packages, and consumer references to external packages, let a
+ * Relationship Map connect repositories. A private package is never published,
+ * so no other repository can consume it: its name, such as a workspace named
+ * `cypress`, must not match another repository's dependency.
  */
 
 const RULES = { produced: "packages.produced", consumed: "packages.consumed" } as const;
 
 export const packageRelationsDetector: Detector = {
   id: "package-relations",
-  version: "2",
+  version: "3",
   stage: "architecture",
   inputs: ["**/package.json"],
   categories: ["packages_produced", "packages_consumed"],
@@ -36,7 +38,7 @@ export const packageRelationsDetector: Detector = {
         evidence: [evidence, ...(typeof version === "string" ? [context.pointer(manifest.content, RULES.produced, "json", "/version")] : [])],
         rule: RULES.produced,
       });
-      context.reference({ type: "package", role: "producer", identifier: { name }, basis: "observed", evidence: [evidence], rule: RULES.produced });
+      if (manifest.value.private !== true) context.reference({ type: "package", role: "producer", identifier: { name }, basis: "observed", evidence: [evidence], rule: RULES.produced });
     }
 
     const consumed = new Map<string, Evidence[]>();

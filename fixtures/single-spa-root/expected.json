@@ -1121,19 +1121,6 @@
     {
       "basis": "observed",
       "evidence": [
-        "ev_8a6351dc4c370893c714bf64"
-      ],
-      "id": "ref_3ce9cb766d5ac9e0f04e5273",
-      "identifier": {
-        "name": "spa-root"
-      },
-      "role": "producer",
-      "rule": "packages.produced",
-      "type": "package"
-    },
-    {
-      "basis": "observed",
-      "evidence": [
         "ev_3a59e8bdd7f19815c285bce3"
       ],
       "id": "ref_55bd69cf3b6dac0debfdd279",

@@ -801,19 +801,6 @@
     {
       "basis": "observed",
       "evidence": [
-        "ev_231ad0f3e0ceaf0aa463f91c"
-      ],
-      "id": "ref_1192ee9b92316c1e78c43488",
-      "identifier": {
-        "name": "router-admin"
-      },
-      "role": "producer",
-      "rule": "packages.produced",
-      "type": "package"
-    },
-    {
-      "basis": "observed",
-      "evidence": [
         "ev_4bf9cae0956207bc233f1239"
       ],
       "id": "ref_a564a63716f953b4a9148d4d",

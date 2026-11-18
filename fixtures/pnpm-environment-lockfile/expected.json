@@ -1361,19 +1361,6 @@
     {
       "basis": "observed",
       "evidence": [
-        "ev_e58fe8c0b526960f5bcf1818"
-      ],
-      "id": "ref_1090fcbd8cf53dca39b4e8ab",
-      "identifier": {
-        "name": "@directus/monorepo"
-      },
-      "role": "producer",
-      "rule": "packages.produced",
-      "type": "package"
-    },
-    {
-      "basis": "observed",
-      "evidence": [
         "ev_6309e9bc9c57cc2ed1a561a6"
       ],
       "id": "ref_475ad5b6b788a2d605d4615b",

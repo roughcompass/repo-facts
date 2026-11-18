@@ -1683,19 +1683,6 @@
     {
       "basis": "observed",
       "evidence": [
-        "ev_07e15e398b65068f661cab95"
-      ],
-      "id": "ref_5ebbf8807377faa9c3161428",
-      "identifier": {
-        "name": "orders-monorepo"
-      },
-      "role": "producer",
-      "rule": "packages.produced",
-      "type": "package"
-    },
-    {
-      "basis": "observed",
-      "evidence": [
         "ev_90dc2fa71678ed185b2fcc34"
       ],
       "id": "ref_6b510408d257ab7a157e286a",

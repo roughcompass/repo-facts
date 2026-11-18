@@ -1651,19 +1651,6 @@
       "type": "package"
     },
     {
-      "basis": "observed",
-      "evidence": [
-        "ev_0c7808572336e3f9ab9ae842"
-      ],
-      "id": "ref_61b7b9a8ebb0aacfa7ca9362",
-      "identifier": {
-        "name": "orders-testbed"
-      },
-      "role": "producer",
-      "rule": "packages.produced",
-      "type": "package"
-    },
-    {
       "basis": "inferred",
       "evidence": [
         "ev_9d35419e501a6b606f545899"

@@ -1142,19 +1142,6 @@
     {
       "basis": "observed",
       "evidence": [
-        "ev_4d15f164ef217e869db1ceca"
-      ],
-      "id": "ref_848824af45057a1a7212cbe2",
-      "identifier": {
-        "name": "mf-shell"
-      },
-      "role": "producer",
-      "rule": "packages.produced",
-      "type": "package"
-    },
-    {
-      "basis": "observed",
-      "evidence": [
         "ev_39d3861829719493e3029f2c"
       ],
       "id": "ref_c05b7b587c76e382df40e7fe",

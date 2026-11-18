@@ -699,19 +699,6 @@
     {
       "basis": "observed",
       "evidence": [
-        "ev_d9c27b6615833de26621df9b"
-      ],
-      "id": "ref_10ae7c250e6f0d17a0b612f5",
-      "identifier": {
-        "name": "acme-platform"
-      },
-      "role": "producer",
-      "rule": "packages.produced",
-      "type": "package"
-    },
-    {
-      "basis": "observed",
-      "evidence": [
         "ev_73c1fda46863faf77acaa5a0"
       ],
       "id": "ref_961a1865229fcf3508a5a240",

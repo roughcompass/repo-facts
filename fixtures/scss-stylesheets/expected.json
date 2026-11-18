@@ -1725,19 +1725,6 @@
       "role": "consumer",
       "rule": "packages.consumed",
       "type": "package"
-    },
-    {
-      "basis": "observed",
-      "evidence": [
-        "ev_a7643230ca414b8354710afd"
-      ],
-      "id": "ref_dc52e971248dd7c954c46f19",
-      "identifier": {
-        "name": "scss-site"
-      },
-      "role": "producer",
-      "rule": "packages.produced",
-      "type": "package"
     }
   ],
   "schema": "repo_facts.fact_document",

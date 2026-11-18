@@ -726,19 +726,6 @@
     {
       "basis": "observed",
       "evidence": [
-        "ev_466005c88f436b9ec8df6ba6"
-      ],
-      "id": "ref_81dc34df60cadd2f4210c645",
-      "identifier": {
-        "name": "mf-admin"
-      },
-      "role": "producer",
-      "rule": "packages.produced",
-      "type": "package"
-    },
-    {
-      "basis": "observed",
-      "evidence": [
         "ev_b0ae893fc65c7aae637975ec"
       ],
       "id": "ref_b78e13c3d5c1d5e7b91ae0c8",

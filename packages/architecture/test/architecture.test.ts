@@ -41,7 +41,7 @@ describe("package production and consumption", () => {
     });
   });
 
-  it("marks packages consumed from this repository as internal, and references only external ones", async () => {
+  it("marks packages consumed from this repository as internal, and references only external ones and published ones", async () => {
     const { document } = await profile(WORKSPACE);
     expect(Object.fromEntries(facts(document, "packages_consumed").map((item) => [item.key, item.value]))).toEqual({
       "@acme/design-tokens": { name: "@acme/design-tokens", internal: false },
@@ -54,9 +54,8 @@ describe("package production and consumption", () => {
       'package/consumer {"name":"react"}',
       'package/producer {"name":"@acme/analytics"}',
       'package/producer {"name":"@acme/ui"}',
-      'package/producer {"name":"@acme/web"}',
-      'package/producer {"name":"acme-platform"}',
     ]);
+    // @acme/web and acme-platform are private: never published, so no other repository can depend on them.
   });
 });
 

@@ -2478,19 +2478,6 @@
     {
       "basis": "observed",
       "evidence": [
-        "ev_de4e9d1f887ae39db967ac54"
-      ],
-      "id": "ref_8a3a360edab3cf9cf83b41b8",
-      "identifier": {
-        "name": "orders-ui"
-      },
-      "role": "producer",
-      "rule": "packages.produced",
-      "type": "package"
-    },
-    {
-      "basis": "observed",
-      "evidence": [
         "ev_af3b8a1f1e7c532b37e1be06"
       ],
       "id": "ref_912449d8070ee50b06f3164c",
