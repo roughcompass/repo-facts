@@ -84,7 +84,7 @@ describe("component templates", () => {
     ["Views/Home/Index.cshtml", "razor"],
     ["Components/Counter.razor", "razor"],
   ])("classifies %s as an unsupported %s template", (path, format) => {
-    expect(classifyPath(path)).toMatchObject({ kind: "template", format, supported: false, feeds: ["ui_elements", "style_values"] });
+    expect(classifyPath(path)).toMatchObject({ kind: "template", format, supported: false, feeds: ["ui_elements", "style_values", "accessibility"] });
   });
 
   it("keeps ui_elements and style_values unknown when Vue, Svelte, Astro, or Angular templates hold the elements", async () => {
@@ -96,7 +96,7 @@ describe("component templates", () => {
       "src/app/orders.component.html": "<table></table>\n",
       "public/index.html": "<!doctype html>\n",
     });
-    for (const category of ["ui_elements", "style_values"]) {
+    for (const category of ["ui_elements", "style_values", "accessibility"]) {
       expect(document.categories[category], category).toMatchObject({ state: "unknown", search: { skipped: ["src/App.vue", "src/Nav.svelte", "src/app/orders.component.html", "src/pages/index.astro"] } });
     }
     // Skipped for the UI categories only, so no diagnostic marks them skipped everywhere.

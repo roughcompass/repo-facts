@@ -84,6 +84,55 @@ export const RULES: readonly Rule[] = [
         ]
       }
     },
+    "description": "A Module Federation 2 configuration, such as module-federation.config.ts for Modern.js, Rsbuild, or Rslib",
+    "emit": {
+      "signal": {
+        "kind": "module-federation"
+      }
+    },
+    "id": "architecture.module-federation.config",
+    "match": {
+      "call": {
+        "members": [
+          "createModuleFederationConfig"
+        ],
+        "module": [
+          "@module-federation/enhanced",
+          "@module-federation/rsbuild-plugin",
+          "@module-federation/modern-js",
+          "@module-federation/rspack"
+        ]
+      }
+    },
+    "version": 1
+  },
+  {
+    "capture": {
+      "exposes": {
+        "argument": 0,
+        "property": [
+          "exposes"
+        ]
+      },
+      "name": {
+        "argument": 0,
+        "property": [
+          "name"
+        ]
+      },
+      "remotes": {
+        "argument": 0,
+        "property": [
+          "remotes"
+        ]
+      },
+      "shared": {
+        "argument": 0,
+        "property": [
+          "shared"
+        ]
+      }
+    },
     "description": "The Module Federation 2 plugin for webpack and Rspack",
     "emit": {
       "signal": {
@@ -100,6 +149,141 @@ export const RULES: readonly Rule[] = [
           "@module-federation/enhanced",
           "@module-federation/enhanced/webpack",
           "@module-federation/enhanced/rspack"
+        ]
+      }
+    },
+    "version": 1
+  },
+  {
+    "capture": {
+      "exposes": {
+        "argument": 0,
+        "property": [
+          "exposes"
+        ]
+      },
+      "name": {
+        "argument": 0,
+        "property": [
+          "name"
+        ]
+      },
+      "remotes": {
+        "argument": 0,
+        "property": [
+          "remotes"
+        ]
+      },
+      "shared": {
+        "argument": 0,
+        "property": [
+          "shared"
+        ]
+      }
+    },
+    "description": "The Module Federation plugin for Next.js, as a named export",
+    "emit": {
+      "signal": {
+        "kind": "module-federation"
+      }
+    },
+    "id": "architecture.module-federation.nextjs",
+    "match": {
+      "new": {
+        "members": [
+          "NextFederationPlugin"
+        ],
+        "module": [
+          "@module-federation/nextjs-mf"
+        ]
+      }
+    },
+    "version": 1
+  },
+  {
+    "capture": {
+      "exposes": {
+        "argument": 0,
+        "property": [
+          "exposes"
+        ]
+      },
+      "name": {
+        "argument": 0,
+        "property": [
+          "name"
+        ]
+      },
+      "remotes": {
+        "argument": 0,
+        "property": [
+          "remotes"
+        ]
+      },
+      "shared": {
+        "argument": 0,
+        "property": [
+          "shared"
+        ]
+      }
+    },
+    "description": "The Module Federation plugin for Next.js, as the default export",
+    "emit": {
+      "signal": {
+        "kind": "module-federation"
+      }
+    },
+    "id": "architecture.module-federation.nextjs-default",
+    "match": {
+      "new": {
+        "module": [
+          "@module-federation/nextjs-mf"
+        ]
+      }
+    },
+    "version": 1
+  },
+  {
+    "capture": {
+      "exposes": {
+        "argument": 0,
+        "property": [
+          "exposes"
+        ]
+      },
+      "name": {
+        "argument": 0,
+        "property": [
+          "name"
+        ]
+      },
+      "remotes": {
+        "argument": 0,
+        "property": [
+          "remotes"
+        ]
+      },
+      "shared": {
+        "argument": 0,
+        "property": [
+          "shared"
+        ]
+      }
+    },
+    "description": "The Module Federation plugin for Rsbuild",
+    "emit": {
+      "signal": {
+        "kind": "module-federation"
+      }
+    },
+    "id": "architecture.module-federation.rsbuild",
+    "match": {
+      "call": {
+        "members": [
+          "pluginModuleFederation"
+        ],
+        "module": [
+          "@module-federation/rsbuild-plugin"
         ]
       }
     },
@@ -150,6 +334,88 @@ export const RULES: readonly Rule[] = [
         ],
         "module": [
           "@rspack/core"
+        ]
+      }
+    },
+    "version": 1
+  },
+  {
+    "capture": {
+      "name": {
+        "argument": 0,
+        "property": [
+          "name"
+        ]
+      },
+      "remotes": {
+        "argument": 0,
+        "property": [
+          "remotes"
+        ]
+      },
+      "shared": {
+        "argument": 0,
+        "property": [
+          "shared"
+        ]
+      }
+    },
+    "description": "The Module Federation runtime, registering remotes in code",
+    "emit": {
+      "signal": {
+        "kind": "module-federation"
+      }
+    },
+    "id": "architecture.module-federation.runtime",
+    "match": {
+      "call": {
+        "members": [
+          "init"
+        ],
+        "module": [
+          "@module-federation/runtime",
+          "@module-federation/enhanced/runtime"
+        ]
+      }
+    },
+    "version": 1
+  },
+  {
+    "capture": {
+      "name": {
+        "argument": 0,
+        "property": [
+          "name"
+        ]
+      },
+      "remotes": {
+        "argument": 0,
+        "property": [
+          "remotes"
+        ]
+      },
+      "shared": {
+        "argument": 0,
+        "property": [
+          "shared"
+        ]
+      }
+    },
+    "description": "A Module Federation runtime instance, registering remotes in code",
+    "emit": {
+      "signal": {
+        "kind": "module-federation"
+      }
+    },
+    "id": "architecture.module-federation.runtime-instance",
+    "match": {
+      "call": {
+        "members": [
+          "createInstance"
+        ],
+        "module": [
+          "@module-federation/runtime",
+          "@module-federation/enhanced/runtime"
         ]
       }
     },
@@ -289,6 +555,81 @@ export const RULES: readonly Rule[] = [
         ],
         "module": [
           "webpack"
+        ]
+      }
+    },
+    "version": 1
+  },
+  {
+    "capture": {
+      "exposes": {
+        "argument": 0,
+        "property": [
+          "exposes"
+        ]
+      },
+      "name": {
+        "argument": 0,
+        "property": [
+          "name"
+        ]
+      },
+      "remotes": {
+        "argument": 0,
+        "property": [
+          "remotes"
+        ]
+      },
+      "shared": {
+        "argument": 0,
+        "property": [
+          "shared"
+        ]
+      }
+    },
+    "description": "A Native Federation build configuration, the ES-module based federation for Angular and other builds",
+    "emit": {
+      "signal": {
+        "kind": "native-federation"
+      }
+    },
+    "id": "architecture.native-federation.config",
+    "match": {
+      "call": {
+        "members": [
+          "withNativeFederation"
+        ],
+        "module": [
+          "@angular-architects/native-federation/config",
+          "@softarc/native-federation/build",
+          "@softarc/native-federation/config"
+        ]
+      }
+    },
+    "version": 1
+  },
+  {
+    "capture": {
+      "remotes": {
+        "argument": 0
+      }
+    },
+    "description": "A Native Federation host, initializing its remotes from a manifest address or an object of remote entries",
+    "emit": {
+      "signal": {
+        "kind": "native-federation"
+      }
+    },
+    "id": "architecture.native-federation.host",
+    "match": {
+      "call": {
+        "members": [
+          "initFederation"
+        ],
+        "module": [
+          "@angular-architects/native-federation",
+          "@softarc/native-federation",
+          "@softarc/native-federation-runtime"
         ]
       }
     },
@@ -621,4 +962,4 @@ export const RULES: readonly Rule[] = [
   }
 ];
 
-export const RULES_DIGEST = "2d959b575d3c6a2a6ce0408f302c04b358e2385f668f8e849d03a26275f812cf";
+export const RULES_DIGEST = "407b45d2bf3ae7e1b0e597c54cb4db1824ea88017319ffb4782b29581477720c";

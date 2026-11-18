@@ -10,6 +10,16 @@
       },
       "state": "unknown"
     },
+    "accessibility": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
     "api_contracts": {
       "facts": [],
       "search": {
@@ -355,6 +365,6 @@
   },
   "relationship_references": [],
   "schema": "repo_facts.fact_document",
-  "schema_version": 2,
+  "schema_version": 3,
   "service_dependencies": []
 }

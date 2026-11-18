@@ -195,6 +195,44 @@ describe("Module Federation", () => {
     expect(references(document)).toEqual(['composition/remote {"mechanism":"module-federation","name":"mfAdmin"}', 'composition/remote {"mechanism":"module-federation","name":"mfBilling"}']);
   });
 
+  it("names the package and API each build's plugin came from, which tell the federation generations apart", async () => {
+    const { document } = await profile({ "webpack.config.cjs": MF_SHELL, "rspack.config.cjs": MF_ADMIN, "vite.config.ts": MF_BILLING });
+    expect(fact(document, "composition", "module-federation:mfShell").value).toMatchObject({ package: "webpack", api: "ModuleFederationPlugin" });
+    expect(fact(document, "composition", "module-federation:mfAdmin").value).toMatchObject({ package: "@rspack/core", api: "ModuleFederationPluginV1" });
+    expect(fact(document, "composition", "module-federation:mfBilling").value).toMatchObject({ package: "@originjs/vite-plugin-federation", api: null });
+  });
+
+  it("reports Module Federation 2 from the Next.js and Rsbuild plugins, a shared configuration, and the runtime", async () => {
+    const { document } = await profile({
+      "next.config.js": 'const { NextFederationPlugin } = require("@module-federation/nextjs-mf");\nmodule.exports = { webpack(config) { config.plugins.push(new NextFederationPlugin({ name: "checkout", exposes: { "./Cart": "./components/Cart" } })); return config; } };\n',
+      "rsbuild.config.ts": 'import { pluginModuleFederation } from "@module-federation/rsbuild-plugin";\nexport default { plugins: [pluginModuleFederation({ name: "catalog", exposes: { "./List": "./src/List.tsx" }, shared: ["react"] })] };\n',
+      "module-federation.config.ts": 'import { createModuleFederationConfig } from "@module-federation/enhanced";\nexport default createModuleFederationConfig({ name: "account", exposes: { "./Profile": "./src/Profile.tsx" } });\n',
+      "src/remotes.ts": 'import { init } from "@module-federation/enhanced/runtime";\ninit({ name: "portal", remotes: [{ name: "reports", entry: "https://cdn.example.test/reports/mf-manifest.json" }] });\n',
+    });
+    expect(fact(document, "composition", "module-federation:checkout").value).toMatchObject({ plugin: "architecture.module-federation.nextjs", package: "@module-federation/nextjs-mf", exposes: ["./Cart"] });
+    expect(fact(document, "composition", "module-federation:catalog").value).toMatchObject({ plugin: "architecture.module-federation.rsbuild", package: "@module-federation/rsbuild-plugin", exposes: ["./List"], shared: ["react"] });
+    expect(fact(document, "composition", "module-federation:account").value).toMatchObject({ plugin: "architecture.module-federation.config", package: "@module-federation/enhanced", exposes: ["./Profile"] });
+    expect(fact(document, "composition", "module-federation:portal").value).toMatchObject({
+      plugin: "architecture.module-federation.runtime",
+      package: "@module-federation/enhanced/runtime",
+      remotes: [{ federation_name: "reports", entry: { kind: "literal", value: "https://cdn.example.test/reports/mf-manifest.json" } }],
+      exposes: [],
+    });
+    expect(references(document)).toContain('composition/host {"mechanism":"module-federation","name":"reports"}');
+  });
+
+  it("reports Native Federation remotes and hosts, with the manifest a host loads", async () => {
+    const { document } = await profile({
+      "mfe1/federation.config.js": 'const { withNativeFederation, shareAll } = require("@angular-architects/native-federation/config");\nmodule.exports = withNativeFederation({ name: "mfe1", exposes: { "./Component": "./src/app/app.component.ts" }, shared: { ...shareAll({ singleton: true }) } });\n',
+      "shell/src/main.ts": 'import { initFederation } from "@angular-architects/native-federation";\ninitFederation("federation.manifest.json").then(() => import("./bootstrap"));\n',
+      "portal/src/main.ts": 'import { initFederation } from "@softarc/native-federation";\ninitFederation({ mfe1: "http://localhost:4201/remoteEntry.json" });\n',
+    });
+    expect(fact(document, "composition", "native-federation:mfe1").value).toMatchObject({ mechanism: "native-federation", plugin: "architecture.native-federation.config", name: { kind: "literal", value: "mfe1" }, exposes: ["./Component"] });
+    expect(fact(document, "composition", "native-federation:shell/src/main.ts:2").value).toMatchObject({ mechanism: "native-federation", plugin: "architecture.native-federation.host", manifest: "federation.manifest.json", remotes: [] });
+    expect(fact(document, "composition", "native-federation:portal/src/main.ts:2").value).toMatchObject({ remotes: [{ alias: "mfe1", entry: { kind: "literal", value: "http://localhost:4201/remoteEntry.json" } }] });
+    expect(references(document)).toEqual(expect.arrayContaining(['composition/host {"mechanism":"native-federation","name":"mfe1"}', 'composition/remote {"mechanism":"native-federation","name":"mfe1"}']));
+  });
+
   it("reports computed configuration as unresolved, keyed by its location", async () => {
     const { document } = await profile({ "webpack.config.js": 'const webpack = require("webpack");\nmodule.exports = { plugins: [new webpack.container.ModuleFederationPlugin(makeConfig())] };\n' });
     expect(fact(document, "composition", "module-federation:webpack.config.js:2")).toMatchObject({

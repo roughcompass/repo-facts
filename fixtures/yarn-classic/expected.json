@@ -12,6 +12,22 @@
       },
       "state": "absent"
     },
+    "accessibility": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "accessibility.checks",
+          "accessibility.tooling"
+        ],
+        "skipped": [],
+        "surface": [
+          "modules/billing/package.json",
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
     "api_contracts": {
       "facts": [],
       "search": {
@@ -825,6 +841,6 @@
     }
   ],
   "schema": "repo_facts.fact_document",
-  "schema_version": 2,
+  "schema_version": 3,
   "service_dependencies": []
 }

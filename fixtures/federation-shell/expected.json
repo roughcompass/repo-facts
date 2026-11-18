@@ -15,6 +15,49 @@
       },
       "state": "absent"
     },
+    "accessibility": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_fb480ff35e2385e5cd5a15b6"
+          ],
+          "key": "check:iframe-title",
+          "rule": "accessibility.checks",
+          "state": "observed",
+          "value": {
+            "app": {
+              "checked": 1,
+              "failing": 0,
+              "unknown": 0
+            },
+            "stories": {
+              "checked": 0,
+              "failing": 0,
+              "unknown": 0
+            },
+            "tests": {
+              "checked": 0,
+              "failing": 0,
+              "unknown": 0
+            }
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "accessibility.checks",
+          "accessibility.tooling"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json",
+          "src/App.tsx",
+          "webpack.config.cjs"
+        ]
+      },
+      "state": "observed"
+    },
     "api_contracts": {
       "facts": [],
       "search": {
@@ -96,12 +139,14 @@
           "rule": "architecture.module-federation.webpack",
           "state": "observed",
           "value": {
+            "api": "ModuleFederationPlugin",
             "exposes": [],
             "mechanism": "module-federation",
             "name": {
               "kind": "literal",
               "value": "mfShell"
             },
+            "package": "webpack",
             "plugin": "architecture.module-federation.webpack",
             "remotes": [
               {
@@ -1012,6 +1057,21 @@
       "object_id": "018727b34ec0af0175fac692c3342ae8928f1fd2",
       "path": "package.json",
       "rule": "manifest.tool-dependency"
+    },
+    "ev_fb480ff35e2385e5cd5a15b6": {
+      "commit": null,
+      "content_digest": "97f4eb1599416259bd2d800fa94009017cecb2db0de995f63cd75cf58b78fda3",
+      "detector": "accessibility",
+      "excerpt_digest": "e03e9cbc78ee10f0db2ebd00cbb52621e42d2107922a7822ee7ef7167678d289",
+      "id": "ev_fb480ff35e2385e5cd5a15b6",
+      "location": {
+        "end": 9,
+        "kind": "lines",
+        "start": 9
+      },
+      "object_id": "c2d7edc5120fc6e942baaa5af565240f528fc0ba",
+      "path": "src/App.tsx",
+      "rule": "accessibility.checks"
     }
   },
   "extensions": [],
@@ -1120,6 +1180,6 @@
     }
   ],
   "schema": "repo_facts.fact_document",
-  "schema_version": 2,
+  "schema_version": 3,
   "service_dependencies": []
 }

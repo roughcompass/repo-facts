@@ -37,7 +37,7 @@ describe("the detector bundle", () => {
     expect(configuration).toMatchObject({
       schema: "repo_facts.detector_configuration",
       release: DETECTOR_RELEASE,
-      fact_document: { schema: "repo_facts.fact_document", schema_version: 2 },
+      fact_document: { schema: "repo_facts.fact_document", schema_version: 3 },
       syntax: { parser: "typescript", parser_version: SYNTAX_PARSER.version },
       stylesheets: { parser: "repo-facts-css", parser_version: STYLESHEET_PARSER.version, max_nodes: 200_000, max_depth: 64 },
       catalogs: { digest: CATALOGS_DIGEST },

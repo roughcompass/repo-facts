@@ -6,14 +6,16 @@ import { RULES } from "./rules.generated.js";
 
 /**
  * Composition and runtime-contract signals: single-spa registrations and
- * roles, import maps, Module Federation, embedded frames, and window messaging.
+ * roles, import maps, Module Federation, Native Federation, embedded frames,
+ * and window messaging.
  *
  * Rules report what a literal syntactic position states. This detector adds
  * what needs more than one match: a single-spa root configuration is inferred
  * from registrations together with `start()`, and an application from its
- * lifecycles. Module Federation configuration becomes one fact per build with
- * its remotes, exposes, and shared modules; a remote loaded by code is
- * unresolved rather than guessed.
+ * lifecycles. Module Federation and Native Federation configuration becomes
+ * one fact per build with its remotes, exposes, and shared modules, and the
+ * package and API it came from, which tell the federation generations apart;
+ * a remote loaded by code is unresolved rather than guessed.
  */
 
 const IDS = {
@@ -28,7 +30,7 @@ const LIFECYCLES = ["bootstrap", "mount", "unmount"];
 
 export const compositionDetector: Detector = {
   id: "composition",
-  version: "2",
+  version: "3",
   stage: "architecture",
   inputs: ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx", "**/*.mjs", "**/*.cjs", "**/*.html", "**/importmap.json"],
   categories: ["composition", "runtime_integrations"],
@@ -39,7 +41,7 @@ export const compositionDetector: Detector = {
 
     const rules = ruleDetector({
       id: "composition",
-      version: "2",
+      version: "3",
       stage: "architecture",
       rules: RULES,
       sources: (inner) => inventoryOf(inner).sources,
@@ -48,7 +50,7 @@ export const compositionDetector: Detector = {
         if (id === "architecture.single-spa.register" || id === "architecture.single-spa.register-positional") registrations.push(match.evidence);
         else if (id === "architecture.single-spa.start") starts.push(match.evidence);
         else if (id === "architecture.single-spa.lifecycles") lifecycles.push(match.evidence);
-        else if ("signal" in match.rule.emit && match.rule.emit.signal.kind === "module-federation") federation(inner, match);
+        else if ("signal" in match.rule.emit && (match.rule.emit.signal.kind === "module-federation" || match.rule.emit.signal.kind === "native-federation")) federation(inner, match, match.rule.emit.signal.kind);
       },
     });
     await rules.run(context);
@@ -106,26 +108,45 @@ function lifecycleExports(context: DetectorContext, tree: SyntaxTree, lifecycles
   for (const node of nodes) lifecycles.push(nodeEvidence(context, tree, node, IDS.exportedLifecycles));
 }
 
-/** One composition fact per Module Federation configuration, with references to its remotes and itself. */
-function federation(context: DetectorContext, match: MatchedRule) {
+/**
+ * One composition fact per Module Federation or Native Federation
+ * configuration, with references to its remotes and itself. `package` is the
+ * module the plugin or API was imported from and `api` the class it
+ * constructs when a rule names several, such as Rspack's
+ * `ModuleFederationPluginV1`. A Native Federation host that loads its remotes
+ * from a manifest records the manifest's address.
+ */
+function federation(context: DetectorContext, match: MatchedRule, mechanism: "module-federation" | "native-federation") {
   const { captures } = match;
   const name = literalText(captures.name);
-  const remotes = remoteEntries(captures.remotes);
+  const manifest = mechanism === "native-federation" ? literalText(captures.remotes) : null;
+  const remotes = manifest === null ? remoteEntries(captures.remotes) : [];
   const exposes = keysOf(captures.exposes);
   const shared = sharedNames(captures.shared);
   context.fact({
     category: "composition",
-    key: name === null ? `module-federation:${match.tree.path}:${match.tree.lines(match.node).start}` : `module-federation:${name}`,
-    value: { mechanism: "module-federation", plugin: match.rule.id, name: captures.name ? captureValue(captures.name) : { kind: "absent" }, remotes, exposes, shared },
+    key: name === null ? `${mechanism}:${match.tree.path}:${match.tree.lines(match.node).start}` : `${mechanism}:${name}`,
+    value: {
+      mechanism,
+      plugin: match.rule.id,
+      package: literalText(captures.calleeModule),
+      api: literalText(captures.method),
+      name: captures.name ? captureValue(captures.name) : { kind: "absent" },
+      remotes,
+      exposes,
+      shared,
+      ...(manifest === null ? {} : { manifest: redactCredentials(manifest) }),
+    },
     basis: "observed",
     evidence: [match.evidence],
     rule: match.rule.id,
   });
   for (const remote of Array.isArray(remotes) ? remotes : []) {
-    const federationName = typeof remote === "object" && remote !== null && !Array.isArray(remote) && typeof remote.federation_name === "string" ? remote.federation_name : null;
-    if (federationName) context.reference({ type: "composition", role: "host", identifier: { mechanism: "module-federation", name: federationName }, basis: "observed", evidence: [match.evidence], rule: IDS.federation });
+    const remoteObject = typeof remote === "object" && remote !== null && !Array.isArray(remote) ? remote : null;
+    const federationName = remoteObject && typeof remoteObject.federation_name === "string" ? remoteObject.federation_name : remoteObject && mechanism === "native-federation" && typeof remoteObject.alias === "string" ? remoteObject.alias : null;
+    if (federationName) context.reference({ type: "composition", role: "host", identifier: { mechanism, name: federationName }, basis: "observed", evidence: [match.evidence], rule: IDS.federation });
   }
-  if (name !== null && Array.isArray(exposes) && exposes.length) context.reference({ type: "composition", role: "remote", identifier: { mechanism: "module-federation", name }, basis: "observed", evidence: [match.evidence], rule: IDS.federation });
+  if (name !== null && Array.isArray(exposes) && exposes.length) context.reference({ type: "composition", role: "remote", identifier: { mechanism, name }, basis: "observed", evidence: [match.evidence], rule: IDS.federation });
 }
 
 /**
@@ -144,7 +165,13 @@ function remoteEntries(value: StaticValue | undefined): Value[] | Value {
 }
 
 function remoteEntry(entry: StaticValue): Record<string, Value> {
-  if (entry.kind === "object") return remoteEntry(entry.properties.get("external") ?? entry.properties.get("entry") ?? { kind: "unresolved", reason: "unsupported", detail: "The remote has no external or entry field", node: entry.node });
+  if (entry.kind === "object") {
+    // A runtime remote, such as `{ name: "app2", entry: "https://…/remoteEntry.js" }`, names its container beside its entry.
+    const inner = remoteEntry(entry.properties.get("external") ?? entry.properties.get("entry") ?? { kind: "unresolved", reason: "unsupported", detail: "The remote has no external or entry field", node: entry.node });
+    const name = literalText(entry.properties.get("name"));
+    const alias = literalText(entry.properties.get("alias"));
+    return { ...(alias === null ? {} : { alias }), ...inner, federation_name: inner.federation_name ?? name };
+  }
   const text = literalText(entry);
   const at = text?.indexOf("@") ?? -1;
   if (text !== null && at > 0 && !text.startsWith("promise ")) return { federation_name: text.slice(0, at), entry: { kind: "literal", value: redactCredentials(text.slice(at + 1)) } };

@@ -54,3 +54,86 @@ rules:
       exposes: { argument: 0, property: [exposes] }
       shared: { argument: 0, property: [shared] }
     emit: { signal: { kind: module-federation } }
+
+  - id: architecture.module-federation.nextjs
+    version: 1
+    description: The Module Federation plugin for Next.js, as a named export
+    match: { new: { module: "@module-federation/nextjs-mf", members: [NextFederationPlugin] } }
+    capture:
+      name: { argument: 0, property: [name] }
+      remotes: { argument: 0, property: [remotes] }
+      exposes: { argument: 0, property: [exposes] }
+      shared: { argument: 0, property: [shared] }
+    emit: { signal: { kind: module-federation } }
+
+  - id: architecture.module-federation.nextjs-default
+    version: 1
+    description: The Module Federation plugin for Next.js, as the default export
+    match: { new: { module: "@module-federation/nextjs-mf" } }
+    capture:
+      name: { argument: 0, property: [name] }
+      remotes: { argument: 0, property: [remotes] }
+      exposes: { argument: 0, property: [exposes] }
+      shared: { argument: 0, property: [shared] }
+    emit: { signal: { kind: module-federation } }
+
+  - id: architecture.module-federation.rsbuild
+    version: 1
+    description: The Module Federation plugin for Rsbuild
+    match: { call: { module: "@module-federation/rsbuild-plugin", members: [pluginModuleFederation] } }
+    capture:
+      name: { argument: 0, property: [name] }
+      remotes: { argument: 0, property: [remotes] }
+      exposes: { argument: 0, property: [exposes] }
+      shared: { argument: 0, property: [shared] }
+    emit: { signal: { kind: module-federation } }
+
+  - id: architecture.module-federation.config
+    version: 1
+    description: A Module Federation 2 configuration, such as module-federation.config.ts for Modern.js, Rsbuild, or Rslib
+    match: { call: { module: ["@module-federation/enhanced", "@module-federation/rsbuild-plugin", "@module-federation/modern-js", "@module-federation/rspack"], members: [createModuleFederationConfig] } }
+    capture:
+      name: { argument: 0, property: [name] }
+      remotes: { argument: 0, property: [remotes] }
+      exposes: { argument: 0, property: [exposes] }
+      shared: { argument: 0, property: [shared] }
+    emit: { signal: { kind: module-federation } }
+
+  - id: architecture.module-federation.runtime
+    version: 1
+    description: The Module Federation runtime, registering remotes in code
+    match: { call: { module: ["@module-federation/runtime", "@module-federation/enhanced/runtime"], members: [init] } }
+    capture:
+      name: { argument: 0, property: [name] }
+      remotes: { argument: 0, property: [remotes] }
+      shared: { argument: 0, property: [shared] }
+    emit: { signal: { kind: module-federation } }
+
+  - id: architecture.module-federation.runtime-instance
+    version: 1
+    description: A Module Federation runtime instance, registering remotes in code
+    match: { call: { module: ["@module-federation/runtime", "@module-federation/enhanced/runtime"], members: [createInstance] } }
+    capture:
+      name: { argument: 0, property: [name] }
+      remotes: { argument: 0, property: [remotes] }
+      shared: { argument: 0, property: [shared] }
+    emit: { signal: { kind: module-federation } }
+
+  - id: architecture.native-federation.config
+    version: 1
+    description: A Native Federation build configuration, the ES-module based federation for Angular and other builds
+    match: { call: { module: ["@angular-architects/native-federation/config", "@softarc/native-federation/build", "@softarc/native-federation/config"], members: [withNativeFederation] } }
+    capture:
+      name: { argument: 0, property: [name] }
+      remotes: { argument: 0, property: [remotes] }
+      exposes: { argument: 0, property: [exposes] }
+      shared: { argument: 0, property: [shared] }
+    emit: { signal: { kind: native-federation } }
+
+  - id: architecture.native-federation.host
+    version: 1
+    description: A Native Federation host, initializing its remotes from a manifest address or an object of remote entries
+    match: { call: { module: ["@angular-architects/native-federation", "@softarc/native-federation", "@softarc/native-federation-runtime"], members: [initFederation] } }
+    capture:
+      remotes: { argument: 0 }
+    emit: { signal: { kind: native-federation } }

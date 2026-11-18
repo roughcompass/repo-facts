@@ -81,6 +81,28 @@
       },
       "state": "observed"
     },
+    "accessibility": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "accessibility.checks",
+          "accessibility.tooling"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json",
+          "src/billing.ts",
+          "src/orders.test.ts",
+          "src/orders.ts",
+          "src/profile.test.ts",
+          "src/profile.ts",
+          "src/stream.ts",
+          "vite.config.ts"
+        ]
+      },
+      "state": "absent"
+    },
     "api_contracts": {
       "facts": [
         {
@@ -1682,7 +1704,7 @@
     }
   ],
   "schema": "repo_facts.fact_document",
-  "schema_version": 2,
+  "schema_version": 3,
   "service_dependencies": [
     {
       "access": {
