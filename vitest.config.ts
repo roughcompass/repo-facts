@@ -14,9 +14,9 @@ export default defineConfig({
   test: {
     pool: "forks",
     projects: [
-      { extends: true, test: { name: "unit", include: ["packages/*/test/**/*.test.ts", "test/lint/**/*.test.ts", "test/docs/**/*.test.ts", "test/golden/**/*.test.ts", "test/rules/**/*.test.ts", "test/hostile/**/*.test.ts", "test/names/**/*.test.ts", "test/scripts/**/*.test.ts"] } },
-      // Integration tests start a registry and run npm.
-      { extends: true, test: { name: "integration", include: ["test/registry/**/*.test.ts"], testTimeout: 300_000, hookTimeout: 300_000 } },
+      { extends: true, test: { name: "unit", exclude: ["packages/*/test/integration/**", "**/node_modules/**"], include: ["packages/*/test/**/*.test.ts", "test/lint/**/*.test.ts", "test/docs/**/*.test.ts", "test/golden/**/*.test.ts", "test/rules/**/*.test.ts", "test/hostile/**/*.test.ts", "test/names/**/*.test.ts", "test/scripts/**/*.test.ts"] } },
+      // Integration tests start a registry: Verdaccio, with npm, or the Catalog Builder's local fixture registry.
+      { extends: true, test: { name: "integration", include: ["test/registry/**/*.test.ts", "packages/*/test/integration/**/*.test.ts"], testTimeout: 300_000, hookTimeout: 300_000 } },
       // The release test clones and installs a full checkout whose gates run `verify`, so it stays out of `verify`.
       { extends: true, test: { name: "release", include: ["test/release/**/*.test.ts"], testTimeout: 900_000, hookTimeout: 900_000 } },
     ],

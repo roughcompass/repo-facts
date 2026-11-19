@@ -2,10 +2,11 @@
 # compiled in, which test/catalog/entries.ts converts to a Reference Catalog
 # entry for Salt 1.75.0. See docs/reference-catalog.md.
 #
-# `node scripts/catalog-salt.mjs <node_modules> <this file>` rewrites the
-# generated sections from installed packages: generated_from, the components
-# of @salt-ds/core, and tokens. The other catalog sections are the curated
-# ones, which the Catalog Builder's rules (catalog-rules/salt.yaml) now hold.
+# The generated sections, generated_from, the components of @salt-ds/core,
+# and tokens, were read from the installed packages by the catalog generator
+# that the Catalog Builder replaced. The other catalog sections are the
+# curated ones, which packages/catalog-builder/catalog-rules/salt.yaml now
+# holds unchanged.
 format: 1
 id: salt
 name: Salt

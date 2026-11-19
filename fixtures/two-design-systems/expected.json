@@ -1,7 +1,7 @@
 {
   "catalog_entries": [
     {
-      "digest": "2ba9c2eb0680ee209ae88279121b6759d21a50bb587c4f64a6823600aa9c71ad",
+      "digest": "b709ef1e43dde13a1c7ddde19370a419e979929ee133b69874a9ec4f66c989b9",
       "format_version": 1,
       "id": "mui",
       "kind": "design_system",
@@ -12,7 +12,7 @@
       }
     },
     {
-      "digest": "bce22d363d1e3fbbacb01842eceebcf97eb2bbf865f849ac8b63079f934cf869",
+      "digest": "c6517530afbdaf621e148ddc9ed99bb32019f9db012bfcc4f7c95fbc590237fd",
       "format_version": 1,
       "id": "salt",
       "kind": "design_system",
@@ -182,7 +182,7 @@
           "value": {
             "catalog": "mui",
             "entry": {
-              "digest": "2ba9c2eb0680ee209ae88279121b6759d21a50bb587c4f64a6823600aa9c71ad",
+              "digest": "b709ef1e43dde13a1c7ddde19370a419e979929ee133b69874a9ec4f66c989b9",
               "version": "6.1.0"
             },
             "imported": true,
@@ -211,7 +211,7 @@
           "value": {
             "catalog": "salt",
             "entry": {
-              "digest": "bce22d363d1e3fbbacb01842eceebcf97eb2bbf865f849ac8b63079f934cf869",
+              "digest": "c6517530afbdaf621e148ddc9ed99bb32019f9db012bfcc4f7c95fbc590237fd",
               "version": "1.75.0"
             },
             "imported": true,

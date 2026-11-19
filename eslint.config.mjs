@@ -8,6 +8,8 @@ import tseslint from "typescript-eslint";
 
 const executionMessage = "Surveyor never executes, loads, or evaluates data.";
 const isolationMessage = "Detectors see repository content only through a SourceReader, with no network, filesystem, process, Git, or database access.";
+const builderMessage = "Only the Catalog Builder downloads, and Surveyor never imports it: surveys are given Reference Catalog entries.";
+const builderExecutionMessage = "The Catalog Builder reads packages as data and never runs anything in them.";
 
 const nodeModules = (names) => names.flatMap((name) => [name, `node:${name}`]);
 
@@ -39,7 +41,9 @@ export default tseslint.config(
     },
   },
   {
+    // Surveyor's packages. The Catalog Builder, the one part that downloads, has its own rules below.
     files: ["packages/*/src/**/*.ts"],
+    ignores: ["packages/catalog-builder/**"],
     // Declared so no-implied-eval recognizes string arguments to timers.
     languageOptions: { globals: { setTimeout: "readonly", setInterval: "readonly", setImmediate: "readonly" } },
     rules: {
@@ -54,8 +58,12 @@ export default tseslint.config(
             ...restricted(executionModules, executionMessage),
             ...restricted(capabilityModules, isolationMessage, true),
             ...restricted(capabilityPackages, isolationMessage, true),
+            ...restricted(["@repo-facts/catalog-builder"], builderMessage),
           ],
-          patterns: [{ group: ["drizzle-orm/*", "dotenv/*", "undici/*"], message: isolationMessage, allowTypeImports: true }],
+          patterns: [
+            { group: ["drizzle-orm/*", "dotenv/*", "undici/*"], message: isolationMessage, allowTypeImports: true },
+            { group: ["@repo-facts/catalog-builder/*"], message: builderMessage },
+          ],
         },
       ],
       "no-restricted-globals": ["error", ...capabilityGlobals.map((name) => ({ name, message: isolationMessage }))],
@@ -71,6 +79,25 @@ export default tseslint.config(
         { selector: "CallExpression[callee.name='RegExp'][arguments.0.type!='Literal']", message: `RegExp must be built from a literal pattern, never from data. ${executionMessage}` },
         { selector: "MemberExpression[object.name='Function'][property.name='constructor']", message: executionMessage },
         { selector: "MemberExpression[property.name='constructor'][parent.type='CallExpression']", message: `Calling a constructor property can reach Function. ${executionMessage}` },
+      ],
+    },
+  },
+  {
+    // The Catalog Builder fetches packages from a registry, so it may use the network, but it reads them only as data.
+    files: ["packages/catalog-builder/src/**/*.ts"],
+    languageOptions: { globals: { setTimeout: "readonly", setInterval: "readonly", setImmediate: "readonly" } },
+    rules: {
+      "no-eval": "error",
+      "no-implied-eval": "error",
+      "no-new-func": "error",
+      "no-restricted-imports": "off",
+      "@typescript-eslint/no-restricted-imports": ["error", { paths: [...restricted(executionModules, builderExecutionMessage), ...restricted(nodeModules(["fs", "fs/promises"]), builderExecutionMessage, true)] }],
+      "no-restricted-globals": ["error", ...["process", "require"].map((name) => ({ name, message: "The Catalog Builder takes its configuration as arguments." }))],
+      "no-restricted-syntax": [
+        "error",
+        { selector: "ImportExpression", message: `import() is forbidden in package source. ${builderExecutionMessage}` },
+        { selector: "NewExpression[callee.name='RegExp'][arguments.0.type!='Literal']", message: `RegExp must be built from a literal pattern, never from data. ${builderExecutionMessage}` },
+        { selector: "CallExpression[callee.name='RegExp'][arguments.0.type!='Literal']", message: `RegExp must be built from a literal pattern, never from data. ${builderExecutionMessage}` },
       ],
     },
   },

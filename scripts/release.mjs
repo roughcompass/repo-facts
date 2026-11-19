@@ -98,7 +98,7 @@ function packedFiles(directory) {
   return pack.files.map((file) => file.path).sort();
 }
 
-const PUBLISHABLE = /^(dist\/.+\.(js|d\.ts|js\.map|d\.ts\.map)|docs\/[a-z-]+\.md|package\.json|provenance\.json|README\.md|LICENSE)$/;
+const PUBLISHABLE = /^(dist\/.+\.(js|d\.ts|js\.map|d\.ts\.map)|docs\/[a-z-]+\.md|catalog-rules\/[a-z][a-z0-9-]*\.yaml|package\.json|provenance\.json|README\.md|LICENSE)$/;
 
 function git(cwd, ...args) {
   return execFileSync("git", args, { cwd, encoding: "utf8" }).trim();

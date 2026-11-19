@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
-import { type DesignSystemContent, type DesignSystemEntry, type EntrySource, type UnsealedEntry, entryProblems, parseYaml, sealEntry, sha256 } from "@repo-facts/contract";
+import { type DesignSystemContent, type DesignSystemEntry, type EntrySource, type UnsealedEntry, digestOf, entryProblems, parseYaml, sealEntry } from "@repo-facts/contract";
 
 /**
  * Reference Catalog entries for tests, converted from catalog fixtures: the
@@ -72,7 +72,8 @@ export function entryFromCatalog(text: string, change: (entry: UnsealedEntry & {
   const sources: EntrySource[] = [
     { name: ownPackage, version, sections: tokensFrom === ownPackage && content.tokens ? ["components", "tokens"] : ["components"] },
     ...generated.slice(1).map(([name, packageVersion]) => ({ name, version: packageVersion, sections: name === tokensFrom && content.tokens ? ["tokens"] : [] })),
-    { name: `catalog-rules/${catalog.id}.yaml`, version: `sha256:${sha256(text)}`, sections: curated },
+    // Versioned by what the curated sections say, as the Catalog Builder versions rules, so comments don't matter.
+    { name: `catalog-rules/${catalog.id}.yaml`, version: `sha256:${digestOf(Object.fromEntries(curated.map((section) => [section, content[section]]))).digest}`, sections: curated },
   ];
   const entry = {
     schema: "reference_catalog.entry",

@@ -4,7 +4,7 @@ Surveyor's releases, newest first. Every `@repo-facts/*` package is published at
 
 ## 0.7.0
 
-Surveyor compares repositories against Reference Catalog entries supplied for each survey, instead of a design-system catalog compiled into the release. The Frontend Registry, which consumes Surveyor, supplies the entries and adopts this release in the same change.
+Surveyor compares repositories against Reference Catalog entries supplied for each survey, instead of a design-system catalog compiled into the release. The Frontend Registry, which consumes Surveyor, supplies the entries, builds them with the new Catalog Builder, and adopts this release in the same change.
 
 ### Breaking
 
@@ -17,6 +17,7 @@ Surveyor compares repositories against Reference Catalog entries supplied for ea
 
 ### Added
 
+- **The Catalog Builder,** `@repo-facts/catalog-builder`: builds a design system's entry for one version from its published packages, fetched from a configured registry and read as data without running anything (components and props with finite values from the declarations, tokens from the theme's stylesheets, icons from the icons package), from its own published data (for Salt, the newest `@salt-ds/mcp` registry: patterns, deprecations, and guidance, with the snapshot's date), and from the team's rules, `catalog-rules/<id>.yaml`. It ships Salt's rules, the curated sections of the catalog 0.6.0 compiled in. It's the only package that downloads, and a lint rule keeps Surveyor's packages from importing it or the network. See [its README](packages/catalog-builder/README.md).
 - **The Reference Catalog entry format,** `reference_catalog.entry` format version 1, in `@repo-facts/contract`: a strict schema, `readEntry`, `entryProblems`, `canonicalEntry`, `entryDigest`, `sealEntry`, and `selectEntry`. See [docs/reference-catalog.md](docs/reference-catalog.md).
 - **Version-matched comparison.** Each design system a repository uses is compared against the entry for the version its lockfile resolves, else the highest version its declared range allows, else the nearest earlier entry. Several design systems in one repository are each compared against their own entry. A repository on `@salt-ds/theme` 1.48.0 no longer reports Salt's newer tokens as unknown.
 - **Prop counts.** Each design-system component reports, per scope, how many elements pass each prop, and how many pass each literal value of a prop whose entry lists a finite set. No other value is recorded, and an element with a spread counts as unknown.

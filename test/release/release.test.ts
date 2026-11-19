@@ -6,7 +6,10 @@ import { afterAll, beforeAll, describe, expect, it } from "vitest";
 // @ts-expect-error The helpers are plain ESM scripts without type declarations.
 import { ROOT, createToken, freePort, startRegistry } from "../../scripts/lib/registry.mjs";
 
+/** Surveyor's packages, which installing the bundle installs. */
 const PACKAGES = ["contract", "syntax", "core", "architecture", "services", "design-system", "bundle"];
+/** Every package a release publishes: Surveyor's, and the Catalog Builder, which the Frontend Registry installs on its own. */
+const PUBLISHED = [...PACKAGES, "catalog-builder"];
 const IDENTITY = ["-c", "user.name=Surveyor release test", "-c", "user.email=release-test@surveyor.invalid"];
 
 /**
@@ -91,7 +94,7 @@ describe("lockstep releases", () => {
     expect(result.stdout).toMatch(/> [^\n]*verify\n/);
     expect(result.stdout.indexOf("Publishing")).toBeGreaterThan(result.stdout.search(/Tests +\d+ passed/));
     const order = [...result.stdout.matchAll(/Publishing (@repo-facts\/[a-z-]+)@/g)].map((match) => match[1]);
-    expect(order).toEqual(["@repo-facts/contract", "@repo-facts/core", "@repo-facts/syntax", "@repo-facts/architecture", "@repo-facts/design-system", "@repo-facts/services", "@repo-facts/bundle"]);
+    expect(order).toEqual(["@repo-facts/contract", "@repo-facts/core", "@repo-facts/syntax", "@repo-facts/architecture", "@repo-facts/design-system", "@repo-facts/services", "@repo-facts/bundle", "@repo-facts/catalog-builder"]);
 
     const consumer = path.join(workspace, "consumer");
     fs.mkdirSync(consumer);
@@ -116,6 +119,14 @@ describe("lockstep releases", () => {
       }
     }
     expect(fs.readdirSync(path.join(consumer, "node_modules", "@repo-facts")).sort()).toEqual([...PACKAGES].sort());
+
+    // The Catalog Builder installs on its own, with the rules it ships.
+    const builder = spawnSync("npm", ["install", "--save-exact", "@repo-facts/catalog-builder@99.0.0-test.0"], { cwd: consumer, encoding: "utf8", env: { ...process.env, SURVEYOR_NPM_REGISTRY: registry.url } });
+    expect(builder.status, builder.stderr).toBe(0);
+    const directory = path.join(consumer, "node_modules", "@repo-facts", "catalog-builder");
+    expect(JSON.parse(fs.readFileSync(path.join(directory, "package.json"), "utf8"))["repoFacts"]).toEqual({ commit, release: "99.0.0-test.0" });
+    expect(fs.readFileSync(path.join(directory, "catalog-rules", "salt.yaml"), "utf8")).toBe(fs.readFileSync(path.join(ROOT, "packages", "catalog-builder", "catalog-rules", "salt.yaml"), "utf8"));
+    expect(fs.existsSync(path.join(directory, "test"))).toBe(false);
   });
 
   it("dry-runs uncommitted work without a registry, building and packing every package", () => {
@@ -127,7 +138,7 @@ describe("lockstep releases", () => {
     const result = spawnSync("npm", ["run", "release:dry-run"], { cwd: root, encoding: "utf8", env: environment });
     expect(result.status, `${result.stdout}\n${result.stderr}`).toBe(0);
     expect(result.stdout).toContain("Dry run of the uncommitted working tree.");
-    expect([...result.stdout.matchAll(/Would publish (@repo-facts\/[a-z-]+)@\S+ from/g)].map((match) => match[1])).toHaveLength(PACKAGES.length);
+    expect([...result.stdout.matchAll(/Would publish (@repo-facts\/[a-z-]+)@\S+ from/g)].map((match) => match[1]).sort()).toEqual(PUBLISHED.map((name) => `@repo-facts/${name}`).sort());
     expect(result.stdout).not.toContain("Publishing");
     expect(Date.now() - started).toBeLessThan(120_000);
   });
@@ -150,7 +161,7 @@ describe("lockstep releases", () => {
     expect(result.status).not.toBe(0);
     expect(result.stdout).toContain("fails the release gate");
     expect(result.stdout).not.toContain("Publishing");
-    for (const name of PACKAGES) expect(await published(name), name).not.toContain("99.0.2-test.0");
+    for (const name of PUBLISHED) expect(await published(name), name).not.toContain("99.0.2-test.0");
   });
 
   it("refuses mixed versions", async () => {

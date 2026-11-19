@@ -21,6 +21,9 @@
     },
     {
       "path": "packages/bundle"
+    },
+    {
+      "path": "packages/catalog-builder"
     }
   ]
 }

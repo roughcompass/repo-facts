@@ -1,7 +1,7 @@
 {
   "catalog_entries": [
     {
-      "digest": "bce22d363d1e3fbbacb01842eceebcf97eb2bbf865f849ac8b63079f934cf869",
+      "digest": "c6517530afbdaf621e148ddc9ed99bb32019f9db012bfcc4f7c95fbc590237fd",
       "format_version": 1,
       "id": "salt",
       "kind": "design_system",
@@ -139,7 +139,7 @@
           "value": {
             "catalog": "salt",
             "entry": {
-              "digest": "bce22d363d1e3fbbacb01842eceebcf97eb2bbf865f849ac8b63079f934cf869",
+              "digest": "c6517530afbdaf621e148ddc9ed99bb32019f9db012bfcc4f7c95fbc590237fd",
               "version": "1.75.0"
             },
             "imported": true,

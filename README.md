@@ -17,8 +17,9 @@ All packages are published together at one version. That version is the Surveyor
 | `@repo-facts/services` | Service Dependency, access, and testability detectors |
 | `@repo-facts/design-system` | Design-system recognition and usage detectors, which compare code against supplied Reference Catalog entries, and the styling-adapter catalog |
 | `@repo-facts/bundle` | One tested set of detectors: the Surveyor release |
+| `@repo-facts/catalog-builder` | The Catalog Builder, which writes Reference Catalog entries from published packages, a design system's own data, and the team's rules. It's the only package that downloads, and no Surveyor package imports it. See its [README](packages/catalog-builder/README.md). |
 
-Consumers depend on `@repo-facts/bundle` at an exact version. It depends on every other package at that same version.
+Consumers depend on `@repo-facts/bundle` at an exact version. It depends on every other Surveyor package at that same version. The Frontend Registry installs `@repo-facts/catalog-builder`, at the same version, on its own.
 
 ## Surveying a repository
 
@@ -51,7 +52,7 @@ npm run ci           # verify, release tests, and a release dry run
 
 `npm run ci` is what CI runs (`.github/workflows/ci.yml`). The release dry run checks out `HEAD`, builds it, and packs every package, then lists what it would publish. It contacts no registry. With uncommitted changes, it checks a snapshot of the working tree instead of `HEAD`.
 
-The safety rules keep package source from executing, loading, or contacting anything: no network, filesystem, process, Git, or database access, and no dynamic code. They apply to `packages/*/src`. Tests and scripts are exempt.
+The safety rules keep package source from executing, loading, or contacting anything: no network, filesystem, process, Git, or database access, and no dynamic code. They apply to `packages/*/src`. Tests and scripts are exempt. The Catalog Builder may fetch from a registry, but it may not execute or load anything, and Surveyor's packages may not import it.
 
 The unit tests include a name check, `test/names/names.test.ts`, that fails on an old product name anywhere in the repository, apart from the names stored data depends on.
 

@@ -1,0 +1,207 @@
+# The Digital Enablement team's rules for Salt, which the Catalog Builder
+# merges into every Salt entry. Review changes like code: a change here makes
+# new entries, and Repositories that used the old ones are surveyed again.
+# See packages/catalog-builder/README.md and docs/reference-catalog.md.
+#
+# The sections from providers to property_families are the curated sections
+# of the Salt catalog that releases up to 0.6.0 compiled into Surveyor,
+# unchanged. render_props was a constant in Surveyor's code.
+format: 1
+id: salt
+name: Salt
+# Any export of these packages, or of a subpath, is a Salt component.
+packages:
+  - "@salt-ds/core"
+  - "@salt-ds/data-grid"
+  - "@salt-ds/icons"
+  - "@salt-ds/lab"
+  - "@salt-ds/theme"
+providers:
+  - { package: "@salt-ds/core", component: SaltProvider }
+  - { package: "@salt-ds/core", component: SaltProviderNext }
+theme_stylesheets:
+  - "@salt-ds/theme/index.css"
+  - "@salt-ds/theme/css/theme-next.css"
+token_prefix: --salt-
+class_prefix: salt
+# The first element equivalents, for review with the Salt maintainers.
+equivalents:
+  - { tag: a, package: "@salt-ds/core", component: Link }
+  - { tag: button, package: "@salt-ds/core", component: Button }
+  - { tag: dialog, package: "@salt-ds/core", component: Dialog }
+  - { tag: h1, package: "@salt-ds/core", component: H1 }
+  - { tag: h2, package: "@salt-ds/core", component: H2 }
+  - { tag: h3, package: "@salt-ds/core", component: H3 }
+  - { tag: h4, package: "@salt-ds/core", component: H4 }
+  - { tag: input, package: "@salt-ds/core", component: Input }
+  - { tag: label, package: "@salt-ds/core", component: Label }
+  - { tag: p, package: "@salt-ds/core", component: Text }
+  - { tag: select, package: "@salt-ds/core", component: Dropdown }
+  - { tag: textarea, package: "@salt-ds/core", component: MultilineInput }
+# Containers that are acceptable unstyled, and replaceable by a Salt layout when they only lay out.
+neutral_tags: [ article, aside, div, footer, header, main, nav, section, span ]
+# Values that need no token. Other keywords, such as `flex` or `center`, are neutral too;
+# these are the colors, numbers, and lengths that are.
+neutral_values:
+  - "0"
+  - "100%"
+  - auto
+  - currentColor
+  - fit-content
+  - inherit
+  - initial
+  - max-content
+  - min-content
+  - none
+  - normal
+  - revert
+  - revert-layer
+  - transparent
+  - unset
+# Each property is in at most one family; unlisted properties are in `other`.
+# Token-capable families: color, spacing, typography, border, and shadow.
+# `layout` holds what a Salt layout component applies, so gaps are layout, not spacing.
+property_families:
+  layout:
+    - align-content
+    - align-items
+    - align-self
+    - column-gap
+    - display
+    - flex
+    - flex-basis
+    - flex-direction
+    - flex-flow
+    - flex-grow
+    - flex-shrink
+    - flex-wrap
+    - gap
+    - grid
+    - grid-area
+    - grid-auto-columns
+    - grid-auto-flow
+    - grid-auto-rows
+    - grid-column
+    - grid-column-end
+    - grid-column-start
+    - grid-row
+    - grid-row-end
+    - grid-row-start
+    - grid-template
+    - grid-template-areas
+    - grid-template-columns
+    - grid-template-rows
+    - justify-content
+    - justify-items
+    - justify-self
+    - order
+    - place-content
+    - place-items
+    - place-self
+    - row-gap
+  spacing:
+    - margin
+    - margin-block
+    - margin-block-end
+    - margin-block-start
+    - margin-bottom
+    - margin-inline
+    - margin-inline-end
+    - margin-inline-start
+    - margin-left
+    - margin-right
+    - margin-top
+    - padding
+    - padding-block
+    - padding-block-end
+    - padding-block-start
+    - padding-bottom
+    - padding-inline
+    - padding-inline-end
+    - padding-inline-start
+    - padding-left
+    - padding-right
+    - padding-top
+  sizing:
+    - aspect-ratio
+    - block-size
+    - height
+    - inline-size
+    - max-block-size
+    - max-height
+    - max-inline-size
+    - max-width
+    - min-block-size
+    - min-height
+    - min-inline-size
+    - min-width
+    - width
+  color:
+    - accent-color
+    - background
+    - background-color
+    - border-block-color
+    - border-bottom-color
+    - border-color
+    - border-inline-color
+    - border-left-color
+    - border-right-color
+    - border-top-color
+    - caret-color
+    - color
+    - column-rule-color
+    - fill
+    - outline-color
+    - stroke
+    - text-decoration-color
+  typography:
+    - font
+    - font-family
+    - font-size
+    - font-style
+    - font-weight
+    - letter-spacing
+    - line-height
+    - text-decoration
+    - text-transform
+    - word-spacing
+  border:
+    - border
+    - border-block
+    - border-block-end
+    - border-block-start
+    - border-bottom
+    - border-bottom-left-radius
+    - border-bottom-right-radius
+    - border-bottom-style
+    - border-bottom-width
+    - border-end-end-radius
+    - border-end-start-radius
+    - border-inline
+    - border-inline-end
+    - border-inline-start
+    - border-left
+    - border-left-style
+    - border-left-width
+    - border-radius
+    - border-right
+    - border-right-style
+    - border-right-width
+    - border-start-end-radius
+    - border-start-start-radius
+    - border-style
+    - border-top
+    - border-top-left-radius
+    - border-top-right-radius
+    - border-top-style
+    - border-top-width
+    - border-width
+    - outline
+    - outline-offset
+    - outline-style
+    - outline-width
+  shadow:
+    - box-shadow
+    - text-shadow
+# The props through which a component renders a caller's element as its own root.
+render_props: [render]

@@ -1,6 +1,6 @@
 # Reference Catalog
 
-The Reference Catalog describes what repositories build on, such as design systems, as versioned data. One entry describes one thing at one version: Salt 1.75.0 is one entry, and Salt 1.74.0 is another. Surveyor compares a repository against the entries for the versions it uses. The Catalog Builder (`@repo-facts/catalog-builder`) writes entries from published packages, and the Frontend Registry stores them and decides when to build them. No design system is compiled into Surveyor, so a new version of one needs new entries, not a Surveyor release.
+The Reference Catalog describes what repositories build on, such as design systems, as versioned data. One entry describes one thing at one version: Salt 1.75.0 is one entry, and Salt 1.74.0 is another. Surveyor compares a repository against the entries for the versions it uses. The Catalog Builder ([`@repo-facts/catalog-builder`](../packages/catalog-builder/README.md)) writes entries from published packages, a design system's own published data, and the team's rules, and the Frontend Registry stores them and decides when to build them. No design system is compiled into Surveyor, so a new version of one needs new entries, not a Surveyor release.
 
 The format is `reference_catalog.entry`, format version 1. Its strict Zod schema lives in [`packages/contract/src/catalog/entry.ts`](../packages/contract/src/catalog/entry.ts), and both Surveyor and the Catalog Builder import it from `@repo-facts/contract`.
 

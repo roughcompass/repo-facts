@@ -14,7 +14,8 @@
     "packages/architecture",
     "packages/services",
     "packages/design-system",
-    "packages/bundle"
+    "packages/bundle",
+    "packages/catalog-builder"
   ],
   "scripts": {
     "build": "tsc -b && node scripts/package-docs.mjs",

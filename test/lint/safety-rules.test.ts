@@ -46,6 +46,27 @@ describe("safety lint rules", () => {
     }
   });
 
+  it("rejects importing the Catalog Builder in every Surveyor package, so only the builder downloads", async () => {
+    for (const code of ['import { buildFromRegistry } from "@repo-facts/catalog-builder";\nexport default buildFromRegistry;', 'import { readTarball } from "@repo-facts/catalog-builder/tarball";\nexport default readTarball;']) {
+      for (const name of PACKAGES) expect(await violations(code, `packages/${name}/src/example.ts`), name).toContainEqual(expect.stringContaining("no-restricted-imports"));
+    }
+  });
+
+  it("lets the Catalog Builder fetch packages, but never execute or load them", async () => {
+    const download = 'import zlib from "node:zlib";\nexport const get = async (url: string) => zlib.gunzipSync(new Uint8Array(await (await fetch(url)).arrayBuffer()));';
+    expect(await violations(download, "packages/catalog-builder/src/example.ts")).toEqual([]);
+    for (const [code, rule] of [
+      ['import { spawn } from "node:child_process";\nexport default spawn;', "no-restricted-imports"],
+      ['import vm from "node:vm";\nexport default vm;', "no-restricted-imports"],
+      ['import fs from "node:fs";\nexport default fs;', "no-restricted-imports"],
+      ["export const run = (code: string) => eval(code);", "no-eval"],
+      ['export const load = () => import("./other.js");', "no-restricted-syntax"],
+      ["export const token = () => process.env.TOKEN;", "no-restricted-globals"],
+    ]) {
+      expect(await violations(code!, "packages/catalog-builder/src/example.ts"), code).toContainEqual(expect.stringContaining(rule!));
+    }
+  });
+
   it("allows literal regular expressions, static imports, and hashing", async () => {
     const code = 'import crypto from "node:crypto";\nimport path from "node:path";\nexport const pattern = new RegExp("^[a-z]+$");\nexport const digest = (text: string) => crypto.createHash("sha256").update(text).digest("hex");\nexport default path;';
     expect(await violations(code)).toEqual([]);
