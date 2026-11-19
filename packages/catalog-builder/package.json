@@ -1,6 +1,6 @@
 {
   "name": "@repo-facts/catalog-builder",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "Builds Reference Catalog entries from published packages, a design system's own data, and the team's rules",
   "license": "UNLICENSED",
   "type": "module",
@@ -19,7 +19,7 @@
   ],
   "sideEffects": false,
   "dependencies": {
-    "@repo-facts/contract": "0.6.0",
+    "@repo-facts/contract": "0.7.0",
     "semver": "7.8.5",
     "typescript": "6.0.3",
     "zod": "4.6.5"

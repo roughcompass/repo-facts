@@ -1,2 +1,2 @@
 // Written by `npm run release:version`; the lockstep check verifies it matches package.json.
-export const SURVEYOR_RELEASE = "0.6.0";
+export const SURVEYOR_RELEASE = "0.7.0";

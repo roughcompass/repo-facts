@@ -1,6 +1,6 @@
 {
   "name": "@repo-facts/bundle",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "One tested set of Surveyor detectors: a Surveyor release",
   "license": "UNLICENSED",
   "type": "module",
@@ -18,11 +18,11 @@
   ],
   "sideEffects": false,
   "dependencies": {
-    "@repo-facts/architecture": "0.6.0",
-    "@repo-facts/contract": "0.6.0",
-    "@repo-facts/core": "0.6.0",
-    "@repo-facts/design-system": "0.6.0",
-    "@repo-facts/services": "0.6.0",
-    "@repo-facts/syntax": "0.6.0"
+    "@repo-facts/architecture": "0.7.0",
+    "@repo-facts/contract": "0.7.0",
+    "@repo-facts/core": "0.7.0",
+    "@repo-facts/design-system": "0.7.0",
+    "@repo-facts/services": "0.7.0",
+    "@repo-facts/syntax": "0.7.0"
   }
 }
