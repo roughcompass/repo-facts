@@ -1,4 +1,4 @@
-# The Salt design system catalog. See docs/design-system-catalogs.md.
+# The Salt design system catalog. See docs/reference-catalog.md.
 #
 # `node scripts/catalog-salt.mjs <node_modules>` rewrites the generated
 # sections from installed packages: generated_from, the components of

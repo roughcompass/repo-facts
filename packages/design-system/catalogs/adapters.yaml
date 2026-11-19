@@ -1,4 +1,4 @@
-# Styling-library adapters, and other UI libraries. See docs/design-system-catalogs.md.
+# Styling-library adapters, and other UI libraries. See docs/reference-catalog.md.
 #
 # Roles:
 # - class_composer: a call whose arguments are class names, such as clsx("a", on && "b")

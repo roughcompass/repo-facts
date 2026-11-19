@@ -1,8 +1,8 @@
 import fs from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
-import { type CategoryDefinition, type Detector, MemoryReader, SHARED_CATEGORIES, dump, factDocumentProblems, parseCanonical, runDetectors } from "@repo-facts/contract";
-import { adapterCatalogSchema, catalogSchema } from "@repo-facts/design-system";
+import { type CategoryDefinition, type Detector, MemoryReader, SHARED_CATEGORIES, designSystemContentSchema, designSystemEntrySchema, dump, factDocumentProblems, parseCanonical, runDetectors } from "@repo-facts/contract";
+import { adapterCatalogSchema } from "@repo-facts/design-system";
 import * as syntax from "@repo-facts/syntax";
 import type { z } from "zod";
 import { compileRules, ruleDetector } from "@repo-facts/syntax";
@@ -101,13 +101,15 @@ describe("documentation", () => {
     expect(constants.length).toBeGreaterThanOrEqual(4);
   });
 
-  it("documents exactly the catalog and adapter fields the schemas accept", () => {
-    const doc = fs.readFileSync(path.join(DOCS, "design-system-catalogs.md"), "utf8");
+  it("documents exactly the entry, design-system content, and adapter fields the schemas accept", () => {
+    const doc = fs.readFileSync(path.join(DOCS, "reference-catalog.md"), "utf8");
     const documented = (marker: string) => {
+      expect(doc, marker).toContain(marker);
       const table = doc.slice(doc.indexOf(marker)).split("\n\n")[0]!.split("\n").slice(3);
       return table.map((row) => /^\| `([^`]+)` \|/.exec(row)![1]!);
     };
-    expect(documented("<!-- catalog-fields -->")).toEqual(fieldsOf(catalogSchema));
+    expect(documented("<!-- entry-fields -->")).toEqual(fieldsOf(designSystemEntrySchema));
+    expect(documented("<!-- design-system-content-fields -->")).toEqual(fieldsOf(designSystemContentSchema));
     expect(documented("<!-- adapter-fields -->")).toEqual(fieldsOf(adapterCatalogSchema));
   });
 });
