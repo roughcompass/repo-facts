@@ -1,5 +1,5 @@
 {
-  "name": "repo-facts",
+  "name": "surveyor",
   "private": true,
   "description": "Evidence-backed facts about repositories, discovered statically",
   "license": "UNLICENSED",
