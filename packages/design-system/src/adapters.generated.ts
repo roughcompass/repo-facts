@@ -112,7 +112,16 @@ export const ADAPTERS: AdapterCatalog = {
     "@mantine/core",
     "@mui/joy",
     "@mui/material",
-    "@pepper/*",
+    "@pepper/aggrid",
+    "@pepper/charts",
+    "@pepper/chat-ui",
+    "@pepper/ckeditor-theme",
+    "@pepper/dataview",
+    "@pepper/icons",
+    "@pepper/illustrations",
+    "@pepper/previewer",
+    "@pepper/react-grid-layout",
+    "@pepper/reactkit",
     "@radix-ui/themes",
     "@react-spectrum/provider",
     "antd",
@@ -125,4 +134,4 @@ export const ADAPTERS: AdapterCatalog = {
   "version": "1.1.0"
 };
 
-export const ADAPTERS_DIGEST = "8ba77b3fcca0126d9a7fc3f96f47329cef11ec557929aaf3c04a02abc4230f42";
+export const ADAPTERS_DIGEST = "41a4e5a1af549647dbec6b3d9956bf65a1b34dc4c7af1d4e438add94ca0e7a08";

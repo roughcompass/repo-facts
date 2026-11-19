@@ -155,7 +155,7 @@ The adapter catalog isn't part of the Reference Catalog. It names the styling li
 | `adapters[].exports` | The exports the detectors recognize |
 | `adapters[].exports[].name` | An export name. `default` names the default export. |
 | `adapters[].exports[].role` | What the export does: `class_composer`, `styled_factory`, or `style_factory` |
-| `ui_libraries` | Component libraries other than the design systems that entries describe, such as `@mui/material`. `@scope/*` names every package in a scope, each counted on its own. |
+| `ui_libraries` | Component libraries other than the design systems that entries describe, such as `@mui/material` |
 
 | Role | Recognized as |
 | --- | --- |

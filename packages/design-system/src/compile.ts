@@ -56,11 +56,6 @@ function checkAdapters(path: string, adapters: AdapterCatalog, problems: string[
     for (const name of duplicates(adapter.exports.map((entry) => entry.name))) report(`export ${name} of ${adapter.module} is listed more than once`);
   }
   for (const name of duplicates(adapters.ui_libraries)) report(`UI library ${name} is listed more than once`);
-  const scopes = new Set(adapters.ui_libraries.filter((name) => name.endsWith("/*")).map((name) => name.slice(0, -2)));
-  for (const name of adapters.ui_libraries) {
-    const scope = name.startsWith("@") && !name.endsWith("/*") ? name.slice(0, name.indexOf("/")) : null;
-    if (scope && scopes.has(scope)) report(`UI library ${name} is already covered by ${scope}/*`);
-  }
 }
 
 function normalizeAdapters(adapters: AdapterCatalog): AdapterCatalog {

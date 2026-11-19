@@ -47,15 +47,8 @@ describe("adapter compilation", () => {
     ["an unknown adapter role", ADAPTERS.replace("role: class_composer", "role: evaluator"), "role"],
     ["an executable-looking module", ADAPTERS.replace("module: clsx", 'module: "javascript:alert(1)"'), "must be a package name or package subpath"],
     ["an executable-looking export", ADAPTERS.replace("name: default, role: class_composer", "name: \"x(){}\", role: class_composer"), "must be a plain export name"],
-    ["a UI library pattern other than a whole scope", ADAPTERS.replace("antd", '"@pepper/core*"'), "or @scope/* for every package in a scope"],
-    ["a UI library wildcard without a scope", ADAPTERS.replace("antd", '"pepper/*"'), "or @scope/* for every package in a scope"],
   ])("rejects %s", (_name, adapters, message) => {
     expect(problems(adapters)).toContainEqual(expect.stringContaining(message));
-  });
-
-  it("accepts every package in a scope as @scope/*, and rejects a package it already covers", () => {
-    expect(problems(ADAPTERS.replace("antd", '"@pepper/*"'))).toEqual([]);
-    expect(problems(ADAPTERS.replace("antd", '"@pepper/*", "@pepper/core"'))).toEqual(["libraries.yaml: UI library @pepper/core is already covered by @pepper/*"]);
   });
 
   it("rejects duplicate adapters, exports, and UI libraries", () => {

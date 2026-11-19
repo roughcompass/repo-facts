@@ -42,7 +42,6 @@ adapters:
       - { name: twMerge, role: class_composer }
 # Component libraries other than the cataloged design systems. A tag imported
 # from one of these packages, or a subpath of one, is counted by package.
-# "@scope/*" names every package in a scope, each counted on its own.
 ui_libraries:
   - "@ariakit/react"
   - "@blueprintjs/core"
@@ -54,7 +53,16 @@ ui_libraries:
   - "@mantine/core"
   - "@mui/joy"
   - "@mui/material"
-  - "@pepper/*"
+  - "@pepper/aggrid"
+  - "@pepper/charts"
+  - "@pepper/chat-ui"
+  - "@pepper/ckeditor-theme"
+  - "@pepper/dataview"
+  - "@pepper/icons"
+  - "@pepper/illustrations"
+  - "@pepper/previewer"
+  - "@pepper/react-grid-layout"
+  - "@pepper/reactkit"
   - "@radix-ui/themes"
   - "@react-spectrum/provider"
   - antd
