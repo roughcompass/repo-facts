@@ -1,4 +1,17 @@
 {
+  "catalog_entries": [
+    {
+      "digest": "bce22d363d1e3fbbacb01842eceebcf97eb2bbf865f849ac8b63079f934cf869",
+      "format_version": 1,
+      "id": "salt",
+      "kind": "design_system",
+      "version": "1.75.0",
+      "wanted": {
+        "package": "@salt-ds/core",
+        "version": "1.75.0"
+      }
+    }
+  ],
   "categories": {
     "access_signals": {
       "facts": [],
@@ -125,7 +138,10 @@
           "state": "observed",
           "value": {
             "catalog": "salt",
-            "catalog_version": "1.0.0",
+            "entry": {
+              "digest": "bce22d363d1e3fbbacb01842eceebcf97eb2bbf865f849ac8b63079f934cf869",
+              "version": "1.75.0"
+            },
             "imported": true,
             "name": "Salt",
             "packages": [
@@ -185,6 +201,7 @@
             "id": "react",
             "label": "React",
             "manifest": "package.json",
+            "mobile": false,
             "package": "react",
             "specifiers": {
               "dependencies": "18.3.1"
@@ -821,6 +838,20 @@
               "unknown": 0
             },
             "package": "@salt-ds/core",
+            "props": {
+              "app": {
+                "names": {},
+                "unknown": 0
+              },
+              "stories": {
+                "names": {},
+                "unknown": 0
+              },
+              "tests": {
+                "names": {},
+                "unknown": 0
+              }
+            },
             "stories": {
               "as_is": 0,
               "customized": 0,
@@ -1087,7 +1118,7 @@
   "detector_release": "golden",
   "diagnostics": [
     {
-      "detail": "Sass stylesheet (indented syntax) is recognized but not analyzed by this detector release",
+      "detail": "Sass stylesheet (indented syntax) is recognized but not analyzed by this Surveyor release",
       "detector": "inventory",
       "path": "src/legacy.sass",
       "reason": "unsupported_input"
@@ -1712,6 +1743,6 @@
     }
   ],
   "schema": "repo_facts.fact_document",
-  "schema_version": 2,
+  "schema_version": 3,
   "service_dependencies": []
 }

@@ -7,7 +7,7 @@ import { commandKinds, nodeImageTag, nodeTagRange, nodeVersionRange } from "../s
 import { type FileTree, profile } from "./support.js";
 
 const json = (value: unknown) => `${JSON.stringify(value, null, 2)}\n`;
-const SENTINEL = path.join(fs.mkdtempSync(path.join(os.tmpdir(), "repo-facts-ci-")), "command-ran");
+const SENTINEL = path.join(fs.mkdtempSync(path.join(os.tmpdir(), "surveyor-ci-")), "command-ran");
 
 const WORKFLOW = `name: CI
 on: [push]

@@ -1,0 +1,860 @@
+{
+  "catalog_entries": [],
+  "categories": {
+    "access_signals": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "access.search"
+        ],
+        "skipped": [],
+        "surface": [
+          "www/js/index.js"
+        ]
+      },
+      "state": "absent"
+    },
+    "api_contracts": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "contracts.search"
+        ],
+        "skipped": [],
+        "surface": [
+          "www/js/index.js"
+        ]
+      },
+      "state": "absent"
+    },
+    "build_tools": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "config.tool-file",
+          "manifest.tool-dependency"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "ci_systems": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "ci.definition"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    },
+    "composition": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "architecture.import-map",
+          "composition"
+        ],
+        "skipped": [],
+        "surface": [
+          "www/index.html",
+          "www/js/index.js"
+        ]
+      },
+      "state": "unknown"
+    },
+    "dependencies": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_fb5f079477c4994b8100b894"
+          ],
+          "key": "package.json#devDependencies/cordova-android",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "devDependencies",
+            "manifest": "package.json",
+            "name": "cordova-android",
+            "specifier": "^13.0.0"
+          }
+        },
+        {
+          "evidence": [
+            "ev_5d14522c58aac74fbae8775f"
+          ],
+          "key": "package.json#devDependencies/cordova-ios",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "devDependencies",
+            "manifest": "package.json",
+            "name": "cordova-ios",
+            "specifier": "^7.1.1"
+          }
+        },
+        {
+          "evidence": [
+            "ev_fe3ef2e7313fc07d8454a827"
+          ],
+          "key": "package.json#devDependencies/cordova-plugin-camera",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "devDependencies",
+            "manifest": "package.json",
+            "name": "cordova-plugin-camera",
+            "specifier": "^7.0.0"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.dependencies"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "design_systems": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "design-system.recognize"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json",
+          "www/js/index.js"
+        ]
+      },
+      "state": "absent"
+    },
+    "egress_routes": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "egress.search"
+        ],
+        "skipped": [],
+        "surface": [
+          "www/js/index.js"
+        ]
+      },
+      "state": "absent"
+    },
+    "frameworks": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_c71638fa3b16a7714134af61"
+          ],
+          "key": "package.json#cordova",
+          "rule": "manifest.framework",
+          "state": "observed",
+          "value": {
+            "id": "cordova",
+            "label": "Cordova",
+            "manifest": "package.json",
+            "mobile": true,
+            "package": "cordova-android",
+            "specifiers": {
+              "devDependencies": "^13.0.0"
+            }
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.framework"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "languages": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_9234eb481bc37b4134086520"
+          ],
+          "key": "HTML",
+          "rule": "inventory.language-by-extension",
+          "state": "observed",
+          "value": {
+            "bytes": 220,
+            "files": 1
+          }
+        },
+        {
+          "evidence": [
+            "ev_5173efffa9beb9db5bb3c682"
+          ],
+          "key": "JSON",
+          "rule": "inventory.language-by-extension",
+          "state": "observed",
+          "value": {
+            "bytes": 391,
+            "files": 1
+          }
+        },
+        {
+          "evidence": [
+            "ev_a83bbe4fc56858cadbc73263"
+          ],
+          "key": "JavaScript",
+          "rule": "inventory.language-by-extension",
+          "state": "observed",
+          "value": {
+            "bytes": 112,
+            "files": 1
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.language-by-extension"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "observed"
+    },
+    "package_identity": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_052d9fdff6dcad36a122610d",
+            "ev_cf6b20bdbbf02890f8d4dbdf"
+          ],
+          "key": "package.json",
+          "rule": "manifest.identity",
+          "state": "observed",
+          "value": {
+            "manifest": "package.json",
+            "name": "com.example.inspections",
+            "private": true,
+            "version": "1.0.0"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.identity"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "package_managers": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "lockfile.package-manager",
+          "manifest.package-manager"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "packages_consumed": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_e0270329ae83cd7815d7f936"
+          ],
+          "key": "cordova-android",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "cordova-android"
+          }
+        },
+        {
+          "evidence": [
+            "ev_70c834a910dfd812df6019f7"
+          ],
+          "key": "cordova-ios",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "cordova-ios"
+          }
+        },
+        {
+          "evidence": [
+            "ev_2b7a73d9f38d52e8ea5b8cca"
+          ],
+          "key": "cordova-plugin-camera",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "cordova-plugin-camera"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "packages.consumed"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "packages_produced": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_648014d53072adcddacd1ede",
+            "ev_7d1e3295211892f2a2aa64b0"
+          ],
+          "key": "com.example.inspections",
+          "rule": "packages.produced",
+          "state": "observed",
+          "value": {
+            "manifest": "package.json",
+            "name": "com.example.inspections",
+            "published": false,
+            "version": "1.0.0"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "packages.produced"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "resolved_dependencies": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "npm-lock.resolved-version",
+          "pnpm-lock.resolved-version",
+          "yarn-lock.resolved-version"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "runtime_integrations": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "composition"
+        ],
+        "skipped": [],
+        "surface": [
+          "www/js/index.js"
+        ]
+      },
+      "state": "unknown"
+    },
+    "runtime_requirements": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "runtime.declarations"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "scripts": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_61545924c48795beb6ba49cb"
+          ],
+          "key": "package.json#build",
+          "rule": "manifest.scripts",
+          "state": "observed",
+          "value": {
+            "command": "cordova build",
+            "manifest": "package.json",
+            "name": "build"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.scripts"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "served_origins": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "style_values": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "design-system.usage"
+        ],
+        "skipped": [],
+        "surface": [
+          "www/js/index.js"
+        ]
+      },
+      "state": "absent"
+    },
+    "submodules": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.gitlink"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    },
+    "test_frameworks": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "config.tool-file",
+          "manifest.tool-dependency"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "test_substitutes": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "substitutes.search"
+        ],
+        "skipped": [],
+        "surface": [
+          "www/js/index.js"
+        ]
+      },
+      "state": "absent"
+    },
+    "ui_elements": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "design-system.usage"
+        ],
+        "skipped": [],
+        "surface": [
+          "www/js/index.js"
+        ]
+      },
+      "state": "absent"
+    },
+    "verification_commands": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_7d54183f5280588ce288e628"
+          ],
+          "key": "package.json#scripts/build",
+          "rule": "manifest.verification-script",
+          "state": "observed",
+          "value": {
+            "command": "cordova build",
+            "context": {
+              "script": "build",
+              "via": []
+            },
+            "kinds": [
+              "build"
+            ],
+            "source": "package.json"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "ci.verification-commands"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "workspaces": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.workspaces",
+          "pnpm-workspace.packages"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    }
+  },
+  "commit": null,
+  "detector_release": "golden",
+  "diagnostics": [],
+  "evidence": {
+    "ev_052d9fdff6dcad36a122610d": {
+      "commit": null,
+      "content_digest": "9d10b80093d7719f554ecec0db9866484408514c209863371b5effe3dda24042",
+      "detector": "package-metadata",
+      "excerpt_digest": "a6d2de93844546898c7eca250ffbe0426ba5a937788a0d09f9b3fb51a3be7d99",
+      "id": "ev_052d9fdff6dcad36a122610d",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/name"
+      },
+      "object_id": "c41411542eea76e46836b22580fe770b57c497fe",
+      "path": "package.json",
+      "rule": "manifest.identity"
+    },
+    "ev_2b7a73d9f38d52e8ea5b8cca": {
+      "commit": null,
+      "content_digest": "9d10b80093d7719f554ecec0db9866484408514c209863371b5effe3dda24042",
+      "detector": "package-relations",
+      "excerpt_digest": "855c87894f624e354bad141b791a679dea0b07c2b1f43fbd7d763731dddedf86",
+      "id": "ev_2b7a73d9f38d52e8ea5b8cca",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/cordova-plugin-camera"
+      },
+      "object_id": "c41411542eea76e46836b22580fe770b57c497fe",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
+    "ev_5173efffa9beb9db5bb3c682": {
+      "commit": null,
+      "content_digest": "efaa894a81644e371c873bbf727f2e505c5f7c94f6177d59060fb68c516b54f7",
+      "detector": "inventory",
+      "excerpt_digest": "efaa894a81644e371c873bbf727f2e505c5f7c94f6177d59060fb68c516b54f7",
+      "id": "ev_5173efffa9beb9db5bb3c682",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "c41411542eea76e46836b22580fe770b57c497fe",
+      "path": "package.json",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_5d14522c58aac74fbae8775f": {
+      "commit": null,
+      "content_digest": "9d10b80093d7719f554ecec0db9866484408514c209863371b5effe3dda24042",
+      "detector": "package-metadata",
+      "excerpt_digest": "eba3c162b04b8dca08f68db84ea666c8c31e4018aa3b9a78af130a5694da9a8e",
+      "id": "ev_5d14522c58aac74fbae8775f",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/cordova-ios"
+      },
+      "object_id": "c41411542eea76e46836b22580fe770b57c497fe",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_61545924c48795beb6ba49cb": {
+      "commit": null,
+      "content_digest": "9d10b80093d7719f554ecec0db9866484408514c209863371b5effe3dda24042",
+      "detector": "package-metadata",
+      "excerpt_digest": "5d207e2a44d386c52ad629d47f5cec911be149ba63db05670139e8bb7daae15d",
+      "id": "ev_61545924c48795beb6ba49cb",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/scripts/build"
+      },
+      "object_id": "c41411542eea76e46836b22580fe770b57c497fe",
+      "path": "package.json",
+      "rule": "manifest.scripts"
+    },
+    "ev_648014d53072adcddacd1ede": {
+      "commit": null,
+      "content_digest": "9d10b80093d7719f554ecec0db9866484408514c209863371b5effe3dda24042",
+      "detector": "package-relations",
+      "excerpt_digest": "39fe4a40977d0585fd5704359e3685b0ada5cf5ee061e5d97385601d120cd0ec",
+      "id": "ev_648014d53072adcddacd1ede",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/version"
+      },
+      "object_id": "c41411542eea76e46836b22580fe770b57c497fe",
+      "path": "package.json",
+      "rule": "packages.produced"
+    },
+    "ev_70c834a910dfd812df6019f7": {
+      "commit": null,
+      "content_digest": "9d10b80093d7719f554ecec0db9866484408514c209863371b5effe3dda24042",
+      "detector": "package-relations",
+      "excerpt_digest": "eba3c162b04b8dca08f68db84ea666c8c31e4018aa3b9a78af130a5694da9a8e",
+      "id": "ev_70c834a910dfd812df6019f7",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/cordova-ios"
+      },
+      "object_id": "c41411542eea76e46836b22580fe770b57c497fe",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
+    "ev_7d1e3295211892f2a2aa64b0": {
+      "commit": null,
+      "content_digest": "9d10b80093d7719f554ecec0db9866484408514c209863371b5effe3dda24042",
+      "detector": "package-relations",
+      "excerpt_digest": "a6d2de93844546898c7eca250ffbe0426ba5a937788a0d09f9b3fb51a3be7d99",
+      "id": "ev_7d1e3295211892f2a2aa64b0",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/name"
+      },
+      "object_id": "c41411542eea76e46836b22580fe770b57c497fe",
+      "path": "package.json",
+      "rule": "packages.produced"
+    },
+    "ev_7d54183f5280588ce288e628": {
+      "commit": null,
+      "content_digest": "9d10b80093d7719f554ecec0db9866484408514c209863371b5effe3dda24042",
+      "detector": "ci",
+      "excerpt_digest": "5d207e2a44d386c52ad629d47f5cec911be149ba63db05670139e8bb7daae15d",
+      "id": "ev_7d54183f5280588ce288e628",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/scripts/build"
+      },
+      "object_id": "c41411542eea76e46836b22580fe770b57c497fe",
+      "path": "package.json",
+      "rule": "manifest.verification-script"
+    },
+    "ev_9234eb481bc37b4134086520": {
+      "commit": null,
+      "content_digest": "12664aef1d70e8fef0540fc2741f14fdafd293f5cec1548412fe5d784eafae2a",
+      "detector": "inventory",
+      "excerpt_digest": "12664aef1d70e8fef0540fc2741f14fdafd293f5cec1548412fe5d784eafae2a",
+      "id": "ev_9234eb481bc37b4134086520",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "6035f2ab7471c5ac098a0059904b904eb4bfaf4c",
+      "path": "www/index.html",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_a83bbe4fc56858cadbc73263": {
+      "commit": null,
+      "content_digest": "d0f6d5894e0b316c1250b74edb7de02a34d47cdf45b2fb41d446805367ff8413",
+      "detector": "inventory",
+      "excerpt_digest": "d0f6d5894e0b316c1250b74edb7de02a34d47cdf45b2fb41d446805367ff8413",
+      "id": "ev_a83bbe4fc56858cadbc73263",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "f2b25fd1576dca52c4890f76b7c6411e540fc639",
+      "path": "www/js/index.js",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_c71638fa3b16a7714134af61": {
+      "commit": null,
+      "content_digest": "9d10b80093d7719f554ecec0db9866484408514c209863371b5effe3dda24042",
+      "detector": "tooling",
+      "excerpt_digest": "f80397eaa8a71817fac50d468cf7a9b14f92cd06b042b6b3076f72ee672ca96a",
+      "id": "ev_c71638fa3b16a7714134af61",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/cordova-android"
+      },
+      "object_id": "c41411542eea76e46836b22580fe770b57c497fe",
+      "path": "package.json",
+      "rule": "manifest.framework"
+    },
+    "ev_cf6b20bdbbf02890f8d4dbdf": {
+      "commit": null,
+      "content_digest": "9d10b80093d7719f554ecec0db9866484408514c209863371b5effe3dda24042",
+      "detector": "package-metadata",
+      "excerpt_digest": "39fe4a40977d0585fd5704359e3685b0ada5cf5ee061e5d97385601d120cd0ec",
+      "id": "ev_cf6b20bdbbf02890f8d4dbdf",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/version"
+      },
+      "object_id": "c41411542eea76e46836b22580fe770b57c497fe",
+      "path": "package.json",
+      "rule": "manifest.identity"
+    },
+    "ev_e0270329ae83cd7815d7f936": {
+      "commit": null,
+      "content_digest": "9d10b80093d7719f554ecec0db9866484408514c209863371b5effe3dda24042",
+      "detector": "package-relations",
+      "excerpt_digest": "f80397eaa8a71817fac50d468cf7a9b14f92cd06b042b6b3076f72ee672ca96a",
+      "id": "ev_e0270329ae83cd7815d7f936",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/cordova-android"
+      },
+      "object_id": "c41411542eea76e46836b22580fe770b57c497fe",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
+    "ev_fb5f079477c4994b8100b894": {
+      "commit": null,
+      "content_digest": "9d10b80093d7719f554ecec0db9866484408514c209863371b5effe3dda24042",
+      "detector": "package-metadata",
+      "excerpt_digest": "f80397eaa8a71817fac50d468cf7a9b14f92cd06b042b6b3076f72ee672ca96a",
+      "id": "ev_fb5f079477c4994b8100b894",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/cordova-android"
+      },
+      "object_id": "c41411542eea76e46836b22580fe770b57c497fe",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_fe3ef2e7313fc07d8454a827": {
+      "commit": null,
+      "content_digest": "9d10b80093d7719f554ecec0db9866484408514c209863371b5effe3dda24042",
+      "detector": "package-metadata",
+      "excerpt_digest": "855c87894f624e354bad141b791a679dea0b07c2b1f43fbd7d763731dddedf86",
+      "id": "ev_fe3ef2e7313fc07d8454a827",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/cordova-plugin-camera"
+      },
+      "object_id": "c41411542eea76e46836b22580fe770b57c497fe",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    }
+  },
+  "extensions": [],
+  "inventory": {
+    "bytes": 921,
+    "bytes_read": 723,
+    "entries": 6,
+    "executables": 0,
+    "files": 4,
+    "files_read": 3,
+    "gitlinks": 0,
+    "symlinks": 0
+  },
+  "relationship_references": [
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_70c834a910dfd812df6019f7"
+      ],
+      "id": "ref_83fd0ef96466aef7d3f677c3",
+      "identifier": {
+        "name": "cordova-ios"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_e0270329ae83cd7815d7f936"
+      ],
+      "id": "ref_ae84ce2692ac09933c65d626",
+      "identifier": {
+        "name": "cordova-android"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_2b7a73d9f38d52e8ea5b8cca"
+      ],
+      "id": "ref_f92f5771294b4353af69114f",
+      "identifier": {
+        "name": "cordova-plugin-camera"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    }
+  ],
+  "schema": "repo_facts.fact_document",
+  "schema_version": 3,
+  "service_dependencies": []
+}

@@ -18,6 +18,21 @@ export interface Resolution {
 export const RESOLVED_CATEGORY = "resolved_dependencies";
 const MISSING_EXAMPLES = 5;
 
+/** The shared key under which lockfile readers hand their resolutions to later stages. */
+export const RESOLUTIONS = "lockfiles.resolutions";
+
+/** One version a lockfile resolves for a manifest's direct dependency. */
+export interface ResolvedVersion {
+  manifest: string;
+  name: string;
+  version: string;
+}
+
+/** Every resolution the lockfile readers reported, in the order they reported them. */
+export function resolutionsOf(context: DetectorContext): readonly ResolvedVersion[] {
+  return (context.shared.get(RESOLUTIONS) as ResolvedVersion[] | undefined) ?? [];
+}
+
 /** Direct dependency names a manifest declares, across every dependency field. */
 export function directDependencies(manifest: Manifest): string[] {
   return [...new Set(declaredSpecifiers(manifest).map(([name]) => name))].sort(compareCodeUnits);
@@ -41,10 +56,13 @@ export function declaredSpecifiers(manifest: Manifest): [string, string][] {
  */
 export function reportResolutions(context: DetectorContext, lockfile: string, manifest: Manifest, rule: string, resolve: (name: string) => readonly Resolution[]) {
   const missing: string[] = [];
+  const shared = (context.shared.get(RESOLUTIONS) as ResolvedVersion[] | undefined) ?? [];
+  context.shared.set(RESOLUTIONS, shared);
   for (const name of directDependencies(manifest)) {
     const resolutions = resolve(name);
     if (resolutions.length === 0) missing.push(name);
     for (const resolution of resolutions) {
+      shared.push({ manifest: manifest.path, name, version: resolution.version });
       context.fact({
         category: RESOLVED_CATEGORY,
         key: `${manifest.path}#${name}`,

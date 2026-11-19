@@ -270,6 +270,105 @@ export const RULES: readonly Rule[] = [
         ]
       }
     },
+    "description": "Re.Pack's Module Federation plugins for React Native, built with Rspack or webpack",
+    "emit": {
+      "signal": {
+        "kind": "module-federation"
+      }
+    },
+    "id": "architecture.module-federation.repack",
+    "match": {
+      "new": {
+        "members": [
+          "plugins"
+        ],
+        "method": [
+          "ModuleFederationPluginV2",
+          "ModuleFederationPluginV1",
+          "ModuleFederationPlugin"
+        ],
+        "module": [
+          "@callstack/repack"
+        ]
+      }
+    },
+    "version": 1
+  },
+  {
+    "capture": {
+      "exposes": {
+        "argument": 0,
+        "property": [
+          "exposes"
+        ]
+      },
+      "name": {
+        "argument": 0,
+        "property": [
+          "name"
+        ]
+      },
+      "remotes": {
+        "argument": 0,
+        "property": [
+          "remotes"
+        ]
+      },
+      "shared": {
+        "argument": 0,
+        "property": [
+          "shared"
+        ]
+      }
+    },
+    "description": "Re.Pack's Module Federation plugins, imported from its plugins entry point",
+    "emit": {
+      "signal": {
+        "kind": "module-federation"
+      }
+    },
+    "id": "architecture.module-federation.repack-plugins",
+    "match": {
+      "new": {
+        "method": [
+          "ModuleFederationPluginV2",
+          "ModuleFederationPluginV1",
+          "ModuleFederationPlugin"
+        ],
+        "module": [
+          "@callstack/repack/plugins"
+        ]
+      }
+    },
+    "version": 1
+  },
+  {
+    "capture": {
+      "exposes": {
+        "argument": 0,
+        "property": [
+          "exposes"
+        ]
+      },
+      "name": {
+        "argument": 0,
+        "property": [
+          "name"
+        ]
+      },
+      "remotes": {
+        "argument": 0,
+        "property": [
+          "remotes"
+        ]
+      },
+      "shared": {
+        "argument": 0,
+        "property": [
+          "shared"
+        ]
+      }
+    },
     "description": "The Module Federation plugin for Rsbuild",
     "emit": {
       "signal": {
@@ -962,4 +1061,4 @@ export const RULES: readonly Rule[] = [
   }
 ];
 
-export const RULES_DIGEST = "407b45d2bf3ae7e1b0e597c54cb4db1824ea88017319ffb4782b29581477720c";
+export const RULES_DIGEST = "dd80786c576cc26542154fd93deadbc9b822f891412a878bd22c47c96bec7256";

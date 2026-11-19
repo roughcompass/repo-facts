@@ -1,10 +1,10 @@
 # Detector Contract
 
-This contract governs how detectors turn one snapshot or working tree into a fact document. It is version 1 of the detector contract and version 2 of the fact document schema, `repo_facts.fact_document`. The types live in [`packages/contract/src/detectors/contract.ts`](../packages/contract/src/detectors/contract.ts), and the schema lives in [`packages/contract/src/facts/schema.ts`](../packages/contract/src/facts/schema.ts). Detectors read content only through a reader; see [source-reader.md](source-reader.md).
+This contract governs how Surveyor's detectors turn one snapshot or working tree into a fact document. It is version 1 of the detector contract and version 3 of the fact document schema, `repo_facts.fact_document`. Surveyor is published as the `@repo-facts/*` packages, and the Frontend Registry consumes it. The types live in [`packages/contract/src/detectors/contract.ts`](../packages/contract/src/detectors/contract.ts), and the schema lives in [`packages/contract/src/facts/schema.ts`](../packages/contract/src/facts/schema.ts). Detectors read content only through a reader; see [source-reader.md](source-reader.md).
 
 ## What a detector is
 
-A detector is trusted, reviewed code that ships in a detector release, the `@repo-facts/bundle` version. An analyzed repository can't add, configure, or replace one. Each detector declares:
+A detector is trusted, reviewed code that ships in a Surveyor release, the `@repo-facts/bundle` version. An analyzed repository can't add, configure, or replace one. Each detector declares:
 
 | Field | Meaning |
 | --- | --- |
@@ -43,6 +43,7 @@ A detector sees the tree only through its `DetectorContext`:
 - `parsed(path, format)` reads and parses JSON or YAML. A parse failure returns `null` and records a `parse_failed` diagnostic. A YAML stream's data is its last document with content: pnpm 9 and later can write its own environment lockfile as a first document before the project lockfile, and a GitLab CI component puts its `spec` header before the pipeline. A YAML pointer resolves in that same document.
 - `lines`, `pointer`, and `entry` create evidence records for a line range, a structured-data pointer, or a tree entry.
 - `fact`, `search`, `service`, and `reference` report candidates.
+- `catalogEntry` records a Reference Catalog entry the facts were compared against, for the document's `catalog_entries`.
 - `diagnostic` reports a skipped or unsupported input. A shared layer, such as the syntax parser, passes `{ detector }` to put its own name on the diagnostic. Details pass through credential redaction before they're recorded.
 
 The context offers no checkout path, clone URL, configuration, database, Git runner, process environment, or network. ESLint enforces this for all package source (`packages/*/src`): no network, filesystem, process, worker, Git, database, or environment-loading imports, and no `fetch`, `WebSocket`, `XMLHttpRequest`, `EventSource`, `process`, or `require`. Type-only imports from capability modules are allowed, because TypeScript erases them. `eval`, `Function`, `vm`, `module`, `import()`, and `RegExp` built from data are forbidden everywhere. [`eslint.config.mjs`](../eslint.config.mjs) holds the rules, and [`test/lint/safety-rules.test.ts`](../test/lint/safety-rules.test.ts) proves them.
@@ -102,7 +103,17 @@ The contract owns 26 shared categories (`SHARED_CATEGORIES`), each with a flag s
 | Services | `access_signals`, `egress_routes`, `api_contracts`, `test_substitutes` |
 | Interface | `design_systems`, `ui_elements`, `style_values` |
 
-The Interface categories come from the design-system detectors in `@repo-facts/design-system`, which recognize design systems only through catalogs; see [reference-catalog.md](reference-catalog.md). `design_systems` reports each design system a repository declares or imports. `ui_elements` counts JSX elements where they're written, by design-system component, intrinsic tag, and customization. An intrinsic element passed as a design-system component's `render` prop, such as `<VerticalNavigationItemTrigger render={<a href="#orders" />} />`, is the root that component renders: it's reported under `rendered:<tag>`, with the components that render it, and not as a raw element. `style_values` classifies style declarations by property family and value kind and reports adherence findings. Their counts are split into the `app`, `stories`, and `tests` scopes.
+`frameworks` reports each framework a manifest declares, with the `package` that declares it and its specifiers. The hybrid mobile frameworks, React Native, Expo, Capacitor, Ionic, and Cordova, are marked `mobile: true`, and every other framework `mobile: false`. A framework with several packages is reported by the first one the manifest declares: Ionic by `@ionic/react`, `@ionic/angular`, `@ionic/vue`, or `@ionic/core`, and Cordova by `cordova` or its platform packages.
+
+`composition` reports each Module Federation build with its name, remotes, exposes, and shared modules, and the `package` and `api` its plugin came from, so consumers can tell the federation generations apart. That covers webpack, Rspack (`ModuleFederationPluginV1`), the Module Federation 2 plugins and runtime, the Vite, Next.js, and Rsbuild plugins, Native Federation, and Re.Pack's `ModuleFederationPluginV2` from `@callstack/repack`, which React Native super apps build with.
+
+The Interface categories come from the design-system detectors in `@repo-facts/design-system`, which recognize design systems only through the Reference Catalog entries supplied for a survey; see [reference-catalog.md](reference-catalog.md). No design system is compiled into a release.
+- **`design_systems`** reports each design system a repository declares or imports, and the entry it was compared against: the entry for the version the repository's lockfile resolves, else the highest version its declared range allows, else the nearest earlier one. Its `entry` names that entry's `version` and `digest`, or is null when every supplied entry is later than the version in use. With no design-system entries supplied, nothing can be recognized: the search isn't complete, so the category is `unknown` rather than `absent`, and a `no_catalog_entries` diagnostic says why.
+- **`ui_elements`** counts JSX elements where they're written, by design-system component, intrinsic tag, and customization. Each component fact also counts, per scope, the `props` passed to it: how many elements pass each prop by name, and, for a prop whose entry lists a finite set of values, how many pass each literal value in that set. No other prop value is recorded, so `aria-label="Delete account"` counts as an `aria-label` and nothing more. An element with a spread attribute could pass any prop, so it counts as `unknown` instead. `key` and `ref` aren't props.
+- **Render props.** An intrinsic element passed as one of a design system's render props, such as Salt's `render` in `<VerticalNavigationItemTrigger render={<a href="#orders" />} />`, is the root that component renders: it's reported under `rendered:<tag>`, with the components that render it, and not as a raw element. The entry names the render props.
+- **`style_values`** classifies style declarations by property family and value kind and reports adherence findings, against the tokens of the entries in use. Property families, neutral values, and neutral tags come from the first entry in use, by id. A repository that uses no described design system has none, so its declarations are all in the family `other` and no container is neutral.
+
+Their counts are split into the `app`, `stories`, and `tests` scopes.
 
 Stylesheets are read in three dialects: CSS, SCSS, and Less, each with its modules (`*.module.css`, `*.module.scss`, `*.module.less`). SCSS and Less are read as data, never compiled:
 - Nested rules are flattened for selector findings, as native CSS nesting is. A parent suffix, such as `&__header` inside `.card`, resolves to the class `card__header`, which CSS-module class lookups use, and its rule isn't associated with the parent's class.
@@ -147,9 +158,26 @@ Reconciliation refuses to return a document that fails these checks.
 
 [`examples/fact-document.json`](examples/fact-document.json) is a complete document from a working tree: its `commit` is null. It shows a conflicting Node requirement, with both candidates and their evidence, and an absent `test_frameworks` category after a complete search. [`examples/fact-document-with-extension.json`](examples/fact-document-with-extension.json) adds a registered `example.routes` extension category. Both are regenerated by `test/docs/docs.test.ts`, which fails if they drift.
 
+### Reference Catalog entries
+
+`catalog_entries` lists each Reference Catalog entry the document's facts were compared against, once per thing, in kind and id order:
+
+| Field | Meaning |
+| --- | --- |
+| `kind` | The entry's kind, such as `design_system` |
+| `id` | The thing's id, such as `salt` |
+| `version` | The entry's version, such as `1.75.0` |
+| `format_version` | The entry's format version |
+| `digest` | The entry's digest |
+| `wanted` | The `package` whose version the repository wanted, and that `version`: the version a lockfile resolves, else the highest version a declared range allows, else null |
+
+Entries supplied but not used aren't listed, so rebuilding an unrelated entry changes nothing. When every supplied entry is later than the version in use, `version`, `format_version`, and `digest` are null: no entry was compared, and a later build for that version would change the comparison. `selectEntry` from `@repo-facts/contract`, given the same entries and `{ kind, id, ...wanted }`, picks the same entry Surveyor did, which is how a consumer tells whether a document is still the one a survey would produce now.
+
+For example, a repository whose lockfile resolves `@salt-ds/core` 1.76.0, surveyed when the newest Salt entry is 1.75.0, lists the Salt 1.75.0 entry with `wanted` `{ "package": "@salt-ds/core", "version": "1.76.0" }`, and its `design_systems` fact names the same entry.
+
 ## Product envelopes
 
-A product embeds the fact document unchanged inside its own document and adds only its own identity, such as the source repository and assessment. Shared validation then runs on exactly what the detectors produced, and product fields can't slip past the fact document's strict schema. Fabricate's Repository Profile is such an envelope.
+A product embeds the fact document unchanged inside its own document and adds only its own identity, such as the repository and commit. Shared validation then runs on exactly what the detectors produced, and product fields can't slip past the fact document's strict schema. The Frontend Registry's Repository Profile is such an envelope.
 
 ## Determinism and versioning
 
@@ -161,7 +189,8 @@ The fact document's `schema_version` changes whenever a document valid under the
 | --- | --- |
 | 1 | The first fact document schema |
 | 2 | Adds the Interface categories `design_systems`, `ui_elements`, and `style_values` |
+| 3 | Adds `catalog_entries`, the Reference Catalog entries the document was compared against |
 
-A consumer validates that a document has exactly the shared categories it knows, so a version 1 consumer rejects a version 2 document cleanly by its version rather than by its unregistered categories.
+A consumer validates that a document has exactly the shared categories it knows, so a version 1 consumer rejects a version 2 document cleanly by its version rather than by its unregistered categories. `factDocumentProblems` reads versions 2 and 3; Surveyor writes version 3.
 
-Change a detector's `version`, and publish a new release, whenever its output could change for the same content. That includes parser upgrades. The release version is recorded in every document's `detector_release`, and earlier documents keep the release that produced them.
+Change a detector's `version`, and publish a new release, whenever its output could change for the same content. That includes parser upgrades. The Surveyor release is recorded in every document's `detector_release` field, a stored name kept from earlier releases, and earlier documents keep the release that produced them. Reference Catalog entries aren't part of a release: a changed entry changes the documents surveyed with it, which name its new digest, but not the release or its configuration digest.

@@ -1,0 +1,3 @@
+{
+  "description": "A Salt application on @salt-ds/core 1.75.0 and @salt-ds/theme 1.48.0 whose stylesheet uses 36 tokens the catalog compiled into 0.6.0 (Salt 1.50.0, theme 1.33.0) didn't list. Compared against the version-matched 1.75.0 entry, 34 are Salt tokens and only 2 are unknown."
+}

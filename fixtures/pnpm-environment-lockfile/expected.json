@@ -1,4 +1,5 @@
 {
+  "catalog_entries": [],
   "categories": {
     "access_signals": {
       "facts": [],
@@ -218,6 +219,7 @@
             "id": "express",
             "label": "Express",
             "manifest": "api/package.json",
+            "mobile": false,
             "package": "express",
             "specifiers": {
               "dependencies": "4.21.2"
@@ -1435,6 +1437,6 @@
     }
   ],
   "schema": "repo_facts.fact_document",
-  "schema_version": 2,
+  "schema_version": 3,
   "service_dependencies": []
 }

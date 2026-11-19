@@ -23,7 +23,7 @@ describe("detector runs", () => {
   });
 
   const run = (detectors: Detector[], options: { signal?: AbortSignal; checkpoint?: (stage: Stage) => void } = {}) =>
-    runDetectors({ reader, detectorRelease: "0.1.0", detectors, ...options });
+    runDetectors({ reader, surveyorRelease: "0.1.0", detectors, ...options });
 
   it("runs stages in order and shares results between them", async () => {
     const order: string[] = [];

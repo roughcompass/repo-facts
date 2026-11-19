@@ -19,7 +19,7 @@
  * stay exact.
  *
  * The parser's identity is part of the detector configuration, so a change to
- * it produces a new detector release.
+ * it produces a new Surveyor release.
  */
 
 export const STYLESHEET_PARSER = { name: "repo-facts-css", version: "1.1.0" } as const;

@@ -1,0 +1,108 @@
+.token-1 {
+  background-color: var(--salt-actionable-accented-background-selected);
+}
+.token-2 {
+  border-color: var(--salt-actionable-accented-borderColor-selected);
+}
+.token-3 {
+  color: var(--salt-actionable-accented-foreground-selected);
+}
+.token-4 {
+  background-color: var(--salt-actionable-background-selected);
+}
+.token-5 {
+  background-color: var(--salt-category-1-background);
+}
+.token-6 {
+  border-color: var(--salt-category-1-borderColor);
+}
+.token-7 {
+  color: var(--salt-category-1-dataviz);
+}
+.token-8 {
+  color: var(--salt-category-1-foreground);
+}
+.token-9 {
+  color: var(--salt-color-jpmBrown);
+}
+.token-10 {
+  color: var(--salt-color-aqua-200-rgb);
+}
+.token-11 {
+  color: var(--salt-color-aqua-300-rgb);
+}
+.token-12 {
+  color: var(--salt-color-aqua-400-rgb);
+}
+.token-13 {
+  color: var(--salt-color-aqua-500-rgb);
+}
+.token-14 {
+  color: var(--salt-color-aqua-600-rgb);
+}
+.token-15 {
+  border-color: var(--salt-container-bold-borderColor);
+}
+.token-16 {
+  border-color: var(--salt-container-bold-borderColor-disabled);
+}
+.token-17 {
+  color: var(--salt-content-brand-foreground);
+}
+.token-18 {
+  background-color: var(--salt-editable-background-readonly);
+}
+.token-19 {
+  outline-color: var(--salt-focused-onSolid-outlineColor);
+}
+.token-20 {
+  gap: var(--salt-layout-gap);
+}
+.token-21 {
+  color: var(--salt-palette-accent-high);
+}
+.token-22 {
+  color: var(--salt-palette-accent-lower);
+}
+.token-23 {
+  color: var(--salt-palette-accent-lowest);
+}
+.token-24 {
+  color: var(--salt-palette-accent-medium);
+}
+.token-25 {
+  background-color: var(--salt-sentiment-accent-background);
+}
+.token-26 {
+  background-color: var(--salt-sentiment-accent-background-disabled);
+}
+.token-27 {
+  box-shadow: var(--salt-shadow-low);
+}
+.token-28 {
+  box-shadow: var(--salt-shadow-lower);
+}
+.token-29 {
+  padding: var(--salt-spacing-fixed-1000);
+}
+.token-30 {
+  padding: var(--salt-spacing-fixed-1100);
+}
+.token-31 {
+  font-weight: var(--salt-text-action-fontWeight-bolder);
+}
+.token-32 {
+  font-weight: var(--salt-text-action-fontWeight-lighter);
+}
+.token-33 {
+  font-size: var(--salt-text-body2-fontSize);
+}
+.token-34 {
+  font-family: var(--salt-typography-fontFamily-roboto);
+}
+.token-35 {
+  color: var(--salt-palette-brand-accent);
+}
+.token-36 {
+  color: var(--salt-color-jpmBronze);
+}

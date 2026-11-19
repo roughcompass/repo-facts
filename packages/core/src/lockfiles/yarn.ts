@@ -27,7 +27,7 @@ export type YarnParse = { ok: true; entries: YarnEntry[] } | { ok: false; reason
 
 export const yarnLockDetector: Detector = {
   id: "yarn-lock",
-  version: "2",
+  version: "3",
   stage: "convention",
   inputs: ["**/yarn.lock"],
   categories: [RESOLVED_CATEGORY],
@@ -94,7 +94,7 @@ export function parseYarnLock(text: string): YarnParse {
     const line = lines[index]!.replace(/\r$/, "");
     const number = index + 1;
     if (line === "" || line.startsWith("#")) continue;
-    if (line === "__metadata:") return { ok: false, reason: "unsupported_version", detail: "Lockfiles written by Yarn 2 or later are not supported by this detector release" };
+    if (line === "__metadata:") return { ok: false, reason: "unsupported_version", detail: "Lockfiles written by Yarn 2 or later are not supported by this Surveyor release" };
 
     if (!line.startsWith(" ")) {
       if (!line.endsWith(":")) return { ok: false, reason: "parse_failed", detail: `Line ${number}: expected an entry header ending in a colon` };

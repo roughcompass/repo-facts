@@ -21,6 +21,7 @@ jobs:
       # Publishes the committed version of every package, after running all
       # gates again from a clean clone of this commit.
       - run: npm run release:publish
+        # The deprecated REPO_FACTS_NPM_REGISTRY and REPO_FACTS_NPM_TOKEN names are read for one more release.
         env:
-          REPO_FACTS_NPM_REGISTRY: ${{ vars.REPO_FACTS_NPM_REGISTRY }}
-          REPO_FACTS_NPM_TOKEN: ${{ secrets.REPO_FACTS_NPM_TOKEN }}
+          SURVEYOR_NPM_REGISTRY: ${{ vars.SURVEYOR_NPM_REGISTRY || vars.REPO_FACTS_NPM_REGISTRY }}
+          SURVEYOR_NPM_TOKEN: ${{ secrets.SURVEYOR_NPM_TOKEN || secrets.REPO_FACTS_NPM_TOKEN }}

@@ -4,7 +4,7 @@ import { isSensitivePath } from "@repo-facts/contract";
  * Classification of committed paths into the inputs detectors understand.
  * Classification uses only the path; it never reads content.
  *
- * Some inputs are recognized but unsupported by this detector release (for
+ * Some inputs are recognized but unsupported by this Surveyor release (for
  * example, CircleCI configuration). They are reported so the categories they
  * could affect stay unknown rather than absent. Build manifests and lockfiles
  * of other ecosystems, such as go.mod or pom.xml, are unsupported inputs that

@@ -14,14 +14,14 @@ import { analyze } from "@repo-facts/bundle";
 import { type FactDocument, factDocumentProblems } from "@repo-facts/contract";
 import { type StylesheetResult, parseStylesheet } from "@repo-facts/syntax";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
-import { loadFixture, readerFor } from "../golden/harness.js";
+import { goldenEntries, loadFixture, readerFor } from "../golden/harness.js";
 
 /**
  * The hostile-repository fixture runs through the full bundle while every way
  * to reach the network, start a process, load code, or evaluate code is
  * replaced by a trap that records the attempt and throws. Everything in the
  * fixture that could execute writes a sentinel file into
- * REPO_FACTS_SENTINEL_DIR; none may appear.
+ * SURVEYOR_SENTINEL_DIR; none may appear.
  */
 
 type Owner = Record<string, unknown>;
@@ -152,7 +152,7 @@ describe("hostile repository", () => {
   const requested: string[] = [];
 
   beforeAll(async () => {
-    sentinels = fs.mkdtempSync(path.join(os.tmpdir(), "repo-facts-sentinels-"));
+    sentinels = fs.mkdtempSync(path.join(os.tmpdir(), "surveyor-sentinels-"));
     const fixture = loadFixture("hostile-repository");
     // Record every path a detector asks the reader for, including link targets.
     const reader = readerFor(fixture);
@@ -162,16 +162,16 @@ describe("hostile repository", () => {
     reader.read = (file) => (requested.push(file), read(file));
     reader.readMany = (files) => (requested.push(...files), readMany(files));
     reader.linkTarget = (file) => (requested.push(file), linkTarget(file));
-    const previous = process.env.REPO_FACTS_SENTINEL_DIR;
-    process.env.REPO_FACTS_SENTINEL_DIR = sentinels;
+    const previous = process.env.SURVEYOR_SENTINEL_DIR;
+    process.env.SURVEYOR_SENTINEL_DIR = sentinels;
     before = shapeOf();
     const traps = installTraps();
     try {
-      document = await analyze(reader);
+      document = await analyze(reader, { entries: goldenEntries() });
     } finally {
       traps.restore();
-      if (previous === undefined) delete process.env.REPO_FACTS_SENTINEL_DIR;
-      else process.env.REPO_FACTS_SENTINEL_DIR = previous;
+      if (previous === undefined) delete process.env.SURVEYOR_SENTINEL_DIR;
+      else process.env.SURVEYOR_SENTINEL_DIR = previous;
     }
     attempts = traps.attempts;
   });
@@ -231,6 +231,7 @@ describe("hostile repository", () => {
     // The deep stylesheet is a skipped input; the next one is parsed and counted.
     for (const category of ["ui_elements", "style_values"]) expect(document.categories[category]!.search.skipped).toContain("src/styles/deep.css");
     expect(document.categories.style_values!.search.skipped).not.toContain("src/styles/remote.css");
-    expect(document.categories.style_values!.facts.map((fact) => fact.key)).toEqual(expect.arrayContaining(["declarations:color"]));
+    // No design system is in use, so no entry supplies property families: every declaration is in the family other.
+    expect(document.categories.style_values!.facts.map((fact) => fact.key)).toEqual(expect.arrayContaining(["declarations:other"]));
   });
 });

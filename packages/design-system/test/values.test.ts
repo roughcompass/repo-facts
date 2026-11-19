@@ -3,11 +3,13 @@ import type { BlobContent } from "@repo-facts/contract";
 import { SyntaxTree, parseStylesheet } from "@repo-facts/syntax";
 import ts from "typescript";
 import { describe, expect, it } from "vitest";
-import { CATALOGS, StyleIndex, type StyleSource, ValueClassifier, cssProperty, scopeOf, styleObjectValue, templateSource } from "../src/index.js";
+import { fixtureEntry } from "../../../test/catalog/entries.js";
+import { StyleIndex, type StyleSource, ValueClassifier, catalogFromEntry, cssProperty, scopeOf, styleObjectValue, templateSource } from "../src/index.js";
 
 // design-system-usage: style declarations are classified by family and value kind.
 
-const salt = CATALOGS.find((catalog) => catalog.id === "salt")!;
+const salt = catalogFromEntry(fixtureEntry("salt-1.50.0"));
+const CATALOGS = [salt];
 
 function content(path: string, text: string): BlobContent {
   const bytes = Buffer.from(text);

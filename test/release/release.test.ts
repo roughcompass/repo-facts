@@ -7,7 +7,7 @@ import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { ROOT, createToken, freePort, startRegistry } from "../../scripts/lib/registry.mjs";
 
 const PACKAGES = ["contract", "syntax", "core", "architecture", "services", "design-system", "bundle"];
-const IDENTITY = ["-c", "user.name=repo-facts release test", "-c", "user.email=release-test@repo-facts.invalid"];
+const IDENTITY = ["-c", "user.name=Surveyor release test", "-c", "user.email=release-test@surveyor.invalid"];
 
 /**
  * Releases run from throwaway copies of this repository, committed under a
@@ -56,7 +56,7 @@ describe("lockstep releases", () => {
   };
 
   const release = (root: string) =>
-    spawnSync("npm", ["run", "release:publish"], { cwd: root, encoding: "utf8", env: { ...process.env, REPO_FACTS_NPM_REGISTRY: registry.url, REPO_FACTS_NPM_TOKEN: token } });
+    spawnSync("npm", ["run", "release:publish"], { cwd: root, encoding: "utf8", env: { ...process.env, SURVEYOR_NPM_REGISTRY: registry.url, SURVEYOR_NPM_TOKEN: token } });
 
   /** Versions of +name+ in the registry. Retries a reused socket that the registry already closed. */
   const published = async (name: string): Promise<string[]> => {
@@ -71,7 +71,7 @@ describe("lockstep releases", () => {
   };
 
   beforeAll(async () => {
-    workspace = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), "repo-facts-release-test-")));
+    workspace = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), "surveyor-release-test-")));
     const storage = path.join(workspace, "registry");
     registry = await startRegistry({ port: await freePort(), storage, quiet: true });
     token = await createToken(registry.url, storage);
@@ -97,16 +97,18 @@ describe("lockstep releases", () => {
     fs.mkdirSync(consumer);
     fs.copyFileSync(path.join(ROOT, ".npmrc"), path.join(consumer, ".npmrc"));
     fs.writeFileSync(path.join(consumer, "package.json"), JSON.stringify({ name: "consumer", version: "0.0.0", private: true }));
-    const installed = spawnSync("npm", ["install", "--save-exact", "@repo-facts/bundle@99.0.0-test.0"], { cwd: consumer, encoding: "utf8", env: { ...process.env, REPO_FACTS_NPM_REGISTRY: registry.url } });
+    const installed = spawnSync("npm", ["install", "--save-exact", "@repo-facts/bundle@99.0.0-test.0"], { cwd: consumer, encoding: "utf8", env: { ...process.env, SURVEYOR_NPM_REGISTRY: registry.url } });
     expect(installed.status, installed.stderr).toBe(0);
 
     for (const name of PACKAGES) {
       const directory = path.join(consumer, "node_modules", "@repo-facts", name);
       const manifest = JSON.parse(fs.readFileSync(path.join(directory, "package.json"), "utf8"));
       expect(manifest.version, name).toBe("99.0.0-test.0");
-      expect(manifest.repoFacts, name).toEqual({ commit, release: "99.0.0-test.0" });
+      expect(manifest["repoFacts"], name).toEqual({ commit, release: "99.0.0-test.0" });
       expect(JSON.parse(fs.readFileSync(path.join(directory, "provenance.json"), "utf8")), name).toEqual({ package: `@repo-facts/${name}`, version: "99.0.0-test.0", commit });
       expect(fs.existsSync(path.join(directory, "dist", "index.js")), name).toBe(true);
+      // The contract ships the reference documents that match its release.
+      if (name === "contract") for (const document of ["detector-contract.md", "reference-catalog.md"]) expect(fs.readFileSync(path.join(directory, "docs", document), "utf8"), document).toBe(fs.readFileSync(path.join(ROOT, "docs", document), "utf8"));
       const shipped = fs.readdirSync(directory, { recursive: true, encoding: "utf8" });
       expect(shipped.filter((file) => file.endsWith(".tsbuildinfo") || file.startsWith("src")), name).toEqual([]);
       for (const [dependency, range] of Object.entries((manifest.dependencies ?? {}) as Record<string, string>)) {
@@ -120,7 +122,7 @@ describe("lockstep releases", () => {
     const root = copyRepository("dry-run");
     fs.appendFileSync(path.join(root, "README.md"), "\nuncommitted\n");
     const environment = { ...process.env };
-    delete environment.REPO_FACTS_NPM_REGISTRY;
+    delete environment.SURVEYOR_NPM_REGISTRY;
     const started = Date.now();
     const result = spawnSync("npm", ["run", "release:dry-run"], { cwd: root, encoding: "utf8", env: environment });
     expect(result.status, `${result.stdout}\n${result.stderr}`).toBe(0);

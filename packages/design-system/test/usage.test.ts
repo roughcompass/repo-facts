@@ -1,8 +1,11 @@
+import fs from "node:fs";
+import path from "node:path";
 import { MemoryReader, digestOf, runDetectors } from "@repo-facts/contract";
 import { CORE_DETECTORS } from "@repo-facts/core";
 import { describe, expect, it } from "vitest";
-import { DESIGN_SYSTEM_DETECTORS } from "../src/index.js";
-import { cited, fact, facts, json, profile } from "./support.js";
+import { CATALOG_FIXTURES, entryFromCatalog } from "../../../test/catalog/entries.js";
+import { designSystemDetectors } from "../src/index.js";
+import { SALT as SALT_ENTRY, cited, fact, facts, json, profile } from "./support.js";
 
 // design-system-usage: the usage facts, by scope, with sample evidence.
 
@@ -22,9 +25,51 @@ describe("element facts", () => {
       app: { sites: 4, as_is: 1, customized: 2, unknown: 1, mechanisms: { class_name: 2, style: 1, css: 0, sx: 0, styled: 0 }, styles: { resolved: 1, partial: 1, unresolved: 0 } },
       stories: { sites: 0, as_is: 0, customized: 0, unknown: 0, mechanisms: { class_name: 0, style: 0, css: 0, sx: 0, styled: 0 }, styles: { resolved: 0, partial: 0, unresolved: 0 } },
       tests: { sites: 0, as_is: 0, customized: 0, unknown: 0, mechanisms: { class_name: 0, style: 0, css: 0, sx: 0, styled: 0 }, styles: { resolved: 0, partial: 0, unresolved: 0 } },
+      props: {
+        app: { unknown: 1, names: { appearance: { count: 1, values: { transparent: 1 } }, className: { count: 2 }, sentiment: { count: 1, values: { neutral: 1 } }, style: { count: 1 } } },
+        stories: { unknown: 0, names: {} },
+        tests: { unknown: 0, names: {} },
+      },
     });
     expect(fact(document, "ui_elements", "component:salt:Tabs")!.value).toMatchObject({ app: { sites: 1, customized: 1, mechanisms: { style: 1 }, styles: { resolved: 1 } } });
     expect(cited(document, "ui_elements", "component:salt:Button")).toEqual(["src/ThemeToggle.tsx:5", "src/ThemeToggle.tsx:6", "src/ThemeToggle.tsx:7"]);
+  });
+
+  it("counts how many elements pass each prop, and each value of a prop whose entry lists a finite set", async () => {
+    const buttons = [...Array(6).fill('<Button appearance="solid" />'), ...Array(2).fill('<Button appearance={"bordered"} />'), "<Button />", "<Button>Go</Button>"].join("\n    ");
+    const document = await profile({
+      "package.json": SALT,
+      "src/Toolbar.tsx": `import { Button } from "@salt-ds/core";\nexport const Toolbar = () => (\n  <>\n    ${buttons}\n  </>\n);\n`,
+    });
+    expect(fact(document, "ui_elements", "component:salt:Button")!.value).toMatchObject({ app: { sites: 10 }, props: { app: { unknown: 0, names: { appearance: { count: 8, values: { bordered: 2, solid: 6 } } } } } });
+  });
+
+  it("records a free-text prop's name but never its value", async () => {
+    const document = await profile({
+      "package.json": SALT,
+      "src/Delete.tsx": 'import { Button } from "@salt-ds/core";\nexport const Delete = ({ label }) => (\n  <>\n    <Button aria-label="Delete account" loadingAnnouncement="Deleting your account" />\n    <Button aria-label={label} />\n  </>\n);\n',
+    });
+    const props = (fact(document, "ui_elements", "component:salt:Button")!.value as { props: { app: unknown } }).props.app;
+    expect(props).toEqual({ unknown: 0, names: { "aria-label": { count: 2 }, loadingAnnouncement: { count: 1 } } });
+    expect(JSON.stringify(document)).not.toContain("Delete account");
+    expect(JSON.stringify(document)).not.toContain("Deleting your account");
+  });
+
+  it("counts an element with a spread as unknown, and records only literal values in the finite set", async () => {
+    const document = await profile({
+      "package.json": SALT,
+      "src/Mixed.tsx":
+        'import { Button } from "@salt-ds/core";\nexport const Mixed = ({ props, tone }) => (\n  <>\n    <Button {...props} appearance="solid" />\n    <Button appearance="loud" />\n    <Button appearance={tone} />\n    <Button disabled key="a" ref={null} />\n    <Button disabled={false} variant={`cta`} />\n  </>\n);\n',
+    });
+    expect((fact(document, "ui_elements", "component:salt:Button")!.value as { props: { app: unknown } }).props.app).toEqual({
+      unknown: 1,
+      names: {
+        appearance: { count: 2, values: {} },
+        disabled: { count: 2, values: { false: 1, true: 1 } },
+        variant: { count: 1, values: { cta: 1 } },
+      },
+    });
+    expect(JSON.stringify(document)).not.toContain("loud");
   });
 
   it("counts a styled wrapper's definition once, and its elements as the wrapped component", async () => {
@@ -72,6 +117,25 @@ describe("element facts", () => {
     // Only the anchor under a component outside the design system, and the bare one, are raw.
     expect(elements["intrinsic:a"]).toMatchObject({ group: "equivalent", equivalent: "salt:Link", app: { sites: 2 } });
     expect(fact(document, "ui_elements", "summary:salt")!.value).toMatchObject({ app: { design_system: 2, adoption_share: 50 } });
+  });
+
+  it("reads render props from the entry, so another design system's render prop works the same way", async () => {
+    const files = {
+      "package.json": SALT,
+      "src/Nav.tsx": 'import { VerticalNavigationItemTrigger } from "@salt-ds/core";\nexport const N = () => (\n  <nav>\n    <VerticalNavigationItemTrigger as={<a href="#a" />} />\n    <VerticalNavigationItemTrigger render={<a href="#b" />} />\n  </nav>\n);\n',
+    };
+    const withAs = entryFromCatalog(fs.readFileSync(path.join(CATALOG_FIXTURES, "salt-1.50.0.yaml"), "utf8"), (entry) => (entry.content.render_props = ["as"]));
+    const renderedBy = async (entries: readonly unknown[]) => {
+      const elements = values(await profile(files, entries), "ui_elements");
+      return { rendered: (elements["rendered:a"] as { app: { sites: number } } | undefined)?.app.sites ?? 0, raw: (elements["intrinsic:a"] as { app: { sites: number } } | undefined)?.app.sites ?? 0 };
+    };
+    expect(await renderedBy([SALT_ENTRY])).toEqual({ rendered: 1, raw: 1 });
+    expect(await renderedBy([withAs])).toEqual({ rendered: 1, raw: 1 });
+    const elements = values(await profile(files, [withAs]), "ui_elements");
+    expect(elements["rendered:a"]).toMatchObject({ components: ["salt:VerticalNavigationItemTrigger"] });
+    // With no render props, neither anchor is the component's root.
+    const none = entryFromCatalog(fs.readFileSync(path.join(CATALOG_FIXTURES, "salt-1.50.0.yaml"), "utf8"), (entry) => (entry.content.render_props = []));
+    expect(await renderedBy([none])).toEqual({ rendered: 0, raw: 2 });
   });
 
   it("reports customized and adoption shares, rounded down, and omits a share with nothing to divide", async () => {
@@ -207,7 +271,7 @@ describe("style value facts", () => {
 
   it("produces the same digest when run twice", async () => {
     const files = { "package.json": SALT, "src/a.css": ".a { color: red }\n", "src/A.tsx": 'import { Button } from "@salt-ds/core";\nexport const A = () => <Button className="a" />;\n' };
-    const run = () => runDetectors({ reader: MemoryReader.fromFiles(files, { commit: "a".repeat(40) }), detectorRelease: "0.1.0", detectors: [...CORE_DETECTORS, ...DESIGN_SYSTEM_DETECTORS] });
+    const run = () => runDetectors({ reader: MemoryReader.fromFiles(files, { commit: "a".repeat(40) }), surveyorRelease: "0.1.0", detectors: [...CORE_DETECTORS, ...designSystemDetectors([SALT_ENTRY])] });
     expect(digestOf(await run()).digest).toBe(digestOf(await run()).digest);
   });
 });

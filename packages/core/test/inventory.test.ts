@@ -65,7 +65,7 @@ describe("inventory", () => {
         unanalyzed = unanalyzedInputs(context, "package-json", "npm-lock", "pnpm-lock", "yarn-lock", "github-actions", "circleci", "bun-lock").map((input) => input.path);
       },
     };
-    const document = await runDetectors({ reader, detectorRelease: "0.1.0", detectors: [inventoryDetector, probe] });
+    const document = await runDetectors({ reader, surveyorRelease: "0.1.0", detectors: [inventoryDetector, probe] });
     return { document, inventory: shared!, readable, unanalyzed, reader };
   };
 
@@ -132,7 +132,7 @@ describe("inventory", () => {
     ]);
     const diagnostics = document.diagnostics.filter((diagnostic) => diagnostic.path.startsWith("src/") && diagnostic.reason === "unsupported_input");
     expect(diagnostics.map(({ path, detail }) => [path, detail])).toEqual([
-      ["src/legacy.sass", "Sass stylesheet (indented syntax) is recognized but not analyzed by this detector release"],
+      ["src/legacy.sass", "Sass stylesheet (indented syntax) is recognized but not analyzed by this Surveyor release"],
     ]);
     // Vendored stylesheets, such as an installed theme, are not the repository's own.
     expect(inventory.inputs.map((input) => input.path)).not.toContain("node_modules/@salt-ds/theme/index.css");
@@ -288,7 +288,7 @@ describe("inventory", () => {
         for (const [path, result] of results) if (result.ok) read.add(path);
         return results;
       };
-      await runDetectors({ reader, detectorRelease: "0.1.0", detectors: CORE_DETECTORS });
+      await runDetectors({ reader, surveyorRelease: "0.1.0", detectors: CORE_DETECTORS });
       return [...read].sort();
     };
 

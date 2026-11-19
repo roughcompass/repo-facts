@@ -6,7 +6,7 @@ import tseslint from "typescript-eslint";
 // anything. These rules enforce that for every package; see
 // docs/detector-contract.md and the analysis-safety spec.
 
-const executionMessage = "repo-facts never executes, loads, or evaluates data.";
+const executionMessage = "Surveyor never executes, loads, or evaluates data.";
 const isolationMessage = "Detectors see repository content only through a SourceReader, with no network, filesystem, process, Git, or database access.";
 
 const nodeModules = (names) => names.flatMap((name) => [name, `node:${name}`]);
@@ -24,7 +24,7 @@ const capabilityGlobals = ["fetch", "WebSocket", "XMLHttpRequest", "EventSource"
 
 export default tseslint.config(
   {
-    // Fixture trees are repository content under test, not repo-facts source.
+    // Fixture trees are repository content under test, not Surveyor source.
     ignores: ["**/dist/**", "**/node_modules/**", "coverage/**", "tmp/**", "fixtures/**"],
   },
   eslint.configs.recommended,

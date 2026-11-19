@@ -1,0 +1,1110 @@
+{
+  "catalog_entries": [],
+  "categories": {
+    "access_signals": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "access.search"
+        ],
+        "skipped": [],
+        "surface": [
+          "src/App.tsx"
+        ]
+      },
+      "state": "absent"
+    },
+    "api_contracts": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "contracts.search"
+        ],
+        "skipped": [],
+        "surface": [
+          "src/App.tsx"
+        ]
+      },
+      "state": "absent"
+    },
+    "build_tools": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "config.tool-file",
+          "manifest.tool-dependency"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "ci_systems": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "ci.definition"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    },
+    "composition": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "architecture.import-map",
+          "composition"
+        ],
+        "skipped": [],
+        "surface": [
+          "src/App.tsx"
+        ]
+      },
+      "state": "unknown"
+    },
+    "dependencies": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_bb2fc4484276c318aa369844"
+          ],
+          "key": "package.json#dependencies/@capacitor/core",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "dependencies",
+            "manifest": "package.json",
+            "name": "@capacitor/core",
+            "specifier": "6.1.2"
+          }
+        },
+        {
+          "evidence": [
+            "ev_c005bdb8dccf0d1eae2627c2"
+          ],
+          "key": "package.json#dependencies/@ionic/react",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "dependencies",
+            "manifest": "package.json",
+            "name": "@ionic/react",
+            "specifier": "^8.4.0"
+          }
+        },
+        {
+          "evidence": [
+            "ev_c7a3876edab8fe9809c15255"
+          ],
+          "key": "package.json#dependencies/@ionic/react-router",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "dependencies",
+            "manifest": "package.json",
+            "name": "@ionic/react-router",
+            "specifier": "^8.4.0"
+          }
+        },
+        {
+          "evidence": [
+            "ev_6d88f7fbd287f63ae823df0b"
+          ],
+          "key": "package.json#dependencies/ionicons",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "dependencies",
+            "manifest": "package.json",
+            "name": "ionicons",
+            "specifier": "^7.4.0"
+          }
+        },
+        {
+          "evidence": [
+            "ev_89437ca3b819c4494ab265d8"
+          ],
+          "key": "package.json#dependencies/react",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "dependencies",
+            "manifest": "package.json",
+            "name": "react",
+            "specifier": "18.3.1"
+          }
+        },
+        {
+          "evidence": [
+            "ev_62ac7f2741f6478cb004949b"
+          ],
+          "key": "package.json#dependencies/react-dom",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "dependencies",
+            "manifest": "package.json",
+            "name": "react-dom",
+            "specifier": "18.3.1"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.dependencies"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "design_systems": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "design-system.recognize"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json",
+          "src/App.tsx"
+        ]
+      },
+      "state": "absent"
+    },
+    "egress_routes": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "egress.search"
+        ],
+        "skipped": [],
+        "surface": [
+          "src/App.tsx"
+        ]
+      },
+      "state": "absent"
+    },
+    "frameworks": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_2ffef4121fbd8df6f10d945e"
+          ],
+          "key": "package.json#capacitor",
+          "rule": "manifest.framework",
+          "state": "observed",
+          "value": {
+            "id": "capacitor",
+            "label": "Capacitor",
+            "manifest": "package.json",
+            "mobile": true,
+            "package": "@capacitor/core",
+            "specifiers": {
+              "dependencies": "6.1.2"
+            }
+          }
+        },
+        {
+          "evidence": [
+            "ev_b6d28a20258a28f832211732"
+          ],
+          "key": "package.json#ionic",
+          "rule": "manifest.framework",
+          "state": "observed",
+          "value": {
+            "id": "ionic",
+            "label": "Ionic",
+            "manifest": "package.json",
+            "mobile": true,
+            "package": "@ionic/react",
+            "specifiers": {
+              "dependencies": "^8.4.0"
+            }
+          }
+        },
+        {
+          "evidence": [
+            "ev_d15bf521af0cf9937aa65560"
+          ],
+          "key": "package.json#react",
+          "rule": "manifest.framework",
+          "state": "observed",
+          "value": {
+            "id": "react",
+            "label": "React",
+            "manifest": "package.json",
+            "mobile": false,
+            "package": "react",
+            "specifiers": {
+              "dependencies": "18.3.1"
+            }
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.framework"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "languages": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_fa383c11bc46bc771e9c3851"
+          ],
+          "key": "JSON",
+          "rule": "inventory.language-by-extension",
+          "state": "observed",
+          "value": {
+            "bytes": 263,
+            "files": 1
+          }
+        },
+        {
+          "evidence": [
+            "ev_0df56b4c8eea84d2215828fc"
+          ],
+          "key": "TypeScript",
+          "rule": "inventory.language-by-extension",
+          "state": "observed",
+          "value": {
+            "bytes": 265,
+            "files": 1
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.language-by-extension"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "observed"
+    },
+    "package_identity": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_34fa8f18e6258fc0fe26d94f",
+            "ev_7271d6342db061a0da5229f6"
+          ],
+          "key": "package.json",
+          "rule": "manifest.identity",
+          "state": "observed",
+          "value": {
+            "manifest": "package.json",
+            "name": "travel",
+            "private": true,
+            "version": "1.0.0"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.identity"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "package_managers": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "lockfile.package-manager",
+          "manifest.package-manager"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "packages_consumed": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_bfe2671d02476620596e2184"
+          ],
+          "key": "@capacitor/core",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "@capacitor/core"
+          }
+        },
+        {
+          "evidence": [
+            "ev_2821377c5e62a4f5708193c5"
+          ],
+          "key": "@ionic/react",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "@ionic/react"
+          }
+        },
+        {
+          "evidence": [
+            "ev_990b241eeefcbb6d0beca8c2"
+          ],
+          "key": "@ionic/react-router",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "@ionic/react-router"
+          }
+        },
+        {
+          "evidence": [
+            "ev_80129043e5cac52bd195eb10"
+          ],
+          "key": "ionicons",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "ionicons"
+          }
+        },
+        {
+          "evidence": [
+            "ev_3568889b9f21c7d1ddd97d05"
+          ],
+          "key": "react",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "react"
+          }
+        },
+        {
+          "evidence": [
+            "ev_31309a00682aab2280c9dbd2"
+          ],
+          "key": "react-dom",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "react-dom"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "packages.consumed"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "packages_produced": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_8d768ca5a2120ceb32eb86e1",
+            "ev_dd83b88410eaff19cd3c4a1d"
+          ],
+          "key": "travel",
+          "rule": "packages.produced",
+          "state": "observed",
+          "value": {
+            "manifest": "package.json",
+            "name": "travel",
+            "published": false,
+            "version": "1.0.0"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "packages.produced"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "resolved_dependencies": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "npm-lock.resolved-version",
+          "pnpm-lock.resolved-version",
+          "yarn-lock.resolved-version"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "runtime_integrations": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "composition"
+        ],
+        "skipped": [],
+        "surface": [
+          "src/App.tsx"
+        ]
+      },
+      "state": "unknown"
+    },
+    "runtime_requirements": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "runtime.declarations"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "scripts": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.scripts"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "served_origins": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "style_values": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "design-system.usage"
+        ],
+        "skipped": [],
+        "surface": [
+          "src/App.tsx"
+        ]
+      },
+      "state": "absent"
+    },
+    "submodules": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.gitlink"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    },
+    "test_frameworks": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "config.tool-file",
+          "manifest.tool-dependency"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "test_substitutes": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "substitutes.search"
+        ],
+        "skipped": [],
+        "surface": [
+          "src/App.tsx"
+        ]
+      },
+      "state": "absent"
+    },
+    "ui_elements": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_5fcc1a5226ff26aaff59677e",
+            "ev_6c4bddbf1263169d05eb989a",
+            "ev_9c7112b934828cb13d96afe8"
+          ],
+          "key": "other",
+          "rule": "design-system.elements",
+          "state": "observed",
+          "value": {
+            "app": {
+              "sites": 5
+            },
+            "stories": {
+              "sites": 0
+            },
+            "tests": {
+              "sites": 0
+            }
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "design-system.usage"
+        ],
+        "skipped": [],
+        "surface": [
+          "src/App.tsx"
+        ]
+      },
+      "state": "observed"
+    },
+    "verification_commands": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "ci.verification-commands"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "workspaces": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.workspaces",
+          "pnpm-workspace.packages"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    }
+  },
+  "commit": null,
+  "detector_release": "golden",
+  "diagnostics": [],
+  "evidence": {
+    "ev_0df56b4c8eea84d2215828fc": {
+      "commit": null,
+      "content_digest": "a5fb7e18ce6b68c0aa56a56a959c54f04bad61cd6ebd0d6187c173f71c70836a",
+      "detector": "inventory",
+      "excerpt_digest": "a5fb7e18ce6b68c0aa56a56a959c54f04bad61cd6ebd0d6187c173f71c70836a",
+      "id": "ev_0df56b4c8eea84d2215828fc",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "f3c67b1c95efdbfee696eb0d55934277d7e2e83e",
+      "path": "src/App.tsx",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_2821377c5e62a4f5708193c5": {
+      "commit": null,
+      "content_digest": "7710d1c5c6ba6ea8d460265ef710cb4c52f948f242bec65e52c0a379bb1450d7",
+      "detector": "package-relations",
+      "excerpt_digest": "0ba8d30e005e44e63e6505798016d986168cd12ffd77f03d158891826b7427ca",
+      "id": "ev_2821377c5e62a4f5708193c5",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/@ionic~1react"
+      },
+      "object_id": "48bac54efdd07c5e84f25d1b17de1377d85045f9",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
+    "ev_2ffef4121fbd8df6f10d945e": {
+      "commit": null,
+      "content_digest": "7710d1c5c6ba6ea8d460265ef710cb4c52f948f242bec65e52c0a379bb1450d7",
+      "detector": "tooling",
+      "excerpt_digest": "10a78bc9b9f1dccc1117dcc1ea77af96a1fddac573a8b401a217fb86ff89c729",
+      "id": "ev_2ffef4121fbd8df6f10d945e",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/@capacitor~1core"
+      },
+      "object_id": "48bac54efdd07c5e84f25d1b17de1377d85045f9",
+      "path": "package.json",
+      "rule": "manifest.framework"
+    },
+    "ev_31309a00682aab2280c9dbd2": {
+      "commit": null,
+      "content_digest": "7710d1c5c6ba6ea8d460265ef710cb4c52f948f242bec65e52c0a379bb1450d7",
+      "detector": "package-relations",
+      "excerpt_digest": "4432fe1325bcd7918b7ce08a089e63116c6bef0a37173a57b89ab7a038b5f484",
+      "id": "ev_31309a00682aab2280c9dbd2",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/react-dom"
+      },
+      "object_id": "48bac54efdd07c5e84f25d1b17de1377d85045f9",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
+    "ev_34fa8f18e6258fc0fe26d94f": {
+      "commit": null,
+      "content_digest": "7710d1c5c6ba6ea8d460265ef710cb4c52f948f242bec65e52c0a379bb1450d7",
+      "detector": "package-metadata",
+      "excerpt_digest": "25db593a98a3eed671b300e600cbb331a4219cf1624c56b9b4ab4e6cfe493642",
+      "id": "ev_34fa8f18e6258fc0fe26d94f",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/name"
+      },
+      "object_id": "48bac54efdd07c5e84f25d1b17de1377d85045f9",
+      "path": "package.json",
+      "rule": "manifest.identity"
+    },
+    "ev_3568889b9f21c7d1ddd97d05": {
+      "commit": null,
+      "content_digest": "7710d1c5c6ba6ea8d460265ef710cb4c52f948f242bec65e52c0a379bb1450d7",
+      "detector": "package-relations",
+      "excerpt_digest": "4432fe1325bcd7918b7ce08a089e63116c6bef0a37173a57b89ab7a038b5f484",
+      "id": "ev_3568889b9f21c7d1ddd97d05",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/react"
+      },
+      "object_id": "48bac54efdd07c5e84f25d1b17de1377d85045f9",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
+    "ev_5fcc1a5226ff26aaff59677e": {
+      "commit": null,
+      "content_digest": "139fa277b0aee32aea0427029cab76e502b1ece88334dc63d08d17e9eb8af4f8",
+      "detector": "design-system.usage",
+      "excerpt_digest": "f0d8c2afa5539a8cbade6b069b255e600c946055feb6f7ddf3583c7bcffef807",
+      "id": "ev_5fcc1a5226ff26aaff59677e",
+      "location": {
+        "end": 5,
+        "kind": "lines",
+        "start": 5
+      },
+      "object_id": "f3c67b1c95efdbfee696eb0d55934277d7e2e83e",
+      "path": "src/App.tsx",
+      "rule": "design-system.elements"
+    },
+    "ev_62ac7f2741f6478cb004949b": {
+      "commit": null,
+      "content_digest": "7710d1c5c6ba6ea8d460265ef710cb4c52f948f242bec65e52c0a379bb1450d7",
+      "detector": "package-metadata",
+      "excerpt_digest": "4432fe1325bcd7918b7ce08a089e63116c6bef0a37173a57b89ab7a038b5f484",
+      "id": "ev_62ac7f2741f6478cb004949b",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/react-dom"
+      },
+      "object_id": "48bac54efdd07c5e84f25d1b17de1377d85045f9",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_6c4bddbf1263169d05eb989a": {
+      "commit": null,
+      "content_digest": "139fa277b0aee32aea0427029cab76e502b1ece88334dc63d08d17e9eb8af4f8",
+      "detector": "design-system.usage",
+      "excerpt_digest": "9768ebafc826d3740949bed6a5a2dd8500b8cca570de96fee2c7cb9cda3267d9",
+      "id": "ev_6c4bddbf1263169d05eb989a",
+      "location": {
+        "end": 6,
+        "kind": "lines",
+        "start": 6
+      },
+      "object_id": "f3c67b1c95efdbfee696eb0d55934277d7e2e83e",
+      "path": "src/App.tsx",
+      "rule": "design-system.elements"
+    },
+    "ev_6d88f7fbd287f63ae823df0b": {
+      "commit": null,
+      "content_digest": "7710d1c5c6ba6ea8d460265ef710cb4c52f948f242bec65e52c0a379bb1450d7",
+      "detector": "package-metadata",
+      "excerpt_digest": "6a159f5765256123e0a78186d9e3a2f3666ad03f585a10fa10aa77fce88f0eb8",
+      "id": "ev_6d88f7fbd287f63ae823df0b",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/ionicons"
+      },
+      "object_id": "48bac54efdd07c5e84f25d1b17de1377d85045f9",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_7271d6342db061a0da5229f6": {
+      "commit": null,
+      "content_digest": "7710d1c5c6ba6ea8d460265ef710cb4c52f948f242bec65e52c0a379bb1450d7",
+      "detector": "package-metadata",
+      "excerpt_digest": "39fe4a40977d0585fd5704359e3685b0ada5cf5ee061e5d97385601d120cd0ec",
+      "id": "ev_7271d6342db061a0da5229f6",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/version"
+      },
+      "object_id": "48bac54efdd07c5e84f25d1b17de1377d85045f9",
+      "path": "package.json",
+      "rule": "manifest.identity"
+    },
+    "ev_80129043e5cac52bd195eb10": {
+      "commit": null,
+      "content_digest": "7710d1c5c6ba6ea8d460265ef710cb4c52f948f242bec65e52c0a379bb1450d7",
+      "detector": "package-relations",
+      "excerpt_digest": "6a159f5765256123e0a78186d9e3a2f3666ad03f585a10fa10aa77fce88f0eb8",
+      "id": "ev_80129043e5cac52bd195eb10",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/ionicons"
+      },
+      "object_id": "48bac54efdd07c5e84f25d1b17de1377d85045f9",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
+    "ev_89437ca3b819c4494ab265d8": {
+      "commit": null,
+      "content_digest": "7710d1c5c6ba6ea8d460265ef710cb4c52f948f242bec65e52c0a379bb1450d7",
+      "detector": "package-metadata",
+      "excerpt_digest": "4432fe1325bcd7918b7ce08a089e63116c6bef0a37173a57b89ab7a038b5f484",
+      "id": "ev_89437ca3b819c4494ab265d8",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/react"
+      },
+      "object_id": "48bac54efdd07c5e84f25d1b17de1377d85045f9",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_8d768ca5a2120ceb32eb86e1": {
+      "commit": null,
+      "content_digest": "7710d1c5c6ba6ea8d460265ef710cb4c52f948f242bec65e52c0a379bb1450d7",
+      "detector": "package-relations",
+      "excerpt_digest": "39fe4a40977d0585fd5704359e3685b0ada5cf5ee061e5d97385601d120cd0ec",
+      "id": "ev_8d768ca5a2120ceb32eb86e1",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/version"
+      },
+      "object_id": "48bac54efdd07c5e84f25d1b17de1377d85045f9",
+      "path": "package.json",
+      "rule": "packages.produced"
+    },
+    "ev_990b241eeefcbb6d0beca8c2": {
+      "commit": null,
+      "content_digest": "7710d1c5c6ba6ea8d460265ef710cb4c52f948f242bec65e52c0a379bb1450d7",
+      "detector": "package-relations",
+      "excerpt_digest": "0ba8d30e005e44e63e6505798016d986168cd12ffd77f03d158891826b7427ca",
+      "id": "ev_990b241eeefcbb6d0beca8c2",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/@ionic~1react-router"
+      },
+      "object_id": "48bac54efdd07c5e84f25d1b17de1377d85045f9",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
+    "ev_9c7112b934828cb13d96afe8": {
+      "commit": null,
+      "content_digest": "139fa277b0aee32aea0427029cab76e502b1ece88334dc63d08d17e9eb8af4f8",
+      "detector": "design-system.usage",
+      "excerpt_digest": "3f396e115f07da5a1233f33a78dcf5527733e9cfd5ef4183b4c0ab82cd18adf9",
+      "id": "ev_9c7112b934828cb13d96afe8",
+      "location": {
+        "end": 4,
+        "kind": "lines",
+        "start": 4
+      },
+      "object_id": "f3c67b1c95efdbfee696eb0d55934277d7e2e83e",
+      "path": "src/App.tsx",
+      "rule": "design-system.elements"
+    },
+    "ev_b6d28a20258a28f832211732": {
+      "commit": null,
+      "content_digest": "7710d1c5c6ba6ea8d460265ef710cb4c52f948f242bec65e52c0a379bb1450d7",
+      "detector": "tooling",
+      "excerpt_digest": "0ba8d30e005e44e63e6505798016d986168cd12ffd77f03d158891826b7427ca",
+      "id": "ev_b6d28a20258a28f832211732",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/@ionic~1react"
+      },
+      "object_id": "48bac54efdd07c5e84f25d1b17de1377d85045f9",
+      "path": "package.json",
+      "rule": "manifest.framework"
+    },
+    "ev_bb2fc4484276c318aa369844": {
+      "commit": null,
+      "content_digest": "7710d1c5c6ba6ea8d460265ef710cb4c52f948f242bec65e52c0a379bb1450d7",
+      "detector": "package-metadata",
+      "excerpt_digest": "10a78bc9b9f1dccc1117dcc1ea77af96a1fddac573a8b401a217fb86ff89c729",
+      "id": "ev_bb2fc4484276c318aa369844",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/@capacitor~1core"
+      },
+      "object_id": "48bac54efdd07c5e84f25d1b17de1377d85045f9",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_bfe2671d02476620596e2184": {
+      "commit": null,
+      "content_digest": "7710d1c5c6ba6ea8d460265ef710cb4c52f948f242bec65e52c0a379bb1450d7",
+      "detector": "package-relations",
+      "excerpt_digest": "10a78bc9b9f1dccc1117dcc1ea77af96a1fddac573a8b401a217fb86ff89c729",
+      "id": "ev_bfe2671d02476620596e2184",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/@capacitor~1core"
+      },
+      "object_id": "48bac54efdd07c5e84f25d1b17de1377d85045f9",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
+    "ev_c005bdb8dccf0d1eae2627c2": {
+      "commit": null,
+      "content_digest": "7710d1c5c6ba6ea8d460265ef710cb4c52f948f242bec65e52c0a379bb1450d7",
+      "detector": "package-metadata",
+      "excerpt_digest": "0ba8d30e005e44e63e6505798016d986168cd12ffd77f03d158891826b7427ca",
+      "id": "ev_c005bdb8dccf0d1eae2627c2",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/@ionic~1react"
+      },
+      "object_id": "48bac54efdd07c5e84f25d1b17de1377d85045f9",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_c7a3876edab8fe9809c15255": {
+      "commit": null,
+      "content_digest": "7710d1c5c6ba6ea8d460265ef710cb4c52f948f242bec65e52c0a379bb1450d7",
+      "detector": "package-metadata",
+      "excerpt_digest": "0ba8d30e005e44e63e6505798016d986168cd12ffd77f03d158891826b7427ca",
+      "id": "ev_c7a3876edab8fe9809c15255",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/@ionic~1react-router"
+      },
+      "object_id": "48bac54efdd07c5e84f25d1b17de1377d85045f9",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_d15bf521af0cf9937aa65560": {
+      "commit": null,
+      "content_digest": "7710d1c5c6ba6ea8d460265ef710cb4c52f948f242bec65e52c0a379bb1450d7",
+      "detector": "tooling",
+      "excerpt_digest": "4432fe1325bcd7918b7ce08a089e63116c6bef0a37173a57b89ab7a038b5f484",
+      "id": "ev_d15bf521af0cf9937aa65560",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/react"
+      },
+      "object_id": "48bac54efdd07c5e84f25d1b17de1377d85045f9",
+      "path": "package.json",
+      "rule": "manifest.framework"
+    },
+    "ev_dd83b88410eaff19cd3c4a1d": {
+      "commit": null,
+      "content_digest": "7710d1c5c6ba6ea8d460265ef710cb4c52f948f242bec65e52c0a379bb1450d7",
+      "detector": "package-relations",
+      "excerpt_digest": "25db593a98a3eed671b300e600cbb331a4219cf1624c56b9b4ab4e6cfe493642",
+      "id": "ev_dd83b88410eaff19cd3c4a1d",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/name"
+      },
+      "object_id": "48bac54efdd07c5e84f25d1b17de1377d85045f9",
+      "path": "package.json",
+      "rule": "packages.produced"
+    },
+    "ev_fa383c11bc46bc771e9c3851": {
+      "commit": null,
+      "content_digest": "35d4ab0e2576e1a8a11bd1aa77d28f134314917b135db6d675e2c10ce98138cf",
+      "detector": "inventory",
+      "excerpt_digest": "35d4ab0e2576e1a8a11bd1aa77d28f134314917b135db6d675e2c10ce98138cf",
+      "id": "ev_fa383c11bc46bc771e9c3851",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "48bac54efdd07c5e84f25d1b17de1377d85045f9",
+      "path": "package.json",
+      "rule": "inventory.language-by-extension"
+    }
+  },
+  "extensions": [],
+  "inventory": {
+    "bytes": 528,
+    "bytes_read": 528,
+    "entries": 3,
+    "executables": 0,
+    "files": 2,
+    "files_read": 2,
+    "gitlinks": 0,
+    "symlinks": 0
+  },
+  "relationship_references": [
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_990b241eeefcbb6d0beca8c2"
+      ],
+      "id": "ref_1a603bcf37c2c5dc6662c1e7",
+      "identifier": {
+        "name": "@ionic/react-router"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_80129043e5cac52bd195eb10"
+      ],
+      "id": "ref_32f529990d403ff9c7dedef9",
+      "identifier": {
+        "name": "ionicons"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_3568889b9f21c7d1ddd97d05"
+      ],
+      "id": "ref_7feb1042963b1be60c179f1d",
+      "identifier": {
+        "name": "react"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_bfe2671d02476620596e2184"
+      ],
+      "id": "ref_872d92a441c3369ae3fc722d",
+      "identifier": {
+        "name": "@capacitor/core"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_2821377c5e62a4f5708193c5"
+      ],
+      "id": "ref_d402c2d5b9b4111b8f1aa39c",
+      "identifier": {
+        "name": "@ionic/react"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_31309a00682aab2280c9dbd2"
+      ],
+      "id": "ref_ef7ff13524821467533db55c",
+      "identifier": {
+        "name": "react-dom"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    }
+  ],
+  "schema": "repo_facts.fact_document",
+  "schema_version": 3,
+  "service_dependencies": []
+}

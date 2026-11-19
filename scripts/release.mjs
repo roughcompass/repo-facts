@@ -7,13 +7,13 @@
 // result. `publish` refuses a dirty tree, clones HEAD into a temporary
 // directory, installs from the lockfile with scripts disabled, runs every
 // gate there, records provenance in each package, and publishes packages in
-// dependency order to REPO_FACTS_NPM_REGISTRY.
+// dependency order to SURVEYOR_NPM_REGISTRY.
 import { execFileSync, spawnSync } from "node:child_process";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import semver from "semver";
-import { ROOT, authConfig } from "./lib/registry.mjs";
+import { ROOT, authConfig, registryEnvironment } from "./lib/registry.mjs";
 
 const SCOPE = "@repo-facts/";
 
@@ -46,12 +46,12 @@ export function publicationOrder(root) {
 }
 
 const RELEASE_MODULE = path.join("packages", "bundle", "src", "release.ts");
-const releaseModule = (version) => `// Written by \`npm run release:version\`; the lockstep check verifies it matches package.json.\nexport const DETECTOR_RELEASE = ${JSON.stringify(version)};\n`;
+const releaseModule = (version) => `// Written by \`npm run release:version\`; the lockstep check verifies it matches package.json.\nexport const SURVEYOR_RELEASE = ${JSON.stringify(version)};\n`;
 
 /** Problems that make a tree unreleasable at +version+: mixed versions or ranged internal dependencies. */
 export function lockstepProblems(root, version) {
   const problems = [];
-  if (fs.readFileSync(path.join(root, RELEASE_MODULE), "utf8") !== releaseModule(version)) problems.push(`${RELEASE_MODULE} does not declare DETECTOR_RELEASE ${version}`);
+  if (fs.readFileSync(path.join(root, RELEASE_MODULE), "utf8") !== releaseModule(version)) problems.push(`${RELEASE_MODULE} does not declare SURVEYOR_RELEASE ${version}`);
   for (const directory of packageDirectories(root)) {
     const manifest = readJson(path.join(directory, "package.json"));
     if (manifest.version !== version) problems.push(`${manifest.name} is at ${manifest.version}, not ${version}`);
@@ -98,13 +98,13 @@ function packedFiles(directory) {
   return pack.files.map((file) => file.path).sort();
 }
 
-const PUBLISHABLE = /^(dist\/.+\.(js|d\.ts|js\.map|d\.ts\.map)|package\.json|provenance\.json|README\.md|LICENSE)$/;
+const PUBLISHABLE = /^(dist\/.+\.(js|d\.ts|js\.map|d\.ts\.map)|docs\/[a-z-]+\.md|package\.json|provenance\.json|README\.md|LICENSE)$/;
 
 function git(cwd, ...args) {
   return execFileSync("git", args, { cwd, encoding: "utf8" }).trim();
 }
 
-const SNAPSHOT_IDENTITY = ["-c", "user.name=repo-facts dry run", "-c", "user.email=dry-run@repo-facts.invalid"];
+const SNAPSHOT_IDENTITY = ["-c", "user.name=Surveyor dry run", "-c", "user.email=dry-run@surveyor.invalid"];
 
 /**
  * A dry run of uncommitted work checks out a snapshot of the working tree
@@ -128,14 +128,22 @@ function snapshotWorkingTree(root, checkout) {
   return git(checkout, "rev-parse", "HEAD");
 }
 
+/**
+ * The name of the provenance field in each published package.json. It's a
+ * stored name: consumers, such as the Frontend Registry's release check,
+ * read it from installed packages, so it keeps its original spelling.
+ */
+const PROVENANCE_FIELD = "repoFacts";
+
 function publish(root, { dryRun }) {
-  if (!dryRun && !process.env.REPO_FACTS_NPM_REGISTRY) throw new Error("REPO_FACTS_NPM_REGISTRY is not set");
+  const { registry, token } = dryRun ? {} : registryEnvironment();
+  if (!dryRun && !registry) throw new Error("SURVEYOR_NPM_REGISTRY is not set");
   const dirty = git(root, "status", "--porcelain", "--untracked-files=normal");
   const hasHead = spawnSync("git", ["rev-parse", "--verify", "--quiet", "HEAD"], { cwd: root }).status === 0;
   if (!dryRun && dirty) throw new Error(`Refusing to release a dirty tree:\n${dirty}`);
   if (!dryRun && !hasHead) throw new Error("Refusing to release a repository with no commits");
 
-  const checkout = fs.mkdtempSync(path.join(os.tmpdir(), "repo-facts-release-"));
+  const checkout = fs.mkdtempSync(path.join(os.tmpdir(), "surveyor-release-"));
   try {
     let commit;
     if (dirty || !hasHead) {
@@ -165,7 +173,7 @@ function publish(root, { dryRun }) {
       const manifest = readJson(path.join(directory, "package.json"));
       writeJson(path.join(directory, "provenance.json"), { package: manifest.name, version, commit });
       manifest.files = [...new Set([...(manifest.files ?? []), "provenance.json"])];
-      manifest.repoFacts = { commit, release: version };
+      manifest[PROVENANCE_FIELD] = { commit, release: version };
       writeJson(path.join(directory, "package.json"), manifest);
     }
 
@@ -178,12 +186,14 @@ function publish(root, { dryRun }) {
     if (dryRun) {
       for (const { name } of order) console.log(`Would publish ${name}@${version} from ${commit}`);
     } else {
-      const auth = authConfig();
+      const auth = authConfig(registry, token);
+      // The committed .npmrc maps the scope through SURVEYOR_NPM_REGISTRY, which may have come from its deprecated name.
+      const env = { ...process.env, SURVEYOR_NPM_REGISTRY: registry };
       try {
         const tag = semver.prerelease(version) ? "next" : "latest";
         for (const { name, directory } of order) {
           console.log(`Publishing ${name}@${version} (${tag}) from ${commit}`);
-          run(directory, "npm", ["publish", "--tag", tag, "--userconfig", auth.file], { timeout: 2 * MINUTE });
+          run(directory, "npm", ["publish", "--tag", tag, "--userconfig", auth.file], { env, timeout: 2 * MINUTE });
         }
       } finally {
         auth.cleanup();

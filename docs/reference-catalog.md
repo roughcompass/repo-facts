@@ -130,9 +130,20 @@ Versions compare by semantic-version precedence, so `1.76.0-rc.1` comes before `
 
 Surveyor calls `selectEntry` for each thing a repository uses, and the Frontend Registry calls it again with the wanted version each fact document records. If it returns another digest, the repository's recipe has changed and it's surveyed again.
 
+## How Surveyor uses entries
+
+A survey is given entries; Surveyor never downloads them. `analyze(reader, { entries })` from `@repo-facts/bundle` takes every current entry of each described thing, as stored, and defaults to none:
+- **Reading.** Each entry is read with `readEntry`. One in an unsupported format, or one that fails validation, isn't used, and the fact document records an `unsupported_entry_format` or `invalid_entry` diagnostic naming it.
+- **Recognizing.** A design system is recognized by the packages any of its entries list: a manifest declares one, a source file or stylesheet imports one or a theme stylesheet, or a source file renders a provider. With no design-system entries, nothing can be recognized, so `design_systems` stays `unknown` and a `no_catalog_entries` diagnostic says why.
+- **Wanting a version.** For each design system in use, Surveyor works out the version the repository wants, trying the entry's packages in order, so the design system's own package comes first. It takes the highest version any lockfile resolves for the first package one does. Otherwise, for the first package any manifest declares, it takes the highest version among the entries that a declared range allows, or the lowest version the range allows when none does. With neither, no version is wanted.
+- **Selecting.** `selectEntry` picks the entry for that version. The fact document lists it in `catalog_entries`, with the wanted version, and the `design_systems` fact names its version and digest. When every entry is later than the version in use, the fact names no entry, and the design system's code isn't compared.
+- **Comparing.** Components are the exports of the entry's packages, and their props are counted, with values only for props whose entry lists a finite set. Tokens, the token and class prefixes, equivalents, neutral tags and values, property families, and render props all come from the selected entry. Two design systems in one repository are each compared against their own entry.
+
+The fact document is a function of the snapshot, the Surveyor release, its configuration, and the entries supplied. A changed entry changes neither the release nor its configuration digest; a survey with it names its new digest.
+
 ## Styling adapters
 
-The adapter catalog isn't part of the Reference Catalog. It names the styling libraries whose calls carry classes and styles, such as `clsx` and `styled-components`. That's knowledge of third-party tooling that rarely changes and doesn't vary by repository, so it stays compiled into Surveyor. It lives in `packages/design-system/catalogs/adapters.yaml`, and `npm run rules:compile` validates it and writes `src/catalogs.generated.ts`, which is committed and shipped. Its digest is part of the detector configuration.
+The adapter catalog isn't part of the Reference Catalog. It names the styling libraries whose calls carry classes and styles, such as `clsx` and `styled-components`. That's knowledge of third-party tooling that rarely changes and doesn't vary by repository, so it stays compiled into Surveyor. It lives in `packages/design-system/catalogs/adapters.yaml`, and `npm run rules:compile` validates it and writes `src/adapters.generated.ts`, which is committed and shipped. Its digest is part of the detector configuration.
 
 <!-- adapter-fields -->
 | Field | Meaning |

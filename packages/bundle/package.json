@@ -1,7 +1,7 @@
 {
   "name": "@repo-facts/bundle",
   "version": "0.6.0",
-  "description": "One tested set of repo-facts detectors: a detector release",
+  "description": "One tested set of Surveyor detectors: a Surveyor release",
   "license": "UNLICENSED",
   "type": "module",
   "engines": {

@@ -102,16 +102,16 @@ describe("parse-only syntax trees", () => {
     const hostile = [
       `require("node:fs").writeFileSync(${JSON.stringify(sentinel)}, "ran");`,
       `import(${JSON.stringify(`data:text/javascript,require("fs").writeFileSync(${JSON.stringify(sentinel)},"ran")`)});`,
-      `globalThis.__fabricateSyntaxTrap = true;`,
-      `eval("globalThis.__fabricateSyntaxTrap = true");`,
-      `new Function("globalThis.__fabricateSyntaxTrap = true")();`,
+      `globalThis.__surveyorSyntaxTrap = true;`,
+      `eval("globalThis.__surveyorSyntaxTrap = true");`,
+      `new Function("globalThis.__surveyorSyntaxTrap = true")();`,
       `Object.defineProperty(Object.prototype, "polluted", { get() { throw new Error("trap"); } });`,
       `process.exit(97);`,
       `while (true) {}`,
     ].join("\n");
     for (const filePath of ["hostile.js", "hostile.ts", "hostile.tsx"]) expect(parse(filePath, hostile).nodeCount).toBeGreaterThan(20);
     expect(fs.existsSync(sentinel)).toBe(false);
-    expect((globalThis as Record<string, unknown>).__fabricateSyntaxTrap).toBeUndefined();
+    expect((globalThis as Record<string, unknown>).__surveyorSyntaxTrap).toBeUndefined();
     expect(Object.prototype).not.toHaveProperty("polluted");
   });
 
@@ -310,7 +310,7 @@ describe("syntax in detector runs", () => {
       },
     });
 
-    const document = await runDetectors({ reader, detectorRelease: "0.1.0", detectors: [reading("first"), reading("second")] });
+    const document = await runDetectors({ reader, surveyorRelease: "0.1.0", detectors: [reading("first"), reading("second")] });
     expect(seen[0]).toBeInstanceOf(SyntaxTree);
     expect(seen[5]).toBe(seen[0]);
     expect(seen.slice(1, 5)).toEqual([null, null, null, null]);

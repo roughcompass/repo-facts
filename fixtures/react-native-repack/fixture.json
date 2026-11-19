@@ -1,0 +1,3 @@
+{
+  "description": "A React Native super app built with Re.Pack and Rspack: React Native, marked as mobile, and React, and a Module Federation 2 host whose ModuleFederationPluginV2 names its remotes and shared modules."
+}

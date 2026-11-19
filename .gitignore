@@ -4,3 +4,5 @@ tmp/
 coverage/
 *.tsbuildinfo
 .DS_Store
+# Copied from docs/ by `npm run build`; see scripts/package-docs.mjs.
+packages/contract/docs/

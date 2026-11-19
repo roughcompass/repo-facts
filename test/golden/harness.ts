@@ -1,11 +1,16 @@
 import fs from "node:fs";
 import path from "node:path";
-import { type Budgets, type FactDocument, MemoryReader, type MemoryFile, dump, parseCanonical } from "@repo-facts/contract";
+import { type Budgets, type DesignSystemEntry, type FactDocument, MemoryReader, type MemoryFile, dump, parseCanonical } from "@repo-facts/contract";
+import { fixtureEntries } from "../catalog/entries.js";
 
 /**
  * Golden fixtures: small repositories under fixtures/<name>/tree with the
  * complete fact document the bundle must produce in fixtures/<name>/expected.json.
  * fixture.json may set a commit, budgets, and gitlinks (which cannot exist on disk).
+ *
+ * Every fixture is surveyed with the same Reference Catalog entries, those in
+ * test/catalog (Salt 1.50.0 and 1.75.0, and MUI 6.1.0), as the Frontend
+ * Registry supplies every current entry to every survey.
  */
 
 export const FIXTURES = path.resolve(import.meta.dirname, "../../fixtures");
@@ -43,6 +48,11 @@ export function loadFixture(name: string): Fixture {
   }
   for (const [key, commit] of Object.entries(options.gitlinks ?? {})) files[key] = { gitlink: commit };
   return { name, options, files, expectedFile: path.join(directory, "expected.json") };
+}
+
+/** The entries every golden fixture is surveyed with. */
+export function goldenEntries(): DesignSystemEntry[] {
+  return fixtureEntries();
 }
 
 export function readerFor(fixture: Fixture): MemoryReader {

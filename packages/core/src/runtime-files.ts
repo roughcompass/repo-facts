@@ -11,7 +11,7 @@ import { type RuntimeDeclaration, shareRuntimeInputs } from "./runtime.js";
  * `latest` image tag, is passed on as written and becomes a skipped input.
  */
 
-/** Node.js LTS codenames and their major versions, for this detector release. */
+/** Node.js LTS codenames and their major versions, for this Surveyor release. */
 export const NODE_LTS_CODENAMES: Readonly<Record<string, number>> = {
   argon: 4,
   boron: 6,

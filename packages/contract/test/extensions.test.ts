@@ -12,7 +12,7 @@ describe("extension categories", () => {
   it("adds registered extensions after the shared vocabulary, in id order, and records them in the document", async () => {
     const document = await runDetectors({
       reader: reader(),
-      detectorRelease: "0.1.0",
+      surveyorRelease: "0.1.0",
       extensions: [ROUTES, ENTRY_POINTS],
       detectors: [
         detector(async (context) => {
@@ -35,13 +35,13 @@ describe("extension categories", () => {
   });
 
   it("rejects a document with a category it does not register", async () => {
-    const document = structuredClone(await runDetectors({ reader: reader(), detectorRelease: "0.1.0", detectors: [] }));
+    const document = structuredClone(await runDetectors({ reader: reader(), surveyorRelease: "0.1.0", detectors: [] }));
     document.categories["web-doctor.routes"] = structuredClone(document.categories.composition!);
     expect(factDocumentProblems(document)).toContainEqual("categories are not supported: web-doctor.routes");
   });
 
   it("rejects a registered extension that the document omits, and extensions out of order", async () => {
-    const document = structuredClone(await runDetectors({ reader: reader(), detectorRelease: "0.1.0", extensions: [ROUTES, ENTRY_POINTS], detectors: [] }));
+    const document = structuredClone(await runDetectors({ reader: reader(), surveyorRelease: "0.1.0", extensions: [ROUTES, ENTRY_POINTS], detectors: [] }));
     const omitted = structuredClone(document);
     delete omitted.categories["web-doctor.routes"];
     expect(factDocumentProblems(omitted)).toContainEqual("categories are missing: web-doctor.routes");
@@ -51,7 +51,7 @@ describe("extension categories", () => {
   });
 
   it("validates extension state rules from the document alone", async () => {
-    const document = structuredClone(await runDetectors({ reader: reader(), detectorRelease: "0.1.0", extensions: [ENTRY_POINTS], detectors: [] }));
+    const document = structuredClone(await runDetectors({ reader: reader(), surveyorRelease: "0.1.0", extensions: [ENTRY_POINTS], detectors: [] }));
     document.categories["web-doctor.entry_points"]!.state = "absent";
     document.categories["web-doctor.entry_points"]!.search.complete = true;
     expect(factDocumentProblems(document)).toContainEqual("web-doctor.entry_points is absent but its facts and search make it unknown");
@@ -74,7 +74,7 @@ describe("working-tree documents", () => {
   it("records a null commit and evidence without a commit", async () => {
     const document = await runDetectors({
       reader: reader(null),
-      detectorRelease: "0.1.0",
+      surveyorRelease: "0.1.0",
       detectors: [
         detector(async (context) => {
           const content = (await context.text("src/main.ts"))!;
@@ -92,7 +92,7 @@ describe("diagnostics", () => {
   it("never records credentials quoted from repository content", async () => {
     const document = await runDetectors({
       reader: reader(),
-      detectorRelease: "0.1.0",
+      surveyorRelease: "0.1.0",
       detectors: [detector(async (context) => context.diagnostic("package.json", "unsupported_value", "Cannot read git+https://deploy:s3cr3t@git.example.test/sdk.git"))],
     });
     expect(document.diagnostics).toContainEqual({ path: "package.json", reason: "unsupported_value", detail: "Cannot read git+https://[redacted]@git.example.test/sdk.git", detector: "probe" });
@@ -102,7 +102,7 @@ describe("diagnostics", () => {
   it("attributes a shared layer's diagnostic to that layer", async () => {
     const document = await runDetectors({
       reader: reader(),
-      detectorRelease: "0.1.0",
+      surveyorRelease: "0.1.0",
       detectors: [detector(async (context) => context.diagnostic("src/main.ts", "syntax_error", "Line 1: Expression expected.", { detector: "syntax" }))],
     });
     expect(document.diagnostics).toContainEqual(expect.objectContaining({ path: "src/main.ts", detector: "syntax" }));

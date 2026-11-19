@@ -14,7 +14,7 @@ describe("reference reader object identity", () => {
     ["empty", Buffer.alloc(0)],
     ["Unicode", Buffer.from("Grüße, 世界 🌍\n")],
   ])("computes the same blob id as git hash-object for %s bytes", (_name, bytes) => {
-    const file = path.join(fs.mkdtempSync(path.join(os.tmpdir(), "repo-facts-blob-")), "blob");
+    const file = path.join(fs.mkdtempSync(path.join(os.tmpdir(), "surveyor-blob-")), "blob");
     fs.writeFileSync(file, bytes);
     expect(gitBlobId(bytes)).toBe(execFileSync("git", ["hash-object", file], { encoding: "utf8" }).trim());
   });
@@ -29,7 +29,7 @@ describe("reference reader object identity", () => {
       "src/app.test.ts": "import './app';\n",
       "docs/link": { symlink: "../README.md" },
     };
-    const root = fs.mkdtempSync(path.join(os.tmpdir(), "repo-facts-tree-"));
+    const root = fs.mkdtempSync(path.join(os.tmpdir(), "surveyor-tree-"));
     for (const [file, content] of Object.entries(files)) {
       const target = path.join(root, file);
       fs.mkdirSync(path.dirname(target), { recursive: true });

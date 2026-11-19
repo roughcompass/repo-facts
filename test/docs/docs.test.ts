@@ -10,7 +10,7 @@ import { compileRules, ruleDetector } from "@repo-facts/syntax";
 const ROOT = path.resolve(import.meta.dirname, "../..");
 const DOCS = path.join(ROOT, "docs");
 const EXAMPLES = path.join(DOCS, "examples");
-const update = process.env.REPO_FACTS_UPDATE_EXAMPLES === "1";
+const update = process.env.SURVEYOR_UPDATE_EXAMPLES === "1";
 
 const ROUTES: CategoryDefinition = { id: "example.routes", label: "Routes", group: "Application", boundedNegative: true, description: "Client routes declared in source" };
 
@@ -37,7 +37,7 @@ async function example(extensions: CategoryDefinition[] = []) {
       }
     },
   };
-  return runDetectors({ reader, detectorRelease: "0.1.0", detectors: [detector], extensions });
+  return runDetectors({ reader, surveyorRelease: "0.1.0", detectors: [detector], extensions });
 }
 
 const EXPECTED: Record<string, () => Promise<unknown>> = {
@@ -84,7 +84,7 @@ describe("documentation", () => {
     const sourcePath = /<!-- example-source: (\S+) -->/.exec(doc)![1]!;
     const reader = MemoryReader.fromFiles({ [sourcePath]: block("<!-- example-source:", "ts") });
     const detector = ruleDetector({ id: "example-rules", version: "1", stage: "architecture", rules: compiled.rules, sources: () => [sourcePath] });
-    const document = await runDetectors({ reader, detectorRelease: "0.1.0", detectors: [detector] });
+    const document = await runDetectors({ reader, surveyorRelease: "0.1.0", detectors: [detector] });
     const facts = document.categories.composition!.facts.map((fact) => ({ key: fact.key, value: fact.value }));
     expect(facts).toEqual(JSON.parse(block("<!-- example-facts -->", "json")));
   });

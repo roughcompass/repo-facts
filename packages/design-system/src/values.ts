@@ -1,5 +1,6 @@
 import { type ComponentValue, type CssDeclaration, type CssToken, parseStylesheet } from "@repo-facts/syntax";
-import { type Catalog, TOKEN_CAPABLE_FAMILIES } from "./catalog-schema.js";
+import type { Catalog } from "./catalog.js";
+import { TOKEN_CAPABLE_FAMILIES } from "./catalog-schema.js";
 import type { IndexedDeclaration, StyleIndex, StyleSource } from "./styles.js";
 
 /**
@@ -69,14 +70,14 @@ export class ValueClassifier {
   private readonly tokens: ReadonlyMap<string, string>;
   private readonly aliasSteps = new Map<string, { steps: number; systems: Set<string>; aliases: Set<string> } | null>();
 
-  /** Families and neutral values come from +primary+; tokens from every catalog in +catalogs+. */
+  /** Families and neutral values come from +primary+, when there is one; tokens from every catalog in +catalogs+. */
   constructor(
-    primary: Catalog,
+    primary: Catalog | null,
     catalogs: readonly Catalog[],
     private readonly index: StyleIndex,
   ) {
-    for (const [family, properties] of Object.entries(primary.property_families)) for (const property of properties) this.families.set(property, family);
-    this.neutral = new Set(primary.neutral_values.map((value) => value.toLowerCase()));
+    for (const [family, properties] of Object.entries(primary?.property_families ?? {})) for (const property of properties) this.families.set(property, family);
+    this.neutral = new Set((primary?.neutral_values ?? []).map((value) => value.toLowerCase()));
     this.tokens = new Map(catalogs.flatMap((catalog) => catalog.tokens.map((token) => [token, catalog.id] as const)));
   }
 

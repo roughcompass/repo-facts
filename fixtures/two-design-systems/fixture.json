@@ -1,0 +1,3 @@
+{
+  "description": "An application that uses two design systems, Salt and MUI, each resolved by the lockfile and compared against its own Reference Catalog entry: components, props with finite values, a raw <button> that both could replace, and tokens of each, one unknown to MUI."
+}

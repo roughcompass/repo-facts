@@ -30,7 +30,7 @@ const LIFECYCLES = ["bootstrap", "mount", "unmount"];
 
 export const compositionDetector: Detector = {
   id: "composition",
-  version: "3",
+  version: "4",
   stage: "architecture",
   inputs: ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx", "**/*.mjs", "**/*.cjs", "**/*.html", "**/importmap.json"],
   categories: ["composition", "runtime_integrations"],
@@ -41,7 +41,7 @@ export const compositionDetector: Detector = {
 
     const rules = ruleDetector({
       id: "composition",
-      version: "3",
+      version: "4",
       stage: "architecture",
       rules: RULES,
       sources: (inner) => inventoryOf(inner).sources,

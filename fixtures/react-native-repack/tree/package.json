@@ -1,0 +1,13 @@
+{
+  "name": "super-app",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "react": "18.3.1",
+    "react-native": "0.76.5"
+  },
+  "devDependencies": {
+    "@callstack/repack": "5.0.0",
+    "@rspack/core": "1.1.8"
+  }
+}

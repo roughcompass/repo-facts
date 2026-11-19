@@ -1,6 +1,6 @@
 import crypto from "node:crypto";
 import { dump } from "../canonical-json.js";
-import { type FactCandidate, type ReferenceCandidate, SKIPPED_INPUT_REASONS, type SearchRecord, type ServiceCandidate, type ServiceFactCandidate } from "../detectors/contract.js";
+import { type CatalogEntryRecord, type FactCandidate, type ReferenceCandidate, SKIPPED_INPUT_REASONS, type SearchRecord, type ServiceCandidate, type ServiceFactCandidate } from "../detectors/contract.js";
 import type { Evidence } from "../evidence.js";
 import { compareCodeUnits } from "../reader/policy.js";
 import type { SourceReader } from "../reader/types.js";
@@ -50,11 +50,13 @@ export interface Findings {
   searches: SearchRecord[];
   services: ServiceCandidate[];
   references: ReferenceCandidate[];
+  /** The Reference Catalog entries facts were compared against; absent from findings built before version 3. */
+  catalogEntries?: CatalogEntryRecord[];
   diagnostics: DocumentDiagnostic[];
 }
 
 export interface ReconcileOptions {
-  detectorRelease: string;
+  surveyorRelease: string;
   /** Extension categories the consumer registered for this run. */
   extensions?: readonly CategoryDefinition[];
 }
@@ -123,12 +125,13 @@ export function reconcileFacts(findings: Findings, reader: SourceReader, options
   const document: FactDocument = {
     schema: FACT_DOCUMENT_SCHEMA,
     schema_version: FACT_DOCUMENT_VERSION,
-    detector_release: options.detectorRelease,
+    detector_release: options.surveyorRelease,
     commit: reader.commit,
     extensions: definitions.slice(SHARED_CATEGORIES.length).map((definition) => ({ id: definition.id, bounded_negative: definition.boundedNegative })),
     categories,
     service_dependencies: services,
     relationship_references: references,
+    catalog_entries: [...new Map((findings.catalogEntries ?? []).map((record) => [stableStringify(record as unknown as Value), record])).values()].sort((a, b) => compareCodeUnits(a.kind, b.kind) || compareCodeUnits(a.id, b.id)),
     evidence: Object.fromEntries([...evidence.entries()].sort(([a], [b]) => compareCodeUnits(a, b))),
     diagnostics: uniqueDiagnostics(diagnostics),
     inventory: {

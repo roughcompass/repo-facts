@@ -290,7 +290,7 @@ describe("rule detectors", () => {
       },
       { commit: "a".repeat(40) },
     );
-    const document = await runDetectors({ reader, detectorRelease: "0.1.0", detectors: [detector((_context, match) => void ("signal" in match.rule.emit && signals.push(`${match.rule.id}:${match.tree.path}`)))] });
+    const document = await runDetectors({ reader, surveyorRelease: "0.1.0", detectors: [detector((_context, match) => void ("signal" in match.rule.emit && signals.push(`${match.rule.id}:${match.tree.path}`)))] });
     expect(factDocumentProblems(document)).toEqual([]);
     const composition = document.categories.composition!;
     expect(composition.facts.map((fact) => [fact.key, fact.value])).toEqual([

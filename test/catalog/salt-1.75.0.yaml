@@ -1,16 +1,19 @@
-# The Salt design system catalog. See docs/reference-catalog.md.
+# A test fixture: the Salt design system catalog that releases up to 0.6.0
+# compiled in, which test/catalog/entries.ts converts to a Reference Catalog
+# entry for Salt 1.75.0. See docs/reference-catalog.md.
 #
-# `node scripts/catalog-salt.mjs <node_modules>` rewrites the generated
-# sections from installed packages: generated_from, the components of
-# @salt-ds/core, and tokens. Every other section is curated here.
+# `node scripts/catalog-salt.mjs <node_modules> <this file>` rewrites the
+# generated sections from installed packages: generated_from, the components
+# of @salt-ds/core, and tokens. The other catalog sections are the curated
+# ones, which the Catalog Builder's rules (catalog-rules/salt.yaml) now hold.
 format: 1
 id: salt
 name: Salt
 version: 1.0.0
 # Generated: the package versions the components and tokens were read from.
 generated_from:
-  "@salt-ds/core": 1.50.0
-  "@salt-ds/theme": 1.33.0
+  "@salt-ds/core": 1.75.0
+  "@salt-ds/theme": 1.48.0
 packages:
   # Generated: the components @salt-ds/core exports.
   - name: "@salt-ds/core"
@@ -28,8 +31,15 @@ packages:
       - BannerContent
       - BorderItem
       - BorderLayout
+      - Breadcrumb
+      - BreadcrumbLabel
+      - BreadcrumbTrigger
+      - Breadcrumbs
       - Button
       - Card
+      - CardContent
+      - CardFooter
+      - CardHeader
       - Checkbox
       - CheckboxGroup
       - CheckboxIcon
@@ -54,7 +64,17 @@ packages:
       - Divider
       - Drawer
       - DrawerCloseButton
+      - DrawerContent
+      - DrawerFooter
+      - DrawerHeader
       - Dropdown
+      - Editorial1
+      - Editorial2
+      - Editorial3
+      - Editorial4
+      - Editorial5
+      - Editorial6
+      - Eyebrow
       - FileDropZone
       - FileDropZoneIcon
       - FileDropZoneTrigger
@@ -76,11 +96,24 @@ packages:
       - Input
       - InteractableCard
       - InteractableCardGroup
+      - Kbd
       - Label
       - LinearProgress
       - Link
+      - LinkButton
       - LinkCard
       - ListBox
+      - MegaMenu
+      - MegaMenuActions
+      - MegaMenuAside
+      - MegaMenuContent
+      - MegaMenuGroup
+      - MegaMenuGroupHeading
+      - MegaMenuGroups
+      - MegaMenuList
+      - MegaMenuListItem
+      - MegaMenuPanel
+      - MegaMenuTrigger
       - Menu
       - MenuGroup
       - MenuItem
@@ -88,9 +121,11 @@ packages:
       - MenuTrigger
       - MultilineInput
       - NavigationItem
-      - Option
+      - NumberInput
+      - OnSolidButton
       - OptionGroup
       - Overlay
+      - OverlayFooter
       - OverlayHeader
       - OverlayPanel
       - OverlayPanelCloseButton
@@ -101,15 +136,24 @@ packages:
       - Panel
       - ParentChildLayout
       - Pill
+      - PillGroup
       - RadioButton
       - RadioButtonGroup
       - RadioButtonIcon
       - RangeSlider
+      - Rating
       - SaltProvider
       - SaltProviderNext
       - Scrim
       - SegmentedButtonGroup
       - SemanticIconProvider
+      - SidePanel
+      - SidePanelCloseButton
+      - SidePanelContent
+      - SidePanelHeader
+      - SidePanelProvider
+      - SidePanelTitle
+      - SidePanelTrigger
       - SkipLink
       - Slider
       - Spinner
@@ -120,6 +164,21 @@ packages:
       - Step
       - Stepper
       - Switch
+      - TBody
+      - TD
+      - TFoot
+      - TH
+      - THead
+      - TR
+      - Tab
+      - TabAction
+      - TabBar
+      - TabList
+      - TabPanel
+      - TabTrigger
+      - Table
+      - TableContainer
+      - Tabs
       - Tag
       - Text
       - TextAction
@@ -128,7 +187,17 @@ packages:
       - ToastContent
       - ToggleButton
       - ToggleButtonGroup
+      - Toggletip
+      - ToggletipPanel
+      - ToggletipTrigger
+      - Toolbar
+      - ToolbarContent
       - Tooltip
+      - Tooltray
+      - Tree
+      - TreeNode
+      - TreeNodeLabel
+      - TreeNodeTrigger
       - VerticalNavigation
       - VerticalNavigationItem
       - VerticalNavigationItemContent
@@ -343,6 +412,7 @@ tokens:
   - --salt-actionable-accented-background-active
   - --salt-actionable-accented-background-disabled
   - --salt-actionable-accented-background-hover
+  - --salt-actionable-accented-background-selected
   - --salt-actionable-accented-bold-background
   - --salt-actionable-accented-bold-background-active
   - --salt-actionable-accented-bold-background-disabled
@@ -359,10 +429,12 @@ tokens:
   - --salt-actionable-accented-borderColor-active
   - --salt-actionable-accented-borderColor-disabled
   - --salt-actionable-accented-borderColor-hover
+  - --salt-actionable-accented-borderColor-selected
   - --salt-actionable-accented-foreground
   - --salt-actionable-accented-foreground-active
   - --salt-actionable-accented-foreground-disabled
   - --salt-actionable-accented-foreground-hover
+  - --salt-actionable-accented-foreground-selected
   - --salt-actionable-accented-subtle-background
   - --salt-actionable-accented-subtle-background-active
   - --salt-actionable-accented-subtle-background-disabled
@@ -379,6 +451,7 @@ tokens:
   - --salt-actionable-background-active
   - --salt-actionable-background-disabled
   - --salt-actionable-background-hover
+  - --salt-actionable-background-selected
   - --salt-actionable-bold-background
   - --salt-actionable-bold-background-active
   - --salt-actionable-bold-background-disabled
@@ -395,10 +468,12 @@ tokens:
   - --salt-actionable-borderColor-active
   - --salt-actionable-borderColor-disabled
   - --salt-actionable-borderColor-hover
+  - --salt-actionable-borderColor-selected
   - --salt-actionable-caution-background
   - --salt-actionable-caution-background-active
   - --salt-actionable-caution-background-disabled
   - --salt-actionable-caution-background-hover
+  - --salt-actionable-caution-background-selected
   - --salt-actionable-caution-bold-background
   - --salt-actionable-caution-bold-background-active
   - --salt-actionable-caution-bold-background-disabled
@@ -415,10 +490,12 @@ tokens:
   - --salt-actionable-caution-borderColor-active
   - --salt-actionable-caution-borderColor-disabled
   - --salt-actionable-caution-borderColor-hover
+  - --salt-actionable-caution-borderColor-selected
   - --salt-actionable-caution-foreground
   - --salt-actionable-caution-foreground-active
   - --salt-actionable-caution-foreground-disabled
   - --salt-actionable-caution-foreground-hover
+  - --salt-actionable-caution-foreground-selected
   - --salt-actionable-caution-subtle-background
   - --salt-actionable-caution-subtle-background-active
   - --salt-actionable-caution-subtle-background-disabled
@@ -451,11 +528,13 @@ tokens:
   - --salt-actionable-foreground-active
   - --salt-actionable-foreground-disabled
   - --salt-actionable-foreground-hover
+  - --salt-actionable-foreground-selected
   - --salt-actionable-letterSpacing
   - --salt-actionable-negative-background
   - --salt-actionable-negative-background-active
   - --salt-actionable-negative-background-disabled
   - --salt-actionable-negative-background-hover
+  - --salt-actionable-negative-background-selected
   - --salt-actionable-negative-bold-background
   - --salt-actionable-negative-bold-background-active
   - --salt-actionable-negative-bold-background-disabled
@@ -472,10 +551,12 @@ tokens:
   - --salt-actionable-negative-borderColor-active
   - --salt-actionable-negative-borderColor-disabled
   - --salt-actionable-negative-borderColor-hover
+  - --salt-actionable-negative-borderColor-selected
   - --salt-actionable-negative-foreground
   - --salt-actionable-negative-foreground-active
   - --salt-actionable-negative-foreground-disabled
   - --salt-actionable-negative-foreground-hover
+  - --salt-actionable-negative-foreground-selected
   - --salt-actionable-negative-subtle-background
   - --salt-actionable-negative-subtle-background-active
   - --salt-actionable-negative-subtle-background-disabled
@@ -488,10 +569,20 @@ tokens:
   - --salt-actionable-negative-subtle-foreground-active
   - --salt-actionable-negative-subtle-foreground-disabled
   - --salt-actionable-negative-subtle-foreground-hover
+  - --salt-actionable-onSolid-subtle-background
+  - --salt-actionable-onSolid-subtle-background-active
+  - --salt-actionable-onSolid-subtle-background-hover
+  - --salt-actionable-onSolid-subtle-borderColor
+  - --salt-actionable-onSolid-subtle-borderColor-active
+  - --salt-actionable-onSolid-subtle-borderColor-hover
+  - --salt-actionable-onSolid-subtle-foreground
+  - --salt-actionable-onSolid-subtle-foreground-active
+  - --salt-actionable-onSolid-subtle-foreground-hover
   - --salt-actionable-positive-background
   - --salt-actionable-positive-background-active
   - --salt-actionable-positive-background-disabled
   - --salt-actionable-positive-background-hover
+  - --salt-actionable-positive-background-selected
   - --salt-actionable-positive-bold-background
   - --salt-actionable-positive-bold-background-active
   - --salt-actionable-positive-bold-background-disabled
@@ -508,10 +599,12 @@ tokens:
   - --salt-actionable-positive-borderColor-active
   - --salt-actionable-positive-borderColor-disabled
   - --salt-actionable-positive-borderColor-hover
+  - --salt-actionable-positive-borderColor-selected
   - --salt-actionable-positive-foreground
   - --salt-actionable-positive-foreground-active
   - --salt-actionable-positive-foreground-disabled
   - --salt-actionable-positive-foreground-hover
+  - --salt-actionable-positive-foreground-selected
   - --salt-actionable-positive-subtle-background
   - --salt-actionable-positive-subtle-background-active
   - --salt-actionable-positive-subtle-background-disabled
@@ -587,124 +680,222 @@ tokens:
   - --salt-borderStyle-dashed
   - --salt-borderStyle-dotted
   - --salt-borderStyle-solid
+  - --salt-category-1-background
   - --salt-category-1-bold-background
   - --salt-category-1-bold-foreground
+  - --salt-category-1-borderColor
+  - --salt-category-1-dataviz
+  - --salt-category-1-foreground
   - --salt-category-1-subtle-background
   - --salt-category-1-subtle-borderColor
   - --salt-category-1-subtle-foreground
+  - --salt-category-10-background
   - --salt-category-10-bold-background
   - --salt-category-10-bold-foreground
+  - --salt-category-10-borderColor
+  - --salt-category-10-dataviz
+  - --salt-category-10-foreground
   - --salt-category-10-subtle-background
   - --salt-category-10-subtle-borderColor
   - --salt-category-10-subtle-foreground
+  - --salt-category-11-background
   - --salt-category-11-bold-background
   - --salt-category-11-bold-foreground
+  - --salt-category-11-borderColor
+  - --salt-category-11-dataviz
+  - --salt-category-11-foreground
   - --salt-category-11-subtle-background
   - --salt-category-11-subtle-borderColor
   - --salt-category-11-subtle-foreground
+  - --salt-category-12-background
   - --salt-category-12-bold-background
   - --salt-category-12-bold-foreground
+  - --salt-category-12-borderColor
+  - --salt-category-12-dataviz
+  - --salt-category-12-foreground
   - --salt-category-12-subtle-background
   - --salt-category-12-subtle-borderColor
   - --salt-category-12-subtle-foreground
+  - --salt-category-13-background
   - --salt-category-13-bold-background
   - --salt-category-13-bold-foreground
+  - --salt-category-13-borderColor
+  - --salt-category-13-dataviz
+  - --salt-category-13-foreground
   - --salt-category-13-subtle-background
   - --salt-category-13-subtle-borderColor
   - --salt-category-13-subtle-foreground
+  - --salt-category-14-background
   - --salt-category-14-bold-background
   - --salt-category-14-bold-foreground
+  - --salt-category-14-borderColor
+  - --salt-category-14-dataviz
+  - --salt-category-14-foreground
   - --salt-category-14-subtle-background
   - --salt-category-14-subtle-borderColor
   - --salt-category-14-subtle-foreground
+  - --salt-category-15-background
   - --salt-category-15-bold-background
   - --salt-category-15-bold-foreground
+  - --salt-category-15-borderColor
+  - --salt-category-15-dataviz
+  - --salt-category-15-foreground
   - --salt-category-15-subtle-background
   - --salt-category-15-subtle-borderColor
   - --salt-category-15-subtle-foreground
+  - --salt-category-16-background
   - --salt-category-16-bold-background
   - --salt-category-16-bold-foreground
+  - --salt-category-16-borderColor
+  - --salt-category-16-dataviz
+  - --salt-category-16-foreground
   - --salt-category-16-subtle-background
   - --salt-category-16-subtle-borderColor
   - --salt-category-16-subtle-foreground
+  - --salt-category-17-background
   - --salt-category-17-bold-background
   - --salt-category-17-bold-foreground
+  - --salt-category-17-borderColor
+  - --salt-category-17-dataviz
+  - --salt-category-17-foreground
   - --salt-category-17-subtle-background
   - --salt-category-17-subtle-borderColor
   - --salt-category-17-subtle-foreground
+  - --salt-category-18-background
   - --salt-category-18-bold-background
   - --salt-category-18-bold-foreground
+  - --salt-category-18-borderColor
+  - --salt-category-18-dataviz
+  - --salt-category-18-foreground
   - --salt-category-18-subtle-background
   - --salt-category-18-subtle-borderColor
   - --salt-category-18-subtle-foreground
+  - --salt-category-19-background
   - --salt-category-19-bold-background
   - --salt-category-19-bold-foreground
+  - --salt-category-19-borderColor
+  - --salt-category-19-dataviz
+  - --salt-category-19-foreground
   - --salt-category-19-subtle-background
   - --salt-category-19-subtle-borderColor
   - --salt-category-19-subtle-foreground
+  - --salt-category-2-background
   - --salt-category-2-bold-background
   - --salt-category-2-bold-foreground
+  - --salt-category-2-borderColor
+  - --salt-category-2-dataviz
+  - --salt-category-2-foreground
   - --salt-category-2-subtle-background
   - --salt-category-2-subtle-borderColor
   - --salt-category-2-subtle-foreground
+  - --salt-category-20-background
   - --salt-category-20-bold-background
   - --salt-category-20-bold-foreground
+  - --salt-category-20-borderColor
+  - --salt-category-20-dataviz
+  - --salt-category-20-foreground
   - --salt-category-20-subtle-background
   - --salt-category-20-subtle-borderColor
   - --salt-category-20-subtle-foreground
+  - --salt-category-3-background
   - --salt-category-3-bold-background
   - --salt-category-3-bold-foreground
+  - --salt-category-3-borderColor
+  - --salt-category-3-dataviz
+  - --salt-category-3-foreground
   - --salt-category-3-subtle-background
   - --salt-category-3-subtle-borderColor
   - --salt-category-3-subtle-foreground
+  - --salt-category-4-background
   - --salt-category-4-bold-background
   - --salt-category-4-bold-foreground
+  - --salt-category-4-borderColor
+  - --salt-category-4-dataviz
+  - --salt-category-4-foreground
   - --salt-category-4-subtle-background
   - --salt-category-4-subtle-borderColor
   - --salt-category-4-subtle-foreground
+  - --salt-category-5-background
   - --salt-category-5-bold-background
   - --salt-category-5-bold-foreground
+  - --salt-category-5-borderColor
+  - --salt-category-5-dataviz
+  - --salt-category-5-foreground
   - --salt-category-5-subtle-background
   - --salt-category-5-subtle-borderColor
   - --salt-category-5-subtle-foreground
+  - --salt-category-6-background
   - --salt-category-6-bold-background
   - --salt-category-6-bold-foreground
+  - --salt-category-6-borderColor
+  - --salt-category-6-dataviz
+  - --salt-category-6-foreground
   - --salt-category-6-subtle-background
   - --salt-category-6-subtle-borderColor
   - --salt-category-6-subtle-foreground
+  - --salt-category-7-background
   - --salt-category-7-bold-background
   - --salt-category-7-bold-foreground
+  - --salt-category-7-borderColor
+  - --salt-category-7-dataviz
+  - --salt-category-7-foreground
   - --salt-category-7-subtle-background
   - --salt-category-7-subtle-borderColor
   - --salt-category-7-subtle-foreground
+  - --salt-category-8-background
   - --salt-category-8-bold-background
   - --salt-category-8-bold-foreground
+  - --salt-category-8-borderColor
+  - --salt-category-8-dataviz
+  - --salt-category-8-foreground
   - --salt-category-8-subtle-background
   - --salt-category-8-subtle-borderColor
   - --salt-category-8-subtle-foreground
+  - --salt-category-9-background
   - --salt-category-9-bold-background
   - --salt-category-9-bold-foreground
+  - --salt-category-9-borderColor
+  - --salt-category-9-dataviz
+  - --salt-category-9-foreground
   - --salt-category-9-subtle-background
   - --salt-category-9-subtle-borderColor
   - --salt-category-9-subtle-foreground
   - --salt-color-aqua-100
+  - --salt-color-aqua-100-rgb
   - --salt-color-aqua-200
+  - --salt-color-aqua-200-rgb
   - --salt-color-aqua-300
+  - --salt-color-aqua-300-rgb
   - --salt-color-aqua-400
+  - --salt-color-aqua-400-rgb
   - --salt-color-aqua-500
+  - --salt-color-aqua-500-rgb
   - --salt-color-aqua-600
+  - --salt-color-aqua-600-rgb
   - --salt-color-aqua-700
+  - --salt-color-aqua-700-rgb
   - --salt-color-aqua-800
+  - --salt-color-aqua-800-rgb
   - --salt-color-aqua-900
+  - --salt-color-aqua-900-rgb
   - --salt-color-autumn-100
+  - --salt-color-autumn-100-rgb
   - --salt-color-autumn-200
+  - --salt-color-autumn-200-rgb
   - --salt-color-autumn-300
+  - --salt-color-autumn-300-rgb
   - --salt-color-autumn-400
+  - --salt-color-autumn-400-rgb
   - --salt-color-autumn-500
+  - --salt-color-autumn-500-rgb
   - --salt-color-autumn-600
+  - --salt-color-autumn-600-rgb
   - --salt-color-autumn-700
+  - --salt-color-autumn-700-rgb
   - --salt-color-autumn-800
+  - --salt-color-autumn-800-rgb
   - --salt-color-autumn-900
+  - --salt-color-autumn-900-rgb
   - --salt-color-background-gradientlight
   - --salt-color-background-gradientlight-rgb
   - --salt-color-background-granite
@@ -728,6 +919,7 @@ tokens:
   - --salt-color-background-titanium
   - --salt-color-background-titanium-rgb
   - --salt-color-black
+  - --salt-color-black-0a
   - --salt-color-black-10a
   - --salt-color-black-15a
   - --salt-color-black-20a
@@ -807,6 +999,8 @@ tokens:
   - --salt-color-brown-300-rgb
   - --salt-color-brown-400
   - --salt-color-brown-400-rgb
+  - --salt-color-brown-450
+  - --salt-color-brown-450-rgb
   - --salt-color-brown-500
   - --salt-color-brown-500-rgb
   - --salt-color-brown-600
@@ -818,59 +1012,209 @@ tokens:
   - --salt-color-brown-900
   - --salt-color-brown-900-rgb
   - --salt-color-cider-100
+  - --salt-color-cider-100-rgb
   - --salt-color-cider-200
+  - --salt-color-cider-200-rgb
   - --salt-color-cider-300
+  - --salt-color-cider-300-rgb
   - --salt-color-cider-400
+  - --salt-color-cider-400-rgb
   - --salt-color-cider-500
+  - --salt-color-cider-500-rgb
   - --salt-color-cider-600
+  - --salt-color-cider-600-rgb
   - --salt-color-cider-700
+  - --salt-color-cider-700-rgb
   - --salt-color-cider-800
+  - --salt-color-cider-800-rgb
   - --salt-color-cider-900
+  - --salt-color-cider-900-rgb
   - --salt-color-citrine-100
+  - --salt-color-citrine-100-rgb
   - --salt-color-citrine-200
+  - --salt-color-citrine-200-rgb
   - --salt-color-citrine-300
+  - --salt-color-citrine-300-rgb
   - --salt-color-citrine-400
+  - --salt-color-citrine-400-rgb
+  - --salt-color-citrine-450
+  - --salt-color-citrine-450-rgb
   - --salt-color-citrine-500
+  - --salt-color-citrine-500-rgb
   - --salt-color-citrine-600
+  - --salt-color-citrine-600-rgb
   - --salt-color-citrine-700
+  - --salt-color-citrine-700-rgb
   - --salt-color-citrine-800
+  - --salt-color-citrine-800-rgb
   - --salt-color-citrine-900
+  - --salt-color-citrine-900-rgb
+  - --salt-color-clay-100
+  - --salt-color-clay-100-rgb
+  - --salt-color-clay-200
+  - --salt-color-clay-200-rgb
+  - --salt-color-clay-300
+  - --salt-color-clay-300-rgb
+  - --salt-color-clay-400
+  - --salt-color-clay-400-rgb
+  - --salt-color-clay-450
+  - --salt-color-clay-450-rgb
+  - --salt-color-clay-500
+  - --salt-color-clay-500-rgb
+  - --salt-color-clay-600
+  - --salt-color-clay-600-rgb
+  - --salt-color-clay-700
+  - --salt-color-clay-700-rgb
+  - --salt-color-clay-800
+  - --salt-color-clay-800-rgb
+  - --salt-color-clay-900
+  - --salt-color-clay-900-rgb
+  - --salt-color-clementine-100
+  - --salt-color-clementine-100-rgb
+  - --salt-color-clementine-200
+  - --salt-color-clementine-200-rgb
+  - --salt-color-clementine-300
+  - --salt-color-clementine-300-rgb
+  - --salt-color-clementine-400
+  - --salt-color-clementine-400-rgb
+  - --salt-color-clementine-450
+  - --salt-color-clementine-450-rgb
+  - --salt-color-clementine-500
+  - --salt-color-clementine-500-rgb
+  - --salt-color-clementine-600
+  - --salt-color-clementine-600-rgb
+  - --salt-color-clementine-700
+  - --salt-color-clementine-700-rgb
+  - --salt-color-clementine-800
+  - --salt-color-clementine-800-rgb
+  - --salt-color-clementine-900
+  - --salt-color-clementine-900-rgb
   - --salt-color-cobalt-100
+  - --salt-color-cobalt-100-rgb
   - --salt-color-cobalt-200
+  - --salt-color-cobalt-200-rgb
   - --salt-color-cobalt-300
+  - --salt-color-cobalt-300-rgb
   - --salt-color-cobalt-400
+  - --salt-color-cobalt-400-rgb
+  - --salt-color-cobalt-450
+  - --salt-color-cobalt-450-rgb
   - --salt-color-cobalt-500
+  - --salt-color-cobalt-500-rgb
   - --salt-color-cobalt-600
+  - --salt-color-cobalt-600-rgb
   - --salt-color-cobalt-700
+  - --salt-color-cobalt-700-rgb
   - --salt-color-cobalt-800
+  - --salt-color-cobalt-800-rgb
   - --salt-color-cobalt-900
+  - --salt-color-cobalt-900-rgb
+  - --salt-color-dove-100
+  - --salt-color-dove-100-rgb
+  - --salt-color-dove-200
+  - --salt-color-dove-200-rgb
+  - --salt-color-dove-300
+  - --salt-color-dove-300-rgb
+  - --salt-color-dove-400
+  - --salt-color-dove-400-rgb
+  - --salt-color-dove-500
+  - --salt-color-dove-500-10a
+  - --salt-color-dove-500-40a
+  - --salt-color-dove-500-rgb
+  - --salt-color-dove-600
+  - --salt-color-dove-600-rgb
+  - --salt-color-dove-700
+  - --salt-color-dove-700-40a
+  - --salt-color-dove-700-rgb
+  - --salt-color-dove-800
+  - --salt-color-dove-800-rgb
+  - --salt-color-dove-900
+  - --salt-color-dove-900-10a
+  - --salt-color-dove-900-15a
+  - --salt-color-dove-900-20a
+  - --salt-color-dove-900-30a
+  - --salt-color-dove-900-40a
+  - --salt-color-dove-900-50a
+  - --salt-color-dove-900-5a
+  - --salt-color-dove-900-65a
+  - --salt-color-dove-900-80a
+  - --salt-color-dove-900-rgb
+  - --salt-color-emerald-100
+  - --salt-color-emerald-100-rgb
+  - --salt-color-emerald-200
+  - --salt-color-emerald-200-rgb
+  - --salt-color-emerald-300
+  - --salt-color-emerald-300-rgb
+  - --salt-color-emerald-400
+  - --salt-color-emerald-400-rgb
+  - --salt-color-emerald-450
+  - --salt-color-emerald-450-rgb
+  - --salt-color-emerald-500
+  - --salt-color-emerald-500-rgb
+  - --salt-color-emerald-600
+  - --salt-color-emerald-600-rgb
+  - --salt-color-emerald-700
+  - --salt-color-emerald-700-rgb
+  - --salt-color-emerald-800
+  - --salt-color-emerald-800-rgb
+  - --salt-color-emerald-900
+  - --salt-color-emerald-900-rgb
   - --salt-color-forest-100
+  - --salt-color-forest-100-rgb
   - --salt-color-forest-200
+  - --salt-color-forest-200-rgb
   - --salt-color-forest-300
+  - --salt-color-forest-300-rgb
   - --salt-color-forest-400
+  - --salt-color-forest-400-rgb
   - --salt-color-forest-500
+  - --salt-color-forest-500-rgb
   - --salt-color-forest-600
+  - --salt-color-forest-600-rgb
   - --salt-color-forest-700
+  - --salt-color-forest-700-rgb
   - --salt-color-forest-800
+  - --salt-color-forest-800-rgb
   - --salt-color-forest-900
+  - --salt-color-forest-900-rgb
   - --salt-color-fuchsia-100
+  - --salt-color-fuchsia-100-rgb
   - --salt-color-fuchsia-200
+  - --salt-color-fuchsia-200-rgb
   - --salt-color-fuchsia-300
+  - --salt-color-fuchsia-300-rgb
   - --salt-color-fuchsia-400
+  - --salt-color-fuchsia-400-rgb
+  - --salt-color-fuchsia-450
+  - --salt-color-fuchsia-450-rgb
   - --salt-color-fuchsia-500
+  - --salt-color-fuchsia-500-rgb
   - --salt-color-fuchsia-600
+  - --salt-color-fuchsia-600-rgb
   - --salt-color-fuchsia-700
+  - --salt-color-fuchsia-700-rgb
   - --salt-color-fuchsia-800
+  - --salt-color-fuchsia-800-rgb
   - --salt-color-fuchsia-900
+  - --salt-color-fuchsia-900-rgb
   - --salt-color-fur-100
+  - --salt-color-fur-100-rgb
   - --salt-color-fur-200
+  - --salt-color-fur-200-rgb
   - --salt-color-fur-300
+  - --salt-color-fur-300-rgb
   - --salt-color-fur-400
+  - --salt-color-fur-400-rgb
   - --salt-color-fur-500
+  - --salt-color-fur-500-rgb
   - --salt-color-fur-600
+  - --salt-color-fur-600-rgb
   - --salt-color-fur-700
+  - --salt-color-fur-700-rgb
   - --salt-color-fur-800
+  - --salt-color-fur-800-rgb
   - --salt-color-fur-900
+  - --salt-color-fur-900-rgb
   - --salt-color-gray-10
   - --salt-color-gray-10-rgb
   - --salt-color-gray-100
@@ -947,7 +1291,15 @@ tokens:
   - --salt-color-gray-90-fade-foreground
   - --salt-color-gray-90-rgb
   - --salt-color-gray-900
+  - --salt-color-gray-900-10a
+  - --salt-color-gray-900-15a
+  - --salt-color-gray-900-20a
+  - --salt-color-gray-900-30a
   - --salt-color-gray-900-40a
+  - --salt-color-gray-900-50a
+  - --salt-color-gray-900-5a
+  - --salt-color-gray-900-65a
+  - --salt-color-gray-900-80a
   - --salt-color-gray-900-fade-foreground
   - --salt-color-gray-900-rgb
   - --salt-color-green-10
@@ -993,61 +1345,134 @@ tokens:
   - --salt-color-green-900
   - --salt-color-green-900-rgb
   - --salt-color-indigo-100
+  - --salt-color-indigo-100-rgb
   - --salt-color-indigo-200
+  - --salt-color-indigo-200-rgb
   - --salt-color-indigo-300
+  - --salt-color-indigo-300-rgb
   - --salt-color-indigo-400
+  - --salt-color-indigo-400-rgb
+  - --salt-color-indigo-450
+  - --salt-color-indigo-450-rgb
   - --salt-color-indigo-500
+  - --salt-color-indigo-500-rgb
   - --salt-color-indigo-600
+  - --salt-color-indigo-600-rgb
   - --salt-color-indigo-700
+  - --salt-color-indigo-700-rgb
   - --salt-color-indigo-800
+  - --salt-color-indigo-800-rgb
   - --salt-color-indigo-900
+  - --salt-color-indigo-900-rgb
   - --salt-color-jade-100
+  - --salt-color-jade-100-rgb
   - --salt-color-jade-200
+  - --salt-color-jade-200-rgb
   - --salt-color-jade-300
+  - --salt-color-jade-300-rgb
   - --salt-color-jade-400
+  - --salt-color-jade-400-rgb
   - --salt-color-jade-500
+  - --salt-color-jade-500-rgb
   - --salt-color-jade-600
+  - --salt-color-jade-600-rgb
   - --salt-color-jade-700
+  - --salt-color-jade-700-rgb
   - --salt-color-jade-800
+  - --salt-color-jade-800-rgb
   - --salt-color-jade-900
+  - --salt-color-jade-900-rgb
+  - --salt-color-jet
+  - --salt-color-jet-40a
+  - --salt-color-jet-91
+  - --salt-color-jet-91-40a
+  - --salt-color-jet-91-rgb
+  - --salt-color-jet-95
+  - --salt-color-jet-95-40a
+  - --salt-color-jet-95-rgb
+  - --salt-color-jet-rgb
+  - --salt-color-jpmBrown
+  - --salt-color-jpmBrown-rgb
   - --salt-color-lavender-100
+  - --salt-color-lavender-100-rgb
   - --salt-color-lavender-200
+  - --salt-color-lavender-200-rgb
   - --salt-color-lavender-300
+  - --salt-color-lavender-300-rgb
   - --salt-color-lavender-400
+  - --salt-color-lavender-400-rgb
+  - --salt-color-lavender-450
+  - --salt-color-lavender-450-rgb
   - --salt-color-lavender-500
+  - --salt-color-lavender-500-rgb
   - --salt-color-lavender-600
+  - --salt-color-lavender-600-rgb
   - --salt-color-lavender-700
+  - --salt-color-lavender-700-rgb
   - --salt-color-lavender-800
+  - --salt-color-lavender-800-rgb
   - --salt-color-lavender-900
+  - --salt-color-lavender-900-rgb
   - --salt-color-lime-100
+  - --salt-color-lime-100-rgb
   - --salt-color-lime-200
+  - --salt-color-lime-200-rgb
   - --salt-color-lime-300
+  - --salt-color-lime-300-rgb
   - --salt-color-lime-400
+  - --salt-color-lime-400-rgb
+  - --salt-color-lime-450
+  - --salt-color-lime-450-rgb
   - --salt-color-lime-500
+  - --salt-color-lime-500-rgb
   - --salt-color-lime-600
+  - --salt-color-lime-600-rgb
   - --salt-color-lime-700
+  - --salt-color-lime-700-rgb
   - --salt-color-lime-800
+  - --salt-color-lime-800-rgb
   - --salt-color-lime-900
+  - --salt-color-lime-900-rgb
   - --salt-color-logo-brown
   - --salt-color-logo-brown-rgb
   - --salt-color-ocean-100
+  - --salt-color-ocean-100-rgb
   - --salt-color-ocean-200
+  - --salt-color-ocean-200-rgb
   - --salt-color-ocean-300
+  - --salt-color-ocean-300-rgb
   - --salt-color-ocean-400
+  - --salt-color-ocean-400-rgb
   - --salt-color-ocean-500
+  - --salt-color-ocean-500-rgb
   - --salt-color-ocean-600
+  - --salt-color-ocean-600-rgb
   - --salt-color-ocean-700
+  - --salt-color-ocean-700-rgb
   - --salt-color-ocean-800
+  - --salt-color-ocean-800-rgb
   - --salt-color-ocean-900
+  - --salt-color-ocean-900-rgb
   - --salt-color-olive-100
+  - --salt-color-olive-100-rgb
   - --salt-color-olive-200
+  - --salt-color-olive-200-rgb
   - --salt-color-olive-300
+  - --salt-color-olive-300-rgb
   - --salt-color-olive-400
+  - --salt-color-olive-400-rgb
+  - --salt-color-olive-450
+  - --salt-color-olive-450-rgb
   - --salt-color-olive-500
+  - --salt-color-olive-500-rgb
   - --salt-color-olive-600
+  - --salt-color-olive-600-rgb
   - --salt-color-olive-700
+  - --salt-color-olive-700-rgb
   - --salt-color-olive-800
+  - --salt-color-olive-800-rgb
   - --salt-color-olive-900
+  - --salt-color-olive-900-rgb
   - --salt-color-orange-10
   - --salt-color-orange-10-rgb
   - --salt-color-orange-100
@@ -1095,14 +1520,23 @@ tokens:
   - --salt-color-orange-900
   - --salt-color-orange-900-rgb
   - --salt-color-plum-100
+  - --salt-color-plum-100-rgb
   - --salt-color-plum-200
+  - --salt-color-plum-200-rgb
   - --salt-color-plum-300
+  - --salt-color-plum-300-rgb
   - --salt-color-plum-400
+  - --salt-color-plum-400-rgb
   - --salt-color-plum-500
+  - --salt-color-plum-500-rgb
   - --salt-color-plum-600
+  - --salt-color-plum-600-rgb
   - --salt-color-plum-700
+  - --salt-color-plum-700-rgb
   - --salt-color-plum-800
+  - --salt-color-plum-800-rgb
   - --salt-color-plum-900
+  - --salt-color-plum-900-rgb
   - --salt-color-purple-10
   - --salt-color-purple-10-rgb
   - --salt-color-purple-100
@@ -1131,6 +1565,26 @@ tokens:
   - --salt-color-purple-800-rgb
   - --salt-color-purple-900
   - --salt-color-purple-900-rgb
+  - --salt-color-quartz-100
+  - --salt-color-quartz-100-rgb
+  - --salt-color-quartz-200
+  - --salt-color-quartz-200-rgb
+  - --salt-color-quartz-300
+  - --salt-color-quartz-300-rgb
+  - --salt-color-quartz-400
+  - --salt-color-quartz-400-rgb
+  - --salt-color-quartz-450
+  - --salt-color-quartz-450-rgb
+  - --salt-color-quartz-500
+  - --salt-color-quartz-500-rgb
+  - --salt-color-quartz-600
+  - --salt-color-quartz-600-rgb
+  - --salt-color-quartz-700
+  - --salt-color-quartz-700-rgb
+  - --salt-color-quartz-800
+  - --salt-color-quartz-800-rgb
+  - --salt-color-quartz-900
+  - --salt-color-quartz-900-rgb
   - --salt-color-red-10
   - --salt-color-red-10-rgb
   - --salt-color-red-100
@@ -1171,41 +1625,128 @@ tokens:
   - --salt-color-red-900
   - --salt-color-red-900-rgb
   - --salt-color-rose-100
+  - --salt-color-rose-100-rgb
   - --salt-color-rose-200
+  - --salt-color-rose-200-rgb
   - --salt-color-rose-300
+  - --salt-color-rose-300-rgb
   - --salt-color-rose-400
+  - --salt-color-rose-400-rgb
+  - --salt-color-rose-450
+  - --salt-color-rose-450-rgb
   - --salt-color-rose-500
+  - --salt-color-rose-500-rgb
   - --salt-color-rose-600
+  - --salt-color-rose-600-rgb
   - --salt-color-rose-700
+  - --salt-color-rose-700-rgb
   - --salt-color-rose-800
+  - --salt-color-rose-800-rgb
   - --salt-color-rose-900
+  - --salt-color-rose-900-rgb
+  - --salt-color-ruby-100
+  - --salt-color-ruby-100-rgb
+  - --salt-color-ruby-200
+  - --salt-color-ruby-200-rgb
+  - --salt-color-ruby-300
+  - --salt-color-ruby-300-rgb
+  - --salt-color-ruby-400
+  - --salt-color-ruby-400-rgb
+  - --salt-color-ruby-450
+  - --salt-color-ruby-450-rgb
+  - --salt-color-ruby-500
+  - --salt-color-ruby-500-rgb
+  - --salt-color-ruby-600
+  - --salt-color-ruby-600-rgb
+  - --salt-color-ruby-700
+  - --salt-color-ruby-700-rgb
+  - --salt-color-ruby-800
+  - --salt-color-ruby-800-rgb
+  - --salt-color-ruby-900
+  - --salt-color-ruby-900-rgb
   - --salt-color-salmon-100
+  - --salt-color-salmon-100-rgb
   - --salt-color-salmon-200
+  - --salt-color-salmon-200-rgb
   - --salt-color-salmon-300
+  - --salt-color-salmon-300-rgb
   - --salt-color-salmon-400
+  - --salt-color-salmon-400-rgb
+  - --salt-color-salmon-450
+  - --salt-color-salmon-450-rgb
   - --salt-color-salmon-500
+  - --salt-color-salmon-500-rgb
   - --salt-color-salmon-600
+  - --salt-color-salmon-600-rgb
   - --salt-color-salmon-700
+  - --salt-color-salmon-700-rgb
   - --salt-color-salmon-800
+  - --salt-color-salmon-800-rgb
   - --salt-color-salmon-900
+  - --salt-color-salmon-900-rgb
+  - --salt-color-sapphire-100
+  - --salt-color-sapphire-100-rgb
+  - --salt-color-sapphire-200
+  - --salt-color-sapphire-200-rgb
+  - --salt-color-sapphire-300
+  - --salt-color-sapphire-300-rgb
+  - --salt-color-sapphire-400
+  - --salt-color-sapphire-400-rgb
+  - --salt-color-sapphire-450
+  - --salt-color-sapphire-450-rgb
+  - --salt-color-sapphire-500
+  - --salt-color-sapphire-500-rgb
+  - --salt-color-sapphire-600
+  - --salt-color-sapphire-600-rgb
+  - --salt-color-sapphire-700
+  - --salt-color-sapphire-700-rgb
+  - --salt-color-sapphire-800
+  - --salt-color-sapphire-800-rgb
+  - --salt-color-sapphire-900
+  - --salt-color-sapphire-900-rgb
   - --salt-color-slate-100
+  - --salt-color-slate-100-rgb
   - --salt-color-slate-200
+  - --salt-color-slate-200-rgb
   - --salt-color-slate-300
+  - --salt-color-slate-300-rgb
   - --salt-color-slate-400
+  - --salt-color-slate-400-rgb
+  - --salt-color-slate-450
+  - --salt-color-slate-450-rgb
   - --salt-color-slate-500
+  - --salt-color-slate-500-rgb
   - --salt-color-slate-600
+  - --salt-color-slate-600-rgb
   - --salt-color-slate-700
+  - --salt-color-slate-700-rgb
   - --salt-color-slate-800
+  - --salt-color-slate-800-rgb
   - --salt-color-slate-900
+  - --salt-color-slate-900-rgb
   - --salt-color-smoke-100
+  - --salt-color-smoke-100-rgb
   - --salt-color-smoke-200
+  - --salt-color-smoke-200-rgb
   - --salt-color-smoke-300
+  - --salt-color-smoke-300-rgb
   - --salt-color-smoke-400
+  - --salt-color-smoke-400-rgb
+  - --salt-color-smoke-450
+  - --salt-color-smoke-450-rgb
   - --salt-color-smoke-500
+  - --salt-color-smoke-500-rgb
   - --salt-color-smoke-600
+  - --salt-color-smoke-600-rgb
   - --salt-color-smoke-700
+  - --salt-color-smoke-700-rgb
   - --salt-color-smoke-800
+  - --salt-color-smoke-800-rgb
   - --salt-color-smoke-900
+  - --salt-color-smoke-900-rgb
+  - --salt-color-snow
+  - --salt-color-snow-40a
+  - --salt-color-snow-rgb
   - --salt-color-teal-10
   - --salt-color-teal-10-rgb
   - --salt-color-teal-100
@@ -1241,16 +1782,59 @@ tokens:
   - --salt-color-teal-800-rgb
   - --salt-color-teal-900
   - --salt-color-teal-900-rgb
+  - --salt-color-topaz-100
+  - --salt-color-topaz-100-rgb
+  - --salt-color-topaz-200
+  - --salt-color-topaz-200-40a
+  - --salt-color-topaz-200-rgb
+  - --salt-color-topaz-300
+  - --salt-color-topaz-300-rgb
+  - --salt-color-topaz-400
+  - --salt-color-topaz-400-rgb
+  - --salt-color-topaz-450
+  - --salt-color-topaz-450-rgb
+  - --salt-color-topaz-500
+  - --salt-color-topaz-500-0a
+  - --salt-color-topaz-500-40a
+  - --salt-color-topaz-500-rgb
+  - --salt-color-topaz-600
+  - --salt-color-topaz-600-rgb
+  - --salt-color-topaz-700
+  - --salt-color-topaz-700-rgb
+  - --salt-color-topaz-800
+  - --salt-color-topaz-800-40a
+  - --salt-color-topaz-800-rgb
+  - --salt-color-topaz-900
+  - --salt-color-topaz-900-rgb
+  - --salt-color-transparent
   - --salt-color-violet-100
+  - --salt-color-violet-100-rgb
   - --salt-color-violet-200
+  - --salt-color-violet-200-rgb
   - --salt-color-violet-300
+  - --salt-color-violet-300-rgb
   - --salt-color-violet-400
+  - --salt-color-violet-400-rgb
+  - --salt-color-violet-450
+  - --salt-color-violet-450-rgb
   - --salt-color-violet-500
+  - --salt-color-violet-500-rgb
   - --salt-color-violet-600
+  - --salt-color-violet-600-rgb
   - --salt-color-violet-700
+  - --salt-color-violet-700-rgb
   - --salt-color-violet-800
+  - --salt-color-violet-800-rgb
   - --salt-color-violet-900
+  - --salt-color-violet-900-rgb
+  - --salt-color-wheat-15
+  - --salt-color-wheat-15-40a
+  - --salt-color-wheat-15-rgb
+  - --salt-color-wheat-25
+  - --salt-color-wheat-25-40a
+  - --salt-color-wheat-25-rgb
   - --salt-color-white
+  - --salt-color-white-0a
   - --salt-color-white-10a
   - --salt-color-white-15a
   - --salt-color-white-20a
@@ -1275,9 +1859,14 @@ tokens:
   - --salt-color-white-fade-separatorOpacity-secondary
   - --salt-color-white-fade-separatorOpacity-tertiary
   - --salt-color-white-rgb
+  - --salt-container-bold-borderColor
+  - --salt-container-bold-borderColor-disabled
+  - --salt-container-borderColor
   - --salt-container-borderStyle
   - --salt-container-ghost-background
+  - --salt-container-ghost-bold-borderColor
   - --salt-container-ghost-borderColor
+  - --salt-container-ghost-subtle-borderColor
   - --salt-container-primary-background
   - --salt-container-primary-background-disabled
   - --salt-container-primary-borderColor
@@ -1286,6 +1875,7 @@ tokens:
   - --salt-container-secondary-background-disabled
   - --salt-container-secondary-borderColor
   - --salt-container-secondary-borderColor-disabled
+  - --salt-container-subtle-borderColor
   - --salt-container-tertiary-background
   - --salt-container-tertiary-background-disabled
   - --salt-container-tertiary-borderColor
@@ -1294,6 +1884,7 @@ tokens:
   - --salt-content-attention-foreground
   - --salt-content-bold-foreground
   - --salt-content-bold-foreground-disabled
+  - --salt-content-brand-foreground
   - --salt-content-foreground-active
   - --salt-content-foreground-highlight
   - --salt-content-foreground-hover
@@ -1317,6 +1908,7 @@ tokens:
   - --salt-curve-150
   - --salt-curve-200
   - --salt-curve-250
+  - --salt-curve-300
   - --salt-curve-50
   - --salt-curve-999
   - --salt-delay-cutoff
@@ -1335,6 +1927,7 @@ tokens:
   - --salt-duration-instant
   - --salt-duration-notable
   - --salt-duration-perceptible
+  - --salt-editable-background-readonly
   - --salt-editable-borderColor
   - --salt-editable-borderColor-active
   - --salt-editable-borderColor-disabled
@@ -1366,6 +1959,7 @@ tokens:
   - --salt-editable-tertiary-background-disabled
   - --salt-editable-tertiary-background-hover
   - --salt-editable-tertiary-background-readonly
+  - --salt-focused-onSolid-outlineColor
   - --salt-focused-outline
   - --salt-focused-outlineColor
   - --salt-focused-outlineInset
@@ -1374,6 +1968,8 @@ tokens:
   - --salt-focused-outlineWidth
   - --salt-icon-size-base
   - --salt-icon-size-status-adornment
+  - --salt-layout-gap
+  - --salt-layout-page-margin
   - --salt-measured-background
   - --salt-measured-background-disabled
   - --salt-measured-borderColor
@@ -1460,6 +2056,11 @@ tokens:
   - --salt-palette-accent-foreground-disabled
   - --salt-palette-accent-foreground-informative
   - --salt-palette-accent-foreground-informative-disabled
+  - --salt-palette-accent-high
+  - --salt-palette-accent-lower
+  - --salt-palette-accent-lowest
+  - --salt-palette-accent-medium
+  - --salt-palette-accent-mediumHigh
   - --salt-palette-accent-strong
   - --salt-palette-accent-strong-disabled
   - --salt-palette-accent-stronger
@@ -1480,9 +2081,27 @@ tokens:
   - --salt-palette-alpha-contrast-medium
   - --salt-palette-alpha-contrast-mediumHigh
   - --salt-palette-alpha-contrast-mediumLow
+  - --salt-palette-alpha-dark-high
+  - --salt-palette-alpha-dark-higher
+  - --salt-palette-alpha-dark-highest
+  - --salt-palette-alpha-dark-low
+  - --salt-palette-alpha-dark-lower
+  - --salt-palette-alpha-dark-lowest
+  - --salt-palette-alpha-dark-medium
+  - --salt-palette-alpha-dark-mediumHigh
+  - --salt-palette-alpha-dark-mediumLow
   - --salt-palette-alpha-high
   - --salt-palette-alpha-higher
   - --salt-palette-alpha-highest
+  - --salt-palette-alpha-light-high
+  - --salt-palette-alpha-light-higher
+  - --salt-palette-alpha-light-highest
+  - --salt-palette-alpha-light-low
+  - --salt-palette-alpha-light-lower
+  - --salt-palette-alpha-light-lowest
+  - --salt-palette-alpha-light-medium
+  - --salt-palette-alpha-light-mediumHigh
+  - --salt-palette-alpha-light-mediumLow
   - --salt-palette-alpha-low
   - --salt-palette-alpha-lower
   - --salt-palette-alpha-lowest
@@ -1499,64 +2118,146 @@ tokens:
   - --salt-palette-background-secondary-disabled
   - --salt-palette-background-tertiary
   - --salt-palette-background-tertiary-disabled
+  - --salt-palette-brand-mediumHigh
+  - --salt-palette-brand-strong
   - --salt-palette-categorical-1
+  - --salt-palette-categorical-1-dataviz
+  - --salt-palette-categorical-1-lowest
+  - --salt-palette-categorical-1-medium
+  - --salt-palette-categorical-1-mediumHigh
   - --salt-palette-categorical-1-strong
   - --salt-palette-categorical-1-weakest
   - --salt-palette-categorical-10
+  - --salt-palette-categorical-10-dataviz
+  - --salt-palette-categorical-10-lowest
+  - --salt-palette-categorical-10-medium
+  - --salt-palette-categorical-10-mediumHigh
   - --salt-palette-categorical-10-strong
   - --salt-palette-categorical-10-weakest
   - --salt-palette-categorical-11
+  - --salt-palette-categorical-11-dataviz
+  - --salt-palette-categorical-11-lowest
+  - --salt-palette-categorical-11-medium
+  - --salt-palette-categorical-11-mediumHigh
   - --salt-palette-categorical-11-strong
   - --salt-palette-categorical-11-weakest
   - --salt-palette-categorical-12
+  - --salt-palette-categorical-12-dataviz
+  - --salt-palette-categorical-12-lowest
+  - --salt-palette-categorical-12-medium
+  - --salt-palette-categorical-12-mediumHigh
   - --salt-palette-categorical-12-strong
   - --salt-palette-categorical-12-weakest
   - --salt-palette-categorical-13
+  - --salt-palette-categorical-13-dataviz
+  - --salt-palette-categorical-13-lowest
+  - --salt-palette-categorical-13-medium
+  - --salt-palette-categorical-13-mediumHigh
   - --salt-palette-categorical-13-strong
   - --salt-palette-categorical-13-weakest
   - --salt-palette-categorical-14
+  - --salt-palette-categorical-14-dataviz
+  - --salt-palette-categorical-14-lowest
+  - --salt-palette-categorical-14-medium
+  - --salt-palette-categorical-14-mediumHigh
   - --salt-palette-categorical-14-strong
   - --salt-palette-categorical-14-weakest
   - --salt-palette-categorical-15
+  - --salt-palette-categorical-15-dataviz
+  - --salt-palette-categorical-15-lowest
+  - --salt-palette-categorical-15-medium
+  - --salt-palette-categorical-15-mediumHigh
   - --salt-palette-categorical-15-strong
   - --salt-palette-categorical-15-weakest
   - --salt-palette-categorical-16
+  - --salt-palette-categorical-16-dataviz
+  - --salt-palette-categorical-16-lowest
+  - --salt-palette-categorical-16-medium
+  - --salt-palette-categorical-16-mediumHigh
   - --salt-palette-categorical-16-strong
   - --salt-palette-categorical-16-weakest
   - --salt-palette-categorical-17
+  - --salt-palette-categorical-17-dataviz
+  - --salt-palette-categorical-17-lowest
+  - --salt-palette-categorical-17-medium
+  - --salt-palette-categorical-17-mediumHigh
   - --salt-palette-categorical-17-strong
   - --salt-palette-categorical-17-weakest
   - --salt-palette-categorical-18
+  - --salt-palette-categorical-18-dataviz
+  - --salt-palette-categorical-18-lowest
+  - --salt-palette-categorical-18-medium
+  - --salt-palette-categorical-18-mediumHigh
   - --salt-palette-categorical-18-strong
   - --salt-palette-categorical-18-weakest
   - --salt-palette-categorical-19
+  - --salt-palette-categorical-19-dataviz
+  - --salt-palette-categorical-19-lowest
+  - --salt-palette-categorical-19-medium
+  - --salt-palette-categorical-19-mediumHigh
   - --salt-palette-categorical-19-strong
   - --salt-palette-categorical-19-weakest
   - --salt-palette-categorical-2
+  - --salt-palette-categorical-2-dataviz
+  - --salt-palette-categorical-2-lowest
+  - --salt-palette-categorical-2-medium
+  - --salt-palette-categorical-2-mediumHigh
   - --salt-palette-categorical-2-strong
   - --salt-palette-categorical-2-weakest
   - --salt-palette-categorical-20
+  - --salt-palette-categorical-20-dataviz
+  - --salt-palette-categorical-20-lowest
+  - --salt-palette-categorical-20-medium
+  - --salt-palette-categorical-20-mediumHigh
   - --salt-palette-categorical-20-strong
   - --salt-palette-categorical-20-weakest
   - --salt-palette-categorical-3
+  - --salt-palette-categorical-3-dataviz
+  - --salt-palette-categorical-3-lowest
+  - --salt-palette-categorical-3-medium
+  - --salt-palette-categorical-3-mediumHigh
   - --salt-palette-categorical-3-strong
   - --salt-palette-categorical-3-weakest
   - --salt-palette-categorical-4
+  - --salt-palette-categorical-4-dataviz
+  - --salt-palette-categorical-4-lowest
+  - --salt-palette-categorical-4-medium
+  - --salt-palette-categorical-4-mediumHigh
   - --salt-palette-categorical-4-strong
   - --salt-palette-categorical-4-weakest
   - --salt-palette-categorical-5
+  - --salt-palette-categorical-5-dataviz
+  - --salt-palette-categorical-5-lowest
+  - --salt-palette-categorical-5-medium
+  - --salt-palette-categorical-5-mediumHigh
   - --salt-palette-categorical-5-strong
   - --salt-palette-categorical-5-weakest
   - --salt-palette-categorical-6
+  - --salt-palette-categorical-6-dataviz
+  - --salt-palette-categorical-6-lowest
+  - --salt-palette-categorical-6-medium
+  - --salt-palette-categorical-6-mediumHigh
   - --salt-palette-categorical-6-strong
   - --salt-palette-categorical-6-weakest
   - --salt-palette-categorical-7
+  - --salt-palette-categorical-7-dataviz
+  - --salt-palette-categorical-7-lowest
+  - --salt-palette-categorical-7-medium
+  - --salt-palette-categorical-7-mediumHigh
   - --salt-palette-categorical-7-strong
   - --salt-palette-categorical-7-weakest
   - --salt-palette-categorical-8
+  - --salt-palette-categorical-8-dataviz
+  - --salt-palette-categorical-8-lowest
+  - --salt-palette-categorical-8-medium
+  - --salt-palette-categorical-8-mediumHigh
   - --salt-palette-categorical-8-strong
   - --salt-palette-categorical-8-weakest
   - --salt-palette-categorical-9
+  - --salt-palette-categorical-9-dataviz
+  - --salt-palette-categorical-9-lowest
+  - --salt-palette-categorical-9-medium
+  - --salt-palette-categorical-9-mediumHigh
   - --salt-palette-categorical-9-strong
   - --salt-palette-categorical-9-weakest
   - --salt-palette-corner
@@ -1594,6 +2295,9 @@ tokens:
   - --salt-palette-info-foreground-decorative
   - --salt-palette-info-foreground-disabled
   - --salt-palette-info-foreground-informative
+  - --salt-palette-info-lowest
+  - --salt-palette-info-medium
+  - --salt-palette-info-mediumHigh
   - --salt-palette-info-strong
   - --salt-palette-info-weak
   - --salt-palette-info-weakest
@@ -1660,6 +2364,9 @@ tokens:
   - --salt-palette-measured-foreground-active
   - --salt-palette-measured-foreground-activeDisabled
   - --salt-palette-measured-foreground-disabled
+  - --salt-palette-monochrome-contrast
+  - --salt-palette-monochrome-contrast-disabled
+  - --salt-palette-monochrome-light
   - --salt-palette-navigate-background-hover
   - --salt-palette-navigate-foreground-active
   - --salt-palette-navigate-foreground-hover
@@ -1688,8 +2395,14 @@ tokens:
   - --salt-palette-negative-disabled
   - --salt-palette-negative-foreground
   - --salt-palette-negative-foreground-disabled
+  - --salt-palette-negative-high
+  - --salt-palette-negative-lower
+  - --salt-palette-negative-lowest
+  - --salt-palette-negative-medium
+  - --salt-palette-negative-mediumHigh
   - --salt-palette-negative-strong
   - --salt-palette-negative-strong-disabled
+  - --salt-palette-negative-stronger
   - --salt-palette-negative-weak
   - --salt-palette-negative-weaker
   - --salt-palette-negative-weakest
@@ -1697,10 +2410,19 @@ tokens:
   - --salt-palette-neutral-action-active
   - --salt-palette-neutral-action-hover
   - --salt-palette-neutral-backdrop
+  - --salt-palette-neutral-background
   - --salt-palette-neutral-border
   - --salt-palette-neutral-border-disabled
   - --salt-palette-neutral-disabled
+  - --salt-palette-neutral-high
+  - --salt-palette-neutral-high-disabled
   - --salt-palette-neutral-highlight
+  - --salt-palette-neutral-lower
+  - --salt-palette-neutral-lowest
+  - --salt-palette-neutral-medium
+  - --salt-palette-neutral-medium-disabled
+  - --salt-palette-neutral-medium-readonly
+  - --salt-palette-neutral-mediumHigh
   - --salt-palette-neutral-primary-background
   - --salt-palette-neutral-primary-background-disabled
   - --salt-palette-neutral-primary-background-readonly
@@ -1759,8 +2481,14 @@ tokens:
   - --salt-palette-positive-disabled
   - --salt-palette-positive-foreground
   - --salt-palette-positive-foreground-disabled
+  - --salt-palette-positive-high
+  - --salt-palette-positive-lower
+  - --salt-palette-positive-lowest
+  - --salt-palette-positive-medium
+  - --salt-palette-positive-mediumHigh
   - --salt-palette-positive-strong
   - --salt-palette-positive-strong-disabled
+  - --salt-palette-positive-stronger
   - --salt-palette-positive-weak
   - --salt-palette-positive-weaker
   - --salt-palette-positive-weakest
@@ -1816,8 +2544,14 @@ tokens:
   - --salt-palette-warning-foreground-disabled
   - --salt-palette-warning-foreground-informative
   - --salt-palette-warning-foreground-informative-disabled
+  - --salt-palette-warning-high
+  - --salt-palette-warning-lower
+  - --salt-palette-warning-lowest
+  - --salt-palette-warning-medium
+  - --salt-palette-warning-mediumHigh
   - --salt-palette-warning-strong
   - --salt-palette-warning-strong-disabled
+  - --salt-palette-warning-stronger
   - --salt-palette-warning-weak
   - --salt-palette-warning-weaker
   - --salt-palette-warning-weakest
@@ -1879,10 +2613,19 @@ tokens:
   - --salt-selectable-secondary-foreground-hover
   - --salt-selectable-secondary-foreground-selected
   - --salt-selectable-secondary-foreground-selectedDisabled
+  - --salt-sentiment-accent-background
+  - --salt-sentiment-accent-background-disabled
+  - --salt-sentiment-accent-borderColor
+  - --salt-sentiment-accent-dataviz
+  - --salt-sentiment-caution-dataviz
+  - --salt-sentiment-negative-dataviz
   - --salt-sentiment-negative-foreground-decorative
   - --salt-sentiment-negative-foreground-informative
+  - --salt-sentiment-neutral-background
+  - --salt-sentiment-neutral-dataviz
   - --salt-sentiment-neutral-track
   - --salt-sentiment-neutral-track-disabled
+  - --salt-sentiment-positive-dataviz
   - --salt-sentiment-positive-foreground-decorative
   - --salt-sentiment-positive-foreground-informative
   - --salt-separable-background
@@ -1916,6 +2659,11 @@ tokens:
   - --salt-shadow-5-color
   - --salt-shadow-500
   - --salt-shadow-500-color
+  - --salt-shadow-low
+  - --salt-shadow-lower
+  - --salt-shadow-lowest
+  - --salt-shadow-medium
+  - --salt-shadow-mediumLow
   - --salt-size-accent
   - --salt-size-adornment
   - --salt-size-adornmentGap
@@ -1977,6 +2725,9 @@ tokens:
   - --salt-spacing-900
   - --salt-spacing-950
   - --salt-spacing-fixed-100
+  - --salt-spacing-fixed-1000
+  - --salt-spacing-fixed-1100
+  - --salt-spacing-fixed-1200
   - --salt-spacing-fixed-200
   - --salt-spacing-fixed-300
   - --salt-spacing-fixed-400
@@ -2049,13 +2800,27 @@ tokens:
   - --salt-target-cursor-disabled
   - --salt-text-action-fontFamily
   - --salt-text-action-fontWeight
+  - --salt-text-action-fontWeight-bolder
+  - --salt-text-action-fontWeight-lighter
   - --salt-text-action-fontWeight-small
   - --salt-text-action-fontWeight-strong
   - --salt-text-action-letterSpacing
   - --salt-text-action-textAlign
   - --salt-text-action-textTransform
   - --salt-text-background-selected
+  - --salt-text-body2-fontSize
+  - --salt-text-body2-lineHeight
   - --salt-text-code-fontFamily
+  - --salt-text-code-fontWeight
+  - --salt-text-display-fontFamily
+  - --salt-text-display-fontStyle
+  - --salt-text-display-fontWeight
+  - --salt-text-display-fontWeight-bolder
+  - --salt-text-display-fontWeight-lighter
+  - --salt-text-display-fontWeight-small
+  - --salt-text-display-fontWeight-strong
+  - --salt-text-display-letterSpacing
+  - --salt-text-display-textTransform
   - --salt-text-display1-fontFamily
   - --salt-text-display1-fontSize
   - --salt-text-display1-fontWeight
@@ -2080,9 +2845,39 @@ tokens:
   - --salt-text-display4-fontWeight-small
   - --salt-text-display4-fontWeight-strong
   - --salt-text-display4-lineHeight
+  - --salt-text-editorial-fontFamily
+  - --salt-text-editorial-fontStyle
+  - --salt-text-editorial-fontWeight
+  - --salt-text-editorial-fontWeight-bolder
+  - --salt-text-editorial-fontWeight-lighter
+  - --salt-text-editorial-letterSpacing
+  - --salt-text-editorial-textTransform
+  - --salt-text-editorial1-fontSize
+  - --salt-text-editorial1-lineHeight
+  - --salt-text-editorial2-fontSize
+  - --salt-text-editorial2-lineHeight
+  - --salt-text-editorial3-fontSize
+  - --salt-text-editorial3-lineHeight
+  - --salt-text-editorial4-fontSize
+  - --salt-text-editorial4-lineHeight
+  - --salt-text-editorial5-fontSize
+  - --salt-text-editorial5-lineHeight
+  - --salt-text-editorial6-fontSize
+  - --salt-text-editorial6-lineHeight
+  - --salt-text-eyebrow-fontFamily
+  - --salt-text-eyebrow-fontSize
+  - --salt-text-eyebrow-fontStyle
+  - --salt-text-eyebrow-fontWeight
+  - --salt-text-eyebrow-fontWeight-bolder
+  - --salt-text-eyebrow-fontWeight-lighter
+  - --salt-text-eyebrow-letterSpacing
+  - --salt-text-eyebrow-lineHeight
+  - --salt-text-eyebrow-textTransform
   - --salt-text-fontFamily
   - --salt-text-fontSize
   - --salt-text-fontWeight
+  - --salt-text-fontWeight-bolder
+  - --salt-text-fontWeight-lighter
   - --salt-text-fontWeight-small
   - --salt-text-fontWeight-strong
   - --salt-text-h1-fontFamily
@@ -2109,12 +2904,22 @@ tokens:
   - --salt-text-h4-fontWeight-small
   - --salt-text-h4-fontWeight-strong
   - --salt-text-h4-lineHeight
+  - --salt-text-heading-fontFamily
+  - --salt-text-heading-fontWeight
+  - --salt-text-heading-fontWeight-bolder
+  - --salt-text-heading-fontWeight-lighter
+  - --salt-text-heading-fontWeight-small
+  - --salt-text-heading-fontWeight-strong
   - --salt-text-label-fontFamily
   - --salt-text-label-fontSize
   - --salt-text-label-fontWeight
+  - --salt-text-label-fontWeight-bolder
+  - --salt-text-label-fontWeight-lighter
   - --salt-text-label-fontWeight-small
   - --salt-text-label-fontWeight-strong
   - --salt-text-label-lineHeight
+  - --salt-text-label2-fontSize
+  - --salt-text-label2-lineHeight
   - --salt-text-letterSpacing
   - --salt-text-lineHeight
   - --salt-text-link-foreground-active
@@ -2127,6 +2932,8 @@ tokens:
   - --salt-text-notation-fontFamily
   - --salt-text-notation-fontSize
   - --salt-text-notation-fontWeight
+  - --salt-text-notation-fontWeight-bolder
+  - --salt-text-notation-fontWeight-lighter
   - --salt-text-notation-fontWeight-small
   - --salt-text-notation-fontWeight-strong
   - --salt-text-notation-lineHeight
@@ -2157,12 +2964,16 @@ tokens:
   - --salt-typography-fontFamily-code
   - --salt-typography-fontFamily-openSans
   - --salt-typography-fontFamily-ptMono
+  - --salt-typography-fontFamily-roboto
+  - --salt-typography-fontStyle-italic
+  - --salt-typography-fontStyle-normal
   - --salt-typography-fontWeight-bold
   - --salt-typography-fontWeight-extraBold
   - --salt-typography-fontWeight-light
   - --salt-typography-fontWeight-medium
   - --salt-typography-fontWeight-regular
   - --salt-typography-fontWeight-semiBold
+  - --salt-typography-textDecoration-italic
   - --salt-typography-textDecoration-none
   - --salt-typography-textDecoration-underline
   - --salt-zIndex-appHeader
@@ -2175,3 +2986,23 @@ tokens:
   - --salt-zIndex-modal
   - --salt-zIndex-notification
   - --salt-zIndex-popout
+# Test additions, which the catalog format didn't have: the render prop, now
+# one of the team's rules, and the props of a few components, which the
+# Catalog Builder reads from the release's declarations. A list is a prop's
+# finite set of values; null is a prop that takes any value.
+render_props: [render]
+props:
+  Button:
+    appearance: [bordered, solid, transparent]
+    disabled: ["false", "true"]
+    focusableWhenDisabled: ["false", "true"]
+    loading: ["false", "true"]
+    loadingAnnouncement: null
+    sentiment: [accented, caution, negative, neutral, positive]
+    variant: [cta, primary, secondary]
+  SaltProvider:
+    density: [high, low, medium, touch]
+    mode: [dark, light]
+  StackLayout:
+    direction: null
+    gap: null

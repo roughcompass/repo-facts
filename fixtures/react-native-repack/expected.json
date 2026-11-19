@@ -1,0 +1,1085 @@
+{
+  "catalog_entries": [],
+  "categories": {
+    "access_signals": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "access.search"
+        ],
+        "skipped": [],
+        "surface": [
+          "index.js",
+          "rspack.config.mjs",
+          "src/App.tsx"
+        ]
+      },
+      "state": "absent"
+    },
+    "api_contracts": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "contracts.search"
+        ],
+        "skipped": [],
+        "surface": [
+          "index.js",
+          "rspack.config.mjs",
+          "src/App.tsx"
+        ]
+      },
+      "state": "absent"
+    },
+    "build_tools": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_1a0947be863721720c39899e",
+            "ev_7956af04563a429f9eb94423"
+          ],
+          "key": "rspack",
+          "rule": "manifest.tool-dependency",
+          "state": "observed",
+          "value": {
+            "id": "rspack",
+            "label": "Rspack"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "config.tool-file",
+          "manifest.tool-dependency"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "ci_systems": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "ci.definition"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    },
+    "composition": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_9a4076b23106f0a6109a7947"
+          ],
+          "key": "module-federation:host",
+          "rule": "architecture.module-federation.repack",
+          "state": "observed",
+          "value": {
+            "api": "ModuleFederationPluginV2",
+            "exposes": [],
+            "mechanism": "module-federation",
+            "name": {
+              "kind": "literal",
+              "value": "host"
+            },
+            "package": "@callstack/repack",
+            "plugin": "architecture.module-federation.repack",
+            "remotes": [
+              {
+                "alias": "booking",
+                "entry": {
+                  "kind": "literal",
+                  "value": "http://localhost:9000/android/mf-manifest.json"
+                },
+                "federation_name": "booking"
+              }
+            ],
+            "shared": [
+              "react",
+              "react-native"
+            ]
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "architecture.import-map",
+          "composition"
+        ],
+        "skipped": [],
+        "surface": [
+          "index.js",
+          "rspack.config.mjs",
+          "src/App.tsx"
+        ]
+      },
+      "state": "observed"
+    },
+    "dependencies": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_95e96e5dcc76a44518203513"
+          ],
+          "key": "package.json#dependencies/react",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "dependencies",
+            "manifest": "package.json",
+            "name": "react",
+            "specifier": "18.3.1"
+          }
+        },
+        {
+          "evidence": [
+            "ev_25e8c5d5d221ec78c427132d"
+          ],
+          "key": "package.json#dependencies/react-native",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "dependencies",
+            "manifest": "package.json",
+            "name": "react-native",
+            "specifier": "0.76.5"
+          }
+        },
+        {
+          "evidence": [
+            "ev_c8c1e5648bdafe7db485dd8f"
+          ],
+          "key": "package.json#devDependencies/@callstack/repack",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "devDependencies",
+            "manifest": "package.json",
+            "name": "@callstack/repack",
+            "specifier": "5.0.0"
+          }
+        },
+        {
+          "evidence": [
+            "ev_2acc6637be5469c8bb4391fb"
+          ],
+          "key": "package.json#devDependencies/@rspack/core",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "devDependencies",
+            "manifest": "package.json",
+            "name": "@rspack/core",
+            "specifier": "1.1.8"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.dependencies"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "design_systems": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "design-system.recognize"
+        ],
+        "skipped": [],
+        "surface": [
+          "index.js",
+          "package.json",
+          "rspack.config.mjs",
+          "src/App.tsx"
+        ]
+      },
+      "state": "absent"
+    },
+    "egress_routes": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "egress.search"
+        ],
+        "skipped": [],
+        "surface": [
+          "index.js",
+          "rspack.config.mjs",
+          "src/App.tsx"
+        ]
+      },
+      "state": "absent"
+    },
+    "frameworks": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_23e63ddbda744acac4158eaa"
+          ],
+          "key": "package.json#react",
+          "rule": "manifest.framework",
+          "state": "observed",
+          "value": {
+            "id": "react",
+            "label": "React",
+            "manifest": "package.json",
+            "mobile": false,
+            "package": "react",
+            "specifiers": {
+              "dependencies": "18.3.1"
+            }
+          }
+        },
+        {
+          "evidence": [
+            "ev_b5c4be11a49a00a4ba3ce950"
+          ],
+          "key": "package.json#react-native",
+          "rule": "manifest.framework",
+          "state": "observed",
+          "value": {
+            "id": "react-native",
+            "label": "React Native",
+            "manifest": "package.json",
+            "mobile": true,
+            "package": "react-native",
+            "specifiers": {
+              "dependencies": "0.76.5"
+            }
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.framework"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "languages": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_9dc15136b24d186469274f33"
+          ],
+          "key": "JSON",
+          "rule": "inventory.language-by-extension",
+          "state": "observed",
+          "value": {
+            "bytes": 234,
+            "files": 1
+          }
+        },
+        {
+          "evidence": [
+            "ev_f3f772c53c40ed59afd388ef",
+            "ev_f51e2c960b73e4a089871db1"
+          ],
+          "key": "JavaScript",
+          "rule": "inventory.language-by-extension",
+          "state": "observed",
+          "value": {
+            "bytes": 631,
+            "files": 2
+          }
+        },
+        {
+          "evidence": [
+            "ev_48bb8fede14f43f797532a4e"
+          ],
+          "key": "TypeScript",
+          "rule": "inventory.language-by-extension",
+          "state": "observed",
+          "value": {
+            "bytes": 120,
+            "files": 1
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.language-by-extension"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "observed"
+    },
+    "package_identity": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_399a40ebf2c2bc9b1446204b",
+            "ev_d427fc1b068388f9b80b721e"
+          ],
+          "key": "package.json",
+          "rule": "manifest.identity",
+          "state": "observed",
+          "value": {
+            "manifest": "package.json",
+            "name": "super-app",
+            "private": true,
+            "version": "1.0.0"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.identity"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "package_managers": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "lockfile.package-manager",
+          "manifest.package-manager"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "packages_consumed": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_4a2e30cd539004c4565decb3"
+          ],
+          "key": "@callstack/repack",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "@callstack/repack"
+          }
+        },
+        {
+          "evidence": [
+            "ev_ac1800c79a614ee5f9127bc9"
+          ],
+          "key": "@rspack/core",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "@rspack/core"
+          }
+        },
+        {
+          "evidence": [
+            "ev_78e5540345edd52a9e976495"
+          ],
+          "key": "react",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "react"
+          }
+        },
+        {
+          "evidence": [
+            "ev_e043b6332bf038efb44eac6c"
+          ],
+          "key": "react-native",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "react-native"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "packages.consumed"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "packages_produced": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_a5883573126db7a518f1f521",
+            "ev_d02c5efa7eba3bff3d7bc57c"
+          ],
+          "key": "super-app",
+          "rule": "packages.produced",
+          "state": "observed",
+          "value": {
+            "manifest": "package.json",
+            "name": "super-app",
+            "published": false,
+            "version": "1.0.0"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "packages.produced"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "resolved_dependencies": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "npm-lock.resolved-version",
+          "pnpm-lock.resolved-version",
+          "yarn-lock.resolved-version"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "runtime_integrations": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "composition"
+        ],
+        "skipped": [],
+        "surface": [
+          "index.js",
+          "rspack.config.mjs",
+          "src/App.tsx"
+        ]
+      },
+      "state": "unknown"
+    },
+    "runtime_requirements": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "runtime.declarations"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "scripts": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.scripts"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "served_origins": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "style_values": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "design-system.usage"
+        ],
+        "skipped": [],
+        "surface": [
+          "index.js",
+          "rspack.config.mjs",
+          "src/App.tsx"
+        ]
+      },
+      "state": "absent"
+    },
+    "submodules": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.gitlink"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    },
+    "test_frameworks": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "config.tool-file",
+          "manifest.tool-dependency"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "test_substitutes": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "substitutes.search"
+        ],
+        "skipped": [],
+        "surface": [
+          "index.js",
+          "rspack.config.mjs",
+          "src/App.tsx"
+        ]
+      },
+      "state": "absent"
+    },
+    "ui_elements": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_94337ff525434a83732ce1e5",
+            "ev_fc51185fa56f8e39b8d44182"
+          ],
+          "key": "other",
+          "rule": "design-system.elements",
+          "state": "observed",
+          "value": {
+            "app": {
+              "sites": 2
+            },
+            "stories": {
+              "sites": 0
+            },
+            "tests": {
+              "sites": 0
+            }
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "design-system.usage"
+        ],
+        "skipped": [],
+        "surface": [
+          "index.js",
+          "rspack.config.mjs",
+          "src/App.tsx"
+        ]
+      },
+      "state": "observed"
+    },
+    "verification_commands": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "ci.verification-commands"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "workspaces": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.workspaces",
+          "pnpm-workspace.packages"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    }
+  },
+  "commit": null,
+  "detector_release": "golden",
+  "diagnostics": [],
+  "evidence": {
+    "ev_1a0947be863721720c39899e": {
+      "commit": null,
+      "content_digest": "00db8eaf991aaeeca3124b207b978e607efb3395a8e845944cee16f31e3dbf4c",
+      "detector": "tooling",
+      "excerpt_digest": "00db8eaf991aaeeca3124b207b978e607efb3395a8e845944cee16f31e3dbf4c",
+      "id": "ev_1a0947be863721720c39899e",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "6c1dc725be76f213bc19c8ba7efcade38a2fd73b",
+      "path": "rspack.config.mjs",
+      "rule": "config.tool-file"
+    },
+    "ev_23e63ddbda744acac4158eaa": {
+      "commit": null,
+      "content_digest": "53adb4cf68e7f6c06bf9ed92e34754f3d0800691806a2544d0638a59a971c0d0",
+      "detector": "tooling",
+      "excerpt_digest": "4432fe1325bcd7918b7ce08a089e63116c6bef0a37173a57b89ab7a038b5f484",
+      "id": "ev_23e63ddbda744acac4158eaa",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/react"
+      },
+      "object_id": "57eb703f9ae05500a81f898a4ba089b1984672e3",
+      "path": "package.json",
+      "rule": "manifest.framework"
+    },
+    "ev_25e8c5d5d221ec78c427132d": {
+      "commit": null,
+      "content_digest": "53adb4cf68e7f6c06bf9ed92e34754f3d0800691806a2544d0638a59a971c0d0",
+      "detector": "package-metadata",
+      "excerpt_digest": "fb9a35153960e433d443d81accd06565fd947200142b1fabdf1c93c3a097e397",
+      "id": "ev_25e8c5d5d221ec78c427132d",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/react-native"
+      },
+      "object_id": "57eb703f9ae05500a81f898a4ba089b1984672e3",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_2acc6637be5469c8bb4391fb": {
+      "commit": null,
+      "content_digest": "53adb4cf68e7f6c06bf9ed92e34754f3d0800691806a2544d0638a59a971c0d0",
+      "detector": "package-metadata",
+      "excerpt_digest": "939977418c84812817b674ce3652074abbee95a8ba7ce167e1e1a3bc35591a96",
+      "id": "ev_2acc6637be5469c8bb4391fb",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/@rspack~1core"
+      },
+      "object_id": "57eb703f9ae05500a81f898a4ba089b1984672e3",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_399a40ebf2c2bc9b1446204b": {
+      "commit": null,
+      "content_digest": "53adb4cf68e7f6c06bf9ed92e34754f3d0800691806a2544d0638a59a971c0d0",
+      "detector": "package-metadata",
+      "excerpt_digest": "529cac031eb2c268649cc603e319e46b6d0c54e4c3cd8dec69c59834f604f730",
+      "id": "ev_399a40ebf2c2bc9b1446204b",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/name"
+      },
+      "object_id": "57eb703f9ae05500a81f898a4ba089b1984672e3",
+      "path": "package.json",
+      "rule": "manifest.identity"
+    },
+    "ev_48bb8fede14f43f797532a4e": {
+      "commit": null,
+      "content_digest": "1c4de71e9dba5dbf930b1c6f967dbb1444b869a4c4ecc55a4ab9d47cb5f6172f",
+      "detector": "inventory",
+      "excerpt_digest": "1c4de71e9dba5dbf930b1c6f967dbb1444b869a4c4ecc55a4ab9d47cb5f6172f",
+      "id": "ev_48bb8fede14f43f797532a4e",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "a35329a394dd7ed115993dfc13ca9c5ec309d27e",
+      "path": "src/App.tsx",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_4a2e30cd539004c4565decb3": {
+      "commit": null,
+      "content_digest": "53adb4cf68e7f6c06bf9ed92e34754f3d0800691806a2544d0638a59a971c0d0",
+      "detector": "package-relations",
+      "excerpt_digest": "95ccc76176af7a0746cd34976a22903bbd99a9cd5018191165fba387c60ac538",
+      "id": "ev_4a2e30cd539004c4565decb3",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/@callstack~1repack"
+      },
+      "object_id": "57eb703f9ae05500a81f898a4ba089b1984672e3",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
+    "ev_78e5540345edd52a9e976495": {
+      "commit": null,
+      "content_digest": "53adb4cf68e7f6c06bf9ed92e34754f3d0800691806a2544d0638a59a971c0d0",
+      "detector": "package-relations",
+      "excerpt_digest": "4432fe1325bcd7918b7ce08a089e63116c6bef0a37173a57b89ab7a038b5f484",
+      "id": "ev_78e5540345edd52a9e976495",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/react"
+      },
+      "object_id": "57eb703f9ae05500a81f898a4ba089b1984672e3",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
+    "ev_7956af04563a429f9eb94423": {
+      "commit": null,
+      "content_digest": "53adb4cf68e7f6c06bf9ed92e34754f3d0800691806a2544d0638a59a971c0d0",
+      "detector": "tooling",
+      "excerpt_digest": "939977418c84812817b674ce3652074abbee95a8ba7ce167e1e1a3bc35591a96",
+      "id": "ev_7956af04563a429f9eb94423",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/@rspack~1core"
+      },
+      "object_id": "57eb703f9ae05500a81f898a4ba089b1984672e3",
+      "path": "package.json",
+      "rule": "manifest.tool-dependency"
+    },
+    "ev_94337ff525434a83732ce1e5": {
+      "commit": null,
+      "content_digest": "f7c93ae2143d832fef5081ccc8e3250dd7df88431aae8759ef1f65d6a4c3e415",
+      "detector": "design-system.usage",
+      "excerpt_digest": "b268a0eaa304dcbcdd0f6f64311dadefe51d5b3d18f3b773f623eb356f8e90ac",
+      "id": "ev_94337ff525434a83732ce1e5",
+      "location": {
+        "end": 5,
+        "kind": "lines",
+        "start": 5
+      },
+      "object_id": "a35329a394dd7ed115993dfc13ca9c5ec309d27e",
+      "path": "src/App.tsx",
+      "rule": "design-system.elements"
+    },
+    "ev_95e96e5dcc76a44518203513": {
+      "commit": null,
+      "content_digest": "53adb4cf68e7f6c06bf9ed92e34754f3d0800691806a2544d0638a59a971c0d0",
+      "detector": "package-metadata",
+      "excerpt_digest": "4432fe1325bcd7918b7ce08a089e63116c6bef0a37173a57b89ab7a038b5f484",
+      "id": "ev_95e96e5dcc76a44518203513",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/react"
+      },
+      "object_id": "57eb703f9ae05500a81f898a4ba089b1984672e3",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_9a4076b23106f0a6109a7947": {
+      "commit": null,
+      "content_digest": "1831f89fd62159a1fb353c51231230468c8cc0fbdc4e02a0d4998cf0f0ce9190",
+      "detector": "composition",
+      "excerpt_digest": "4d1a3ff789e967226bbe9a6ff4a17a5719e2563c38c7018155041a2506de249a",
+      "id": "ev_9a4076b23106f0a6109a7947",
+      "location": {
+        "end": 18,
+        "kind": "lines",
+        "start": 8
+      },
+      "object_id": "6c1dc725be76f213bc19c8ba7efcade38a2fd73b",
+      "path": "rspack.config.mjs",
+      "rule": "architecture.module-federation.repack"
+    },
+    "ev_9dc15136b24d186469274f33": {
+      "commit": null,
+      "content_digest": "c0f49e6446cd2160d50092ded43c98a15fccfeb81a3c24691fea9e8d86c887dd",
+      "detector": "inventory",
+      "excerpt_digest": "c0f49e6446cd2160d50092ded43c98a15fccfeb81a3c24691fea9e8d86c887dd",
+      "id": "ev_9dc15136b24d186469274f33",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "57eb703f9ae05500a81f898a4ba089b1984672e3",
+      "path": "package.json",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_a5883573126db7a518f1f521": {
+      "commit": null,
+      "content_digest": "53adb4cf68e7f6c06bf9ed92e34754f3d0800691806a2544d0638a59a971c0d0",
+      "detector": "package-relations",
+      "excerpt_digest": "39fe4a40977d0585fd5704359e3685b0ada5cf5ee061e5d97385601d120cd0ec",
+      "id": "ev_a5883573126db7a518f1f521",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/version"
+      },
+      "object_id": "57eb703f9ae05500a81f898a4ba089b1984672e3",
+      "path": "package.json",
+      "rule": "packages.produced"
+    },
+    "ev_ac1800c79a614ee5f9127bc9": {
+      "commit": null,
+      "content_digest": "53adb4cf68e7f6c06bf9ed92e34754f3d0800691806a2544d0638a59a971c0d0",
+      "detector": "package-relations",
+      "excerpt_digest": "939977418c84812817b674ce3652074abbee95a8ba7ce167e1e1a3bc35591a96",
+      "id": "ev_ac1800c79a614ee5f9127bc9",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/@rspack~1core"
+      },
+      "object_id": "57eb703f9ae05500a81f898a4ba089b1984672e3",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
+    "ev_b5c4be11a49a00a4ba3ce950": {
+      "commit": null,
+      "content_digest": "53adb4cf68e7f6c06bf9ed92e34754f3d0800691806a2544d0638a59a971c0d0",
+      "detector": "tooling",
+      "excerpt_digest": "fb9a35153960e433d443d81accd06565fd947200142b1fabdf1c93c3a097e397",
+      "id": "ev_b5c4be11a49a00a4ba3ce950",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/react-native"
+      },
+      "object_id": "57eb703f9ae05500a81f898a4ba089b1984672e3",
+      "path": "package.json",
+      "rule": "manifest.framework"
+    },
+    "ev_c8c1e5648bdafe7db485dd8f": {
+      "commit": null,
+      "content_digest": "53adb4cf68e7f6c06bf9ed92e34754f3d0800691806a2544d0638a59a971c0d0",
+      "detector": "package-metadata",
+      "excerpt_digest": "95ccc76176af7a0746cd34976a22903bbd99a9cd5018191165fba387c60ac538",
+      "id": "ev_c8c1e5648bdafe7db485dd8f",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/@callstack~1repack"
+      },
+      "object_id": "57eb703f9ae05500a81f898a4ba089b1984672e3",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_d02c5efa7eba3bff3d7bc57c": {
+      "commit": null,
+      "content_digest": "53adb4cf68e7f6c06bf9ed92e34754f3d0800691806a2544d0638a59a971c0d0",
+      "detector": "package-relations",
+      "excerpt_digest": "529cac031eb2c268649cc603e319e46b6d0c54e4c3cd8dec69c59834f604f730",
+      "id": "ev_d02c5efa7eba3bff3d7bc57c",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/name"
+      },
+      "object_id": "57eb703f9ae05500a81f898a4ba089b1984672e3",
+      "path": "package.json",
+      "rule": "packages.produced"
+    },
+    "ev_d427fc1b068388f9b80b721e": {
+      "commit": null,
+      "content_digest": "53adb4cf68e7f6c06bf9ed92e34754f3d0800691806a2544d0638a59a971c0d0",
+      "detector": "package-metadata",
+      "excerpt_digest": "39fe4a40977d0585fd5704359e3685b0ada5cf5ee061e5d97385601d120cd0ec",
+      "id": "ev_d427fc1b068388f9b80b721e",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/version"
+      },
+      "object_id": "57eb703f9ae05500a81f898a4ba089b1984672e3",
+      "path": "package.json",
+      "rule": "manifest.identity"
+    },
+    "ev_e043b6332bf038efb44eac6c": {
+      "commit": null,
+      "content_digest": "53adb4cf68e7f6c06bf9ed92e34754f3d0800691806a2544d0638a59a971c0d0",
+      "detector": "package-relations",
+      "excerpt_digest": "fb9a35153960e433d443d81accd06565fd947200142b1fabdf1c93c3a097e397",
+      "id": "ev_e043b6332bf038efb44eac6c",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/react-native"
+      },
+      "object_id": "57eb703f9ae05500a81f898a4ba089b1984672e3",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
+    "ev_f3f772c53c40ed59afd388ef": {
+      "commit": null,
+      "content_digest": "7fae51483100da1bb9c298c6dbd5c9c27feffc8dabe3d01326480c9eb5e2641c",
+      "detector": "inventory",
+      "excerpt_digest": "7fae51483100da1bb9c298c6dbd5c9c27feffc8dabe3d01326480c9eb5e2641c",
+      "id": "ev_f3f772c53c40ed59afd388ef",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "04e5d822fac8ef9b6e59e390559f8ee6c3a6f02b",
+      "path": "index.js",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_f51e2c960b73e4a089871db1": {
+      "commit": null,
+      "content_digest": "00db8eaf991aaeeca3124b207b978e607efb3395a8e845944cee16f31e3dbf4c",
+      "detector": "inventory",
+      "excerpt_digest": "00db8eaf991aaeeca3124b207b978e607efb3395a8e845944cee16f31e3dbf4c",
+      "id": "ev_f51e2c960b73e4a089871db1",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "6c1dc725be76f213bc19c8ba7efcade38a2fd73b",
+      "path": "rspack.config.mjs",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_fc51185fa56f8e39b8d44182": {
+      "commit": null,
+      "content_digest": "f7c93ae2143d832fef5081ccc8e3250dd7df88431aae8759ef1f65d6a4c3e415",
+      "detector": "design-system.usage",
+      "excerpt_digest": "5f32f261110fdfa77f6a551e9443d6be3100236095d309e9c39555017569a68d",
+      "id": "ev_fc51185fa56f8e39b8d44182",
+      "location": {
+        "end": 4,
+        "kind": "lines",
+        "start": 4
+      },
+      "object_id": "a35329a394dd7ed115993dfc13ca9c5ec309d27e",
+      "path": "src/App.tsx",
+      "rule": "design-system.elements"
+    }
+  },
+  "extensions": [],
+  "inventory": {
+    "bytes": 985,
+    "bytes_read": 985,
+    "entries": 5,
+    "executables": 0,
+    "files": 4,
+    "files_read": 4,
+    "gitlinks": 0,
+    "symlinks": 0
+  },
+  "relationship_references": [
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_e043b6332bf038efb44eac6c"
+      ],
+      "id": "ref_0533de4cd8caeb6a2d0a8dc4",
+      "identifier": {
+        "name": "react-native"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_9a4076b23106f0a6109a7947"
+      ],
+      "id": "ref_6d72cc1dc9b1531aa67ed289",
+      "identifier": {
+        "mechanism": "module-federation",
+        "name": "booking"
+      },
+      "role": "host",
+      "rule": "architecture.module-federation",
+      "type": "composition"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_78e5540345edd52a9e976495"
+      ],
+      "id": "ref_7feb1042963b1be60c179f1d",
+      "identifier": {
+        "name": "react"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_4a2e30cd539004c4565decb3"
+      ],
+      "id": "ref_89beb7fc8dd4b5e2ebf2f150",
+      "identifier": {
+        "name": "@callstack/repack"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_ac1800c79a614ee5f9127bc9"
+      ],
+      "id": "ref_da91df10698d775f36c9a43a",
+      "identifier": {
+        "name": "@rspack/core"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    }
+  ],
+  "schema": "repo_facts.fact_document",
+  "schema_version": 3,
+  "service_dependencies": []
+}

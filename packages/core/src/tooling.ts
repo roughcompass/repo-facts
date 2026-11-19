@@ -20,7 +20,7 @@ const RULES = {
 
 export const toolingDetector: Detector = {
   id: "tooling",
-  version: "2",
+  version: "3",
   stage: "convention",
   inputs: ["**/package.json", "**/package-lock.json", "**/pnpm-lock.yaml", "**/yarn.lock", "**/*.config.*"],
   categories: ["package_managers", "build_tools", "test_frameworks", "frameworks"],
@@ -107,24 +107,31 @@ function reportTools(context: DetectorContext, category: string, tools: readonly
   }
 }
 
-/** Frameworks declared by each manifest, with every specifier that manifest gives them. */
+/**
+ * Frameworks declared by each manifest, with every specifier that manifest
+ * gives them. A framework with several packages, such as Ionic, is reported
+ * by the first of them the manifest declares. Hybrid mobile frameworks, such
+ * as React Native and Capacitor, are marked as mobile.
+ */
 function reportFrameworks(context: DetectorContext) {
   for (const manifest of manifestsOf(context).manifests) {
     for (const framework of FRAMEWORKS) {
+      const declares = (name: string) => DEPENDENCY_FIELDS.some((field) => typeof (isObject(manifest.value[field]) ? (manifest.value[field] as Record<string, unknown>)[name] : undefined) === "string");
+      const packageName = framework.packages.find(declares);
+      if (!packageName) continue;
       const specifiers: Record<string, string> = {};
       const evidence: Evidence[] = [];
       for (const field of DEPENDENCY_FIELDS) {
         const declared = manifest.value[field];
-        const specifier = isObject(declared) ? declared[framework.package] : undefined;
+        const specifier = isObject(declared) ? declared[packageName] : undefined;
         if (typeof specifier !== "string") continue;
         specifiers[field] = redactCredentials(specifier);
-        evidence.push(context.pointer(manifest.content, RULES.framework, "json", pointerOf([field, framework.package])));
+        evidence.push(context.pointer(manifest.content, RULES.framework, "json", pointerOf([field, packageName])));
       }
-      if (evidence.length === 0) continue;
       context.fact({
         category: "frameworks",
         key: `${manifest.path}#${framework.id}`,
-        value: { manifest: manifest.path, id: framework.id, label: framework.label, package: framework.package, specifiers },
+        value: { manifest: manifest.path, id: framework.id, label: framework.label, package: packageName, mobile: framework.mobile, specifiers },
         basis: "observed",
         evidence,
         rule: RULES.framework,

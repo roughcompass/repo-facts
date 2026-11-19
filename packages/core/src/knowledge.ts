@@ -50,29 +50,39 @@ export const TEST_FRAMEWORKS: readonly Tool[] = [
 export interface Framework {
   id: string;
   label: string;
-  package: string;
+  /** The packages that declare the framework, in order of preference; the first a manifest declares is reported. */
+  packages: readonly string[];
+  /** A hybrid mobile framework, which builds native mobile applications. */
+  mobile: boolean;
 }
 
+const framework = (id: string, label: string, packages: string[], mobile = false): Framework => ({ id, label, packages, mobile });
+
 export const FRAMEWORKS: readonly Framework[] = [
-  { id: "react", label: "React", package: "react" },
-  { id: "next", label: "Next.js", package: "next" },
-  { id: "remix", label: "Remix", package: "@remix-run/react" },
-  { id: "gatsby", label: "Gatsby", package: "gatsby" },
-  { id: "preact", label: "Preact", package: "preact" },
-  { id: "vue", label: "Vue", package: "vue" },
-  { id: "nuxt", label: "Nuxt", package: "nuxt" },
-  { id: "angular", label: "Angular", package: "@angular/core" },
-  { id: "svelte", label: "Svelte", package: "svelte" },
-  { id: "sveltekit", label: "SvelteKit", package: "@sveltejs/kit" },
-  { id: "solid", label: "Solid", package: "solid-js" },
-  { id: "lit", label: "Lit", package: "lit" },
-  { id: "astro", label: "Astro", package: "astro" },
-  { id: "ember", label: "Ember", package: "ember-source" },
-  { id: "express", label: "Express", package: "express" },
-  { id: "fastify", label: "Fastify", package: "fastify" },
-  { id: "koa", label: "Koa", package: "koa" },
-  { id: "hono", label: "Hono", package: "hono" },
-  { id: "nestjs", label: "NestJS", package: "@nestjs/core" },
+  framework("react", "React", ["react"]),
+  framework("next", "Next.js", ["next"]),
+  framework("remix", "Remix", ["@remix-run/react"]),
+  framework("gatsby", "Gatsby", ["gatsby"]),
+  framework("preact", "Preact", ["preact"]),
+  framework("vue", "Vue", ["vue"]),
+  framework("nuxt", "Nuxt", ["nuxt"]),
+  framework("angular", "Angular", ["@angular/core"]),
+  framework("svelte", "Svelte", ["svelte"]),
+  framework("sveltekit", "SvelteKit", ["@sveltejs/kit"]),
+  framework("solid", "Solid", ["solid-js"]),
+  framework("lit", "Lit", ["lit"]),
+  framework("astro", "Astro", ["astro"]),
+  framework("ember", "Ember", ["ember-source"]),
+  framework("express", "Express", ["express"]),
+  framework("fastify", "Fastify", ["fastify"]),
+  framework("koa", "Koa", ["koa"]),
+  framework("hono", "Hono", ["hono"]),
+  framework("nestjs", "NestJS", ["@nestjs/core"]),
+  framework("react-native", "React Native", ["react-native"], true),
+  framework("expo", "Expo", ["expo"], true),
+  framework("capacitor", "Capacitor", ["@capacitor/core"], true),
+  framework("ionic", "Ionic", ["@ionic/react", "@ionic/angular", "@ionic/vue", "@ionic/core"], true),
+  framework("cordova", "Cordova", ["cordova", "cordova-android", "cordova-ios"], true),
 ];
 
 /** Manifest dependency fields, in the order they are reported. */

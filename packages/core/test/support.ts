@@ -11,6 +11,6 @@ export const snapshotOf = (files: FileTree, budgets?: Budgets) => MemoryReader.f
 /** Runs the core detectors (or +detectors+) over a snapshot of +files+. */
 export async function profile(files: FileTree, options: { detectors?: readonly Detector[]; budgets?: Budgets } = {}) {
   const reader = snapshotOf(files, options.budgets);
-  const document = await runDetectors({ reader, detectorRelease: "0.1.0", detectors: options.detectors ?? CORE_DETECTORS });
+  const document = await runDetectors({ reader, surveyorRelease: "0.1.0", detectors: options.detectors ?? CORE_DETECTORS });
   return { document, reader };
 }

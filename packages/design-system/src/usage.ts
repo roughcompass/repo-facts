@@ -1,7 +1,7 @@
 import { type Detector, type DetectorContext, type Evidence, type JsonObject, compareCodeUnits } from "@repo-facts/contract";
 import { SYNTAX_LAYER, stylesheetOf, syntaxOf } from "@repo-facts/syntax";
-import { type Catalogs, SHIPPED, designSystemInputs } from "./catalog.js";
-import { type Catalog, LAYOUT_FAMILY } from "./catalog-schema.js";
+import { type Catalog, catalogsWith, designSystemInputs } from "./catalog.js";
+import { LAYOUT_FAMILY } from "./catalog-schema.js";
 import { type AppliedDeclaration, type ElementRecord, type FileAnalysis, MECHANISMS, type Mechanism, analyzeFile } from "./elements.js";
 import { RECOGNIZE, type Recognized } from "./recognize.js";
 import { SCOPES, type Scope, perScope, scopeOf } from "./scope.js";
@@ -13,6 +13,12 @@ import { VALUE_KINDS, ValueClassifier, type ValueKind } from "./values.js";
  * classified where it's written, how design-system components are
  * customized, how intrinsic elements compare with the design system, and how
  * every style declaration's value is written.
+ *
+ * Design systems are compared against the entries recognition selected for
+ * the versions the repository uses. Property families, neutral values, and
+ * neutral tags come from the first of them by id; a repository that uses no
+ * described design system has none, so every declaration is in the family
+ * `other` and no container is neutral.
  *
  * Counts are split by scope. Each fact cites at most SAMPLES evidence
  * records, the first in path and position order. Shares are whole numbers,
@@ -52,21 +58,21 @@ const counts = <const K extends string>(keys: readonly K[]) => () => Object.from
 const share = (part: number, whole: number) => (whole > 0 ? Math.floor((part * 100) / whole) : undefined);
 const byKey = <V>(map: ReadonlyMap<string, V>) => [...map.entries()].sort(([a], [b]) => compareCodeUnits(a, b));
 
-export function usageDetector(catalogs: Catalogs = SHIPPED): Detector {
+export function usageDetector(): Detector {
   return {
     id: USAGE,
-    version: "2",
+    version: "3",
     stage: "architecture",
     inputs: ["**/*.js", "**/*.jsx", "**/*.mjs", "**/*.cjs", "**/*.ts", "**/*.tsx", "**/*.mts", "**/*.cts", "**/*.css", "**/*.scss", "**/*.sass", "**/*.less"],
     categories: ["ui_elements", "style_values"],
     async run(context) {
-      const recognized = context.shared.get(RECOGNIZE) as Recognized | undefined;
-      const used = catalogs.catalogs.filter((catalog) => recognized?.used.includes(catalog.id));
-      const primary = used[0] ?? catalogs.catalogs[0]!;
+      const used = (context.shared.get(RECOGNIZE) as Recognized | undefined)?.used ?? [];
+      const catalogs = catalogsWith(used);
+      const primary = used[0] ?? null;
       const { sources, stylesheets, unsupportedStylesheets } = designSystemInputs(context);
       const skipped = unsupportedStylesheets.map((input) => input.path);
 
-      const index = new StyleIndex(catalogs.catalogs, used);
+      const index = new StyleIndex(used, used);
       for (const input of stylesheets) {
         const sheet = await stylesheetOf(context, input.path);
         if (!sheet) {
@@ -95,7 +101,7 @@ export function usageDetector(catalogs: Catalogs = SHIPPED): Detector {
         files.push(analysis);
       }
 
-      const classifier = new ValueClassifier(primary, catalogs.catalogs, index);
+      const classifier = new ValueClassifier(primary, used, index);
       reportElements(context, files, used, primary, classifier);
       reportValues(context, index, files, used, classifier);
 
@@ -116,11 +122,15 @@ function perScopeValue<T extends Record<string, unknown>>(tally: Tally<T>, shape
 const COMPONENT_COUNTS = ["sites", "as_is", "customized", "unknown"] as const;
 const STYLE_STATES = ["resolved", "partial", "unresolved"] as const;
 type ComponentCounts = Record<(typeof COMPONENT_COUNTS)[number], number> & { mechanisms: Record<Mechanism, number>; styles: Record<(typeof STYLE_STATES)[number], number> };
+/** The props passed to a component in one scope: how many elements pass each, by name, and how many have a spread, whose props can't be known. */
+type PropCounts = { unknown: number; names: Map<string, { count: number; values: Map<string, number> | null }> };
+/** Attributes React keeps for itself rather than passing as props. */
+const NOT_PROPS = new Set(["key", "ref"]);
 type IntrinsicCounts = { sites: number; unstyled: number; styled: number; custom_styled: number; styled_unresolved: number };
 type SummaryCounts = { elements: number; design_system: number; customized: number; adoptable: number };
 
-function reportElements(context: DetectorContext, files: readonly FileAnalysis[], used: readonly Catalog[], primary: Catalog, classifier: ValueClassifier) {
-  const components = new Map<string, { package: string; tally: Tally<ComponentCounts> }>();
+function reportElements(context: DetectorContext, files: readonly FileAnalysis[], used: readonly Catalog[], primary: Catalog | null, classifier: ValueClassifier) {
+  const components = new Map<string, { package: string; finite: ReadonlyMap<string, readonly string[]> | undefined; tally: Tally<ComponentCounts>; props: Record<Scope, PropCounts> }>();
   const wrappers = new Map<string, Tally<{ definitions: number }>>();
   const intrinsic = new Map<string, { group: string; equivalent: string | null; tally: Tally<IntrinsicCounts> }>();
   const layoutOnly = new Map<string, { tally: Tally<{ sites: number }>; declarations: AppliedDeclaration[] }>();
@@ -153,8 +163,10 @@ function reportElements(context: DetectorContext, files: readonly FileAnalysis[]
       const { element } = record;
       if (element.kind === "component") {
         const key = `component:${element.system}:${element.name}`;
-        const entry = components.get(key) ?? { package: element.package, tally: new Tally<ComponentCounts>(() => ({ ...counts(COMPONENT_COUNTS)(), mechanisms: counts(MECHANISMS)(), styles: counts(STYLE_STATES)() })) };
+        const finite = used.find((catalog) => catalog.id === element.system)?.finite_props.get(`${element.package} ${element.name}`);
+        const entry = components.get(key) ?? { package: element.package, finite, tally: new Tally<ComponentCounts>(() => ({ ...counts(COMPONENT_COUNTS)(), mechanisms: counts(MECHANISMS)(), styles: counts(STYLE_STATES)() })), props: perScope<PropCounts>(() => ({ unknown: 0, names: new Map() })) };
         components.set(key, entry);
+        countProps(entry.props[record.scope], record, entry.finite);
         const scoped = entry.tally.scopes[record.scope];
         entry.tally.sites.push(record.site);
         scoped.sites++;
@@ -180,7 +192,7 @@ function reportElements(context: DetectorContext, files: readonly FileAnalysis[]
         entry.tally.sites.push(record.site);
       } else if (element.kind === "intrinsic") {
         const equivalent = equivalentOf(element.tag);
-        const group = equivalent ? "equivalent" : primary.neutral_tags.includes(element.tag) ? "neutral" : "other";
+        const group = equivalent ? "equivalent" : primary?.neutral_tags.includes(element.tag) ? "neutral" : "other";
         const entry = intrinsic.get(element.tag) ?? { group, equivalent: equivalent ? `${equivalent.system}:${equivalent.name}` : null, tally: new Tally<IntrinsicCounts>(counts(["sites", "unstyled", "styled", "custom_styled", "styled_unresolved"])) };
         intrinsic.set(element.tag, entry);
         const scoped = entry.tally.scopes[record.scope];
@@ -218,7 +230,7 @@ function reportElements(context: DetectorContext, files: readonly FileAnalysis[]
   }
 
   const fact = (key: string, value: JsonObject, sites: readonly Site[], rule: string = RULES.elements) => context.fact({ category: "ui_elements", key, value, basis: "observed", evidence: evidenceOf(context, sites, rule), rule });
-  for (const [key, entry] of byKey(components)) fact(key, { package: entry.package, ...perScopeValue(entry.tally) }, entry.tally.samples());
+  for (const [key, entry] of byKey(components)) fact(key, { package: entry.package, ...perScopeValue(entry.tally), props: Object.fromEntries(SCOPES.map((scope) => [scope, propsValue(entry.props[scope])])) }, entry.tally.samples());
   for (const [key, tally] of byKey(wrappers)) fact(key, perScopeValue(tally), tally.samples());
   for (const [tag, entry] of byKey(intrinsic)) {
     const shape = (scoped: IntrinsicCounts): JsonObject => (entry.group === "neutral" ? scoped : { sites: scoped.sites, unstyled: scoped.unstyled, styled: scoped.styled });
@@ -256,6 +268,34 @@ function reportElements(context: DetectorContext, files: readonly FileAnalysis[]
     );
     fact(`summary:${system}`, value, samples, RULES.summary);
   }
+}
+
+/**
+ * Counts the props one component element passes: each prop by name, and for
+ * a prop whose entry lists a finite set, each literal value in that set. No
+ * other value is recorded. An element with a spread attribute may pass any
+ * prop, so it counts as unknown instead.
+ */
+function countProps(counts: PropCounts, record: ElementRecord, finite: ReadonlyMap<string, readonly string[]> | undefined) {
+  if (record.spread) {
+    counts.unknown++;
+    return;
+  }
+  for (const prop of record.props) {
+    if (NOT_PROPS.has(prop.name)) continue;
+    const values = finite?.get(prop.name);
+    const named = counts.names.get(prop.name) ?? { count: 0, values: values ? new Map<string, number>() : null };
+    counts.names.set(prop.name, named);
+    named.count++;
+    if (values && named.values && prop.value !== null && values.includes(prop.value)) named.values.set(prop.value, (named.values.get(prop.value) ?? 0) + 1);
+  }
+}
+
+function propsValue(counts: PropCounts): JsonObject {
+  return {
+    unknown: counts.unknown,
+    names: Object.fromEntries(byKey(counts.names).map(([name, named]) => [name, named.values ? { count: named.count, values: Object.fromEntries(byKey(named.values)) } : { count: named.count }])),
+  };
 }
 
 /** Whether a customized component's styles were all, partly, or not at all traced to declarations. */

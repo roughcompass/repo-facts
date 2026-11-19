@@ -1,4 +1,5 @@
 {
+  "catalog_entries": [],
   "categories": {
     "access_signals": {
       "facts": [],
@@ -416,19 +417,19 @@
   "detector_release": "golden",
   "diagnostics": [
     {
-      "detail": "sbt build definition is recognized but not analyzed: this detector release doesn't support the sbt ecosystem",
+      "detail": "sbt build definition is recognized but not analyzed: this Surveyor release doesn't support the sbt ecosystem",
       "detector": "inventory",
       "path": "build.sbt",
       "reason": "unsupported_input"
     },
     {
-      "detail": "sbt build properties is recognized but not analyzed: this detector release doesn't support the sbt ecosystem",
+      "detail": "sbt build properties is recognized but not analyzed: this Surveyor release doesn't support the sbt ecosystem",
       "detector": "inventory",
       "path": "project/build.properties",
       "reason": "unsupported_input"
     },
     {
-      "detail": "sbt build definition is recognized but not analyzed: this detector release doesn't support the sbt ecosystem",
+      "detail": "sbt build definition is recognized but not analyzed: this Surveyor release doesn't support the sbt ecosystem",
       "detector": "inventory",
       "path": "project/plugins.sbt",
       "reason": "unsupported_input"
@@ -488,6 +489,6 @@
   },
   "relationship_references": [],
   "schema": "repo_facts.fact_document",
-  "schema_version": 2,
+  "schema_version": 3,
   "service_dependencies": []
 }

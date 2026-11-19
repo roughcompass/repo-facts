@@ -32,7 +32,7 @@ describe("local registry and committed npm configuration", () => {
         npm_config_update_notifier: "false",
         npm_config_fund: "false",
         npm_config_audit: "false",
-        REPO_FACTS_NPM_REGISTRY: registry.url,
+        SURVEYOR_NPM_REGISTRY: registry.url,
         ...env,
       },
     });
@@ -48,7 +48,7 @@ describe("local registry and committed npm configuration", () => {
   };
 
   beforeAll(async () => {
-    workspace = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), "repo-facts-registry-")));
+    workspace = fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(), "surveyor-registry-")));
     storage = path.join(workspace, "registry");
     emptyUserconfig = path.join(workspace, "empty-npmrc");
     fs.writeFileSync(emptyUserconfig, "");
@@ -113,7 +113,7 @@ describe("local registry and committed npm configuration", () => {
 
   it("fails closed when the internal registry is not configured", () => {
     const consumer = project("unconfigured", { name: "unconfigured", version: "0.0.0", private: true });
-    const installed = npm(consumer, ["install", `${SCRATCH}@0.0.1`, "--userconfig", emptyUserconfig], { REPO_FACTS_NPM_REGISTRY: undefined });
+    const installed = npm(consumer, ["install", `${SCRATCH}@0.0.1`, "--userconfig", emptyUserconfig], { SURVEYOR_NPM_REGISTRY: undefined });
     expect(installed.status).not.toBe(0);
     expect(fs.existsSync(path.join(consumer, "node_modules", "@repo-facts"))).toBe(false);
   }, 60_000);

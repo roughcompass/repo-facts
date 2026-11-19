@@ -1,0 +1,7 @@
+.desk {
+  color: var(--salt-content-primary-foreground);
+  background-color: var(--mui-palette-primary-main);
+  padding: var(--salt-spacing-100);
+  border-radius: var(--mui-shape-borderRadius);
+  gap: var(--mui-spacing-desk);
+}

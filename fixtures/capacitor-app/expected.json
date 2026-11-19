@@ -1,0 +1,1265 @@
+{
+  "catalog_entries": [],
+  "categories": {
+    "access_signals": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "access.search"
+        ],
+        "skipped": [],
+        "surface": [
+          "capacitor.config.ts",
+          "src/main.tsx"
+        ]
+      },
+      "state": "absent"
+    },
+    "api_contracts": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "contracts.search"
+        ],
+        "skipped": [],
+        "surface": [
+          "capacitor.config.ts",
+          "src/main.tsx"
+        ]
+      },
+      "state": "absent"
+    },
+    "build_tools": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_942c10bea6f25b481679dc47"
+          ],
+          "key": "vite",
+          "rule": "manifest.tool-dependency",
+          "state": "observed",
+          "value": {
+            "id": "vite",
+            "label": "Vite"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "config.tool-file",
+          "manifest.tool-dependency"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "ci_systems": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "ci.definition"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    },
+    "composition": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "architecture.import-map",
+          "composition"
+        ],
+        "skipped": [],
+        "surface": [
+          "capacitor.config.ts",
+          "src/main.tsx"
+        ]
+      },
+      "state": "unknown"
+    },
+    "dependencies": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_d74ab91858a73e22d60eddc8"
+          ],
+          "key": "package.json#dependencies/@capacitor/android",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "dependencies",
+            "manifest": "package.json",
+            "name": "@capacitor/android",
+            "specifier": "^6.1.2"
+          }
+        },
+        {
+          "evidence": [
+            "ev_3202cbe983844a0545cefb8d"
+          ],
+          "key": "package.json#dependencies/@capacitor/core",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "dependencies",
+            "manifest": "package.json",
+            "name": "@capacitor/core",
+            "specifier": "^6.1.2"
+          }
+        },
+        {
+          "evidence": [
+            "ev_579925ab9d0f9b04c342ace1"
+          ],
+          "key": "package.json#dependencies/@capacitor/ios",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "dependencies",
+            "manifest": "package.json",
+            "name": "@capacitor/ios",
+            "specifier": "^6.1.2"
+          }
+        },
+        {
+          "evidence": [
+            "ev_501fcf041964d8b30fb918ba"
+          ],
+          "key": "package.json#dependencies/react",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "dependencies",
+            "manifest": "package.json",
+            "name": "react",
+            "specifier": "18.3.1"
+          }
+        },
+        {
+          "evidence": [
+            "ev_74463545ae1e5df27791fb87"
+          ],
+          "key": "package.json#dependencies/react-dom",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "dependencies",
+            "manifest": "package.json",
+            "name": "react-dom",
+            "specifier": "18.3.1"
+          }
+        },
+        {
+          "evidence": [
+            "ev_04e6ccb28bd94c2342a47cab"
+          ],
+          "key": "package.json#devDependencies/@capacitor/cli",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "devDependencies",
+            "manifest": "package.json",
+            "name": "@capacitor/cli",
+            "specifier": "^6.1.2"
+          }
+        },
+        {
+          "evidence": [
+            "ev_2fd3abadb6f3a04e2cf88f61"
+          ],
+          "key": "package.json#devDependencies/vite",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "devDependencies",
+            "manifest": "package.json",
+            "name": "vite",
+            "specifier": "5.4.11"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.dependencies"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "design_systems": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "design-system.recognize"
+        ],
+        "skipped": [],
+        "surface": [
+          "capacitor.config.ts",
+          "package.json",
+          "src/main.tsx"
+        ]
+      },
+      "state": "absent"
+    },
+    "egress_routes": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "egress.search"
+        ],
+        "skipped": [],
+        "surface": [
+          "capacitor.config.ts",
+          "src/main.tsx"
+        ]
+      },
+      "state": "absent"
+    },
+    "frameworks": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_7fbcc97da067657e55b13e47"
+          ],
+          "key": "package.json#capacitor",
+          "rule": "manifest.framework",
+          "state": "observed",
+          "value": {
+            "id": "capacitor",
+            "label": "Capacitor",
+            "manifest": "package.json",
+            "mobile": true,
+            "package": "@capacitor/core",
+            "specifiers": {
+              "dependencies": "^6.1.2"
+            }
+          }
+        },
+        {
+          "evidence": [
+            "ev_551835a9354920700022eef7"
+          ],
+          "key": "package.json#react",
+          "rule": "manifest.framework",
+          "state": "observed",
+          "value": {
+            "id": "react",
+            "label": "React",
+            "manifest": "package.json",
+            "mobile": false,
+            "package": "react",
+            "specifiers": {
+              "dependencies": "18.3.1"
+            }
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.framework"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "languages": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_3905b40aa8573a89db083929"
+          ],
+          "key": "JSON",
+          "rule": "inventory.language-by-extension",
+          "state": "observed",
+          "value": {
+            "bytes": 393,
+            "files": 1
+          }
+        },
+        {
+          "evidence": [
+            "ev_c876ea2705d690064a24fa20",
+            "ev_cd74c317546244d03322f08d"
+          ],
+          "key": "TypeScript",
+          "rule": "inventory.language-by-extension",
+          "state": "observed",
+          "value": {
+            "bytes": 307,
+            "files": 2
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.language-by-extension"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "observed"
+    },
+    "package_identity": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_54ae864b5ecb8e578a83c319",
+            "ev_d85f38978050f0483ca93782"
+          ],
+          "key": "package.json",
+          "rule": "manifest.identity",
+          "state": "observed",
+          "value": {
+            "manifest": "package.json",
+            "name": "approvals",
+            "private": true,
+            "version": "1.0.0"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.identity"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "package_managers": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "lockfile.package-manager",
+          "manifest.package-manager"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "packages_consumed": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_aed6492be42540abf199f07e"
+          ],
+          "key": "@capacitor/android",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "@capacitor/android"
+          }
+        },
+        {
+          "evidence": [
+            "ev_934e564f1e6ada4372c0dc4e"
+          ],
+          "key": "@capacitor/cli",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "@capacitor/cli"
+          }
+        },
+        {
+          "evidence": [
+            "ev_fe1f75f1e1ff6f31be1e23cc"
+          ],
+          "key": "@capacitor/core",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "@capacitor/core"
+          }
+        },
+        {
+          "evidence": [
+            "ev_74823eec90b2ac50468b2862"
+          ],
+          "key": "@capacitor/ios",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "@capacitor/ios"
+          }
+        },
+        {
+          "evidence": [
+            "ev_959497755b11b2eaf9b72f9a"
+          ],
+          "key": "react",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "react"
+          }
+        },
+        {
+          "evidence": [
+            "ev_d2197a162fbe56c316229604"
+          ],
+          "key": "react-dom",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "react-dom"
+          }
+        },
+        {
+          "evidence": [
+            "ev_678cdbf240c86a775b75fdce"
+          ],
+          "key": "vite",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "vite"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "packages.consumed"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "packages_produced": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_48dd64a05abad73d4e7d06dc",
+            "ev_cf59ecb7a0514c16a723ab91"
+          ],
+          "key": "approvals",
+          "rule": "packages.produced",
+          "state": "observed",
+          "value": {
+            "manifest": "package.json",
+            "name": "approvals",
+            "published": false,
+            "version": "1.0.0"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "packages.produced"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "resolved_dependencies": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "npm-lock.resolved-version",
+          "pnpm-lock.resolved-version",
+          "yarn-lock.resolved-version"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "runtime_integrations": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "composition"
+        ],
+        "skipped": [],
+        "surface": [
+          "capacitor.config.ts",
+          "src/main.tsx"
+        ]
+      },
+      "state": "unknown"
+    },
+    "runtime_requirements": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "runtime.declarations"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "scripts": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_d8662d7c31be246173eca6cd"
+          ],
+          "key": "package.json#build",
+          "rule": "manifest.scripts",
+          "state": "observed",
+          "value": {
+            "command": "vite build",
+            "manifest": "package.json",
+            "name": "build"
+          }
+        },
+        {
+          "evidence": [
+            "ev_0d72e6018912a11146cbc3d4"
+          ],
+          "key": "package.json#sync",
+          "rule": "manifest.scripts",
+          "state": "observed",
+          "value": {
+            "command": "cap sync",
+            "manifest": "package.json",
+            "name": "sync"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.scripts"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "served_origins": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "style_values": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "design-system.usage"
+        ],
+        "skipped": [],
+        "surface": [
+          "capacitor.config.ts",
+          "src/main.tsx"
+        ]
+      },
+      "state": "absent"
+    },
+    "submodules": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.gitlink"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    },
+    "test_frameworks": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "config.tool-file",
+          "manifest.tool-dependency"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "test_substitutes": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "substitutes.search"
+        ],
+        "skipped": [],
+        "surface": [
+          "capacitor.config.ts",
+          "src/main.tsx"
+        ]
+      },
+      "state": "absent"
+    },
+    "ui_elements": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_d905aada9bdaab9c061667b3"
+          ],
+          "key": "intrinsic:h1",
+          "rule": "design-system.elements",
+          "state": "observed",
+          "value": {
+            "app": {
+              "sites": 1,
+              "styled": 0,
+              "unstyled": 1
+            },
+            "equivalent": null,
+            "group": "other",
+            "stories": {
+              "sites": 0,
+              "styled": 0,
+              "unstyled": 0
+            },
+            "tests": {
+              "sites": 0,
+              "styled": 0,
+              "unstyled": 0
+            }
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "design-system.usage"
+        ],
+        "skipped": [],
+        "surface": [
+          "capacitor.config.ts",
+          "src/main.tsx"
+        ]
+      },
+      "state": "observed"
+    },
+    "verification_commands": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_9d4a51e64e03f9fa0e33ad47"
+          ],
+          "key": "package.json#scripts/build",
+          "rule": "manifest.verification-script",
+          "state": "observed",
+          "value": {
+            "command": "vite build",
+            "context": {
+              "script": "build",
+              "via": []
+            },
+            "kinds": [
+              "build"
+            ],
+            "source": "package.json"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "ci.verification-commands"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "workspaces": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.workspaces",
+          "pnpm-workspace.packages"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    }
+  },
+  "commit": null,
+  "detector_release": "golden",
+  "diagnostics": [],
+  "evidence": {
+    "ev_04e6ccb28bd94c2342a47cab": {
+      "commit": null,
+      "content_digest": "6465d91edfe6d5a50fd741951b0fb17610075253f0e49cd4ae4da099232e54f9",
+      "detector": "package-metadata",
+      "excerpt_digest": "9769e0c7e1d3e3fdeb4a75cef7002b1715a35a65d30c34aa6c6ce80ad5a1e92a",
+      "id": "ev_04e6ccb28bd94c2342a47cab",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/@capacitor~1cli"
+      },
+      "object_id": "b85570167c63efc7baa5448959562dae422aa381",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_0d72e6018912a11146cbc3d4": {
+      "commit": null,
+      "content_digest": "6465d91edfe6d5a50fd741951b0fb17610075253f0e49cd4ae4da099232e54f9",
+      "detector": "package-metadata",
+      "excerpt_digest": "99a0e51428191d71755d7881eb64385be3d4abfe3f209ed29b5c3b0d23d186cf",
+      "id": "ev_0d72e6018912a11146cbc3d4",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/scripts/sync"
+      },
+      "object_id": "b85570167c63efc7baa5448959562dae422aa381",
+      "path": "package.json",
+      "rule": "manifest.scripts"
+    },
+    "ev_2fd3abadb6f3a04e2cf88f61": {
+      "commit": null,
+      "content_digest": "6465d91edfe6d5a50fd741951b0fb17610075253f0e49cd4ae4da099232e54f9",
+      "detector": "package-metadata",
+      "excerpt_digest": "57745b3f5eb34c353aebaaf66a8c5d23c9a12a381faa9154bf6c255854ac1b48",
+      "id": "ev_2fd3abadb6f3a04e2cf88f61",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/vite"
+      },
+      "object_id": "b85570167c63efc7baa5448959562dae422aa381",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_3202cbe983844a0545cefb8d": {
+      "commit": null,
+      "content_digest": "6465d91edfe6d5a50fd741951b0fb17610075253f0e49cd4ae4da099232e54f9",
+      "detector": "package-metadata",
+      "excerpt_digest": "9769e0c7e1d3e3fdeb4a75cef7002b1715a35a65d30c34aa6c6ce80ad5a1e92a",
+      "id": "ev_3202cbe983844a0545cefb8d",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/@capacitor~1core"
+      },
+      "object_id": "b85570167c63efc7baa5448959562dae422aa381",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_3905b40aa8573a89db083929": {
+      "commit": null,
+      "content_digest": "2b2e3f49da639b3b1f9d49976acb347adb7bebe17e8c1fe9ae0bbb8bc492d671",
+      "detector": "inventory",
+      "excerpt_digest": "2b2e3f49da639b3b1f9d49976acb347adb7bebe17e8c1fe9ae0bbb8bc492d671",
+      "id": "ev_3905b40aa8573a89db083929",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "b85570167c63efc7baa5448959562dae422aa381",
+      "path": "package.json",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_48dd64a05abad73d4e7d06dc": {
+      "commit": null,
+      "content_digest": "6465d91edfe6d5a50fd741951b0fb17610075253f0e49cd4ae4da099232e54f9",
+      "detector": "package-relations",
+      "excerpt_digest": "39fe4a40977d0585fd5704359e3685b0ada5cf5ee061e5d97385601d120cd0ec",
+      "id": "ev_48dd64a05abad73d4e7d06dc",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/version"
+      },
+      "object_id": "b85570167c63efc7baa5448959562dae422aa381",
+      "path": "package.json",
+      "rule": "packages.produced"
+    },
+    "ev_501fcf041964d8b30fb918ba": {
+      "commit": null,
+      "content_digest": "6465d91edfe6d5a50fd741951b0fb17610075253f0e49cd4ae4da099232e54f9",
+      "detector": "package-metadata",
+      "excerpt_digest": "4432fe1325bcd7918b7ce08a089e63116c6bef0a37173a57b89ab7a038b5f484",
+      "id": "ev_501fcf041964d8b30fb918ba",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/react"
+      },
+      "object_id": "b85570167c63efc7baa5448959562dae422aa381",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_54ae864b5ecb8e578a83c319": {
+      "commit": null,
+      "content_digest": "6465d91edfe6d5a50fd741951b0fb17610075253f0e49cd4ae4da099232e54f9",
+      "detector": "package-metadata",
+      "excerpt_digest": "6cdd03061054bf77a1909eb2ef54bf44a116200eb3809b0293c92ef2dbf473e3",
+      "id": "ev_54ae864b5ecb8e578a83c319",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/name"
+      },
+      "object_id": "b85570167c63efc7baa5448959562dae422aa381",
+      "path": "package.json",
+      "rule": "manifest.identity"
+    },
+    "ev_551835a9354920700022eef7": {
+      "commit": null,
+      "content_digest": "6465d91edfe6d5a50fd741951b0fb17610075253f0e49cd4ae4da099232e54f9",
+      "detector": "tooling",
+      "excerpt_digest": "4432fe1325bcd7918b7ce08a089e63116c6bef0a37173a57b89ab7a038b5f484",
+      "id": "ev_551835a9354920700022eef7",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/react"
+      },
+      "object_id": "b85570167c63efc7baa5448959562dae422aa381",
+      "path": "package.json",
+      "rule": "manifest.framework"
+    },
+    "ev_579925ab9d0f9b04c342ace1": {
+      "commit": null,
+      "content_digest": "6465d91edfe6d5a50fd741951b0fb17610075253f0e49cd4ae4da099232e54f9",
+      "detector": "package-metadata",
+      "excerpt_digest": "9769e0c7e1d3e3fdeb4a75cef7002b1715a35a65d30c34aa6c6ce80ad5a1e92a",
+      "id": "ev_579925ab9d0f9b04c342ace1",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/@capacitor~1ios"
+      },
+      "object_id": "b85570167c63efc7baa5448959562dae422aa381",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_678cdbf240c86a775b75fdce": {
+      "commit": null,
+      "content_digest": "6465d91edfe6d5a50fd741951b0fb17610075253f0e49cd4ae4da099232e54f9",
+      "detector": "package-relations",
+      "excerpt_digest": "57745b3f5eb34c353aebaaf66a8c5d23c9a12a381faa9154bf6c255854ac1b48",
+      "id": "ev_678cdbf240c86a775b75fdce",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/vite"
+      },
+      "object_id": "b85570167c63efc7baa5448959562dae422aa381",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
+    "ev_74463545ae1e5df27791fb87": {
+      "commit": null,
+      "content_digest": "6465d91edfe6d5a50fd741951b0fb17610075253f0e49cd4ae4da099232e54f9",
+      "detector": "package-metadata",
+      "excerpt_digest": "4432fe1325bcd7918b7ce08a089e63116c6bef0a37173a57b89ab7a038b5f484",
+      "id": "ev_74463545ae1e5df27791fb87",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/react-dom"
+      },
+      "object_id": "b85570167c63efc7baa5448959562dae422aa381",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_74823eec90b2ac50468b2862": {
+      "commit": null,
+      "content_digest": "6465d91edfe6d5a50fd741951b0fb17610075253f0e49cd4ae4da099232e54f9",
+      "detector": "package-relations",
+      "excerpt_digest": "9769e0c7e1d3e3fdeb4a75cef7002b1715a35a65d30c34aa6c6ce80ad5a1e92a",
+      "id": "ev_74823eec90b2ac50468b2862",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/@capacitor~1ios"
+      },
+      "object_id": "b85570167c63efc7baa5448959562dae422aa381",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
+    "ev_7fbcc97da067657e55b13e47": {
+      "commit": null,
+      "content_digest": "6465d91edfe6d5a50fd741951b0fb17610075253f0e49cd4ae4da099232e54f9",
+      "detector": "tooling",
+      "excerpt_digest": "9769e0c7e1d3e3fdeb4a75cef7002b1715a35a65d30c34aa6c6ce80ad5a1e92a",
+      "id": "ev_7fbcc97da067657e55b13e47",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/@capacitor~1core"
+      },
+      "object_id": "b85570167c63efc7baa5448959562dae422aa381",
+      "path": "package.json",
+      "rule": "manifest.framework"
+    },
+    "ev_934e564f1e6ada4372c0dc4e": {
+      "commit": null,
+      "content_digest": "6465d91edfe6d5a50fd741951b0fb17610075253f0e49cd4ae4da099232e54f9",
+      "detector": "package-relations",
+      "excerpt_digest": "9769e0c7e1d3e3fdeb4a75cef7002b1715a35a65d30c34aa6c6ce80ad5a1e92a",
+      "id": "ev_934e564f1e6ada4372c0dc4e",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/@capacitor~1cli"
+      },
+      "object_id": "b85570167c63efc7baa5448959562dae422aa381",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
+    "ev_942c10bea6f25b481679dc47": {
+      "commit": null,
+      "content_digest": "6465d91edfe6d5a50fd741951b0fb17610075253f0e49cd4ae4da099232e54f9",
+      "detector": "tooling",
+      "excerpt_digest": "57745b3f5eb34c353aebaaf66a8c5d23c9a12a381faa9154bf6c255854ac1b48",
+      "id": "ev_942c10bea6f25b481679dc47",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/vite"
+      },
+      "object_id": "b85570167c63efc7baa5448959562dae422aa381",
+      "path": "package.json",
+      "rule": "manifest.tool-dependency"
+    },
+    "ev_959497755b11b2eaf9b72f9a": {
+      "commit": null,
+      "content_digest": "6465d91edfe6d5a50fd741951b0fb17610075253f0e49cd4ae4da099232e54f9",
+      "detector": "package-relations",
+      "excerpt_digest": "4432fe1325bcd7918b7ce08a089e63116c6bef0a37173a57b89ab7a038b5f484",
+      "id": "ev_959497755b11b2eaf9b72f9a",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/react"
+      },
+      "object_id": "b85570167c63efc7baa5448959562dae422aa381",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
+    "ev_9d4a51e64e03f9fa0e33ad47": {
+      "commit": null,
+      "content_digest": "6465d91edfe6d5a50fd741951b0fb17610075253f0e49cd4ae4da099232e54f9",
+      "detector": "ci",
+      "excerpt_digest": "24e649450abb80fd1ee7696b5fa1238257a2d973ed2723da98e1842c65e0d2cd",
+      "id": "ev_9d4a51e64e03f9fa0e33ad47",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/scripts/build"
+      },
+      "object_id": "b85570167c63efc7baa5448959562dae422aa381",
+      "path": "package.json",
+      "rule": "manifest.verification-script"
+    },
+    "ev_aed6492be42540abf199f07e": {
+      "commit": null,
+      "content_digest": "6465d91edfe6d5a50fd741951b0fb17610075253f0e49cd4ae4da099232e54f9",
+      "detector": "package-relations",
+      "excerpt_digest": "9769e0c7e1d3e3fdeb4a75cef7002b1715a35a65d30c34aa6c6ce80ad5a1e92a",
+      "id": "ev_aed6492be42540abf199f07e",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/@capacitor~1android"
+      },
+      "object_id": "b85570167c63efc7baa5448959562dae422aa381",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
+    "ev_c876ea2705d690064a24fa20": {
+      "commit": null,
+      "content_digest": "492c2f28b72075e1f8a5b9e42fd1b971192c9447dcf2c063463b421dbf9dfb7c",
+      "detector": "inventory",
+      "excerpt_digest": "492c2f28b72075e1f8a5b9e42fd1b971192c9447dcf2c063463b421dbf9dfb7c",
+      "id": "ev_c876ea2705d690064a24fa20",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "c195fb90d621aa7b5fb2bd0ea6b822d0e9827136",
+      "path": "src/main.tsx",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_cd74c317546244d03322f08d": {
+      "commit": null,
+      "content_digest": "fc64cdae094a7418b8719221453e56ad9b9e950af4c4e03abdd37c5f5d8b6baa",
+      "detector": "inventory",
+      "excerpt_digest": "fc64cdae094a7418b8719221453e56ad9b9e950af4c4e03abdd37c5f5d8b6baa",
+      "id": "ev_cd74c317546244d03322f08d",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "26c6064c9ca6cc533386460cc0b2f86afb69118d",
+      "path": "capacitor.config.ts",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_cf59ecb7a0514c16a723ab91": {
+      "commit": null,
+      "content_digest": "6465d91edfe6d5a50fd741951b0fb17610075253f0e49cd4ae4da099232e54f9",
+      "detector": "package-relations",
+      "excerpt_digest": "6cdd03061054bf77a1909eb2ef54bf44a116200eb3809b0293c92ef2dbf473e3",
+      "id": "ev_cf59ecb7a0514c16a723ab91",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/name"
+      },
+      "object_id": "b85570167c63efc7baa5448959562dae422aa381",
+      "path": "package.json",
+      "rule": "packages.produced"
+    },
+    "ev_d2197a162fbe56c316229604": {
+      "commit": null,
+      "content_digest": "6465d91edfe6d5a50fd741951b0fb17610075253f0e49cd4ae4da099232e54f9",
+      "detector": "package-relations",
+      "excerpt_digest": "4432fe1325bcd7918b7ce08a089e63116c6bef0a37173a57b89ab7a038b5f484",
+      "id": "ev_d2197a162fbe56c316229604",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/react-dom"
+      },
+      "object_id": "b85570167c63efc7baa5448959562dae422aa381",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
+    "ev_d74ab91858a73e22d60eddc8": {
+      "commit": null,
+      "content_digest": "6465d91edfe6d5a50fd741951b0fb17610075253f0e49cd4ae4da099232e54f9",
+      "detector": "package-metadata",
+      "excerpt_digest": "9769e0c7e1d3e3fdeb4a75cef7002b1715a35a65d30c34aa6c6ce80ad5a1e92a",
+      "id": "ev_d74ab91858a73e22d60eddc8",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/@capacitor~1android"
+      },
+      "object_id": "b85570167c63efc7baa5448959562dae422aa381",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_d85f38978050f0483ca93782": {
+      "commit": null,
+      "content_digest": "6465d91edfe6d5a50fd741951b0fb17610075253f0e49cd4ae4da099232e54f9",
+      "detector": "package-metadata",
+      "excerpt_digest": "39fe4a40977d0585fd5704359e3685b0ada5cf5ee061e5d97385601d120cd0ec",
+      "id": "ev_d85f38978050f0483ca93782",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/version"
+      },
+      "object_id": "b85570167c63efc7baa5448959562dae422aa381",
+      "path": "package.json",
+      "rule": "manifest.identity"
+    },
+    "ev_d8662d7c31be246173eca6cd": {
+      "commit": null,
+      "content_digest": "6465d91edfe6d5a50fd741951b0fb17610075253f0e49cd4ae4da099232e54f9",
+      "detector": "package-metadata",
+      "excerpt_digest": "24e649450abb80fd1ee7696b5fa1238257a2d973ed2723da98e1842c65e0d2cd",
+      "id": "ev_d8662d7c31be246173eca6cd",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/scripts/build"
+      },
+      "object_id": "b85570167c63efc7baa5448959562dae422aa381",
+      "path": "package.json",
+      "rule": "manifest.scripts"
+    },
+    "ev_d905aada9bdaab9c061667b3": {
+      "commit": null,
+      "content_digest": "3d0adf26e404bdd2627b93609623c78477cf6c768c6b425942df41037bd414b2",
+      "detector": "design-system.usage",
+      "excerpt_digest": "7d00aca315668d636023a4a0f50ac0c1a8745a074d04aa419e1bb307a8f7e4af",
+      "id": "ev_d905aada9bdaab9c061667b3",
+      "location": {
+        "end": 3,
+        "kind": "lines",
+        "start": 3
+      },
+      "object_id": "c195fb90d621aa7b5fb2bd0ea6b822d0e9827136",
+      "path": "src/main.tsx",
+      "rule": "design-system.elements"
+    },
+    "ev_fe1f75f1e1ff6f31be1e23cc": {
+      "commit": null,
+      "content_digest": "6465d91edfe6d5a50fd741951b0fb17610075253f0e49cd4ae4da099232e54f9",
+      "detector": "package-relations",
+      "excerpt_digest": "9769e0c7e1d3e3fdeb4a75cef7002b1715a35a65d30c34aa6c6ce80ad5a1e92a",
+      "id": "ev_fe1f75f1e1ff6f31be1e23cc",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/@capacitor~1core"
+      },
+      "object_id": "b85570167c63efc7baa5448959562dae422aa381",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    }
+  },
+  "extensions": [],
+  "inventory": {
+    "bytes": 700,
+    "bytes_read": 700,
+    "entries": 4,
+    "executables": 0,
+    "files": 3,
+    "files_read": 3,
+    "gitlinks": 0,
+    "symlinks": 0
+  },
+  "relationship_references": [
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_aed6492be42540abf199f07e"
+      ],
+      "id": "ref_1aaeeaa7a414b6fd919df79c",
+      "identifier": {
+        "name": "@capacitor/android"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_934e564f1e6ada4372c0dc4e"
+      ],
+      "id": "ref_316c72075a94437fcc9670f1",
+      "identifier": {
+        "name": "@capacitor/cli"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_678cdbf240c86a775b75fdce"
+      ],
+      "id": "ref_55bd69cf3b6dac0debfdd279",
+      "identifier": {
+        "name": "vite"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_959497755b11b2eaf9b72f9a"
+      ],
+      "id": "ref_7feb1042963b1be60c179f1d",
+      "identifier": {
+        "name": "react"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_fe1f75f1e1ff6f31be1e23cc"
+      ],
+      "id": "ref_872d92a441c3369ae3fc722d",
+      "identifier": {
+        "name": "@capacitor/core"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_74823eec90b2ac50468b2862"
+      ],
+      "id": "ref_e164f39f4c977f24b085d2e4",
+      "identifier": {
+        "name": "@capacitor/ios"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_d2197a162fbe56c316229604"
+      ],
+      "id": "ref_ef7ff13524821467533db55c",
+      "identifier": {
+        "name": "react-dom"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    }
+  ],
+  "schema": "repo_facts.fact_document",
+  "schema_version": 3,
+  "service_dependencies": []
+}

@@ -2,11 +2,13 @@ import crypto from "node:crypto";
 import type { BlobContent } from "@repo-facts/contract";
 import { parseStylesheet } from "@repo-facts/syntax";
 import { describe, expect, it } from "vitest";
-import { CATALOGS, StyleIndex, type StyleSource, scopeOf } from "../src/index.js";
+import { fixtureEntry } from "../../../test/catalog/entries.js";
+import { StyleIndex, type StyleSource, catalogFromEntry, scopeOf } from "../src/index.js";
 
 // design-system-usage: stylesheets report adherence findings; classes are traced to the styles they apply.
 
-const salt = CATALOGS.find((catalog) => catalog.id === "salt")!;
+const salt = catalogFromEntry(fixtureEntry("salt-1.50.0"));
+const CATALOGS = [salt];
 
 function source(path: string, text: string, kind: StyleSource["kind"] = path.endsWith(".module.css") ? "module" : "global"): StyleSource {
   const bytes = Buffer.from(text);

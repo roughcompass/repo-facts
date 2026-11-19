@@ -55,7 +55,7 @@ export async function startRegistry({ port = 4873, storage = path.join(ROOT, "tm
 export async function createToken(url, storage = path.join(ROOT, "tmp", "registry")) {
   const accountFile = path.join(storage, "account.json");
   if (!fs.existsSync(accountFile)) {
-    fs.writeFileSync(accountFile, JSON.stringify({ name: "repo-facts-dev", password: crypto.randomBytes(24).toString("base64url") }), { mode: 0o600 });
+    fs.writeFileSync(accountFile, JSON.stringify({ name: "surveyor-dev", password: crypto.randomBytes(24).toString("base64url") }), { mode: 0o600 });
   }
   const { name, password } = JSON.parse(fs.readFileSync(accountFile, "utf8"));
   const login = (authorization) =>
@@ -73,15 +73,40 @@ export async function createToken(url, storage = path.join(ROOT, "tmp", "registr
 }
 
 /**
+ * The registry variables, and the names they replace. The old names are
+ * still read, with a warning, for one release when the new ones are unset.
+ */
+export const REGISTRY_VARIABLES = [
+  { name: "SURVEYOR_NPM_REGISTRY", deprecated: "REPO_FACTS_NPM_REGISTRY" },
+  { name: "SURVEYOR_NPM_TOKEN", deprecated: "REPO_FACTS_NPM_TOKEN" },
+];
+
+/**
+ * The registry address and token from +env+: SURVEYOR_NPM_REGISTRY and
+ * SURVEYOR_NPM_TOKEN, or else their deprecated names, with a warning for
+ * each deprecated name read.
+ */
+export function registryEnvironment(env = process.env, warn = (message) => console.warn(message)) {
+  const [registry, token] = REGISTRY_VARIABLES.map(({ name, deprecated }) => {
+    if (env[name]) return env[name];
+    if (!env[deprecated]) return undefined;
+    warn(`${deprecated} is deprecated and is read for one more release; set ${name} instead.`);
+    return env[deprecated];
+  });
+  return { registry, token };
+}
+
+/**
  * Writes a temporary npm user configuration that authenticates to +registry+
  * with +token+, and returns its path and a cleanup function. npm requires
  * tokens on a host-specific key, which a committed .npmrc cannot derive.
  */
-export function authConfig(registry = process.env.REPO_FACTS_NPM_REGISTRY, token = process.env.REPO_FACTS_NPM_TOKEN) {
-  if (!registry) throw new Error("REPO_FACTS_NPM_REGISTRY is not set");
-  if (!token) throw new Error("REPO_FACTS_NPM_TOKEN is not set");
+export function authConfig(registry, token) {
+  if (registry === undefined && token === undefined) ({ registry, token } = registryEnvironment());
+  if (!registry) throw new Error("SURVEYOR_NPM_REGISTRY is not set");
+  if (!token) throw new Error("SURVEYOR_NPM_TOKEN is not set");
   const { host, pathname } = new URL(registry);
-  const directory = fs.mkdtempSync(path.join(os.tmpdir(), "repo-facts-npm-"));
+  const directory = fs.mkdtempSync(path.join(os.tmpdir(), "surveyor-npm-"));
   const file = path.join(directory, "npmrc");
   fs.writeFileSync(file, `//${host}${pathname.endsWith("/") ? pathname : `${pathname}/`}:_authToken=${token}\n`, { mode: 0o600 });
   return { file, cleanup: () => fs.rmSync(directory, { recursive: true, force: true }) };

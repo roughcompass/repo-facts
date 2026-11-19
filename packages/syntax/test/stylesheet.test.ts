@@ -3,7 +3,7 @@ import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { type CssAtRule, type CssDeclaration, type CssNode, type CssRule, type CssToken, STYLESHEET_PARSER, type Stylesheet, parseStylesheet, tokenize, walkStylesheet } from "../src/index.js";
 
-// Parse-only stylesheets (repo-facts/analysis-safety and design-system-usage specs).
+// Parse-only stylesheets (analysis-safety and design-system-usage specs).
 
 function parse(text: string, mode?: "stylesheet" | "declarations"): Stylesheet {
   const result = parseStylesheet(text, mode ? { mode } : {});

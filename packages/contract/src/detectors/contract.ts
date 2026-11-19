@@ -1,12 +1,12 @@
 import type { Evidence } from "../evidence.js";
-import type { CLIENT_KINDS, ServiceFact } from "../facts/schema.js";
+import type { CLIENT_KINDS, DocumentCatalogEntry, ServiceFact } from "../facts/schema.js";
 import type { BlobContent, SkipReason, SourceReader, TreeEntry } from "../reader/types.js";
 import type { Format, Value } from "../structured.js";
 
 /**
  * The detector contract, version 1. See docs/detector-contract.md.
  *
- * Detectors are trusted, reviewed code shipped in a detector release. Each has
+ * Detectors are trusted, reviewed code shipped in a Surveyor release. Each has
  * a stable id and version, declares the inputs it reads, and runs in one
  * stage. It sees repository content only through its context's SourceReader,
  * and it reports structured candidates; it never writes a fact document
@@ -118,6 +118,12 @@ export const SKIPPED_INPUT_REASONS: ReadonlySet<string> = new Set([
   "unsupported_version",
 ]);
 
+/**
+ * A Reference Catalog entry a detector compared the repository against, with
+ * the version the repository wanted, for the document's `catalog_entries`.
+ */
+export type CatalogEntryRecord = DocumentCatalogEntry;
+
 export interface ParsedFile {
   content: BlobContent;
   value: Value;
@@ -146,6 +152,8 @@ export interface DetectorContext {
   search(record: SearchRecord): void;
   service(candidate: ServiceCandidate): void;
   reference(candidate: ReferenceCandidate): void;
+  /** Records a Reference Catalog entry the facts were compared against. */
+  catalogEntry(record: CatalogEntryRecord): void;
   diagnostic(path: string, reason: string, detail: string, options?: DiagnosticOptions): void;
   /** Results earlier stages shared, keyed by the producing detector or layer. */
   shared: Map<string, unknown>;

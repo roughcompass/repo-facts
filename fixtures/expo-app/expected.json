@@ -1,0 +1,1212 @@
+{
+  "catalog_entries": [],
+  "categories": {
+    "access_signals": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "access.search"
+        ],
+        "skipped": [],
+        "surface": [
+          "app/index.tsx"
+        ]
+      },
+      "state": "absent"
+    },
+    "api_contracts": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "contracts.search"
+        ],
+        "skipped": [],
+        "surface": [
+          "app/index.tsx"
+        ]
+      },
+      "state": "absent"
+    },
+    "build_tools": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "config.tool-file",
+          "manifest.tool-dependency"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "ci_systems": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "ci.definition"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    },
+    "composition": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "architecture.import-map",
+          "composition"
+        ],
+        "skipped": [],
+        "surface": [
+          "app/index.tsx"
+        ]
+      },
+      "state": "unknown"
+    },
+    "dependencies": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_be44c7226ec825a77b5f15c0"
+          ],
+          "key": "package.json#dependencies/expo",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "dependencies",
+            "manifest": "package.json",
+            "name": "expo",
+            "specifier": "~52.0.20"
+          }
+        },
+        {
+          "evidence": [
+            "ev_829ef19b66d2e0d4e6d1d708"
+          ],
+          "key": "package.json#dependencies/expo-router",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "dependencies",
+            "manifest": "package.json",
+            "name": "expo-router",
+            "specifier": "~4.0.14"
+          }
+        },
+        {
+          "evidence": [
+            "ev_3eda61e3bc15f682f5b96d32"
+          ],
+          "key": "package.json#dependencies/react",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "dependencies",
+            "manifest": "package.json",
+            "name": "react",
+            "specifier": "18.3.1"
+          }
+        },
+        {
+          "evidence": [
+            "ev_94e8dbdcf99518e0e7525765"
+          ],
+          "key": "package.json#dependencies/react-native",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "dependencies",
+            "manifest": "package.json",
+            "name": "react-native",
+            "specifier": "0.76.5"
+          }
+        },
+        {
+          "evidence": [
+            "ev_93349bcffb82397c1798f7e5"
+          ],
+          "key": "package.json#devDependencies/jest",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "devDependencies",
+            "manifest": "package.json",
+            "name": "jest",
+            "specifier": "29.7.0"
+          }
+        },
+        {
+          "evidence": [
+            "ev_01d582c52d1be354d5623645"
+          ],
+          "key": "package.json#devDependencies/jest-expo",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "devDependencies",
+            "manifest": "package.json",
+            "name": "jest-expo",
+            "specifier": "~52.0.2"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.dependencies"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "design_systems": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "design-system.recognize"
+        ],
+        "skipped": [],
+        "surface": [
+          "app/index.tsx",
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "egress_routes": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "egress.search"
+        ],
+        "skipped": [],
+        "surface": [
+          "app/index.tsx"
+        ]
+      },
+      "state": "absent"
+    },
+    "frameworks": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_b38e69fa0eb008f2d7bee600"
+          ],
+          "key": "package.json#expo",
+          "rule": "manifest.framework",
+          "state": "observed",
+          "value": {
+            "id": "expo",
+            "label": "Expo",
+            "manifest": "package.json",
+            "mobile": true,
+            "package": "expo",
+            "specifiers": {
+              "dependencies": "~52.0.20"
+            }
+          }
+        },
+        {
+          "evidence": [
+            "ev_817e7b23c6ef557045e34251"
+          ],
+          "key": "package.json#react",
+          "rule": "manifest.framework",
+          "state": "observed",
+          "value": {
+            "id": "react",
+            "label": "React",
+            "manifest": "package.json",
+            "mobile": false,
+            "package": "react",
+            "specifiers": {
+              "dependencies": "18.3.1"
+            }
+          }
+        },
+        {
+          "evidence": [
+            "ev_1ce5fa586c9f7658ab51ed95"
+          ],
+          "key": "package.json#react-native",
+          "rule": "manifest.framework",
+          "state": "observed",
+          "value": {
+            "id": "react-native",
+            "label": "React Native",
+            "manifest": "package.json",
+            "mobile": true,
+            "package": "react-native",
+            "specifiers": {
+              "dependencies": "0.76.5"
+            }
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.framework"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "languages": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_44c665f273543a99b65065fa",
+            "ev_bb1b61f75640b550f6a50e00"
+          ],
+          "key": "JSON",
+          "rule": "inventory.language-by-extension",
+          "state": "observed",
+          "value": {
+            "bytes": 447,
+            "files": 2
+          }
+        },
+        {
+          "evidence": [
+            "ev_7e2977963f03603f01789cae"
+          ],
+          "key": "TypeScript",
+          "rule": "inventory.language-by-extension",
+          "state": "observed",
+          "value": {
+            "bytes": 108,
+            "files": 1
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.language-by-extension"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "observed"
+    },
+    "package_identity": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_7d28df71afe44328eac4f5dd",
+            "ev_c8863fe4f80d16b6b20a866c"
+          ],
+          "key": "package.json",
+          "rule": "manifest.identity",
+          "state": "observed",
+          "value": {
+            "manifest": "package.json",
+            "name": "field-notes",
+            "private": true,
+            "version": "1.0.0"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.identity"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "package_managers": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "lockfile.package-manager",
+          "manifest.package-manager"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "packages_consumed": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_b77b3c37b3bf170a7767bcf3"
+          ],
+          "key": "expo",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "expo"
+          }
+        },
+        {
+          "evidence": [
+            "ev_18cf7a06f4bbc907f89c886f"
+          ],
+          "key": "expo-router",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "expo-router"
+          }
+        },
+        {
+          "evidence": [
+            "ev_bab7a94e3453b5f1784ec220"
+          ],
+          "key": "jest",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "jest"
+          }
+        },
+        {
+          "evidence": [
+            "ev_8954d6c993069904d97ccd6a"
+          ],
+          "key": "jest-expo",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "jest-expo"
+          }
+        },
+        {
+          "evidence": [
+            "ev_4a3fbcf9e7e55fb2b68fc9e4"
+          ],
+          "key": "react",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "react"
+          }
+        },
+        {
+          "evidence": [
+            "ev_436eb5ce91948cca59c9c709"
+          ],
+          "key": "react-native",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "react-native"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "packages.consumed"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "packages_produced": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_93b7a5e8b8f14763c33c0162",
+            "ev_ccb3dd5a8e04be62ce2a36b7"
+          ],
+          "key": "field-notes",
+          "rule": "packages.produced",
+          "state": "observed",
+          "value": {
+            "manifest": "package.json",
+            "name": "field-notes",
+            "published": false,
+            "version": "1.0.0"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "packages.produced"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "resolved_dependencies": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "npm-lock.resolved-version",
+          "pnpm-lock.resolved-version",
+          "yarn-lock.resolved-version"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "runtime_integrations": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "composition"
+        ],
+        "skipped": [],
+        "surface": [
+          "app/index.tsx"
+        ]
+      },
+      "state": "unknown"
+    },
+    "runtime_requirements": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "runtime.declarations"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "scripts": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_2d7547454c87c884c5e6c2b5"
+          ],
+          "key": "package.json#start",
+          "rule": "manifest.scripts",
+          "state": "observed",
+          "value": {
+            "command": "expo start",
+            "manifest": "package.json",
+            "name": "start"
+          }
+        },
+        {
+          "evidence": [
+            "ev_943a3af53ad21d93c13eb21e"
+          ],
+          "key": "package.json#test",
+          "rule": "manifest.scripts",
+          "state": "observed",
+          "value": {
+            "command": "jest",
+            "manifest": "package.json",
+            "name": "test"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.scripts"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "served_origins": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "style_values": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "design-system.usage"
+        ],
+        "skipped": [],
+        "surface": [
+          "app/index.tsx"
+        ]
+      },
+      "state": "absent"
+    },
+    "submodules": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.gitlink"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    },
+    "test_frameworks": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_c9358aecf24cbbeafc23e605"
+          ],
+          "key": "jest",
+          "rule": "manifest.tool-dependency",
+          "state": "observed",
+          "value": {
+            "id": "jest",
+            "label": "Jest"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "config.tool-file",
+          "manifest.tool-dependency"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "test_substitutes": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "substitutes.search"
+        ],
+        "skipped": [],
+        "surface": [
+          "app/index.tsx"
+        ]
+      },
+      "state": "absent"
+    },
+    "ui_elements": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_ac3152de745751aef2054130"
+          ],
+          "key": "other",
+          "rule": "design-system.elements",
+          "state": "observed",
+          "value": {
+            "app": {
+              "sites": 1
+            },
+            "stories": {
+              "sites": 0
+            },
+            "tests": {
+              "sites": 0
+            }
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "design-system.usage"
+        ],
+        "skipped": [],
+        "surface": [
+          "app/index.tsx"
+        ]
+      },
+      "state": "observed"
+    },
+    "verification_commands": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_3cc1f1ccfa02ca18b62d249a"
+          ],
+          "key": "package.json#scripts/test",
+          "rule": "manifest.verification-script",
+          "state": "observed",
+          "value": {
+            "command": "jest",
+            "context": {
+              "script": "test",
+              "via": []
+            },
+            "kinds": [
+              "test"
+            ],
+            "source": "package.json"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "ci.verification-commands"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "workspaces": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.workspaces",
+          "pnpm-workspace.packages"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    }
+  },
+  "commit": null,
+  "detector_release": "golden",
+  "diagnostics": [],
+  "evidence": {
+    "ev_01d582c52d1be354d5623645": {
+      "commit": null,
+      "content_digest": "a44616c3979bf9b3e87f628ad1f533e21ed7c3cc02a50ea7d1189c0f0f1d2d88",
+      "detector": "package-metadata",
+      "excerpt_digest": "c97a7dccd0adc0b77dea17cdbcdfdce1ba7b3d728b7adc9f2f78c0b41d2c31d7",
+      "id": "ev_01d582c52d1be354d5623645",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/jest-expo"
+      },
+      "object_id": "225f9cef178d3287c4cf8dcf67e75e2b41abf531",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_18cf7a06f4bbc907f89c886f": {
+      "commit": null,
+      "content_digest": "a44616c3979bf9b3e87f628ad1f533e21ed7c3cc02a50ea7d1189c0f0f1d2d88",
+      "detector": "package-relations",
+      "excerpt_digest": "8ed72540636c9d02f9dc8b0b7984f3c50cf9a4b797da9c41fc19535329dbccf0",
+      "id": "ev_18cf7a06f4bbc907f89c886f",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/expo-router"
+      },
+      "object_id": "225f9cef178d3287c4cf8dcf67e75e2b41abf531",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
+    "ev_1ce5fa586c9f7658ab51ed95": {
+      "commit": null,
+      "content_digest": "a44616c3979bf9b3e87f628ad1f533e21ed7c3cc02a50ea7d1189c0f0f1d2d88",
+      "detector": "tooling",
+      "excerpt_digest": "fb9a35153960e433d443d81accd06565fd947200142b1fabdf1c93c3a097e397",
+      "id": "ev_1ce5fa586c9f7658ab51ed95",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/react-native"
+      },
+      "object_id": "225f9cef178d3287c4cf8dcf67e75e2b41abf531",
+      "path": "package.json",
+      "rule": "manifest.framework"
+    },
+    "ev_2d7547454c87c884c5e6c2b5": {
+      "commit": null,
+      "content_digest": "a44616c3979bf9b3e87f628ad1f533e21ed7c3cc02a50ea7d1189c0f0f1d2d88",
+      "detector": "package-metadata",
+      "excerpt_digest": "55d5d51ff52ec37fcb279150247947d1c54ef4781b804e0cbb578c83b73649f6",
+      "id": "ev_2d7547454c87c884c5e6c2b5",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/scripts/start"
+      },
+      "object_id": "225f9cef178d3287c4cf8dcf67e75e2b41abf531",
+      "path": "package.json",
+      "rule": "manifest.scripts"
+    },
+    "ev_3cc1f1ccfa02ca18b62d249a": {
+      "commit": null,
+      "content_digest": "a44616c3979bf9b3e87f628ad1f533e21ed7c3cc02a50ea7d1189c0f0f1d2d88",
+      "detector": "ci",
+      "excerpt_digest": "7a2233e206ae70d32e0d12fe4315b65d72712420395d0a1e716be8c995e6a0ce",
+      "id": "ev_3cc1f1ccfa02ca18b62d249a",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/scripts/test"
+      },
+      "object_id": "225f9cef178d3287c4cf8dcf67e75e2b41abf531",
+      "path": "package.json",
+      "rule": "manifest.verification-script"
+    },
+    "ev_3eda61e3bc15f682f5b96d32": {
+      "commit": null,
+      "content_digest": "a44616c3979bf9b3e87f628ad1f533e21ed7c3cc02a50ea7d1189c0f0f1d2d88",
+      "detector": "package-metadata",
+      "excerpt_digest": "4432fe1325bcd7918b7ce08a089e63116c6bef0a37173a57b89ab7a038b5f484",
+      "id": "ev_3eda61e3bc15f682f5b96d32",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/react"
+      },
+      "object_id": "225f9cef178d3287c4cf8dcf67e75e2b41abf531",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_436eb5ce91948cca59c9c709": {
+      "commit": null,
+      "content_digest": "a44616c3979bf9b3e87f628ad1f533e21ed7c3cc02a50ea7d1189c0f0f1d2d88",
+      "detector": "package-relations",
+      "excerpt_digest": "fb9a35153960e433d443d81accd06565fd947200142b1fabdf1c93c3a097e397",
+      "id": "ev_436eb5ce91948cca59c9c709",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/react-native"
+      },
+      "object_id": "225f9cef178d3287c4cf8dcf67e75e2b41abf531",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
+    "ev_44c665f273543a99b65065fa": {
+      "commit": null,
+      "content_digest": "92c7a4cf26295a7b60d23188c80a596b926d97c32d8903e4a64cc3729dd78587",
+      "detector": "inventory",
+      "excerpt_digest": "92c7a4cf26295a7b60d23188c80a596b926d97c32d8903e4a64cc3729dd78587",
+      "id": "ev_44c665f273543a99b65065fa",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "225f9cef178d3287c4cf8dcf67e75e2b41abf531",
+      "path": "package.json",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_4a3fbcf9e7e55fb2b68fc9e4": {
+      "commit": null,
+      "content_digest": "a44616c3979bf9b3e87f628ad1f533e21ed7c3cc02a50ea7d1189c0f0f1d2d88",
+      "detector": "package-relations",
+      "excerpt_digest": "4432fe1325bcd7918b7ce08a089e63116c6bef0a37173a57b89ab7a038b5f484",
+      "id": "ev_4a3fbcf9e7e55fb2b68fc9e4",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/react"
+      },
+      "object_id": "225f9cef178d3287c4cf8dcf67e75e2b41abf531",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
+    "ev_7d28df71afe44328eac4f5dd": {
+      "commit": null,
+      "content_digest": "a44616c3979bf9b3e87f628ad1f533e21ed7c3cc02a50ea7d1189c0f0f1d2d88",
+      "detector": "package-metadata",
+      "excerpt_digest": "39fe4a40977d0585fd5704359e3685b0ada5cf5ee061e5d97385601d120cd0ec",
+      "id": "ev_7d28df71afe44328eac4f5dd",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/version"
+      },
+      "object_id": "225f9cef178d3287c4cf8dcf67e75e2b41abf531",
+      "path": "package.json",
+      "rule": "manifest.identity"
+    },
+    "ev_7e2977963f03603f01789cae": {
+      "commit": null,
+      "content_digest": "7eaa7b9e535a45cab4d8e044c3cee550fbc0952f0bd2b68bb8f94f4543f12b1c",
+      "detector": "inventory",
+      "excerpt_digest": "7eaa7b9e535a45cab4d8e044c3cee550fbc0952f0bd2b68bb8f94f4543f12b1c",
+      "id": "ev_7e2977963f03603f01789cae",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "f16b8c588f4b66985f55523b41ac02f5e12e2d67",
+      "path": "app/index.tsx",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_817e7b23c6ef557045e34251": {
+      "commit": null,
+      "content_digest": "a44616c3979bf9b3e87f628ad1f533e21ed7c3cc02a50ea7d1189c0f0f1d2d88",
+      "detector": "tooling",
+      "excerpt_digest": "4432fe1325bcd7918b7ce08a089e63116c6bef0a37173a57b89ab7a038b5f484",
+      "id": "ev_817e7b23c6ef557045e34251",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/react"
+      },
+      "object_id": "225f9cef178d3287c4cf8dcf67e75e2b41abf531",
+      "path": "package.json",
+      "rule": "manifest.framework"
+    },
+    "ev_829ef19b66d2e0d4e6d1d708": {
+      "commit": null,
+      "content_digest": "a44616c3979bf9b3e87f628ad1f533e21ed7c3cc02a50ea7d1189c0f0f1d2d88",
+      "detector": "package-metadata",
+      "excerpt_digest": "8ed72540636c9d02f9dc8b0b7984f3c50cf9a4b797da9c41fc19535329dbccf0",
+      "id": "ev_829ef19b66d2e0d4e6d1d708",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/expo-router"
+      },
+      "object_id": "225f9cef178d3287c4cf8dcf67e75e2b41abf531",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_8954d6c993069904d97ccd6a": {
+      "commit": null,
+      "content_digest": "a44616c3979bf9b3e87f628ad1f533e21ed7c3cc02a50ea7d1189c0f0f1d2d88",
+      "detector": "package-relations",
+      "excerpt_digest": "c97a7dccd0adc0b77dea17cdbcdfdce1ba7b3d728b7adc9f2f78c0b41d2c31d7",
+      "id": "ev_8954d6c993069904d97ccd6a",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/jest-expo"
+      },
+      "object_id": "225f9cef178d3287c4cf8dcf67e75e2b41abf531",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
+    "ev_93349bcffb82397c1798f7e5": {
+      "commit": null,
+      "content_digest": "a44616c3979bf9b3e87f628ad1f533e21ed7c3cc02a50ea7d1189c0f0f1d2d88",
+      "detector": "package-metadata",
+      "excerpt_digest": "c0d8898b6339ef1f6bc9dacc0dc5c3e26236c489d13b3264a35f16703ce71847",
+      "id": "ev_93349bcffb82397c1798f7e5",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/jest"
+      },
+      "object_id": "225f9cef178d3287c4cf8dcf67e75e2b41abf531",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_93b7a5e8b8f14763c33c0162": {
+      "commit": null,
+      "content_digest": "a44616c3979bf9b3e87f628ad1f533e21ed7c3cc02a50ea7d1189c0f0f1d2d88",
+      "detector": "package-relations",
+      "excerpt_digest": "20cafa58404c0a4180235247cd64b06c270dba59a890d0164213f96988d42da8",
+      "id": "ev_93b7a5e8b8f14763c33c0162",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/name"
+      },
+      "object_id": "225f9cef178d3287c4cf8dcf67e75e2b41abf531",
+      "path": "package.json",
+      "rule": "packages.produced"
+    },
+    "ev_943a3af53ad21d93c13eb21e": {
+      "commit": null,
+      "content_digest": "a44616c3979bf9b3e87f628ad1f533e21ed7c3cc02a50ea7d1189c0f0f1d2d88",
+      "detector": "package-metadata",
+      "excerpt_digest": "7a2233e206ae70d32e0d12fe4315b65d72712420395d0a1e716be8c995e6a0ce",
+      "id": "ev_943a3af53ad21d93c13eb21e",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/scripts/test"
+      },
+      "object_id": "225f9cef178d3287c4cf8dcf67e75e2b41abf531",
+      "path": "package.json",
+      "rule": "manifest.scripts"
+    },
+    "ev_94e8dbdcf99518e0e7525765": {
+      "commit": null,
+      "content_digest": "a44616c3979bf9b3e87f628ad1f533e21ed7c3cc02a50ea7d1189c0f0f1d2d88",
+      "detector": "package-metadata",
+      "excerpt_digest": "fb9a35153960e433d443d81accd06565fd947200142b1fabdf1c93c3a097e397",
+      "id": "ev_94e8dbdcf99518e0e7525765",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/react-native"
+      },
+      "object_id": "225f9cef178d3287c4cf8dcf67e75e2b41abf531",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_ac3152de745751aef2054130": {
+      "commit": null,
+      "content_digest": "b144bff502263d1f2ed9ff6a1c1e55817fa3285e092d7acc99db6edb586506c6",
+      "detector": "design-system.usage",
+      "excerpt_digest": "2a89f5dad0f7600c983a6b6ddd0f5c09df0172a76146c9dc81742cc99a69774d",
+      "id": "ev_ac3152de745751aef2054130",
+      "location": {
+        "end": 4,
+        "kind": "lines",
+        "start": 4
+      },
+      "object_id": "f16b8c588f4b66985f55523b41ac02f5e12e2d67",
+      "path": "app/index.tsx",
+      "rule": "design-system.elements"
+    },
+    "ev_b38e69fa0eb008f2d7bee600": {
+      "commit": null,
+      "content_digest": "a44616c3979bf9b3e87f628ad1f533e21ed7c3cc02a50ea7d1189c0f0f1d2d88",
+      "detector": "tooling",
+      "excerpt_digest": "b6322bec0de634312b4624db9f99bc365ddf2579857e17a1835c5067ae46d7e4",
+      "id": "ev_b38e69fa0eb008f2d7bee600",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/expo"
+      },
+      "object_id": "225f9cef178d3287c4cf8dcf67e75e2b41abf531",
+      "path": "package.json",
+      "rule": "manifest.framework"
+    },
+    "ev_b77b3c37b3bf170a7767bcf3": {
+      "commit": null,
+      "content_digest": "a44616c3979bf9b3e87f628ad1f533e21ed7c3cc02a50ea7d1189c0f0f1d2d88",
+      "detector": "package-relations",
+      "excerpt_digest": "b6322bec0de634312b4624db9f99bc365ddf2579857e17a1835c5067ae46d7e4",
+      "id": "ev_b77b3c37b3bf170a7767bcf3",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/expo"
+      },
+      "object_id": "225f9cef178d3287c4cf8dcf67e75e2b41abf531",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
+    "ev_bab7a94e3453b5f1784ec220": {
+      "commit": null,
+      "content_digest": "a44616c3979bf9b3e87f628ad1f533e21ed7c3cc02a50ea7d1189c0f0f1d2d88",
+      "detector": "package-relations",
+      "excerpt_digest": "c0d8898b6339ef1f6bc9dacc0dc5c3e26236c489d13b3264a35f16703ce71847",
+      "id": "ev_bab7a94e3453b5f1784ec220",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/jest"
+      },
+      "object_id": "225f9cef178d3287c4cf8dcf67e75e2b41abf531",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
+    "ev_bb1b61f75640b550f6a50e00": {
+      "commit": null,
+      "content_digest": "79cadbfaec2115e642e08df3f73f13700cab1fe76ee52f8ebff2b26a866db6cd",
+      "detector": "inventory",
+      "excerpt_digest": "79cadbfaec2115e642e08df3f73f13700cab1fe76ee52f8ebff2b26a866db6cd",
+      "id": "ev_bb1b61f75640b550f6a50e00",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "78f649fff89099083d4b2c17330261e75443a8fd",
+      "path": "app.json",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_be44c7226ec825a77b5f15c0": {
+      "commit": null,
+      "content_digest": "a44616c3979bf9b3e87f628ad1f533e21ed7c3cc02a50ea7d1189c0f0f1d2d88",
+      "detector": "package-metadata",
+      "excerpt_digest": "b6322bec0de634312b4624db9f99bc365ddf2579857e17a1835c5067ae46d7e4",
+      "id": "ev_be44c7226ec825a77b5f15c0",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/expo"
+      },
+      "object_id": "225f9cef178d3287c4cf8dcf67e75e2b41abf531",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_c8863fe4f80d16b6b20a866c": {
+      "commit": null,
+      "content_digest": "a44616c3979bf9b3e87f628ad1f533e21ed7c3cc02a50ea7d1189c0f0f1d2d88",
+      "detector": "package-metadata",
+      "excerpt_digest": "20cafa58404c0a4180235247cd64b06c270dba59a890d0164213f96988d42da8",
+      "id": "ev_c8863fe4f80d16b6b20a866c",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/name"
+      },
+      "object_id": "225f9cef178d3287c4cf8dcf67e75e2b41abf531",
+      "path": "package.json",
+      "rule": "manifest.identity"
+    },
+    "ev_c9358aecf24cbbeafc23e605": {
+      "commit": null,
+      "content_digest": "a44616c3979bf9b3e87f628ad1f533e21ed7c3cc02a50ea7d1189c0f0f1d2d88",
+      "detector": "tooling",
+      "excerpt_digest": "c0d8898b6339ef1f6bc9dacc0dc5c3e26236c489d13b3264a35f16703ce71847",
+      "id": "ev_c9358aecf24cbbeafc23e605",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/devDependencies/jest"
+      },
+      "object_id": "225f9cef178d3287c4cf8dcf67e75e2b41abf531",
+      "path": "package.json",
+      "rule": "manifest.tool-dependency"
+    },
+    "ev_ccb3dd5a8e04be62ce2a36b7": {
+      "commit": null,
+      "content_digest": "a44616c3979bf9b3e87f628ad1f533e21ed7c3cc02a50ea7d1189c0f0f1d2d88",
+      "detector": "package-relations",
+      "excerpt_digest": "39fe4a40977d0585fd5704359e3685b0ada5cf5ee061e5d97385601d120cd0ec",
+      "id": "ev_ccb3dd5a8e04be62ce2a36b7",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/version"
+      },
+      "object_id": "225f9cef178d3287c4cf8dcf67e75e2b41abf531",
+      "path": "package.json",
+      "rule": "packages.produced"
+    }
+  },
+  "extensions": [],
+  "inventory": {
+    "bytes": 555,
+    "bytes_read": 482,
+    "entries": 4,
+    "executables": 0,
+    "files": 3,
+    "files_read": 2,
+    "gitlinks": 0,
+    "symlinks": 0
+  },
+  "relationship_references": [
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_436eb5ce91948cca59c9c709"
+      ],
+      "id": "ref_0533de4cd8caeb6a2d0a8dc4",
+      "identifier": {
+        "name": "react-native"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_b77b3c37b3bf170a7767bcf3"
+      ],
+      "id": "ref_304fdabe377e302290c76905",
+      "identifier": {
+        "name": "expo"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_bab7a94e3453b5f1784ec220"
+      ],
+      "id": "ref_44e18a270a4da7778d90455f",
+      "identifier": {
+        "name": "jest"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_4a3fbcf9e7e55fb2b68fc9e4"
+      ],
+      "id": "ref_7feb1042963b1be60c179f1d",
+      "identifier": {
+        "name": "react"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_8954d6c993069904d97ccd6a"
+      ],
+      "id": "ref_c4dc5daa7442af90695f4325",
+      "identifier": {
+        "name": "jest-expo"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_18cf7a06f4bbc907f89c886f"
+      ],
+      "id": "ref_e46bc093501a5a1d67e12ad5",
+      "identifier": {
+        "name": "expo-router"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    }
+  ],
+  "schema": "repo_facts.fact_document",
+  "schema_version": 3,
+  "service_dependencies": []
+}

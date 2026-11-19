@@ -1,4 +1,5 @@
 {
+  "catalog_entries": [],
   "categories": {
     "access_signals": {
       "facts": [],
@@ -160,6 +161,7 @@
             "id": "react",
             "label": "React",
             "manifest": "package.json",
+            "mobile": false,
             "package": "react",
             "specifiers": {
               "dependencies": "17.0.2"
@@ -825,6 +827,6 @@
     }
   ],
   "schema": "repo_facts.fact_document",
-  "schema_version": 2,
+  "schema_version": 3,
   "service_dependencies": []
 }

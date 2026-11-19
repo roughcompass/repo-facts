@@ -1,10 +1,11 @@
 import fs from "node:fs";
 import path from "node:path";
 import { DEFAULT_BUDGETS, MemoryReader, STAGES, digestOf, factDocumentProblems } from "@repo-facts/contract";
-import { ADAPTERS, CATALOGS, CATALOGS_DIGEST, catalogsDigest } from "@repo-facts/design-system";
+import { ADAPTERS_DIGEST } from "@repo-facts/design-system";
 import { STYLESHEET_PARSER, SYNTAX_PARSER } from "@repo-facts/syntax";
 import { describe, expect, it } from "vitest";
-import { type ConfigurationParts, DETECTORS, DETECTOR_RELEASE, analyze, configurationFor, detectorConfiguration } from "../src/index.js";
+import { CATALOG_FIXTURES, entryFromCatalog, fixtureEntry } from "../../../test/catalog/entries.js";
+import { type ConfigurationParts, DETECTORS, SURVEYOR_RELEASE, analyze, configurationFor, detectorConfiguration } from "../src/index.js";
 
 const PARTS: ConfigurationParts = {
   release: "1.2.3",
@@ -16,14 +17,14 @@ const PARTS: ConfigurationParts = {
   stylesheetParser: { name: "repo-facts-css", version: "1.0.0", maxNodes: 200_000, maxDepth: 64 },
   limits: DEFAULT_BUDGETS,
   rulesDigest: "0".repeat(64),
-  catalogsDigest: "0".repeat(64),
+  adaptersDigest: "0".repeat(64),
 };
 const digest = (parts: ConfigurationParts) => digestOf(configurationFor(parts)).digest;
 
 describe("the detector bundle", () => {
   it("declares the release its package.json does", () => {
     const manifest = JSON.parse(fs.readFileSync(path.resolve(import.meta.dirname, "../package.json"), "utf8")) as { version: string };
-    expect(DETECTOR_RELEASE).toBe(manifest.version);
+    expect(SURVEYOR_RELEASE).toBe(manifest.version);
   });
 
   it("lists detectors in stage order", () => {
@@ -36,11 +37,11 @@ describe("the detector bundle", () => {
     const { configuration } = detectorConfiguration(DEFAULT_BUDGETS);
     expect(configuration).toMatchObject({
       schema: "repo_facts.detector_configuration",
-      release: DETECTOR_RELEASE,
-      fact_document: { schema: "repo_facts.fact_document", schema_version: 2 },
+      release: SURVEYOR_RELEASE,
+      fact_document: { schema: "repo_facts.fact_document", schema_version: 3 },
       syntax: { parser: "typescript", parser_version: SYNTAX_PARSER.version },
       stylesheets: { parser: "repo-facts-css", parser_version: STYLESHEET_PARSER.version, max_nodes: 200_000, max_depth: 64 },
-      catalogs: { digest: CATALOGS_DIGEST },
+      adapters: { digest: ADAPTERS_DIGEST },
       limits: { max_blob_bytes: DEFAULT_BUDGETS.maxBlobBytes, max_lockfile_bytes: DEFAULT_BUDGETS.maxLockfileBytes, max_files: DEFAULT_BUDGETS.maxFiles, max_total_bytes: DEFAULT_BUDGETS.maxTotalBytes },
     });
     expect((configuration.detectors as { id: string }[]).map((detector) => detector.id)).toEqual(DETECTORS.map((detector) => detector.id));
@@ -62,7 +63,7 @@ describe("the detector bundle", () => {
     ["the rules", { rulesDigest: "1".repeat(64) }],
     ["the stylesheet parser version", { stylesheetParser: { ...PARTS.stylesheetParser, version: "1.1.0" } }],
     ["a stylesheet limit", { stylesheetParser: { ...PARTS.stylesheetParser, maxDepth: 32 } }],
-    ["the catalogs", { catalogsDigest: "1".repeat(64) }],
+    ["the styling adapters", { adaptersDigest: "1".repeat(64) }],
   ])("changes the configuration digest when %s changes", (_name, change) => {
     expect(digest({ ...PARTS, ...change })).not.toBe(digest(PARTS));
   });
@@ -74,17 +75,43 @@ describe("the detector bundle", () => {
     expect(DETECTORS.filter((detector) => detector.id.startsWith("design-system.")).map((detector) => detector.stage)).toEqual(["architecture", "architecture"]);
   });
 
-  it("changes the configuration digest when a catalog's token list changes", () => {
-    const [salt, ...rest] = CATALOGS;
-    const changed = [{ ...salt!, tokens: [...salt!.tokens, "--salt-spacing-9999"].sort() }, ...rest];
-    expect(catalogsDigest(CATALOGS, ADAPTERS)).toBe(CATALOGS_DIGEST);
-    expect(digest({ ...PARTS, catalogsDigest: catalogsDigest(changed, ADAPTERS) })).not.toBe(digest({ ...PARTS, catalogsDigest: CATALOGS_DIGEST }));
+  it("keeps the release and configuration digest when an entry's token list changes, and names the new entry's digest (Catalog update)", async () => {
+    const files = { "package.json": '{ "name": "app", "dependencies": { "@salt-ds/core": "1.50.0" } }\n', "src/app.css": ".a { gap: var(--salt-spacing-9999) }\n" };
+    const salt = fixtureEntry("salt-1.50.0");
+    const changed = entryFromCatalog(fs.readFileSync(path.join(CATALOG_FIXTURES, "salt-1.50.0.yaml"), "utf8"), (entry) => entry.content.tokens!.push({ name: "--salt-spacing-9999" }));
+    expect(changed.digest).not.toBe(salt.digest);
+    const configuration = detectorConfiguration(DEFAULT_BUDGETS).digest;
+
+    const before = await analyze(MemoryReader.fromFiles(files, { commit: "a".repeat(40) }), { entries: [salt] });
+    const after = await analyze(MemoryReader.fromFiles(files, { commit: "a".repeat(40) }), { entries: [changed] });
+    expect(after.detector_release).toBe(before.detector_release);
+    expect(detectorConfiguration(DEFAULT_BUDGETS).digest).toBe(configuration);
+    expect(before.catalog_entries.map((entry) => entry.digest)).toEqual([salt.digest]);
+    expect(after.catalog_entries.map((entry) => entry.digest)).toEqual([changed.digest]);
+    expect(before.categories.style_values!.facts.map((fact) => fact.key)).toContain("unknown-token:--salt-spacing-9999");
+    expect(after.categories.style_values!.facts.map((fact) => fact.key)).not.toContain("unknown-token:--salt-spacing-9999");
+  });
+
+  it("produces byte-identical documents from the same content, release, configuration, and entries", async () => {
+    const files = { "package.json": '{ "name": "app", "dependencies": { "@salt-ds/core": "^1.50.0" } }\n', "src/App.tsx": 'import { Button } from "@salt-ds/core";\nexport const A = () => <Button appearance="solid" />;\n' };
+    const entries = [fixtureEntry("salt-1.75.0"), fixtureEntry("salt-1.50.0"), fixtureEntry("mui-6.1.0")];
+    const first = await analyze(MemoryReader.fromFiles(files, { commit: "a".repeat(40) }), { entries });
+    const second = await analyze(MemoryReader.fromFiles(files, { commit: "a".repeat(40) }), { entries: [...entries].reverse() });
+    expect(digestOf(second).digest).toBe(digestOf(first).digest);
+  });
+
+  it("recognizes no design system when no entries are supplied, and still succeeds", async () => {
+    const reader = MemoryReader.fromFiles({ "package.json": '{ "name": "app", "dependencies": { "@salt-ds/core": "1.75.0" } }\n', "src/App.tsx": 'import { Button } from "@salt-ds/core";\nexport const A = () => <Button />;\n' }, { commit: "a".repeat(40) });
+    const document = await analyze(reader);
+    expect(factDocumentProblems(document)).toEqual([]);
+    expect(document.categories.design_systems).toMatchObject({ state: "unknown", facts: [] });
+    expect(document.catalog_entries).toEqual([]);
   });
 
   it("analyzes a tree into a valid fact document that records the release", async () => {
     const reader = MemoryReader.fromFiles({ "package.json": '{ "name": "app", "devDependencies": { "vitest": "3.2.4" } }\n', "src/app.ts": "export {};\n" }, { commit: "a".repeat(40) });
     const document = await analyze(reader);
-    expect(document.detector_release).toBe(DETECTOR_RELEASE);
+    expect(document.detector_release).toBe(SURVEYOR_RELEASE);
     expect(document.categories.test_frameworks!.facts.map((fact) => fact.key)).toEqual(["vitest"]);
     expect(factDocumentProblems(document)).toEqual([]);
   });

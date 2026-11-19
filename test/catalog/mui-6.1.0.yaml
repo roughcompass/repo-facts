@@ -1,0 +1,34 @@
+# A test fixture: a small catalog of MUI, so tests can survey a repository
+# that uses two design systems. test/catalog/entries.ts converts it to a
+# Reference Catalog entry for MUI 6.1.0.
+format: 1
+id: mui
+name: MUI
+version: 1.0.0
+generated_from:
+  "@mui/material": 6.1.0
+packages:
+  - name: "@mui/material"
+    components: [Button, CssBaseline, Stack, TextField, ThemeProvider, Typography]
+  - name: "@mui/icons-material"
+providers:
+  - { package: "@mui/material", component: ThemeProvider }
+theme_stylesheets: []
+token_prefix: --mui-
+equivalents:
+  - { tag: button, package: "@mui/material", component: Button }
+  - { tag: input, package: "@mui/material", component: TextField }
+neutral_tags: [div, span]
+neutral_values: ["0", "100%", auto, inherit, transparent]
+property_families:
+  layout: [display, flex-direction, gap]
+  spacing: [margin, padding]
+  color: [background-color, color]
+tokens:
+  - --mui-palette-primary-main
+  - --mui-palette-text-primary
+  - --mui-shape-borderRadius
+props:
+  Button:
+    color: [error, info, inherit, primary, secondary, success, warning]
+    variant: [contained, outlined, text]

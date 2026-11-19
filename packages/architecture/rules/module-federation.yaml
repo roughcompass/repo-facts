@@ -33,6 +33,28 @@ rules:
       shared: { argument: 0, property: [shared] }
     emit: { signal: { kind: module-federation } }
 
+  - id: architecture.module-federation.repack
+    version: 1
+    description: Re.Pack's Module Federation plugins for React Native, built with Rspack or webpack
+    match: { new: { module: "@callstack/repack", members: [plugins], method: [ModuleFederationPluginV2, ModuleFederationPluginV1, ModuleFederationPlugin] } }
+    capture:
+      name: { argument: 0, property: [name] }
+      remotes: { argument: 0, property: [remotes] }
+      exposes: { argument: 0, property: [exposes] }
+      shared: { argument: 0, property: [shared] }
+    emit: { signal: { kind: module-federation } }
+
+  - id: architecture.module-federation.repack-plugins
+    version: 1
+    description: Re.Pack's Module Federation plugins, imported from its plugins entry point
+    match: { new: { module: "@callstack/repack/plugins", method: [ModuleFederationPluginV2, ModuleFederationPluginV1, ModuleFederationPlugin] } }
+    capture:
+      name: { argument: 0, property: [name] }
+      remotes: { argument: 0, property: [remotes] }
+      exposes: { argument: 0, property: [exposes] }
+      shared: { argument: 0, property: [shared] }
+    emit: { signal: { kind: module-federation } }
+
   - id: architecture.module-federation.vite
     version: 1
     description: Module Federation plugins for Vite

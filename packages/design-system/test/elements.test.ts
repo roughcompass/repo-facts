@@ -2,11 +2,13 @@ import crypto from "node:crypto";
 import type { BlobContent } from "@repo-facts/contract";
 import { SyntaxTree, parseStylesheet } from "@repo-facts/syntax";
 import { describe, expect, it } from "vitest";
-import { CATALOGS, type ElementRecord, SHIPPED, StyleIndex, analyzeFile, joinPath, scopeOf } from "../src/index.js";
+import { fixtureEntry } from "../../../test/catalog/entries.js";
+import { type ElementRecord, StyleIndex, analyzeFile, catalogFromEntry, catalogsWith, joinPath, scopeOf } from "../src/index.js";
 
 // design-system-usage: elements are classified where they're written; class names are traced to the styles they apply.
 
-const salt = CATALOGS.find((catalog) => catalog.id === "salt")!;
+const salt = catalogFromEntry(fixtureEntry("salt-1.50.0"));
+const CATALOGS = [salt];
 
 function content(path: string, text: string): BlobContent {
   const bytes = Buffer.from(text);
@@ -23,7 +25,7 @@ function analyze(source: string, stylesheets: Record<string, string> = {}, path 
   }
   const parsed = SyntaxTree.parse(content(path, source));
   if (!parsed.ok) throw new Error(parsed.failure.reason);
-  return analyzeFile(parsed.tree, scopeOf(path), SHIPPED, index);
+  return analyzeFile(parsed.tree, scopeOf(path), catalogsWith(CATALOGS), index);
 }
 
 const kinds = (elements: readonly ElementRecord[]) =>

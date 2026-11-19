@@ -1,8 +1,11 @@
 import { z } from "zod";
+import { ENTRY_KINDS } from "../catalog/entry.js";
 
 /**
- * The fact document contract, version 2: what one detector run over one
- * snapshot or working tree established about a repository.
+ * The fact document contract, version 3: what one detector run over one
+ * snapshot or working tree established about a repository, and the Reference
+ * Catalog entries it was compared against. Version 2 documents, which name
+ * no entries, stay readable.
  *
  * Every shared category, and every extension category the consumer
  * registered, appears in every document. A category with no defensible
@@ -14,7 +17,9 @@ import { z } from "zod";
  */
 
 export const FACT_DOCUMENT_SCHEMA = "repo_facts.fact_document";
-export const FACT_DOCUMENT_VERSION = 2;
+export const FACT_DOCUMENT_VERSION = 3;
+/** The fact document versions this release reads. It writes only FACT_DOCUMENT_VERSION. */
+export const READABLE_FACT_DOCUMENT_VERSIONS: readonly number[] = [2, 3];
 
 export const FACT_STATES = ["observed", "inferred", "conflicting", "unknown"] as const;
 export type FactState = (typeof FACT_STATES)[number];
@@ -212,9 +217,24 @@ const diagnosticSchema = z.strictObject({
 
 const extensionSchema = z.strictObject({ id: z.string().regex(EXTENSION_ID), bounded_negative: z.boolean() });
 
-export const factDocumentSchema = z.strictObject({
+/**
+ * A Reference Catalog entry the document's facts were compared against, and
+ * the version the repository wanted. When no supplied entry is at or before
+ * the wanted version, `version`, `format_version`, and `digest` are null, so
+ * a consumer can tell that a later build would change the comparison.
+ */
+const catalogEntrySchema = z.strictObject({
+  kind: z.enum(ENTRY_KINDS),
+  id: z.string().regex(/^[a-z][a-z0-9-]*$/),
+  version: z.string().min(1).nullable(),
+  format_version: z.int().positive().nullable(),
+  digest: z.string().regex(/^[0-9a-f]{64}$/).nullable(),
+  /** The package whose version was wanted, and that version: resolved by a lockfile, else allowed by a declared range, else null. */
+  wanted: z.strictObject({ package: z.string().min(1), version: z.string().min(1).nullable() }),
+});
+
+const documentFields = {
   schema: z.literal(FACT_DOCUMENT_SCHEMA),
-  schema_version: z.literal(FACT_DOCUMENT_VERSION),
   detector_release: z.string().min(1),
   /** The snapshot commit, or null for a working tree. */
   commit: commitSchema,
@@ -235,9 +255,17 @@ export const factDocumentSchema = z.strictObject({
     files_read: z.int().nonnegative(),
     bytes_read: z.int().nonnegative(),
   }),
-});
+};
+
+export const factDocumentSchema = z.strictObject({ ...documentFields, schema_version: z.literal(FACT_DOCUMENT_VERSION), catalog_entries: z.array(catalogEntrySchema) });
+/** Version 2: the same document without `catalog_entries`. */
+export const factDocumentV2Schema = z.strictObject({ ...documentFields, schema_version: z.literal(2) });
 
 export type FactDocument = z.infer<typeof factDocumentSchema>;
+export type FactDocumentV2 = z.infer<typeof factDocumentV2Schema>;
+/** Any fact document this release reads. */
+export type ReadableFactDocument = FactDocument | FactDocumentV2;
+export type DocumentCatalogEntry = z.infer<typeof catalogEntrySchema>;
 export type DocumentCategory = z.infer<typeof categorySchema>;
 export type DocumentFact = z.infer<typeof factSchema>;
 export type ServiceDependency = z.infer<typeof serviceSchema>;
@@ -253,11 +281,14 @@ export type DocumentExtension = z.infer<typeof extensionSchema>;
  * problem found, or an empty list.
  */
 export function factDocumentProblems(document: unknown): string[] {
-  const parsed = factDocumentSchema.safeParse(document);
+  const version = typeof document === "object" && document !== null ? (document as Record<string, unknown>).schema_version : undefined;
+  if (typeof version === "number" && !READABLE_FACT_DOCUMENT_VERSIONS.includes(version)) return [`schema_version: ${version} is not supported; this release reads versions ${READABLE_FACT_DOCUMENT_VERSIONS.join(" and ")}`];
+  const parsed = (version === 2 ? factDocumentV2Schema : factDocumentSchema).safeParse(document);
   if (!parsed.success) return parsed.error.issues.map((issue) => `${issue.path.join(".") || "document"}: ${issue.message}`);
 
-  const facts = parsed.data;
+  const facts: ReadableFactDocument = parsed.data;
   const problems: string[] = [];
+  if ("catalog_entries" in facts) problems.push(...catalogEntryProblems(facts));
   const known = new Set(Object.keys(facts.evidence));
   const cite = (label: string, ids: readonly string[]) => {
     for (const id of ids) if (!known.has(id)) problems.push(`${label} cites unknown evidence ${id}`);
@@ -313,6 +344,30 @@ export function factDocumentProblems(document: unknown): string[] {
   }
 
   for (const reference of facts.relationship_references) cite(`reference ${reference.id}`, reference.evidence);
+  return problems;
+}
+
+/**
+ * Catalog entries are listed once per thing, in kind and id order, with an
+ * entry's version, format version, and digest all present or all null. Each
+ * design-system fact names the entry listed for it.
+ */
+function catalogEntryProblems(document: FactDocument): string[] {
+  const problems: string[] = [];
+  const keys = document.catalog_entries.map((entry) => `${entry.kind}:${entry.id}`);
+  if (keys.join() !== [...new Set(keys)].sort().join()) problems.push("catalog_entries must list each thing once, in kind and id order");
+  for (const entry of document.catalog_entries) {
+    const present = [entry.version, entry.format_version, entry.digest].filter((value) => value !== null).length;
+    if (present !== 0 && present !== 3) problems.push(`catalog entry ${entry.id} must give its version, format version, and digest together`);
+  }
+  for (const fact of document.categories.design_systems?.facts ?? []) {
+    const value = fact.value as Record<string, unknown> | null;
+    if (typeof value !== "object" || value === null || !("entry" in value)) continue;
+    const named = value.entry as { version?: unknown; digest?: unknown } | null;
+    const listed = document.catalog_entries.find((entry) => entry.kind === "design_system" && entry.id === value.catalog);
+    if (!listed) problems.push(`design_systems/${fact.key} names an entry that catalog_entries doesn't list`);
+    else if (named === null ? listed.digest !== null : listed.digest !== named.digest || listed.version !== named.version) problems.push(`design_systems/${fact.key} names another entry than catalog_entries lists`);
+  }
   return problems;
 }
 

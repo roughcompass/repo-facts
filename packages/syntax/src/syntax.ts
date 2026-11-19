@@ -11,7 +11,7 @@ import type { BlobContent } from "@repo-facts/contract";
  * syntax errors is skipped, never half-read.
  *
  * The parser version is part of the detector configuration, so upgrading the
- * parser produces a new detector release.
+ * parser produces a new Surveyor release.
  */
 
 export const SYNTAX_PARSER = { name: "typescript", version: ts.version } as const;

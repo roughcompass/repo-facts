@@ -1,7 +1,7 @@
 {
   "name": "@repo-facts/contract",
   "version": "0.6.0",
-  "description": "Fact contract, reconciliation, reader interface, and canonical JSON for repository facts",
+  "description": "Fact contract, Reference Catalog entry format, reconciliation, reader interface, and canonical JSON for repository facts",
   "license": "UNLICENSED",
   "type": "module",
   "engines": {
@@ -18,7 +18,8 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "docs"
   ],
   "sideEffects": false,
   "dependencies": {

@@ -1,6 +1,6 @@
 import type { BlobContent } from "@repo-facts/contract";
 import { type ComponentValue, type CssComplexSelector, type CssDeclaration, type CssNode, type Stylesheet, walkStylesheet } from "@repo-facts/syntax";
-import type { Catalog } from "./catalog-schema.js";
+import type { Catalog } from "./catalog.js";
 import type { Scope } from "./scope.js";
 
 /**
@@ -149,14 +149,14 @@ export class StyleIndex {
       const indexed: IndexedDeclaration = { declaration, source, site: site(declaration.start) };
       if (declaration.custom) {
         this.definitions.set(declaration.property, [...(this.definitions.get(declaration.property) ?? []), indexed]);
-        const catalog = this.catalogs.find((candidate) => declaration.property.startsWith(candidate.token_prefix));
+        const catalog = this.catalogs.find((candidate) => candidate.token_prefix !== null && declaration.property.startsWith(candidate.token_prefix));
         if (catalog) this.finding("redefinition", `redefinition:${declaration.property}`, source, indexed.site);
       } else {
         style.push(indexed);
         this.declarations.push(indexed);
       }
       for (const reference of varReferences(declaration.value)) {
-        const catalog = this.catalogs.find((candidate) => reference.name.startsWith(candidate.token_prefix));
+        const catalog = this.catalogs.find((candidate) => candidate.token_prefix !== null && reference.name.startsWith(candidate.token_prefix));
         if (catalog && !this.tokens.get(catalog.id)!.has(reference.name)) this.finding("unknown-token", `unknown-token:${reference.name}`, source, site(reference.start));
       }
       if (declaration.important) this.finding("important", "important", source, indexed.site);
@@ -166,7 +166,8 @@ export class StyleIndex {
 
   private selectorFindings(source: StyleSource, selector: CssComplexSelector, ancestors: readonly CssNode[], at: Site) {
     for (const catalog of this.catalogs) {
-      const internal = selector.compounds.some((compound) => [...compound.classes, ...compound.argumentClasses].some((name) => hasClassPrefix(name, catalog.class_prefix)));
+      const prefix = catalog.class_prefix;
+      const internal = prefix !== null && selector.compounds.some((compound) => [...compound.classes, ...compound.argumentClasses].some((name) => hasClassPrefix(name, prefix)));
       if (internal) this.finding("internal-selector", `internal-selector:${catalog.id}`, source, at);
     }
     // A global element selector: an unqualified tag, outside any rule, keyframes, and mixin.

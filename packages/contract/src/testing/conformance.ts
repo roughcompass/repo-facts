@@ -199,7 +199,7 @@ export function readerConformanceCases(): ConformanceCase[] {
             context.search({ category: "languages", rule: "conformance.read", surface: context.reader.files().map((entry) => entry.path), complete: true, skipped: [] });
           },
         };
-        const run = (reader: SourceReader) => runDetectors({ reader, detectorRelease: "0.0.0-conformance", detectors: [probe] });
+        const run = (reader: SourceReader) => runDetectors({ reader, surveyorRelease: "0.0.0-conformance", detectors: [probe] });
         assert.deepEqual(await run(candidate), await run(reference));
       },
     },

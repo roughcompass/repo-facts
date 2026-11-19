@@ -1,0 +1,22 @@
+{
+  "name": "com.example.inspections",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "cordova build"
+  },
+  "devDependencies": {
+    "cordova-android": "^13.0.0",
+    "cordova-ios": "^7.1.1",
+    "cordova-plugin-camera": "^7.0.0"
+  },
+  "cordova": {
+    "platforms": [
+      "android",
+      "ios"
+    ],
+    "plugins": {
+      "cordova-plugin-camera": {}
+    }
+  }
+}

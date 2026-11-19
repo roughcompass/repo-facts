@@ -1,4 +1,5 @@
 {
+  "catalog_entries": [],
   "categories": {
     "access_signals": {
       "facts": [],
@@ -1170,6 +1171,6 @@
     }
   ],
   "schema": "repo_facts.fact_document",
-  "schema_version": 2,
+  "schema_version": 3,
   "service_dependencies": []
 }

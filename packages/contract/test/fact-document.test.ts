@@ -29,6 +29,8 @@ const PACKAGE_JSON = `{
 const NVMRC = "18\n";
 const CLIENT = `export const load = () => fetch("https://api.example.test/orders");\n`;
 
+const ENTRY = { kind: "design_system" as const, id: "salt", version: "1.75.0", format_version: 1, digest: "d".repeat(64), wanted: { package: "@salt-ds/core", version: "1.76.0" } };
+
 describe("fact document contract", () => {
   let reader: MemoryReader;
   let manifest: BlobContent;
@@ -96,7 +98,7 @@ describe("fact document contract", () => {
     };
   };
 
-  const profile = (input = findings()): FactDocument => reconcileFacts(input, reader, { detectorRelease: "0.1.0" });
+  const profile = (input = findings()): FactDocument => reconcileFacts(input, reader, { surveyorRelease: "0.1.0" });
   const mutated = (change: (document: FactDocument) => void): string[] => {
     const document = structuredClone(profile());
     change(document);
@@ -107,7 +109,7 @@ describe("fact document contract", () => {
     const document = profile();
     expect(factDocumentProblems(document)).toEqual([]);
     expect(Object.keys(document.categories)).toEqual(SHARED_CATEGORY_IDS);
-    expect(document).toMatchObject({ schema: "repo_facts.fact_document", schema_version: 2, detector_release: "0.1.0", commit: "a".repeat(40), extensions: [] });
+    expect(document).toMatchObject({ schema: "repo_facts.fact_document", schema_version: 3, detector_release: "0.1.0", commit: "a".repeat(40), extensions: [], catalog_entries: [] });
     expect(document.categories.package_managers!.state).toBe("observed");
     expect(document.categories.runtime_requirements!.state).toBe("conflicting");
     expect(document.categories.frameworks!.state).toBe("inferred");
@@ -138,6 +140,27 @@ describe("fact document contract", () => {
     ["a version 1 document without the Interface categories", (document) => void ((document as { schema_version: number }).schema_version = 1, delete document.categories.ui_elements), "schema_version"],
   ])("rejects %s", (_name, change, message) => {
     expect(mutated(change)).toContainEqual(expect.stringContaining(message));
+  });
+
+  it("keeps version 2 documents, which name no catalog entries, readable", () => {
+    const { catalog_entries: _entries, ...rest } = structuredClone(profile());
+    const version2 = { ...rest, schema_version: 2 };
+    expect(factDocumentProblems(version2)).toEqual([]);
+    expect(factDocumentProblems({ ...version2, catalog_entries: [] })).toContainEqual(expect.stringContaining("Unrecognized key"));
+    expect(factDocumentProblems({ ...rest, schema_version: 3 })).toContainEqual(expect.stringContaining("catalog_entries"));
+    expect(factDocumentProblems({ ...rest, schema_version: 4 })).toEqual(["schema_version: 4 is not supported; this release reads versions 2 and 3"]);
+  });
+
+  it.each<[string, (document: FactDocument) => void, string]>([
+    ["an entry listed twice", (document) => void (document.catalog_entries = [ENTRY, ENTRY]), "catalog_entries must list each thing once"],
+    ["entries out of order", (document) => void (document.catalog_entries = [ENTRY, { ...ENTRY, id: "mui" }]), "catalog_entries must list each thing once"],
+    ["an entry with a digest but no version", (document) => void (document.catalog_entries = [{ ...ENTRY, version: null }]), "must give its version, format version, and digest together"],
+  ])("rejects %s in catalog_entries", (_name, change, message) => {
+    expect(mutated(change)).toContainEqual(expect.stringContaining(message));
+  });
+
+  it("accepts an entry that names no entry, for a version no supplied entry is at or before", () => {
+    expect(mutated((document) => void (document.catalog_entries = [{ ...ENTRY, version: null, format_version: null, digest: null }]))).toEqual([]);
   });
 
   it("groups the design-system categories under Interface, each allowing a bounded negative", () => {

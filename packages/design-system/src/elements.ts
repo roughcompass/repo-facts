@@ -23,8 +23,6 @@ export const MECHANISMS = ["class_name", "style", "css", "sx", "styled"] as cons
 export type Mechanism = (typeof MECHANISMS)[number];
 
 const ATTRIBUTE_MECHANISMS: Readonly<Record<string, Mechanism>> = { className: "class_name", style: "style", css: "css", sx: "sx" };
-/** The prop through which a design-system component renders a caller's element as its own root, such as Salt's `render`. */
-const RENDER_PROP = "render";
 
 /** A declaration an element applies, as written. */
 export interface AppliedDeclaration {
@@ -55,11 +53,18 @@ export interface ElementRecord {
   /** Every style source the element applies; empty when it applies none. */
   parts: readonly StylePart[];
   /**
-   * The design-system component, as `system:Name`, whose `render` prop this
-   * intrinsic element is: the component renders it as its own root, so it is
-   * the component in use rather than a raw element. Null otherwise.
+   * The design-system component, as `system:Name`, whose render prop this
+   * intrinsic element is, such as Salt's `render`: the component renders it
+   * as its own root, so it is the component in use rather than a raw
+   * element. The entry names a design system's render props. Null otherwise.
    */
   renderedBy: string | null;
+  /**
+   * For a design-system component, the attributes it passes, in order, each
+   * with its literal value as text (`true` for a bare attribute), or null
+   * when the value isn't a literal. Empty for other elements.
+   */
+  props: readonly { name: string; value: string | null }[];
 }
 
 export interface WrapperRecord {
@@ -214,12 +219,14 @@ class FileAnalyzer {
 
     let spread = false;
     const classes: AppliedClass[] = [];
+    const props: { name: string; value: string | null }[] = [];
     for (const attribute of node.attributes.properties) {
       if (ts.isJsxSpreadAttribute(attribute)) {
         spread = true;
         continue;
       }
       if (!ts.isIdentifier(attribute.name)) continue;
+      if (element.kind === "component") props.push({ name: attribute.name.text, value: literalAttribute(attribute) });
       const mechanism = ATTRIBUTE_MECHANISMS[attribute.name.text];
       if (!mechanism) continue;
       mechanisms.add(mechanism);
@@ -234,20 +241,26 @@ class FileAnalyzer {
       }
     }
     const renderedBy = element.kind === "intrinsic" ? this.renderedBy(node) : null;
-    this.analysis.elements.push({ element, site: this.site(node), scope: this.scope, mechanisms, spread, classes, parts, renderedBy });
+    this.analysis.elements.push({ element, site: this.site(node), scope: this.scope, mechanisms, spread, classes, parts, renderedBy, props });
   }
 
-  /** The design-system component whose `render` prop +node+ is, such as the `<a>` in `<NavigationItem render={<a href="#" />} />`. */
+  /**
+   * The design-system component whose render prop +node+ is, such as the
+   * `<a>` in `<NavigationItem render={<a href="#" />} />`. The prop must be
+   * one the component's design system lists as a render prop.
+   */
   private renderedBy(node: ts.JsxOpeningElement | ts.JsxSelfClosingElement): string | null {
     let parent: ts.Node = ts.isJsxOpeningElement(node) ? node.parent.parent : node.parent;
     while (ts.isParenthesizedExpression(parent)) parent = parent.parent;
     if (!ts.isJsxExpression(parent)) return null;
     const attribute = parent.parent;
-    if (!ts.isJsxAttribute(attribute) || !ts.isIdentifier(attribute.name) || attribute.name.text !== RENDER_PROP) return null;
+    if (!ts.isJsxAttribute(attribute) || !ts.isIdentifier(attribute.name)) return null;
+    const name = attribute.name.text;
     const owner = attribute.parent.parent;
     const reference = resolveTag(this.tree, owner.tagName);
     const component = reference.kind === "module" || (reference.kind === "local" && reference.members.length === 0) ? this.componentOf(reference, 0) : null;
-    return component ? `${component.system}:${component.name}` : null;
+    if (!component || !this.catalogs.catalogs.find((catalog) => catalog.id === component.system)?.render_props.includes(name)) return null;
+    return `${component.system}:${component.name}`;
   }
 
   private classPart(applied: AppliedClass): StylePart {
@@ -445,6 +458,23 @@ class FileAnalyzer {
     }
     return { declarations };
   }
+}
+
+/**
+ * An attribute's value as text when it's a literal: a string, a number, or a
+ * boolean, with a bare attribute as `true`. Null for any other expression.
+ */
+function literalAttribute(attribute: ts.JsxAttribute): string | null {
+  const initializer = attribute.initializer;
+  if (!initializer) return "true";
+  if (ts.isStringLiteral(initializer)) return initializer.text;
+  if (!ts.isJsxExpression(initializer) || !initializer.expression) return null;
+  const expression = unwrap(initializer.expression);
+  if (ts.isStringLiteral(expression) || ts.isNoSubstitutionTemplateLiteral(expression) || ts.isNumericLiteral(expression)) return expression.text;
+  if (ts.isPrefixUnaryExpression(expression) && expression.operator === ts.SyntaxKind.MinusToken && ts.isNumericLiteral(expression.operand)) return `-${expression.operand.text}`;
+  if (expression.kind === ts.SyntaxKind.TrueKeyword) return "true";
+  if (expression.kind === ts.SyntaxKind.FalseKeyword) return "false";
+  return null;
 }
 
 function attributeExpression(attribute: ts.JsxAttribute): ts.Expression | null {

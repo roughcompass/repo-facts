@@ -1,14 +1,18 @@
 import { type FactDocument, MemoryReader, type MemoryFile, factDocumentProblems, runDetectors } from "@repo-facts/contract";
 import { CORE_DETECTORS } from "@repo-facts/core";
 import { expect } from "vitest";
-import { DESIGN_SYSTEM_DETECTORS } from "../src/index.js";
+import { fixtureEntry } from "../../../test/catalog/entries.js";
+import { designSystemDetectors } from "../src/index.js";
 
 export const json = (value: unknown) => `${JSON.stringify(value, null, 2)}\n`;
 
-/** Runs the core and design-system detectors over +files+, and checks the document is valid. */
-export async function profile(files: Record<string, MemoryFile>) {
+/** The entry most tests compare against: Salt 1.50.0, converted from the catalog that releases up to 0.6.0 compiled in. */
+export const SALT = fixtureEntry("salt-1.50.0");
+
+/** Runs the core and design-system detectors over +files+, comparing against +entries+, and checks the document is valid. */
+export async function profile(files: Record<string, MemoryFile>, entries: readonly unknown[] = [SALT]) {
   const reader = MemoryReader.fromFiles(files, { commit: "a".repeat(40) });
-  const document = await runDetectors({ reader, detectorRelease: "0.1.0", detectors: [...CORE_DETECTORS, ...DESIGN_SYSTEM_DETECTORS] });
+  const document = await runDetectors({ reader, surveyorRelease: "0.1.0", detectors: [...CORE_DETECTORS, ...designSystemDetectors(entries)] });
   expect(factDocumentProblems(document)).toEqual([]);
   return document;
 }

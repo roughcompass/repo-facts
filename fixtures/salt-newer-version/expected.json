@@ -1,0 +1,1349 @@
+{
+  "catalog_entries": [
+    {
+      "digest": "bce22d363d1e3fbbacb01842eceebcf97eb2bbf865f849ac8b63079f934cf869",
+      "format_version": 1,
+      "id": "salt",
+      "kind": "design_system",
+      "version": "1.75.0",
+      "wanted": {
+        "package": "@salt-ds/core",
+        "version": "1.76.0"
+      }
+    }
+  ],
+  "categories": {
+    "access_signals": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "access.search"
+        ],
+        "skipped": [],
+        "surface": [
+          "src/Blotter.tsx"
+        ]
+      },
+      "state": "absent"
+    },
+    "api_contracts": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "contracts.search"
+        ],
+        "skipped": [],
+        "surface": [
+          "src/Blotter.tsx"
+        ]
+      },
+      "state": "absent"
+    },
+    "build_tools": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "config.tool-file",
+          "manifest.tool-dependency"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "ci_systems": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "ci.definition"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    },
+    "composition": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "architecture.import-map",
+          "composition"
+        ],
+        "skipped": [],
+        "surface": [
+          "src/Blotter.tsx"
+        ]
+      },
+      "state": "unknown"
+    },
+    "dependencies": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_d22241a9a13e4ac420fc6798"
+          ],
+          "key": "package.json#dependencies/@salt-ds/core",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "dependencies",
+            "manifest": "package.json",
+            "name": "@salt-ds/core",
+            "specifier": "^1.76.0"
+          }
+        },
+        {
+          "evidence": [
+            "ev_ac2763c7356dc3bc17c9fef7"
+          ],
+          "key": "package.json#dependencies/@salt-ds/theme",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "dependencies",
+            "manifest": "package.json",
+            "name": "@salt-ds/theme",
+            "specifier": "^1.49.0"
+          }
+        },
+        {
+          "evidence": [
+            "ev_72c3d25e87faf2c28b2be8c8"
+          ],
+          "key": "package.json#dependencies/react",
+          "rule": "manifest.dependencies",
+          "state": "observed",
+          "value": {
+            "field": "dependencies",
+            "manifest": "package.json",
+            "name": "react",
+            "specifier": "18.3.1"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.dependencies"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "design_systems": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_3227238cae0486ca5a69aef2",
+            "ev_c7184e75322cdcdc0aa5b6b4",
+            "ev_e955f59b17f3171e47dad1ab"
+          ],
+          "key": "salt",
+          "rule": "design-system.recognize",
+          "state": "observed",
+          "value": {
+            "catalog": "salt",
+            "entry": {
+              "digest": "bce22d363d1e3fbbacb01842eceebcf97eb2bbf865f849ac8b63079f934cf869",
+              "version": "1.75.0"
+            },
+            "imported": true,
+            "name": "Salt",
+            "packages": [
+              {
+                "field": "dependencies",
+                "manifest": "package.json",
+                "name": "@salt-ds/core",
+                "range": "^1.76.0"
+              },
+              {
+                "field": "dependencies",
+                "manifest": "package.json",
+                "name": "@salt-ds/theme",
+                "range": "^1.49.0"
+              }
+            ],
+            "provider": true,
+            "theme_stylesheet": true
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "design-system.recognize"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json",
+          "src/Blotter.tsx"
+        ]
+      },
+      "state": "observed"
+    },
+    "egress_routes": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "egress.search"
+        ],
+        "skipped": [],
+        "surface": [
+          "src/Blotter.tsx"
+        ]
+      },
+      "state": "absent"
+    },
+    "frameworks": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_e52580281c0a09bbee6fe918"
+          ],
+          "key": "package.json#react",
+          "rule": "manifest.framework",
+          "state": "observed",
+          "value": {
+            "id": "react",
+            "label": "React",
+            "manifest": "package.json",
+            "mobile": false,
+            "package": "react",
+            "specifiers": {
+              "dependencies": "18.3.1"
+            }
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.framework"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "languages": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_2c9341da7c64847cab38c533",
+            "ev_8a86585b03d12f9a459986d0"
+          ],
+          "key": "JSON",
+          "rule": "inventory.language-by-extension",
+          "state": "observed",
+          "value": {
+            "bytes": 684,
+            "files": 2
+          }
+        },
+        {
+          "evidence": [
+            "ev_ccef14a92856ae847021ac2f"
+          ],
+          "key": "TypeScript",
+          "rule": "inventory.language-by-extension",
+          "state": "observed",
+          "value": {
+            "bytes": 244,
+            "files": 1
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.language-by-extension"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "observed"
+    },
+    "package_identity": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_0fa73cc5ecef3028a8878f59",
+            "ev_a0122d78f9ca57dce9c52281"
+          ],
+          "key": "package.json",
+          "rule": "manifest.identity",
+          "state": "observed",
+          "value": {
+            "manifest": "package.json",
+            "name": "blotter",
+            "private": true,
+            "version": "1.0.0"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.identity"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "package_managers": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_79b950199e44211e0710890d"
+          ],
+          "key": ".",
+          "reasoning": "package-lock.json is the lockfile npm writes, so npm manages this directory.",
+          "rule": "lockfile.package-manager",
+          "state": "inferred",
+          "value": "npm"
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "lockfile.package-manager",
+          "manifest.package-manager"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "inferred"
+    },
+    "packages_consumed": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_e5e47a7213d1e817eadd3851"
+          ],
+          "key": "@salt-ds/core",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "@salt-ds/core"
+          }
+        },
+        {
+          "evidence": [
+            "ev_4d3885f7b4d0961ed90eb26e"
+          ],
+          "key": "@salt-ds/theme",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "@salt-ds/theme"
+          }
+        },
+        {
+          "evidence": [
+            "ev_af18d788e05037829a2b2bc4"
+          ],
+          "key": "react",
+          "rule": "packages.consumed",
+          "state": "observed",
+          "value": {
+            "internal": false,
+            "name": "react"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "packages.consumed"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "packages_produced": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_0de5da799a10a4a372d5cb8a",
+            "ev_c2b4436d66e524462ac75986"
+          ],
+          "key": "blotter",
+          "rule": "packages.produced",
+          "state": "observed",
+          "value": {
+            "manifest": "package.json",
+            "name": "blotter",
+            "published": false,
+            "version": "1.0.0"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "packages.produced"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "resolved_dependencies": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_9a188e7ac70760035eff0732"
+          ],
+          "key": "package.json#@salt-ds/core",
+          "rule": "npm-lock.resolved-version",
+          "state": "observed",
+          "value": {
+            "manifest": "package.json",
+            "name": "@salt-ds/core",
+            "version": "1.76.0"
+          }
+        },
+        {
+          "evidence": [
+            "ev_fde26e18556fa5260918af63"
+          ],
+          "key": "package.json#@salt-ds/theme",
+          "rule": "npm-lock.resolved-version",
+          "state": "observed",
+          "value": {
+            "manifest": "package.json",
+            "name": "@salt-ds/theme",
+            "version": "1.49.0"
+          }
+        },
+        {
+          "evidence": [
+            "ev_ee3c58ea13f0e6fad255dab6"
+          ],
+          "key": "package.json#react",
+          "rule": "npm-lock.resolved-version",
+          "state": "observed",
+          "value": {
+            "manifest": "package.json",
+            "name": "react",
+            "version": "18.3.1"
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "npm-lock.resolved-version",
+          "pnpm-lock.resolved-version",
+          "yarn-lock.resolved-version"
+        ],
+        "skipped": [],
+        "surface": [
+          "package-lock.json"
+        ]
+      },
+      "state": "observed"
+    },
+    "runtime_integrations": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "composition"
+        ],
+        "skipped": [],
+        "surface": [
+          "src/Blotter.tsx"
+        ]
+      },
+      "state": "unknown"
+    },
+    "runtime_requirements": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "runtime.declarations"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "scripts": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.scripts"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "served_origins": {
+      "facts": [],
+      "search": {
+        "complete": false,
+        "rules": [],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "unknown"
+    },
+    "style_values": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "design-system.usage"
+        ],
+        "skipped": [],
+        "surface": [
+          "src/Blotter.tsx"
+        ]
+      },
+      "state": "absent"
+    },
+    "submodules": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "inventory.gitlink"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    },
+    "test_frameworks": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "config.tool-file",
+          "manifest.tool-dependency"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "test_substitutes": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "substitutes.search"
+        ],
+        "skipped": [],
+        "surface": [
+          "src/Blotter.tsx"
+        ]
+      },
+      "state": "absent"
+    },
+    "ui_elements": {
+      "facts": [
+        {
+          "evidence": [
+            "ev_62e9867a401fe875dbfd03c9"
+          ],
+          "key": "component:salt:Button",
+          "rule": "design-system.elements",
+          "state": "observed",
+          "value": {
+            "app": {
+              "as_is": 1,
+              "customized": 0,
+              "mechanisms": {
+                "class_name": 0,
+                "css": 0,
+                "style": 0,
+                "styled": 0,
+                "sx": 0
+              },
+              "sites": 1,
+              "styles": {
+                "partial": 0,
+                "resolved": 0,
+                "unresolved": 0
+              },
+              "unknown": 0
+            },
+            "package": "@salt-ds/core",
+            "props": {
+              "app": {
+                "names": {
+                  "appearance": {
+                    "count": 1,
+                    "values": {
+                      "transparent": 1
+                    }
+                  }
+                },
+                "unknown": 0
+              },
+              "stories": {
+                "names": {},
+                "unknown": 0
+              },
+              "tests": {
+                "names": {},
+                "unknown": 0
+              }
+            },
+            "stories": {
+              "as_is": 0,
+              "customized": 0,
+              "mechanisms": {
+                "class_name": 0,
+                "css": 0,
+                "style": 0,
+                "styled": 0,
+                "sx": 0
+              },
+              "sites": 0,
+              "styles": {
+                "partial": 0,
+                "resolved": 0,
+                "unresolved": 0
+              },
+              "unknown": 0
+            },
+            "tests": {
+              "as_is": 0,
+              "customized": 0,
+              "mechanisms": {
+                "class_name": 0,
+                "css": 0,
+                "style": 0,
+                "styled": 0,
+                "sx": 0
+              },
+              "sites": 0,
+              "styles": {
+                "partial": 0,
+                "resolved": 0,
+                "unresolved": 0
+              },
+              "unknown": 0
+            }
+          }
+        },
+        {
+          "evidence": [
+            "ev_8231f2e2c62a709c2790ee2f"
+          ],
+          "key": "component:salt:SaltProvider",
+          "rule": "design-system.elements",
+          "state": "observed",
+          "value": {
+            "app": {
+              "as_is": 1,
+              "customized": 0,
+              "mechanisms": {
+                "class_name": 0,
+                "css": 0,
+                "style": 0,
+                "styled": 0,
+                "sx": 0
+              },
+              "sites": 1,
+              "styles": {
+                "partial": 0,
+                "resolved": 0,
+                "unresolved": 0
+              },
+              "unknown": 0
+            },
+            "package": "@salt-ds/core",
+            "props": {
+              "app": {
+                "names": {},
+                "unknown": 0
+              },
+              "stories": {
+                "names": {},
+                "unknown": 0
+              },
+              "tests": {
+                "names": {},
+                "unknown": 0
+              }
+            },
+            "stories": {
+              "as_is": 0,
+              "customized": 0,
+              "mechanisms": {
+                "class_name": 0,
+                "css": 0,
+                "style": 0,
+                "styled": 0,
+                "sx": 0
+              },
+              "sites": 0,
+              "styles": {
+                "partial": 0,
+                "resolved": 0,
+                "unresolved": 0
+              },
+              "unknown": 0
+            },
+            "tests": {
+              "as_is": 0,
+              "customized": 0,
+              "mechanisms": {
+                "class_name": 0,
+                "css": 0,
+                "style": 0,
+                "styled": 0,
+                "sx": 0
+              },
+              "sites": 0,
+              "styles": {
+                "partial": 0,
+                "resolved": 0,
+                "unresolved": 0
+              },
+              "unknown": 0
+            }
+          }
+        },
+        {
+          "evidence": [
+            "ev_3ac017f2c190a089ad30ab1d"
+          ],
+          "key": "component:salt:Text",
+          "rule": "design-system.elements",
+          "state": "observed",
+          "value": {
+            "app": {
+              "as_is": 1,
+              "customized": 0,
+              "mechanisms": {
+                "class_name": 0,
+                "css": 0,
+                "style": 0,
+                "styled": 0,
+                "sx": 0
+              },
+              "sites": 1,
+              "styles": {
+                "partial": 0,
+                "resolved": 0,
+                "unresolved": 0
+              },
+              "unknown": 0
+            },
+            "package": "@salt-ds/core",
+            "props": {
+              "app": {
+                "names": {},
+                "unknown": 0
+              },
+              "stories": {
+                "names": {},
+                "unknown": 0
+              },
+              "tests": {
+                "names": {},
+                "unknown": 0
+              }
+            },
+            "stories": {
+              "as_is": 0,
+              "customized": 0,
+              "mechanisms": {
+                "class_name": 0,
+                "css": 0,
+                "style": 0,
+                "styled": 0,
+                "sx": 0
+              },
+              "sites": 0,
+              "styles": {
+                "partial": 0,
+                "resolved": 0,
+                "unresolved": 0
+              },
+              "unknown": 0
+            },
+            "tests": {
+              "as_is": 0,
+              "customized": 0,
+              "mechanisms": {
+                "class_name": 0,
+                "css": 0,
+                "style": 0,
+                "styled": 0,
+                "sx": 0
+              },
+              "sites": 0,
+              "styles": {
+                "partial": 0,
+                "resolved": 0,
+                "unresolved": 0
+              },
+              "unknown": 0
+            }
+          }
+        },
+        {
+          "evidence": [
+            "ev_805127c1750e9d1f16271d83",
+            "ev_9dd56671c858ed7a54cbcae4",
+            "ev_fa3596edb02f36319f1a2fa6"
+          ],
+          "key": "summary:salt",
+          "rule": "design-system.summary",
+          "state": "observed",
+          "value": {
+            "app": {
+              "adoption_share": 100,
+              "customized_share": 0,
+              "design_system": 3,
+              "elements": 3
+            },
+            "stories": {
+              "design_system": 0,
+              "elements": 0
+            },
+            "tests": {
+              "design_system": 0,
+              "elements": 0
+            }
+          }
+        }
+      ],
+      "search": {
+        "complete": true,
+        "rules": [
+          "design-system.usage"
+        ],
+        "skipped": [],
+        "surface": [
+          "src/Blotter.tsx"
+        ]
+      },
+      "state": "observed"
+    },
+    "verification_commands": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "ci.verification-commands"
+        ],
+        "skipped": [],
+        "surface": [
+          "package.json"
+        ]
+      },
+      "state": "absent"
+    },
+    "workspaces": {
+      "facts": [],
+      "search": {
+        "complete": true,
+        "rules": [
+          "manifest.workspaces",
+          "pnpm-workspace.packages"
+        ],
+        "skipped": [],
+        "surface": []
+      },
+      "state": "absent"
+    }
+  },
+  "commit": null,
+  "detector_release": "golden",
+  "diagnostics": [],
+  "evidence": {
+    "ev_0de5da799a10a4a372d5cb8a": {
+      "commit": null,
+      "content_digest": "2a3620fe07faafdae1ad8d813f49c4be8cd11733048dcc5c9e3d831163fe262e",
+      "detector": "package-relations",
+      "excerpt_digest": "60ca751c8fb267f8e6bed401fe79619f134b1d8fa8770f391e424d9942cbb210",
+      "id": "ev_0de5da799a10a4a372d5cb8a",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/name"
+      },
+      "object_id": "5c49e2cca6effbef3132df48bf7fc5900bf1ed1f",
+      "path": "package.json",
+      "rule": "packages.produced"
+    },
+    "ev_0fa73cc5ecef3028a8878f59": {
+      "commit": null,
+      "content_digest": "2a3620fe07faafdae1ad8d813f49c4be8cd11733048dcc5c9e3d831163fe262e",
+      "detector": "package-metadata",
+      "excerpt_digest": "39fe4a40977d0585fd5704359e3685b0ada5cf5ee061e5d97385601d120cd0ec",
+      "id": "ev_0fa73cc5ecef3028a8878f59",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/version"
+      },
+      "object_id": "5c49e2cca6effbef3132df48bf7fc5900bf1ed1f",
+      "path": "package.json",
+      "rule": "manifest.identity"
+    },
+    "ev_2c9341da7c64847cab38c533": {
+      "commit": null,
+      "content_digest": "9565c877901671d725da1319b857e2c84c5854eb3b9bcf58fe9862a05db9b939",
+      "detector": "inventory",
+      "excerpt_digest": "9565c877901671d725da1319b857e2c84c5854eb3b9bcf58fe9862a05db9b939",
+      "id": "ev_2c9341da7c64847cab38c533",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "5c49e2cca6effbef3132df48bf7fc5900bf1ed1f",
+      "path": "package.json",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_3227238cae0486ca5a69aef2": {
+      "commit": null,
+      "content_digest": "b999b18f17686798bcd4ad03bbc05f30077361a6c8153f0400cdb356b8adadb7",
+      "detector": "design-system.recognize",
+      "excerpt_digest": "9df39590de1da4bccd1dce5e4cc54f15d618018631b398c62d830dbed846541b",
+      "id": "ev_3227238cae0486ca5a69aef2",
+      "location": {
+        "end": 1,
+        "kind": "lines",
+        "start": 1
+      },
+      "object_id": "d08886d43170ea46840f3d82d7b7c13ace1af416",
+      "path": "src/Blotter.tsx",
+      "rule": "design-system.recognize"
+    },
+    "ev_3ac017f2c190a089ad30ab1d": {
+      "commit": null,
+      "content_digest": "b999b18f17686798bcd4ad03bbc05f30077361a6c8153f0400cdb356b8adadb7",
+      "detector": "design-system.usage",
+      "excerpt_digest": "f8da8da01714b794394c42442fd4c433ec5a611bf3cae5ba6cf5d817e07a66a1",
+      "id": "ev_3ac017f2c190a089ad30ab1d",
+      "location": {
+        "end": 6,
+        "kind": "lines",
+        "start": 6
+      },
+      "object_id": "d08886d43170ea46840f3d82d7b7c13ace1af416",
+      "path": "src/Blotter.tsx",
+      "rule": "design-system.elements"
+    },
+    "ev_4d3885f7b4d0961ed90eb26e": {
+      "commit": null,
+      "content_digest": "2a3620fe07faafdae1ad8d813f49c4be8cd11733048dcc5c9e3d831163fe262e",
+      "detector": "package-relations",
+      "excerpt_digest": "5c4f70b95909a9d37cbc66e0b2522d0cb8172d092e04d031c7d2171c24626b84",
+      "id": "ev_4d3885f7b4d0961ed90eb26e",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/@salt-ds~1theme"
+      },
+      "object_id": "5c49e2cca6effbef3132df48bf7fc5900bf1ed1f",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
+    "ev_62e9867a401fe875dbfd03c9": {
+      "commit": null,
+      "content_digest": "b999b18f17686798bcd4ad03bbc05f30077361a6c8153f0400cdb356b8adadb7",
+      "detector": "design-system.usage",
+      "excerpt_digest": "a939a00ef4ee744893e6227a8f26a1658542e1947aefa059be93dcfee0e83740",
+      "id": "ev_62e9867a401fe875dbfd03c9",
+      "location": {
+        "end": 7,
+        "kind": "lines",
+        "start": 7
+      },
+      "object_id": "d08886d43170ea46840f3d82d7b7c13ace1af416",
+      "path": "src/Blotter.tsx",
+      "rule": "design-system.elements"
+    },
+    "ev_72c3d25e87faf2c28b2be8c8": {
+      "commit": null,
+      "content_digest": "2a3620fe07faafdae1ad8d813f49c4be8cd11733048dcc5c9e3d831163fe262e",
+      "detector": "package-metadata",
+      "excerpt_digest": "4432fe1325bcd7918b7ce08a089e63116c6bef0a37173a57b89ab7a038b5f484",
+      "id": "ev_72c3d25e87faf2c28b2be8c8",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/react"
+      },
+      "object_id": "5c49e2cca6effbef3132df48bf7fc5900bf1ed1f",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_79b950199e44211e0710890d": {
+      "commit": null,
+      "content_digest": "f4a5c2eed23807bb47055a4414bec2e5d2d2bc2511e3b54b44ed21106f634495",
+      "detector": "tooling",
+      "excerpt_digest": "f4a5c2eed23807bb47055a4414bec2e5d2d2bc2511e3b54b44ed21106f634495",
+      "id": "ev_79b950199e44211e0710890d",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "e37b3dbceb0d5b91ddd833878748894603dbaa11",
+      "path": "package-lock.json",
+      "rule": "lockfile.package-manager"
+    },
+    "ev_805127c1750e9d1f16271d83": {
+      "commit": null,
+      "content_digest": "b999b18f17686798bcd4ad03bbc05f30077361a6c8153f0400cdb356b8adadb7",
+      "detector": "design-system.usage",
+      "excerpt_digest": "58e9ad18104ef7e2cbf1234c6a8120616348067c02c8b4daf595c3bdf246d245",
+      "id": "ev_805127c1750e9d1f16271d83",
+      "location": {
+        "end": 5,
+        "kind": "lines",
+        "start": 5
+      },
+      "object_id": "d08886d43170ea46840f3d82d7b7c13ace1af416",
+      "path": "src/Blotter.tsx",
+      "rule": "design-system.summary"
+    },
+    "ev_8231f2e2c62a709c2790ee2f": {
+      "commit": null,
+      "content_digest": "b999b18f17686798bcd4ad03bbc05f30077361a6c8153f0400cdb356b8adadb7",
+      "detector": "design-system.usage",
+      "excerpt_digest": "58e9ad18104ef7e2cbf1234c6a8120616348067c02c8b4daf595c3bdf246d245",
+      "id": "ev_8231f2e2c62a709c2790ee2f",
+      "location": {
+        "end": 5,
+        "kind": "lines",
+        "start": 5
+      },
+      "object_id": "d08886d43170ea46840f3d82d7b7c13ace1af416",
+      "path": "src/Blotter.tsx",
+      "rule": "design-system.elements"
+    },
+    "ev_8a86585b03d12f9a459986d0": {
+      "commit": null,
+      "content_digest": "f4a5c2eed23807bb47055a4414bec2e5d2d2bc2511e3b54b44ed21106f634495",
+      "detector": "inventory",
+      "excerpt_digest": "f4a5c2eed23807bb47055a4414bec2e5d2d2bc2511e3b54b44ed21106f634495",
+      "id": "ev_8a86585b03d12f9a459986d0",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "e37b3dbceb0d5b91ddd833878748894603dbaa11",
+      "path": "package-lock.json",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_9a188e7ac70760035eff0732": {
+      "commit": null,
+      "content_digest": "881f63741e11d73baac7128bf82fcabeb83f55163890d0554ba803b3114f313f",
+      "detector": "npm-lock",
+      "excerpt_digest": "66190919392a453175db2b86e6ddbee35838394648ae0b067bcee7c758374e94",
+      "id": "ev_9a188e7ac70760035eff0732",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/packages/node_modules~1@salt-ds~1core/version"
+      },
+      "object_id": "e37b3dbceb0d5b91ddd833878748894603dbaa11",
+      "path": "package-lock.json",
+      "rule": "npm-lock.resolved-version"
+    },
+    "ev_9dd56671c858ed7a54cbcae4": {
+      "commit": null,
+      "content_digest": "b999b18f17686798bcd4ad03bbc05f30077361a6c8153f0400cdb356b8adadb7",
+      "detector": "design-system.usage",
+      "excerpt_digest": "f8da8da01714b794394c42442fd4c433ec5a611bf3cae5ba6cf5d817e07a66a1",
+      "id": "ev_9dd56671c858ed7a54cbcae4",
+      "location": {
+        "end": 6,
+        "kind": "lines",
+        "start": 6
+      },
+      "object_id": "d08886d43170ea46840f3d82d7b7c13ace1af416",
+      "path": "src/Blotter.tsx",
+      "rule": "design-system.summary"
+    },
+    "ev_a0122d78f9ca57dce9c52281": {
+      "commit": null,
+      "content_digest": "2a3620fe07faafdae1ad8d813f49c4be8cd11733048dcc5c9e3d831163fe262e",
+      "detector": "package-metadata",
+      "excerpt_digest": "60ca751c8fb267f8e6bed401fe79619f134b1d8fa8770f391e424d9942cbb210",
+      "id": "ev_a0122d78f9ca57dce9c52281",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/name"
+      },
+      "object_id": "5c49e2cca6effbef3132df48bf7fc5900bf1ed1f",
+      "path": "package.json",
+      "rule": "manifest.identity"
+    },
+    "ev_ac2763c7356dc3bc17c9fef7": {
+      "commit": null,
+      "content_digest": "2a3620fe07faafdae1ad8d813f49c4be8cd11733048dcc5c9e3d831163fe262e",
+      "detector": "package-metadata",
+      "excerpt_digest": "5c4f70b95909a9d37cbc66e0b2522d0cb8172d092e04d031c7d2171c24626b84",
+      "id": "ev_ac2763c7356dc3bc17c9fef7",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/@salt-ds~1theme"
+      },
+      "object_id": "5c49e2cca6effbef3132df48bf7fc5900bf1ed1f",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_af18d788e05037829a2b2bc4": {
+      "commit": null,
+      "content_digest": "2a3620fe07faafdae1ad8d813f49c4be8cd11733048dcc5c9e3d831163fe262e",
+      "detector": "package-relations",
+      "excerpt_digest": "4432fe1325bcd7918b7ce08a089e63116c6bef0a37173a57b89ab7a038b5f484",
+      "id": "ev_af18d788e05037829a2b2bc4",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/react"
+      },
+      "object_id": "5c49e2cca6effbef3132df48bf7fc5900bf1ed1f",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
+    "ev_c2b4436d66e524462ac75986": {
+      "commit": null,
+      "content_digest": "2a3620fe07faafdae1ad8d813f49c4be8cd11733048dcc5c9e3d831163fe262e",
+      "detector": "package-relations",
+      "excerpt_digest": "39fe4a40977d0585fd5704359e3685b0ada5cf5ee061e5d97385601d120cd0ec",
+      "id": "ev_c2b4436d66e524462ac75986",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/version"
+      },
+      "object_id": "5c49e2cca6effbef3132df48bf7fc5900bf1ed1f",
+      "path": "package.json",
+      "rule": "packages.produced"
+    },
+    "ev_c7184e75322cdcdc0aa5b6b4": {
+      "commit": null,
+      "content_digest": "b999b18f17686798bcd4ad03bbc05f30077361a6c8153f0400cdb356b8adadb7",
+      "detector": "design-system.recognize",
+      "excerpt_digest": "58e9ad18104ef7e2cbf1234c6a8120616348067c02c8b4daf595c3bdf246d245",
+      "id": "ev_c7184e75322cdcdc0aa5b6b4",
+      "location": {
+        "end": 5,
+        "kind": "lines",
+        "start": 5
+      },
+      "object_id": "d08886d43170ea46840f3d82d7b7c13ace1af416",
+      "path": "src/Blotter.tsx",
+      "rule": "design-system.recognize"
+    },
+    "ev_ccef14a92856ae847021ac2f": {
+      "commit": null,
+      "content_digest": "6ec0e5d4efc79ba1de5c039b1d154257a05b60040b2415c49a6b23c2f7f5c60a",
+      "detector": "inventory",
+      "excerpt_digest": "6ec0e5d4efc79ba1de5c039b1d154257a05b60040b2415c49a6b23c2f7f5c60a",
+      "id": "ev_ccef14a92856ae847021ac2f",
+      "location": {
+        "kind": "entry"
+      },
+      "object_id": "d08886d43170ea46840f3d82d7b7c13ace1af416",
+      "path": "src/Blotter.tsx",
+      "rule": "inventory.language-by-extension"
+    },
+    "ev_d22241a9a13e4ac420fc6798": {
+      "commit": null,
+      "content_digest": "2a3620fe07faafdae1ad8d813f49c4be8cd11733048dcc5c9e3d831163fe262e",
+      "detector": "package-metadata",
+      "excerpt_digest": "548966631bf18829eb8a8bfab051e19751d4c9562b74db75304749b4a512a08e",
+      "id": "ev_d22241a9a13e4ac420fc6798",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/@salt-ds~1core"
+      },
+      "object_id": "5c49e2cca6effbef3132df48bf7fc5900bf1ed1f",
+      "path": "package.json",
+      "rule": "manifest.dependencies"
+    },
+    "ev_e52580281c0a09bbee6fe918": {
+      "commit": null,
+      "content_digest": "2a3620fe07faafdae1ad8d813f49c4be8cd11733048dcc5c9e3d831163fe262e",
+      "detector": "tooling",
+      "excerpt_digest": "4432fe1325bcd7918b7ce08a089e63116c6bef0a37173a57b89ab7a038b5f484",
+      "id": "ev_e52580281c0a09bbee6fe918",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/react"
+      },
+      "object_id": "5c49e2cca6effbef3132df48bf7fc5900bf1ed1f",
+      "path": "package.json",
+      "rule": "manifest.framework"
+    },
+    "ev_e5e47a7213d1e817eadd3851": {
+      "commit": null,
+      "content_digest": "2a3620fe07faafdae1ad8d813f49c4be8cd11733048dcc5c9e3d831163fe262e",
+      "detector": "package-relations",
+      "excerpt_digest": "548966631bf18829eb8a8bfab051e19751d4c9562b74db75304749b4a512a08e",
+      "id": "ev_e5e47a7213d1e817eadd3851",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/@salt-ds~1core"
+      },
+      "object_id": "5c49e2cca6effbef3132df48bf7fc5900bf1ed1f",
+      "path": "package.json",
+      "rule": "packages.consumed"
+    },
+    "ev_e955f59b17f3171e47dad1ab": {
+      "commit": null,
+      "content_digest": "2a3620fe07faafdae1ad8d813f49c4be8cd11733048dcc5c9e3d831163fe262e",
+      "detector": "design-system.recognize",
+      "excerpt_digest": "548966631bf18829eb8a8bfab051e19751d4c9562b74db75304749b4a512a08e",
+      "id": "ev_e955f59b17f3171e47dad1ab",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/dependencies/@salt-ds~1core"
+      },
+      "object_id": "5c49e2cca6effbef3132df48bf7fc5900bf1ed1f",
+      "path": "package.json",
+      "rule": "design-system.recognize"
+    },
+    "ev_ee3c58ea13f0e6fad255dab6": {
+      "commit": null,
+      "content_digest": "881f63741e11d73baac7128bf82fcabeb83f55163890d0554ba803b3114f313f",
+      "detector": "npm-lock",
+      "excerpt_digest": "4432fe1325bcd7918b7ce08a089e63116c6bef0a37173a57b89ab7a038b5f484",
+      "id": "ev_ee3c58ea13f0e6fad255dab6",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/packages/node_modules~1react/version"
+      },
+      "object_id": "e37b3dbceb0d5b91ddd833878748894603dbaa11",
+      "path": "package-lock.json",
+      "rule": "npm-lock.resolved-version"
+    },
+    "ev_fa3596edb02f36319f1a2fa6": {
+      "commit": null,
+      "content_digest": "b999b18f17686798bcd4ad03bbc05f30077361a6c8153f0400cdb356b8adadb7",
+      "detector": "design-system.usage",
+      "excerpt_digest": "a939a00ef4ee744893e6227a8f26a1658542e1947aefa059be93dcfee0e83740",
+      "id": "ev_fa3596edb02f36319f1a2fa6",
+      "location": {
+        "end": 7,
+        "kind": "lines",
+        "start": 7
+      },
+      "object_id": "d08886d43170ea46840f3d82d7b7c13ace1af416",
+      "path": "src/Blotter.tsx",
+      "rule": "design-system.summary"
+    },
+    "ev_fde26e18556fa5260918af63": {
+      "commit": null,
+      "content_digest": "881f63741e11d73baac7128bf82fcabeb83f55163890d0554ba803b3114f313f",
+      "detector": "npm-lock",
+      "excerpt_digest": "1e2792430d0ae1a65128806ee386090789601013c700796a58440acdf57af1d0",
+      "id": "ev_fde26e18556fa5260918af63",
+      "location": {
+        "format": "json",
+        "kind": "pointer",
+        "pointer": "/packages/node_modules~1@salt-ds~1theme/version"
+      },
+      "object_id": "e37b3dbceb0d5b91ddd833878748894603dbaa11",
+      "path": "package-lock.json",
+      "rule": "npm-lock.resolved-version"
+    }
+  },
+  "extensions": [],
+  "inventory": {
+    "bytes": 928,
+    "bytes_read": 928,
+    "entries": 4,
+    "executables": 0,
+    "files": 3,
+    "files_read": 3,
+    "gitlinks": 0,
+    "symlinks": 0
+  },
+  "relationship_references": [
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_af18d788e05037829a2b2bc4"
+      ],
+      "id": "ref_7feb1042963b1be60c179f1d",
+      "identifier": {
+        "name": "react"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_4d3885f7b4d0961ed90eb26e"
+      ],
+      "id": "ref_912449d8070ee50b06f3164c",
+      "identifier": {
+        "name": "@salt-ds/theme"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    },
+    {
+      "basis": "observed",
+      "evidence": [
+        "ev_e5e47a7213d1e817eadd3851"
+      ],
+      "id": "ref_a3f226f9896a1f57b04e6e9d",
+      "identifier": {
+        "name": "@salt-ds/core"
+      },
+      "role": "consumer",
+      "rule": "packages.consumed",
+      "type": "package"
+    }
+  ],
+  "schema": "repo_facts.fact_document",
+  "schema_version": 3,
+  "service_dependencies": []
+}

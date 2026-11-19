@@ -4,7 +4,7 @@ import { redactCredentials } from "../redaction.js";
 import type { CategoryDefinition, FactDocument } from "../facts/schema.js";
 import type { SourceReader } from "../reader/types.js";
 import { type Format, StructuredParseError, parse } from "../structured.js";
-import { type Detector, type DetectorContext, STAGES, type Stage, matchesPattern } from "./contract.js";
+import { type CatalogEntryRecord, type Detector, type DetectorContext, STAGES, type Stage, matchesPattern } from "./contract.js";
 
 /**
  * Runs a detector bundle over one snapshot or working tree, stage by stage,
@@ -15,7 +15,7 @@ import { type Detector, type DetectorContext, STAGES, type Stage, matchesPattern
 
 export interface DetectorRunOptions {
   reader: SourceReader;
-  detectorRelease: string;
+  surveyorRelease: string;
   detectors: readonly Detector[];
   /** Extension categories the consumer registers for this run. */
   extensions?: readonly CategoryDefinition[];
@@ -30,7 +30,8 @@ export class DetectorRunCanceled extends Error {
 
 export async function runDetectors(options: DetectorRunOptions): Promise<FactDocument> {
   const { reader } = options;
-  const findings: Findings = { facts: [], searches: [], services: [], references: [], diagnostics: [] };
+  const catalogEntries: CatalogEntryRecord[] = [];
+  const findings: Findings = { facts: [], searches: [], services: [], references: [], catalogEntries, diagnostics: [] };
   const shared = new Map<string, unknown>();
 
   for (const stage of STAGES) {
@@ -38,7 +39,7 @@ export async function runDetectors(options: DetectorRunOptions): Promise<FactDoc
     options.checkpoint?.(stage);
 
     for (const detector of options.detectors.filter((candidate) => candidate.stage === stage)) {
-      const context = contextFor(detector, { reader, findings, shared }, options.signal);
+      const context = contextFor(detector, { reader, findings, catalogEntries, shared }, options.signal);
       try {
         await detector.run(context);
       } catch (error) {
@@ -49,16 +50,17 @@ export async function runDetectors(options: DetectorRunOptions): Promise<FactDoc
     }
   }
 
-  return reconcileFacts(findings, reader, { detectorRelease: options.detectorRelease, ...(options.extensions && { extensions: options.extensions }) });
+  return reconcileFacts(findings, reader, { surveyorRelease: options.surveyorRelease, ...(options.extensions && { extensions: options.extensions }) });
 }
 
 interface RunState {
   reader: SourceReader;
   findings: Findings;
+  catalogEntries: CatalogEntryRecord[];
   shared: Map<string, unknown>;
 }
 
-function contextFor(detector: Detector, { reader, findings, shared }: RunState, signal?: AbortSignal): DetectorContext {
+function contextFor(detector: Detector, { reader, findings, catalogEntries, shared }: RunState, signal?: AbortSignal): DetectorContext {
   const source = (rule: string) => ({ commit: reader.commit, detector: detector.id, rule });
   // Diagnostics quote repository content, so credentials are redacted before they are recorded.
   const diagnostic: DetectorContext["diagnostic"] = (path, reason, detail, options) =>
@@ -93,6 +95,7 @@ function contextFor(detector: Detector, { reader, findings, shared }: RunState, 
     search: (record) => findings.searches.push(record),
     service: (candidate) => findings.services.push(candidate),
     reference: (candidate) => findings.references.push(candidate),
+    catalogEntry: (record) => catalogEntries.push(record),
     diagnostic,
   };
   return context;

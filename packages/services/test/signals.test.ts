@@ -5,7 +5,7 @@ import { SERVICE_DETECTORS, classify, networkZone, pathsMatch } from "../src/ind
 
 async function profile(files: Record<string, MemoryFile>) {
   const reader = MemoryReader.fromFiles(files, { commit: "a".repeat(40) });
-  const document = await runDetectors({ reader, detectorRelease: "0.1.0", detectors: [...CORE_DETECTORS, ...SERVICE_DETECTORS] });
+  const document = await runDetectors({ reader, surveyorRelease: "0.1.0", detectors: [...CORE_DETECTORS, ...SERVICE_DETECTORS] });
   expect(factDocumentProblems(document)).toEqual([]);
   return document;
 }

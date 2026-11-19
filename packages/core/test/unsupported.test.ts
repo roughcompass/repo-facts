@@ -52,7 +52,7 @@ describe("other ecosystems' build inputs", () => {
       expect(document.categories[category], category).toMatchObject({ state: "unknown", facts: [], search: { complete: true, skipped: ["build.sbt", "project/plugins.sbt"] } });
       expect(document.categories[category]!.search.rules, category).toContain(UNSUPPORTED_INPUTS_RULE);
     }
-    expect(document.diagnostics).toContainEqual({ path: "build.sbt", reason: "unsupported_input", detail: "sbt build definition is recognized but not analyzed: this detector release doesn't support the sbt ecosystem", detector: "inventory" });
+    expect(document.diagnostics).toContainEqual({ path: "build.sbt", reason: "unsupported_input", detail: "sbt build definition is recognized but not analyzed: this Surveyor release doesn't support the sbt ecosystem", detector: "inventory" });
     expect(document.categories.languages!.facts.map((fact) => fact.key)).toEqual(["Scala"]);
   });
 

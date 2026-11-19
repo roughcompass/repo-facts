@@ -1,29 +1,29 @@
 #!/usr/bin/env node
 /**
- * Writes the generated sections of packages/design-system/catalogs/salt.yaml
- * from installed Salt packages:
+ * Writes the generated sections of a Salt catalog test fixture, such as
+ * test/catalog/salt-1.50.0.yaml, from installed Salt packages:
  * - generated_from: the versions of @salt-ds/core and @salt-ds/theme read
  * - the components @salt-ds/core exports, from its type declarations
  * - tokens: every custom property @salt-ds/theme's stylesheets define
  *
- * Curated sections and comments are kept. Nothing reads packages at analysis
- * time; run `npm run rules:compile` afterward to compile the catalog.
+ * Curated sections and comments are kept. Tests convert the fixture to a
+ * Reference Catalog entry; nothing reads packages at analysis time.
  *
- * Usage: node scripts/catalog-salt.mjs <node_modules>
+ * Usage: node scripts/catalog-salt.mjs <node_modules> <catalog.yaml>
  */
 import fs from "node:fs";
 import path from "node:path";
 import ts from "typescript";
 import YAML from "yaml";
 
-const CATALOG = path.resolve(import.meta.dirname, "../packages/design-system/catalogs/salt.yaml");
 const TOKEN_PREFIX = "--salt-";
 
-const [modules] = process.argv.slice(2);
-if (!modules) {
-  console.error("Usage: node scripts/catalog-salt.mjs <node_modules>");
+const [modules, target] = process.argv.slice(2);
+if (!modules || !target) {
+  console.error("Usage: node scripts/catalog-salt.mjs <node_modules> <catalog.yaml>");
   process.exit(2);
 }
+const CATALOG = path.resolve(target);
 
 const packageDirectory = (name) => {
   const directory = path.resolve(modules, name);

@@ -7,7 +7,7 @@ const json = (value: unknown) => `${JSON.stringify(value, null, 2)}\n`;
 
 async function profile(files: Record<string, MemoryFile>) {
   const reader = MemoryReader.fromFiles(files, { commit: "a".repeat(40) });
-  const document = await runDetectors({ reader, detectorRelease: "0.1.0", detectors: [...CORE_DETECTORS, ...ARCHITECTURE_DETECTORS] });
+  const document = await runDetectors({ reader, surveyorRelease: "0.1.0", detectors: [...CORE_DETECTORS, ...ARCHITECTURE_DETECTORS] });
   expect(factDocumentProblems(document)).toEqual([]);
   return { document, reader };
 }
@@ -218,6 +218,40 @@ describe("Module Federation", () => {
       exposes: [],
     });
     expect(references(document)).toContain('composition/host {"mechanism":"module-federation","name":"reports"}');
+  });
+
+  it("reports Re.Pack's Module Federation 2 plugin with its package and API, in the shape of a webpack Module Federation 2 build", async () => {
+    const repack = [
+      'import * as Repack from "@callstack/repack";',
+      "export default {",
+      "  plugins: [",
+      "    new Repack.RepackPlugin(),",
+      '    new Repack.plugins.ModuleFederationPluginV2({ name: "host", remotes: { mini: "mini@http://localhost:9000/mini.container.js.bundle" }, shared: { react: { singleton: true, eager: true }, "react-native": { singleton: true, eager: true } } }),',
+      "  ],",
+      "};",
+      "",
+    ].join("\n");
+    const plugins = 'import { ModuleFederationPluginV2 } from "@callstack/repack/plugins";\nexport default { plugins: [new ModuleFederationPluginV2({ name: "mini", exposes: { "./Screen": "./src/Screen.tsx" } })] };\n';
+    const enhanced = 'const { ModuleFederationPlugin } = require("@module-federation/enhanced/webpack");\nmodule.exports = { plugins: [new ModuleFederationPlugin({ name: "web", remotes: { mini: "mini@http://localhost:9000/remoteEntry.js" }, shared: { react: { singleton: true } } })] };\n';
+    const { document } = await profile({ "app/rspack.config.mjs": repack, "mini/rspack.config.mjs": plugins, "web/webpack.config.cjs": enhanced });
+    const host = fact(document, "composition", "module-federation:host").value as Record<string, unknown>;
+    expect(host).toEqual({
+      mechanism: "module-federation",
+      plugin: "architecture.module-federation.repack",
+      package: "@callstack/repack",
+      api: "ModuleFederationPluginV2",
+      name: { kind: "literal", value: "host" },
+      remotes: [{ alias: "mini", federation_name: "mini", entry: { kind: "literal", value: "http://localhost:9000/mini.container.js.bundle" } }],
+      exposes: [],
+      shared: ["react", "react-native"],
+    });
+    expect(fact(document, "composition", "module-federation:mini").value).toMatchObject({ plugin: "architecture.module-federation.repack-plugins", package: "@callstack/repack/plugins", api: "ModuleFederationPluginV2", exposes: ["./Screen"] });
+    // The same fields, of the same kinds, as a webpack build with the Module Federation 2 plugin, whose rule names no API.
+    const web = fact(document, "composition", "module-federation:web").value as Record<string, unknown>;
+    const shape = (value: Record<string, unknown>) => Object.fromEntries(Object.entries(value).map(([key, item]) => [key, key === "api" ? "string or null" : Array.isArray(item) ? "array" : item === null ? "null" : typeof item]));
+    expect(shape(host)).toEqual(shape(web));
+    expect(web).toMatchObject({ package: "@module-federation/enhanced/webpack", api: null, remotes: [{ alias: "mini", federation_name: "mini" }], shared: ["react"] });
+    expect(references(document)).toEqual(expect.arrayContaining(['composition/host {"mechanism":"module-federation","name":"mini"}', 'composition/remote {"mechanism":"module-federation","name":"mini"}']));
   });
 
   it("reports Native Federation remotes and hosts, with the manifest a host loads", async () => {
