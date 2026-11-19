@@ -54,6 +54,11 @@ describe("element classification", () => {
     expect(kinds(analyze(source).elements)).toEqual(["<div>", "library:@mui/material", "other", "<svg:path>"]);
   });
 
+  it("counts each package of a UI library listed by scope on its own", () => {
+    const source = 'import { Button } from "@pepper/core/Button";\nimport { Grid } from "@pepper/grid";\nexport const V = () => <><Button /><Grid /></>;\n';
+    expect(kinds(analyze(source).elements)).toEqual(["library:@pepper/core", "library:@pepper/grid"]);
+  });
+
   it("puts a story file's elements in the stories scope", () => {
     const { elements } = analyze('import { Button } from "@salt-ds/core";\nexport const Primary = () => <Button className="x" />;\n', {}, "src/Button.stories.tsx");
     expect(elements.map((element) => element.scope)).toEqual(["stories"]);

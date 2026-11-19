@@ -1,4 +1,6 @@
 # Styling-library adapters, and other UI libraries. See docs/reference-catalog.md.
+# Design systems such as Salt aren't listed here: they're Reference Catalog
+# entries, built from the team's rules in packages/catalog-builder/catalog-rules.
 #
 # Roles:
 # - class_composer: a call whose arguments are class names, such as clsx("a", on && "b")
@@ -6,7 +8,7 @@
 # - style_factory: a tagged template or object of styles, such as css`...`
 # `default` names the default export.
 format: 1
-version: 1.0.0
+version: 1.1.0
 adapters:
   - module: "@emotion/css"
     exports:
@@ -40,6 +42,7 @@ adapters:
       - { name: twMerge, role: class_composer }
 # Component libraries other than the cataloged design systems. A tag imported
 # from one of these packages, or a subpath of one, is counted by package.
+# "@scope/*" names every package in a scope, each counted on its own.
 ui_libraries:
   - "@ariakit/react"
   - "@blueprintjs/core"
@@ -51,6 +54,7 @@ ui_libraries:
   - "@mantine/core"
   - "@mui/joy"
   - "@mui/material"
+  - "@pepper/*"
   - "@radix-ui/themes"
   - "@react-spectrum/provider"
   - antd

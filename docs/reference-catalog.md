@@ -141,9 +141,9 @@ A survey is given entries; Surveyor never downloads them. `analyze(reader, { ent
 
 The fact document is a function of the snapshot, the Surveyor release, its configuration, and the entries supplied. A changed entry changes neither the release nor its configuration digest; a survey with it names its new digest.
 
-## Styling adapters
+## Styling and UI libraries
 
-The adapter catalog isn't part of the Reference Catalog. It names the styling libraries whose calls carry classes and styles, such as `clsx` and `styled-components`. That's knowledge of third-party tooling that rarely changes and doesn't vary by repository, so it stays compiled into Surveyor. It lives in `packages/design-system/catalogs/adapters.yaml`, and `npm run rules:compile` validates it and writes `src/adapters.generated.ts`, which is committed and shipped. Its digest is part of the detector configuration.
+The adapter catalog isn't part of the Reference Catalog. It names the styling libraries whose calls carry classes and styles, such as `clsx` and `styled-components`, and the component libraries other than design systems, such as `@mui/material`, whose elements are counted by package. That's knowledge of third-party tooling that rarely changes and doesn't vary by repository, so it stays compiled into Surveyor. It lives in `packages/design-system/libraries.yaml`, and `npm run rules:compile` validates it and writes `src/adapters.generated.ts`, which is committed and shipped. Its digest is part of the detector configuration.
 
 <!-- adapter-fields -->
 | Field | Meaning |
@@ -155,7 +155,7 @@ The adapter catalog isn't part of the Reference Catalog. It names the styling li
 | `adapters[].exports` | The exports the detectors recognize |
 | `adapters[].exports[].name` | An export name. `default` names the default export. |
 | `adapters[].exports[].role` | What the export does: `class_composer`, `styled_factory`, or `style_factory` |
-| `ui_libraries` | Component libraries other than the design systems that entries describe, such as `@mui/material` |
+| `ui_libraries` | Component libraries other than the design systems that entries describe, such as `@mui/material`. `@scope/*` names every package in a scope, each counted on its own. |
 
 | Role | Recognized as |
 | --- | --- |

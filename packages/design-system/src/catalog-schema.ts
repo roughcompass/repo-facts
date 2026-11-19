@@ -14,17 +14,17 @@ import { z } from "zod";
 export const CATALOG_FORMAT_VERSION = 1;
 
 const version = z.string().regex(/^\d+\.\d+\.\d+$/, "must be a version such as 1.2.3");
-const packageName = z
-  .string()
-  .min(1)
-  .max(214)
-  .regex(/^(@[a-z0-9._-]+\/)?[a-z0-9._-]+$/, "must be a package name");
 const moduleName = z
   .string()
   .min(1)
   .max(214)
   .regex(/^(@[a-z0-9._-]+\/)?[a-z0-9._-]+(\/[A-Za-z0-9._-]+)*$/, "must be a package name or package subpath");
 const exportName = z.string().regex(/^[A-Za-z_$][A-Za-z0-9_$]*$/, "must be a plain export name");
+const uiLibrary = z
+  .string()
+  .min(1)
+  .max(214)
+  .regex(/^((@[a-z0-9._-]+\/)?[a-z0-9._-]+|@[a-z0-9._-]+\/\*)$/, "must be a package name, or @scope/* for every package in a scope");
 
 export const ADAPTER_ROLES = ["class_composer", "styled_factory", "style_factory"] as const;
 export type AdapterRole = (typeof ADAPTER_ROLES)[number];
@@ -42,8 +42,8 @@ export const adapterCatalogSchema = z.strictObject({
       }),
     )
     .min(1),
-  /** Component libraries other than the design systems entries describe; their components are counted by package. */
-  ui_libraries: z.array(packageName),
+  /** Component libraries other than the design systems entries describe; their components are counted by package. `@scope/*` names every package in a scope. */
+  ui_libraries: z.array(uiLibrary),
 });
 
 export type AdapterCatalog = z.output<typeof adapterCatalogSchema>;

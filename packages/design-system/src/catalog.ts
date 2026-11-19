@@ -83,9 +83,21 @@ export function catalogOf(catalogs: Catalogs, module: string): { catalog: Catalo
   return null;
 }
 
-/** The UI library +module+ belongs to, when it's one the adapter catalog lists. */
+/**
+ * The UI library +module+ belongs to, when the adapter catalog lists it: the
+ * listed package, or for a listed `@scope/*`, the package in that scope, so
+ * each is counted on its own as if it were listed.
+ */
 export function uiLibraryOf(catalogs: Catalogs, module: string): string | null {
-  return catalogs.adapters.ui_libraries.find((name) => inPackage(module, name)) ?? null;
+  for (const name of catalogs.adapters.ui_libraries) {
+    if (!name.endsWith("/*")) {
+      if (inPackage(module, name)) return name;
+      continue;
+    }
+    const [scope, packageName] = module.split("/", 2);
+    if (`${scope}/*` === name && packageName) return `${scope}/${packageName}`;
+  }
+  return null;
 }
 
 /** A stylesheet import specifier as a module name: webpack's `~` prefix is dropped. */
